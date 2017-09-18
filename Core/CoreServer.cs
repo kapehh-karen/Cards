@@ -21,12 +21,24 @@ namespace Core
         private SynchronizationContext mainContext;
         private Thread threadListener;
         private TcpListener listener;
-        private Dictionary<Thread, TcpClient> clients;
+        private Dictionary<Thread, TcpClient> clients = new Dictionary<Thread, TcpClient>();
 
         public CoreServer()
         {
             mainContext = SynchronizationContext.Current;
-            clients = new Dictionary<Thread, TcpClient>();
+        }
+
+        public bool IsStarted
+        {
+            get;
+            private set;
+        }
+
+        public void SendData(TcpClient client, byte[] data)
+        {
+            var stream = client.GetStream();
+            stream.Write(data, 0, data.Length);
+            stream.Flush();
         }
 
         public void Start(int port)
@@ -38,9 +50,21 @@ namespace Core
                 listener = new TcpListener(IPAddress.Any, port);
                 listener.Start();
 
+                this.IsStarted = true;
+
                 while (true)
                 {
-                    TcpClient client = listener.AcceptTcpClient();
+                    TcpClient client;
+
+                    try
+                    {
+                        client = listener.AcceptTcpClient();
+                    }
+                    catch (SocketException)
+                    {
+                        break;
+                    }
+                    
 
                     Thread threadClient = new Thread((state1) =>
                     {
@@ -49,21 +73,22 @@ namespace Core
                             this.ClientConnected(this, client);
                         }, client);
 
-                        var stream = client.GetStream();
-                        var buffer = new byte[1024 * 1024];
+                        var socket = client.Client;
+                        var buffer = new byte[2];
                         int readed;
                         int readedAllData;
 
                         while (client.Connected)
                         {
-                            if (stream.DataAvailable)
+                            if (socket.Available > 0)
                             {
                                 readedAllData = 0;
 
                                 using (MemoryStream ms = new MemoryStream())
                                 {
-                                    while ((readed = stream.Read(buffer, 0, buffer.Length)) > 0)
+                                    while (socket.Available > 0)
                                     {
+                                        readed = socket.Receive(buffer, buffer.Length, SocketFlags.None);
                                         ms.Write(buffer, 0, readed);
                                         readedAllData += readed;
 
@@ -90,6 +115,8 @@ namespace Core
 
                     threadClient.Start(client);
                 }
+
+                this.IsStarted = false;
             });
             threadListener.Start();
         }
@@ -106,6 +133,8 @@ namespace Core
 
         private void CleanUp()
         {
+            this.IsStarted = false;
+
             // Clients
             foreach (var client in clients)
             {
@@ -116,7 +145,6 @@ namespace Core
                 client.Key.Abort();
             }
             clients.Clear();
-            clients = null;
 
             // Server listener
             if (listener != null)

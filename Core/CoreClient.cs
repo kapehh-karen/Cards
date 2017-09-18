@@ -26,9 +26,19 @@ namespace Core
             mainContext = SynchronizationContext.Current;
         }
 
+        public bool IsConnected
+        {
+            get
+            {
+                return (client != null) && client.Connected;
+            }
+        }
+
         public void SendData(byte[] data)
         {
-            client.Client.Send(data);
+            var stream = client.GetStream();
+            stream.Write(data, 0, data.Length);
+            stream.Flush();
         }
 
         public void Start(string hostname, int port)
@@ -43,26 +53,30 @@ namespace Core
                 client = null;
                 return;
             }
-
-            this.Connected(this, client);
-
-            threadClient = new Thread((state) =>
+            
+            threadClient = new Thread((state1) =>
             {
-                var stream = client.GetStream();
+                mainContext.Send((state2) =>
+                {
+                    this.Connected(this, client);
+                }, client);
+
+                var socket = client.Client;
                 var buffer = new byte[1024 * 1024];
                 int readed;
                 int readedAllData;
 
                 while (client.Connected)
                 {
-                    if (stream.DataAvailable)
+                    if (socket.Available > 0)
                     {
                         readedAllData = 0;
 
                         using (MemoryStream ms = new MemoryStream())
                         {
-                            while ((readed = stream.Read(buffer, 0, buffer.Length)) > 0)
+                            while (socket.Available > 0)
                             {
+                                readed = socket.Receive(buffer, buffer.Length, SocketFlags.None);
                                 ms.Write(buffer, 0, readed);
                                 readedAllData += readed;
 

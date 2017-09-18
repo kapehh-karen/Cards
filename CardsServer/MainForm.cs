@@ -46,17 +46,37 @@ namespace CardsServer
 
         private void Server_ClientDataRetrieve(CoreServer sender, TcpClient client, byte[] data, int length)
         {
+            var strBuilder = new StringBuilder();
 
+            strBuilder.Append("Retrieved data: ");
+            foreach (var b in data)
+            {
+                strBuilder.Append("[").Append(b).Append("] ");
+            }
+
+            MessageBox.Show($"DATA FROM CLIENT: <{strBuilder}>");
+
+            server.SendData(client, new byte[] { 228, 118, 54, 13, 7 });
         }
 
         private void Server_ClientDisconnected(CoreServer sender, TcpClient client)
         {
-
+            MessageBox.Show($"DISCONNECTED: Client endpoint {client.Client.RemoteEndPoint.ToString()} !");
         }
 
         private void Server_ClientConnected(CoreServer sender, TcpClient client)
         {
+            MessageBox.Show($"CONNECTED: Client endpoint {client.Client.RemoteEndPoint.ToString()} !");
+        }
 
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            server.Stop();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            server.Stop();
         }
     }
 }

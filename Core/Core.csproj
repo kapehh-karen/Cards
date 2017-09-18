@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="CoreClient.cs" />
     <Compile Include="CoreServer.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

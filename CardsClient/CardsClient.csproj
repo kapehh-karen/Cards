@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BE94C151-4A0B-4B20-AE2C-05CBAAF216F0}</ProjectGuid>
+    <ProjectGuid>{0A28C628-BC32-4037-ACC9-3C1FFEDD9490}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>CardsServer</RootNamespace>
-    <AssemblyName>CardsServer</AssemblyName>
+    <RootNamespace>CardsClient</RootNamespace>
+    <AssemblyName>CardsClient</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
