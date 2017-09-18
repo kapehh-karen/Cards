@@ -30,7 +30,7 @@ namespace Core
         {
             get
             {
-                return (client != null) && client.Connected;
+                return client != null;
             }
         }
 
@@ -58,7 +58,7 @@ namespace Core
             {
                 mainContext.Send((state2) =>
                 {
-                    this.Connected(this, client);
+                    this.Connected(this, state2 as TcpClient);
                 }, client);
 
                 var socket = client.Client;
@@ -66,7 +66,7 @@ namespace Core
                 int readed;
                 int readedAllData;
 
-                while (client.Connected)
+                while (client.IsEstablished())
                 {
                     if (socket.Available > 0)
                     {
@@ -85,7 +85,7 @@ namespace Core
 
                             mainContext.Send((state2) =>
                             {
-                                this.DataRetrieve(this, client, ms.ToArray(), readedAllData);
+                                this.DataRetrieve(this, state2 as TcpClient, ms.ToArray(), readedAllData);
                             }, client);
                         }
                     }
@@ -95,8 +95,10 @@ namespace Core
 
                 mainContext.Send((state2) =>
                 {
-                    this.Disconnected(this, client);
+                    this.Disconnected(this, state2 as TcpClient);
                 }, client);
+
+                client = null;
             });
             threadClient.Start(client);
         }
@@ -108,21 +110,23 @@ namespace Core
 
         ~CoreClient()
         {
-            CleanUp();
+            CleanUp(true);
         }
 
-        private void CleanUp()
+        private void CleanUp(bool force = false)
         {
             if (client != null)
             {
                 client.Close();
-                client = null;
             }
 
-            if (threadClient != null)
+            if (force)
             {
-                threadClient.Abort();
-                threadClient = null;
+                if (threadClient != null)
+                {
+                    threadClient.Abort();
+                    threadClient = null;
+                }
             }
         }
     }

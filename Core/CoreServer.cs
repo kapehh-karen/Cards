@@ -70,7 +70,7 @@ namespace Core
                     {
                         mainContext.Send((state2) =>
                         {
-                            this.ClientConnected(this, client);
+                            this.ClientConnected(this, state2 as TcpClient);
                         }, client);
 
                         var socket = client.Client;
@@ -78,7 +78,7 @@ namespace Core
                         int readed;
                         int readedAllData;
 
-                        while (client.Connected)
+                        while (client.IsEstablished())
                         {
                             if (socket.Available > 0)
                             {
@@ -97,7 +97,7 @@ namespace Core
 
                                     mainContext.Send((state2) =>
                                     {
-                                        this.ClientDataRetrieve(this, client, ms.ToArray(), readedAllData);
+                                        this.ClientDataRetrieve(this, state2 as TcpClient, ms.ToArray(), readedAllData);
                                     }, client);
                                 }
                             }
@@ -107,16 +107,20 @@ namespace Core
 
                         mainContext.Send((state2) =>
                         {
-                            this.ClientDisconnected(this, client);
+                            this.ClientDisconnected(this, state2 as TcpClient);
                         }, client);
+
+                        clients.Remove(state1 as Thread);
                     });
 
                     clients.Add(threadClient, client);
 
-                    threadClient.Start(client);
+                    threadClient.Start(threadClient);
                 }
 
                 this.IsStarted = false;
+
+                listener = null;
             });
             threadListener.Start();
         }
@@ -128,10 +132,10 @@ namespace Core
 
         ~CoreServer()
         {
-            CleanUp();
+            CleanUp(true);
         }
 
-        private void CleanUp()
+        private void CleanUp(bool force = false)
         {
             this.IsStarted = false;
 
@@ -142,7 +146,9 @@ namespace Core
                 {
                     client.Value.Close();
                 }
-                client.Key.Abort();
+
+                if (force)
+                    client.Key.Abort();
             }
             clients.Clear();
 
@@ -150,14 +156,16 @@ namespace Core
             if (listener != null)
             {
                 listener.Stop();
-                listener = null;
             }
 
-            // Server thread loop for accept clients
-            if (threadListener != null && threadListener.IsAlive)
+            if (force)
             {
-                threadListener.Abort();
-                threadListener = null;
+                // Server thread loop for accept clients
+                if (threadListener != null)
+                {
+                    threadListener.Abort();
+                    threadListener = null;
+                }
             }
         }
     }

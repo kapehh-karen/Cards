@@ -61,7 +61,7 @@ namespace CardsServer
 
         private void Server_ClientDisconnected(CoreServer sender, TcpClient client)
         {
-            MessageBox.Show($"DISCONNECTED: Client endpoint {client.Client.RemoteEndPoint.ToString()} !");
+            MessageBox.Show($"DISCONNECTED: From client {client.Client} !");
         }
 
         private void Server_ClientConnected(CoreServer sender, TcpClient client)
@@ -71,12 +71,14 @@ namespace CardsServer
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            server.Stop();
+            if (server != null)
+                server.Stop();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            server.Stop();
+            if (server != null)
+                server.Stop();
         }
     }
 }

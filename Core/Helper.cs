@@ -29,5 +29,26 @@ namespace Core
 
             return dict;
         }
+
+        public static bool IsEstablished(this TcpClient tcpClient)
+        {
+            foreach (var state in tcpClient.GetState())
+            {
+                if (state == TcpState.Established)
+                    return true;
+            }
+            return false;
+        }
+
+        public static IEnumerable<TcpState> GetState(this TcpClient tcpClient)
+        {
+            if (tcpClient == null || tcpClient.Client == null || !tcpClient.Client.Connected)
+                return new TcpState[0];
+
+            return IPGlobalProperties.GetIPGlobalProperties()
+                .GetActiveTcpConnections()
+                .Where(x => x.LocalEndPoint.Equals(tcpClient.Client.LocalEndPoint))
+                .Select(x => x.State);
+        }
     }
 }
