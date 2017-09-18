@@ -66,6 +66,8 @@ namespace Core
                                     {
                                         ms.Write(buffer, 0, readed);
                                         readedAllData += readed;
+
+                                        Thread.Sleep(5);
                                     }
 
                                     mainContext.Send((state2) =>
@@ -74,6 +76,8 @@ namespace Core
                                     }, client);
                                 }
                             }
+
+                            Thread.Sleep(50);
                         }
 
                         mainContext.Send((state2) =>

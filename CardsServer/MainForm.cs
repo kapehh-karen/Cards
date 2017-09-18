@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,27 +15,7 @@ namespace CardsServer
 {
     public partial class MainForm : Form
     {
-        public static IDictionary<string, string> GetAllLocalIPv4(NetworkInterfaceType _type)
-        {
-            var dict = new Dictionary<string, string>();
-
-            foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
-            {
-                if (item.NetworkInterfaceType == _type && item.OperationalStatus == OperationalStatus.Up)
-                {
-                    foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
-                    {
-                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            //ipAddrList.Add(ip.Address.ToString());
-                            dict.Add(item.Description, ip.Address.ToString());
-                        }
-                    }
-                }
-            }
-
-            return dict;
-        }
+        private CoreServer server;
 
         public MainForm()
         {
@@ -47,11 +28,35 @@ namespace CardsServer
             lblMachineName.Text = strHostName;
 
             var strList = string.Empty;
-            foreach (var ip in GetAllLocalIPv4(NetworkInterfaceType.Ethernet))
+            foreach (var ip in Helper.GetAllLocalIPv4(NetworkInterfaceType.Ethernet))
             {
                 strList += $"{ip.Value} ({ip.Key}){Environment.NewLine}";
             }
             lblIPList.Text = strList;
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            server = new CoreServer();
+            server.ClientConnected += Server_ClientConnected;
+            server.ClientDisconnected += Server_ClientDisconnected;
+            server.ClientDataRetrieve += Server_ClientDataRetrieve;
+            server.Start(8080);
+        }
+
+        private void Server_ClientDataRetrieve(CoreServer sender, TcpClient client, byte[] data, int length)
+        {
+
+        }
+
+        private void Server_ClientDisconnected(CoreServer sender, TcpClient client)
+        {
+
+        }
+
+        private void Server_ClientConnected(CoreServer sender, TcpClient client)
+        {
+
         }
     }
 }
