@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -93,10 +94,17 @@ namespace Core
                     Thread.Sleep(50);
                 }
 
-                mainContext.Send((state2) =>
+                try
                 {
-                    this.Disconnected(this, state2 as TcpClient);
-                }, client);
+                    mainContext.Send((state2) =>
+                    {
+                        this.Disconnected(this, state2 as TcpClient);
+                    }, client);
+                }
+                catch (InvalidAsynchronousStateException)
+                {
+                    // If form closed
+                }
 
                 client = null;
             });
