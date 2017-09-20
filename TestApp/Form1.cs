@@ -36,12 +36,52 @@ namespace TestApp
             // Insert code to process data.
             DataTable table = conn.GetSchema("Tables");
 
-            foreach (System.Data.DataRow row in table.Rows)
+            foreach (DataRow row in table.Rows)
             {
-                foreach (System.Data.DataColumn col in table.Columns)
+                //if (!"TABLE".Equals(row["TABLE_TYPE"]))
+                //    continue;
+
+                listBox1.Items.Add("============================");
+
+                foreach (DataColumn col in table.Columns)
                 {
                     listBox1.Items.Add($"{col.ColumnName} = {row[col]}");
                 }
+
+                listBox1.Items.Add("COLUMNS:");
+
+                var dt = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, row["TABLE_NAME"] });
+                foreach (DataRow rrr in dt.Rows)
+                {
+                    listBox1.Items.Add($"    {rrr}:");
+                    foreach (DataColumn ccc in dt.Columns)
+                    {
+                        listBox1.Items.Add($"        {ccc.ColumnName} = {rrr[ccc]}");
+                    }
+                }
+
+                try
+                {
+                    listBox1.Items.Add("ROWS:");
+
+                    var cmd = new OleDbCommand($"SELECT * FROM {row["TABLE_NAME"]}", conn);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            for (var i = 0; i < reader.FieldCount; i++)
+                            {
+                                listBox1.Items.Add($"    {reader.GetName(i)} = {reader[i]}");
+                            }
+                            listBox1.Items.Add("    ---");
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+
                 listBox1.Items.Add("============================");
             }
 
