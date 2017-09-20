@@ -75,7 +75,7 @@ namespace Core
                         }, client);
 
                         var socket = client.Client;
-                        var buffer = new byte[2];
+                        var buffer = new byte[1024 * 1024];
                         int readed;
                         int readedAllData;
 

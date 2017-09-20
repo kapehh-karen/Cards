@@ -1,0 +1,7 @@
+C:\Users\karen\Desktop\Cards\DesignForm\bin\Debug\DesignForm.dll
+C:\Users\karen\Desktop\Cards\DesignForm\bin\Debug\DesignForm.pdb
+C:\Users\karen\Desktop\Cards\DesignForm\obj\Debug\DesignForm.csprojResolveAssemblyReference.cache
+C:\Users\karen\Desktop\Cards\DesignForm\obj\Debug\DesignForm.Forms.frmPaint.resources
+C:\Users\karen\Desktop\Cards\DesignForm\obj\Debug\DesignForm.csproj.GenerateResource.Cache
+C:\Users\karen\Desktop\Cards\DesignForm\obj\Debug\DesignForm.dll
+C:\Users\karen\Desktop\Cards\DesignForm\obj\Debug\DesignForm.pdb
