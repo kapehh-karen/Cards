@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DesignForm.Forms
+namespace Core.Forms.Design
 {
-    public partial class frmPaint : Form
+    public partial class frmEmpty : Form
     {
-        public frmPaint()
+        public frmEmpty()
         {
             InitializeComponent();
         }

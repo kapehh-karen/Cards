@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using Core.Network;
+using Core.Network.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,7 +29,7 @@ namespace CardsServer
             lblMachineName.Text = strHostName;
 
             var strList = string.Empty;
-            foreach (var ip in Helper.GetAllLocalIPv4(NetworkInterfaceType.Ethernet))
+            foreach (var ip in NetworkHelper.GetAllLocalIPv4(NetworkInterfaceType.Ethernet))
             {
                 strList += $"{ip.Value} ({ip.Key}){Environment.NewLine}";
             }

@@ -50,16 +50,30 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CoreClient.cs" />
-    <Compile Include="CoreServer.cs" />
-    <Compile Include="Helper.cs" />
+    <Compile Include="Forms\Design\frmEmpty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Design\frmEmpty.Designer.cs">
+      <DependentUpon>frmEmpty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Network\CoreClient.cs" />
+    <Compile Include="Network\CoreServer.cs" />
+    <Compile Include="Network\Extensions\TCPHelper.cs" />
+    <Compile Include="Network\Helper\NetworkHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\Design\frmEmpty.resx">
+      <DependentUpon>frmEmpty.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

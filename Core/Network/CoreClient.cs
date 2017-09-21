@@ -6,8 +6,9 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using Core.Network.Extensions;
 
-namespace Core
+namespace Core.Network
 {
     public class CoreClient
     {

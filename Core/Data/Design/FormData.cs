@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DesignForm
+namespace Core.Data.Design
 {
-    public class DataForm
+    public class FormData
     {
     }
 }
