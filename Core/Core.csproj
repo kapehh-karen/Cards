@@ -58,6 +58,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Design\FormData.cs" />
+    <Compile Include="Data\Field\BindFieldData.cs" />
+    <Compile Include="Data\Field\FieldData.cs" />
+    <Compile Include="Data\Field\FieldType.cs" />
+    <Compile Include="Forms\DateBase\frmBindSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DateBase\frmBindSetting.Designer.cs">
+      <DependentUpon>frmBindSetting.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Design\frmEmpty.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,9 +81,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\DateBase\frmBindSetting.resx">
+      <DependentUpon>frmBindSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\frmEmpty.resx">
       <DependentUpon>frmEmpty.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Table\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
