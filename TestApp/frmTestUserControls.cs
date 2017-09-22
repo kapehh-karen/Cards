@@ -16,7 +16,12 @@ namespace TestApp
             InitializeComponent();
         }
 
-        private void button1_MouseClick(object sender, MouseEventArgs e)
+        private void button4_MouseClick(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("TEST");
+        }
+
+        private void button1_PressedButton(object sender, EventArgs e)
         {
             MessageBox.Show("KEK");
         }

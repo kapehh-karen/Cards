@@ -11,6 +11,8 @@ namespace Core.GUI.Control
 {
     public partial class Button : UserControl
     {
+        public event EventHandler PressedButton;
+
         private enum State
         {
             NORMAL = 0,
@@ -20,16 +22,36 @@ namespace Core.GUI.Control
 
         private Pen penControlNormalBorder = new Pen(SystemColors.ControlDark, 1);
         private Pen penControlHoveredBorder = new Pen(Color.DodgerBlue, 1);
+        private Pen penControlFocusedBorder = new Pen(Color.DodgerBlue, 5);
 
         private string _text;
         private Point positionText = new Point();
         private State state = State.NORMAL;
+        private bool hovered = false;
+        private Keys keypressed = 0;
 
         public Button()
         {
             InitializeComponent();
+
+            this.SetStyle(ControlStyles.Selectable, true);
+            this.SetStyle(ControlStyles.ContainerControl, false);
+
+            this.GotFocus += Button_GotFocus;
+            this.LostFocus += Button_LostFocus;
+
             this.Text = this.Name;
             this.Cursor = Cursors.Hand;
+        }
+
+        private void Button_LostFocus(object sender, EventArgs e)
+        {
+            this.Invalidate();
+        }
+
+        private void Button_GotFocus(object sender, EventArgs e)
+        {
+            this.Invalidate();
         }
 
         private void RecalculateSizeText()
@@ -75,7 +97,14 @@ namespace Core.GUI.Control
             {
                 case State.NORMAL:
                     e.Graphics.Clear(SystemColors.Control);
-                    e.Graphics.DrawRectangle(penControlNormalBorder, 0, 0, this.Width - 1, this.Height - 1);
+                    if (this.Focused)
+                    {
+                        e.Graphics.DrawRectangle(penControlFocusedBorder, 0, 0, this.Width - 1, this.Height - 1);
+                    }
+                    else
+                    {
+                        e.Graphics.DrawRectangle(penControlNormalBorder, 0, 0, this.Width - 1, this.Height - 1);
+                    }
                     e.Graphics.DrawString(this.Text, this.Font, Brushes.Black, positionText);
                     break;
 
@@ -100,11 +129,13 @@ namespace Core.GUI.Control
 
         private void Button_MouseEnter(object sender, EventArgs e)
         {
+            this.hovered = true;
             ChangeStatus(State.HOVERED);
         }
 
         private void Button_MouseLeave(object sender, EventArgs e)
         {
+            this.hovered = false;
             ChangeStatus(State.NORMAL);
         }
 
@@ -124,6 +155,30 @@ namespace Core.GUI.Control
             {
                 ChangeStatus(State.HOVERED);
             }
+        }
+
+        private void Button_MouseClick(object sender, MouseEventArgs e)
+        {
+            this.PressedButton?.Invoke(this, new EventArgs());
+        }
+
+        private void Button_KeyDown(object sender, KeyEventArgs e)
+        {
+            keypressed = e.KeyCode;
+
+            ChangeStatus(State.PRESSED);
+        }
+
+        private void Button_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (keypressed != e.KeyCode)
+                return;
+            keypressed = 0;
+
+            ChangeStatus(this.hovered ? State.HOVERED : State.NORMAL);
+
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Space)
+                this.PressedButton?.Invoke(this, new EventArgs());
         }
     }
 }

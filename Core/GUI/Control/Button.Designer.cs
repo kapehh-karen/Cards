@@ -38,6 +38,9 @@
             this.Size = new System.Drawing.Size(75, 23);
             this.Load += new System.EventHandler(this.Button_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Button_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Button_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Button_KeyUp);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Button_MouseClick);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Button_MouseDown);
             this.MouseEnter += new System.EventHandler(this.Button_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.Button_MouseLeave);
