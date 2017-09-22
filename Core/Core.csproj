@@ -59,9 +59,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Design\FormData.cs" />
-    <Compile Include="Data\Field\BindFieldData.cs" />
+    <Compile Include="Data\Field\BindField.cs" />
     <Compile Include="Data\Field\FieldData.cs" />
     <Compile Include="Data\Field\FieldType.cs" />
+    <Compile Include="Data\Table\TableData.cs" />
     <Compile Include="Forms\DateBase\frmBindSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +74,12 @@
     </Compile>
     <Compile Include="Forms\Design\frmEmpty.Designer.cs">
       <DependentUpon>frmEmpty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Control\Button.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GUI\Control\Button.Designer.cs">
+      <DependentUpon>Button.cs</DependentUpon>
     </Compile>
     <Compile Include="Network\CoreClient.cs" />
     <Compile Include="Network\CoreServer.cs" />
@@ -87,9 +94,10 @@
     <EmbeddedResource Include="Forms\Design\frmEmpty.resx">
       <DependentUpon>frmEmpty.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Control\Button.resx">
+      <DependentUpon>Button.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\Table\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

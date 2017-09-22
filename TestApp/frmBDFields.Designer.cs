@@ -1,6 +1,6 @@
 ﻿namespace TestApp
 {
-    partial class Form1
+    partial class frmBDFields
     {
         /// <summary>
         /// Обязательная переменная конструктора.

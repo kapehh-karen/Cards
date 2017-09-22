@@ -60,16 +60,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="frmBDFields.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="frmBDFields.Designer.cs">
+      <DependentUpon>frmBDFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTestUserControls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTestUserControls.Designer.cs">
+      <DependentUpon>frmTestUserControls.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="frmBDFields.resx">
+      <DependentUpon>frmBDFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTestUserControls.resx">
+      <DependentUpon>frmTestUserControls.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,6 +98,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{cafa0b0a-6d13-4e02-b2f1-fecbe6f6d9f6}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TestApp
 {
-    public partial class Form1 : Form
+    public partial class frmBDFields : Form
     {
-        public Form1()
+        public frmBDFields()
         {
             InitializeComponent();
         }

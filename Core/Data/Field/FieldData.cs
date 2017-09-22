@@ -30,6 +30,6 @@ namespace Core.Data.Field
         /// <summary>
         /// Информация о связанной таблице
         /// </summary>
-        public BindFieldData BindData { get; set; } = null;
+        public BindField BindData { get; set; } = null;
     }
 }
