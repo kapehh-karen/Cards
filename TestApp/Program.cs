@@ -15,7 +15,7 @@ namespace TestApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmTestUserControls());
+            Application.Run(new frmBDFields());
         }
     }
 }

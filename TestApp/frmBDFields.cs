@@ -31,6 +31,8 @@ namespace TestApp
             OleDbConnection conn = new OleDbConnection();
 
             conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=test_db.mdb";
+            DataSet dset = new DataSet();
+
 
             conn.Open();
             // Insert code to process data.
@@ -38,8 +40,8 @@ namespace TestApp
 
             foreach (DataRow row in table.Rows)
             {
-                //if (!"TABLE".Equals(row["TABLE_TYPE"]))
-                //    continue;
+                if (!"TABLE".Equals(row["TABLE_TYPE"]))
+                    continue;
 
                 listBox1.Items.Add("============================");
 
@@ -59,7 +61,7 @@ namespace TestApp
                         listBox1.Items.Add($"        {ccc.ColumnName} = {rrr[ccc]}");
                     }
                 }
-
+                
                 try
                 {
                     listBox1.Items.Add("ROWS:");

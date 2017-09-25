@@ -25,11 +25,16 @@ namespace Core.Data.Field
         /// <summary>
         /// Видимость поля в конструкторе форм
         /// </summary>
-        public bool Hidden { get; set; } = false;
+        public bool Visible { get; set; } = true;
 
         /// <summary>
         /// Информация о связанной таблице
         /// </summary>
         public BindField BindData { get; set; } = null;
+
+        /// <summary>
+        /// Значение поля (будет использоваться для получния предыдущего/текущего значения поля)
+        /// </summary>
+        public object Value { get; set; } = null;
     }
 }

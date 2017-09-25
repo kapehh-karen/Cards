@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBase\DataBaseConnection.cs" />
+    <Compile Include="Data\Config\DataBaseConfig.cs" />
     <Compile Include="Data\Design\FormData.cs" />
     <Compile Include="Data\Field\BindField.cs" />
     <Compile Include="Data\Field\FieldData.cs" />

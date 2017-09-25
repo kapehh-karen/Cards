@@ -33,5 +33,15 @@ namespace Core.Data.Table
         /// Связанные данные (списки). Список таблиц и по какому полю связаны
         /// </summary>
         public List<BindField> LinkedTables { get; set; }
+
+        /// <summary>
+        /// Является ли таблица классификатором
+        /// </summary>
+        public bool IsClassifier { get; set; }
+
+        /// <summary>
+        /// Последнее изменение таблицы (для классификаторов)
+        /// </summary>
+        public DateTime LastUpdate { get; set; }
     }
 }
