@@ -16,6 +16,7 @@ namespace Core.DataBase
         {
             conn = new OleDbConnection();
             conn.ConnectionString = $@"Provider='Microsoft.Jet.OLEDB.4.0';Data Source='{fileDBName}'";
+            conn.Open();
         }
 
         public OleDbConnection Connection => conn;

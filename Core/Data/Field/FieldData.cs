@@ -28,13 +28,18 @@ namespace Core.Data.Field
         public bool Visible { get; set; } = true;
 
         /// <summary>
+        /// Обязательное поле
+        /// </summary>
+        public bool Required { get; set; } = false;
+
+        /// <summary>
         /// Информация о связанной таблице
         /// </summary>
         public BindField BindData { get; set; } = null;
 
-        /// <summary>
-        /// Значение поля (будет использоваться для получния предыдущего/текущего значения поля)
-        /// </summary>
-        public object Value { get; set; } = null;
+        public override string ToString()
+        {
+            return this.Name;
+        }
     }
 }

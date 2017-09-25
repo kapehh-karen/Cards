@@ -32,7 +32,7 @@
             this.cmbBasesList = new System.Windows.Forms.ComboBox();
             this.gbDateBase = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbTables = new System.Windows.Forms.ComboBox();
             this.gbDateTable = new System.Windows.Forms.GroupBox();
             this.btnForm = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -49,6 +49,8 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.checkClassif = new System.Windows.Forms.CheckBox();
+            this.btnSaveApply = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             this.SuspendLayout();
@@ -71,15 +73,17 @@
             this.cmbBasesList.Name = "cmbBasesList";
             this.cmbBasesList.Size = new System.Drawing.Size(185, 21);
             this.cmbBasesList.TabIndex = 1;
+            this.cmbBasesList.SelectedValueChanged += new System.EventHandler(this.cmbBasesList_SelectedValueChanged);
             // 
             // gbDateBase
             // 
             this.gbDateBase.Controls.Add(this.gbDateTable);
-            this.gbDateBase.Controls.Add(this.comboBox1);
+            this.gbDateBase.Controls.Add(this.cmbTables);
             this.gbDateBase.Controls.Add(this.label2);
+            this.gbDateBase.Enabled = false;
             this.gbDateBase.Location = new System.Drawing.Point(15, 52);
             this.gbDateBase.Name = "gbDateBase";
-            this.gbDateBase.Size = new System.Drawing.Size(519, 495);
+            this.gbDateBase.Size = new System.Drawing.Size(519, 479);
             this.gbDateBase.TabIndex = 2;
             this.gbDateBase.TabStop = false;
             // 
@@ -93,14 +97,15 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Таблица";
             // 
-            // comboBox1
+            // cmbTables
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(15, 32);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(170, 21);
-            this.comboBox1.TabIndex = 1;
+            this.cmbTables.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTables.FormattingEnabled = true;
+            this.cmbTables.Location = new System.Drawing.Point(15, 32);
+            this.cmbTables.Name = "cmbTables";
+            this.cmbTables.Size = new System.Drawing.Size(170, 21);
+            this.cmbTables.TabIndex = 1;
+            this.cmbTables.SelectedValueChanged += new System.EventHandler(this.cmbTables_SelectedValueChanged);
             // 
             // gbDateTable
             // 
@@ -112,9 +117,10 @@
             this.gbDateTable.Controls.Add(this.cmbIDField);
             this.gbDateTable.Controls.Add(this.label3);
             this.gbDateTable.Controls.Add(this.btnForm);
+            this.gbDateTable.Enabled = false;
             this.gbDateTable.Location = new System.Drawing.Point(15, 59);
             this.gbDateTable.Name = "gbDateTable";
-            this.gbDateTable.Size = new System.Drawing.Size(481, 417);
+            this.gbDateTable.Size = new System.Drawing.Size(481, 407);
             this.gbDateTable.TabIndex = 2;
             this.gbDateTable.TabStop = false;
             // 
@@ -239,11 +245,31 @@
             this.checkClassif.Text = "Таблица классификатор";
             this.checkClassif.UseVisualStyleBackColor = true;
             // 
+            // btnSaveApply
+            // 
+            this.btnSaveApply.Location = new System.Drawing.Point(15, 537);
+            this.btnSaveApply.Name = "btnSaveApply";
+            this.btnSaveApply.Size = new System.Drawing.Size(163, 23);
+            this.btnSaveApply.TabIndex = 3;
+            this.btnSaveApply.Text = "Сохранить и применить";
+            this.btnSaveApply.UseVisualStyleBackColor = true;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(184, 537);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 4;
+            this.btnCancel.Text = "Отмена";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
             // frmBindSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 559);
+            this.ClientSize = new System.Drawing.Size(549, 567);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnSaveApply);
             this.Controls.Add(this.gbDateBase);
             this.Controls.Add(this.cmbBasesList);
             this.Controls.Add(this.label1);
@@ -267,7 +293,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbBasesList;
         private System.Windows.Forms.GroupBox gbDateBase;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbTables;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox gbDateTable;
         private System.Windows.Forms.Button btnForm;
@@ -285,5 +311,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.CheckBox checkClassif;
+        private System.Windows.Forms.Button btnSaveApply;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

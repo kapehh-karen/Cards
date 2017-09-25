@@ -1,43 +1,55 @@
-﻿using System;
+﻿using Core.Data.Config;
+using Core.Data.Field;
+using Core.Data.Table;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
-using Core.Data.Table;
-using System.Data.OleDb;
-using Core.DataBase;
-using System.Data;
-using Core.Data.Field;
 
-namespace Core.Data.Config
+namespace Core.DataBase
 {
-    public class DataBaseConfig
+    public class DataBaseConfigLoader
     {
         private string configFileName;
         private string fileBaseName;
 
-        public DataBaseConfig(string fileBaseName)
+        public DataBaseConfigLoader(string fileBaseName)
         {
             this.configFileName = fileBaseName + ".conf";
             this.fileBaseName = fileBaseName;
+        }
+
+        public Data.Config.DataBase Load()
+        {
+            var dbc = new Data.Config.DataBase();
 
             if (File.Exists(configFileName))
             {
-                this.LoadFromConfig();
-                this.LoadFromBase(true);
+                this.LoadFromConfig(dbc);
+                this.LoadFromBase(dbc, true);
             }
             else
             {
-                this.LoadFromBase();
+                this.LoadFromBase(dbc);
             }
+
+            return dbc;
         }
 
-        private void LoadFromConfig()
+        public void Save()
         {
             // TODO
         }
 
-        private void LoadFromBase(bool append = false)
+        private void LoadFromConfig(Data.Config.DataBase dataBaseConfig)
+        {
+            // TODO
+        }
+
+        private void LoadFromBase(Data.Config.DataBase dataBaseConfig, bool append = false)
         {
             using (var dbc = new DataBaseConnection(fileBaseName))
             {
@@ -59,10 +71,9 @@ namespace Core.Data.Config
 
                         var tableData = new TableData()
                         {
-                            Name = row["TABLE_NAME"].ToString(),
-                            Fields = new List<FieldData>()
+                            Name = row["TABLE_NAME"].ToString()
                         };
-                        this.Tables.Add(tableData);
+                        dataBaseConfig.Tables.Add(tableData);
 
                         var dataTable = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, row["TABLE_NAME"] });
                         foreach (DataRow dtRow in dataTable.Rows)
@@ -78,7 +89,5 @@ namespace Core.Data.Config
                 }
             }
         }
-
-        public List<TableData> Tables { get; set; } = new List<TableData>();
     }
 }
