@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Forms.DateBase;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -88,6 +89,11 @@ namespace TestApp
             }
 
             conn.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            new frmBindSetting().ShowDialog();
         }
     }
 }
