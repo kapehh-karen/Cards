@@ -3,6 +3,7 @@ using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Field;
 using Core.Data.Table;
+using Core.Notification;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,18 +29,20 @@ namespace Core.Config
 
         public DataBase Load()
         {
-            DataBase dbc;
+            DataBase dbConfig = null;
+
+            // load configuration if exists
             if (File.Exists(configFileName))
             {
-                dbc = this.LoadFromConfig();
-                this.LoadFromBase(dbc, true);
+                dbConfig = this.LoadFromConfig();
+                NotificationMessage.SystemInfo($"Конфигурация для базы \"{fileBaseName}\" успешно загружена из файла \"{configFileName}\"");
             }
             else
             {
-                dbc = new DataBase();
-                this.LoadFromBase(dbc);
+                NotificationMessage.SystemInfo($"Конфигурация для базы \"{fileBaseName}\" не найдена");
             }
-            return dbc;
+
+            return this.LoadFromBase(dbConfig);
         }
 
         public void Save(DataBase dbc)
@@ -52,13 +55,17 @@ namespace Core.Config
             return this.config.ReadFromFile(this.configFileName);
         }
 
-        private void LoadFromBase(DataBase dataBaseConfig, bool append = false)
+        private DataBase LoadFromBase(DataBase dataBaseConfig)
         {
+            var dataBase = dataBaseConfig ?? new DataBase();
+
             using (var dbc = new DataBaseConnection(fileBaseName))
             {
                 var conn = dbc.Connection;
-
                 DataTable table = conn.GetSchema("Tables");
+
+                var tableNames = new List<string>();
+                var fieldNames = new List<string>();
 
                 foreach (DataRow row in table.Rows)
                 {
@@ -66,32 +73,46 @@ namespace Core.Config
                     if (!"TABLE".Equals(row["TABLE_TYPE"]))
                         continue;
 
-                    var tableData = new TableData()
+                    var tableName = row["TABLE_NAME"].ToString();
+                    var tableInConfig = dataBase.Tables.FirstOrDefault(td => td.Name == tableName);
+                    var tableData = tableInConfig ?? new TableData() { Name = tableName };
+                    tableNames.Add(tableName);
+
+                    // if table not exists in config
+                    if (tableInConfig == null)
                     {
-                        Name = row["TABLE_NAME"].ToString()
-                    };
+                        dataBase.Tables.Add(tableData);
+                    }
 
-                    // add table
-                    dataBaseConfig.Tables.Add(tableData);
-
-                    var dataTable = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, row["TABLE_NAME"] });
+                    var dataTable = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, tableName });
                     foreach (DataRow dtRow in dataTable.Rows)
                     {
-                        var fieldData = new FieldData()
+                        var fieldName = dtRow["COLUMN_NAME"].ToString();
+                        var fieldInTable = tableData.Fields.FirstOrDefault(fd => fd.Name == fieldName);
+                        var fieldData = fieldInTable ?? new FieldData() { Name = fieldName };
+                        fieldNames.Add(fieldName);
+
+                        // if field exists in table (only if table loaded from config)
+                        if (fieldInTable != null)
                         {
-                            Name = dtRow["COLUMN_NAME"].ToString()
-                        };
 
-                        // add field in table
-                        tableData.Fields.Add(fieldData);
+                        }
+                        else
+                        {
+                            // add field in table
+                            tableData.Fields.Add(fieldData);
+                        }
                     }
+
+                    // filter fields
+                    tableData.Fields = tableData.Fields.Where(fd => fieldNames.Contains(fd.Name)).ToList();
                 }
 
-                if (append)
-                {
-                    // TODO
-                }
+                // filter tables
+                dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
             }
+
+            return dataBase;
         }
     }
 }

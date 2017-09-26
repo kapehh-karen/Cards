@@ -90,6 +90,8 @@
     <Compile Include="Network\CoreServer.cs" />
     <Compile Include="Network\Extensions\TCPHelper.cs" />
     <Compile Include="Network\Helper\NetworkHelper.cs" />
+    <Compile Include="Notification\NotificationLevel.cs" />
+    <Compile Include="Notification\NotificationMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

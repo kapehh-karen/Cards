@@ -115,7 +115,11 @@ namespace Core.Forms.DateBase
 
         private void btnSaveApply_Click(object sender, EventArgs e)
         {
-            dataBaseConfigLoader.Save(dataBase);
+            // TODO: check ID fields for tables
+
+            if (dataBaseConfigLoader != null)
+                dataBaseConfigLoader.Save(dataBase);
+
             this.DialogResult = DialogResult.OK;
         }
     }
