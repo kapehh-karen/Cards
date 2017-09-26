@@ -101,10 +101,14 @@ namespace Core.Config
 
                     // filter fields
                     tableData.Fields = tableData.Fields.Where(fd => fieldNames.Contains(fd.Name)).ToList();
+
+                    // TODO: Remove fields from BINDED field
                 }
 
                 // filter tables
                 dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
+
+                // TODO: Remove tables from BINDED field
             }
 
             return dataBase;

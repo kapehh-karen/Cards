@@ -1,4 +1,6 @@
-﻿using Core.Data.Field;
+﻿using Core.Data.Base;
+using Core.Data.Field;
+using Core.Data.Table;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,15 +14,24 @@ namespace Core.Forms.DateBase
 {
     public partial class frmChangeFieldData : Form
     {
+        private class ComboBoxItem
+        {
+            public FieldType ItemType { get; set; }
+
+            public string ItemText { get; set; }
+
+            public override string ToString()
+            {
+                return ItemText;
+            }
+        }
+
         public frmChangeFieldData()
         {
             InitializeComponent();
-
-            cmbFieldType.Items.Add(FieldType.TEXT);
-            cmbFieldType.Items.Add(FieldType.NUMBER);
-            cmbFieldType.Items.Add(FieldType.DATE);
-            cmbFieldType.Items.Add(FieldType.BIND);
         }
+
+        public DataBase Base { get; set; }
 
         public FieldData Field { get; set; }
 
@@ -36,10 +47,44 @@ namespace Core.Forms.DateBase
 
         private void frmChangeFieldData_Load(object sender, EventArgs e)
         {
-            this.Text = $"Поле - {Field.Name}";
-            this.cmbFieldType.SelectedItem = Field.Type;
-            this.chkVisible.Checked = Field.Visible;
-            this.chkRequire.Checked = Field.Required;
+            Text = $"Поле - {Field.Name}";
+            chkVisible.Checked = Field.Visible;
+            chkRequire.Checked = Field.Required;
+
+            ComboBoxItem[] types = new ComboBoxItem[] {
+                new ComboBoxItem() { ItemType = FieldType.TEXT, ItemText = "Текст" },
+                new ComboBoxItem() { ItemType = FieldType.NUMBER, ItemText = "Число" },
+                new ComboBoxItem() { ItemType = FieldType.DATE, ItemText = "Дата" },
+                new ComboBoxItem() { ItemType = FieldType.BIND, ItemText = "Связанное поле" }
+            };
+            cmbFieldType.Items.AddRange(types);
+            cmbFieldType.SelectedItem = types.FirstOrDefault(t => t.ItemType == Field.Type);
+
+            cmbTable.Items.Clear();
+            Base.Tables.ForEach(td => cmbTable.Items.Add(td));
+
+            if (Field.BindData != null)
+            {
+                cmbTable.SelectedItem = Field.BindData.Table;
+                cmbField.SelectedItem = Field.BindData.Field;
+            }
+        }
+
+        private void cmbTable_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if ((sender as ComboBox).SelectedItem is TableData item)
+            {
+                cmbField.Items.Clear();
+                item.Fields.ForEach(td => cmbField.Items.Add(td));
+            }
+        }
+
+        private void cmbFieldType_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if ((sender as ComboBox).SelectedItem is ComboBoxItem item)
+            {
+                gbBindSettings.Enabled = item.ItemType == FieldType.BIND;
+            }
         }
     }
 }

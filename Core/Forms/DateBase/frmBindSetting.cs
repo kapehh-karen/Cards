@@ -79,6 +79,7 @@ namespace Core.Forms.DateBase
 
             var idField = tableData.IdentifierField;
 
+            cmbIDField.Items.Clear();
             tableData.Fields.ForEach(fd => cmbIDField.Items.Add(fd));
 
             // if ID field not exists, try find it
@@ -138,7 +139,13 @@ namespace Core.Forms.DateBase
 
         private void btnSaveApply_Click(object sender, EventArgs e)
         {
-            // TODO: check ID fields for tables
+            var tableDataWithoutID = dataBase.Tables.FirstOrDefault(td => td.IdentifierField == null);
+            if (tableDataWithoutID != null)
+            {
+                MessageBox.Show($"Не выбрано поле идентификатора в таблице \"{tableDataWithoutID.Name}\".", "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (dataBaseConfigLoader != null)
                 dataBaseConfigLoader.Save(dataBase);
@@ -167,7 +174,7 @@ namespace Core.Forms.DateBase
             if (e.KeyCode == Keys.Enter && lvFields.SelectedItems.Count == 1)
             {
                 var lvi = lvFields.SelectedItems[0];
-                var result = new frmChangeFieldData() { Field = lvi.Tag as FieldData }.ShowDialog();
+                var result = new frmChangeFieldData() { Field = lvi.Tag as FieldData, Base = dataBase }.ShowDialog();
 
                 if (result == DialogResult.OK)
                 {

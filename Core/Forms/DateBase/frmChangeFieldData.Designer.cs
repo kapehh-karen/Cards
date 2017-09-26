@@ -59,6 +59,7 @@
             this.cmbFieldType.Name = "cmbFieldType";
             this.cmbFieldType.Size = new System.Drawing.Size(227, 21);
             this.cmbFieldType.TabIndex = 1;
+            this.cmbFieldType.SelectedValueChanged += new System.EventHandler(this.cmbFieldType_SelectedValueChanged);
             // 
             // gbBindSettings
             // 
@@ -133,6 +134,7 @@
             this.cmbTable.Name = "cmbTable";
             this.cmbTable.Size = new System.Drawing.Size(203, 21);
             this.cmbTable.TabIndex = 4;
+            this.cmbTable.SelectedValueChanged += new System.EventHandler(this.cmbTable_SelectedValueChanged);
             // 
             // cmbField
             // 
