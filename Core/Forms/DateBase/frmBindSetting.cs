@@ -10,6 +10,7 @@ using System.IO;
 using Core.Data.Base;
 using Core.Data.Table;
 using Core.Config;
+using Core.Data.Field;
 
 namespace Core.Forms.DateBase
 {
@@ -17,6 +18,7 @@ namespace Core.Forms.DateBase
     {
         private DataBaseConfigLoader dataBaseConfigLoader;
         private DataBase dataBase;
+        private TableData tableData;
 
         public frmBindSetting()
         {
@@ -38,40 +40,28 @@ namespace Core.Forms.DateBase
             }
         }
 
-        private void SelectTable(TableData tableData)
+        private void RedrawFields(TableData tableData)
         {
-            gbDateTable.Enabled = true;
-            gbDateTable.Text = $"Таблица - {tableData.Name}";
-
-            var idField = tableData.IdentifierField;
             lvFields.Items.Clear();
-            cmbIDField.Items.Clear();
 
             foreach (var fieldData in tableData.Fields)
             {
-                if (idField == null && fieldData.Name.Equals("id", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    idField = fieldData;
-                    fieldData.IsIdentifier = true;
-                }
-
                 var lvi = new ListViewItem();
                 lvi.Text = fieldData.IsIdentifier ? "*" : "";
                 lvi.SubItems.Add(fieldData.Name);
-                lvi.SubItems.Add(fieldData.Type != Data.Field.FieldType.BIND ? fieldData.Type.ToString() : fieldData.BindData.ToString());
+                lvi.SubItems.Add(fieldData.Type != FieldType.BIND ? fieldData.Type.ToString() : fieldData.BindData.ToString());
                 lvi.SubItems.Add(fieldData.Visible ? "Да" : "Нет");
                 lvi.SubItems.Add(fieldData.Required ? "Да" : "Нет");
+                lvi.Tag = fieldData;
 
                 lvFields.Items.Add(lvi);
-                cmbIDField.Items.Add(fieldData);
             }
+        }
 
-            if (idField != null)
-            {
-                cmbIDField.SelectedItem = idField;
-            }
-
+        private void RedrawLinkedData(TableData tableData)
+        {
             lvDataList.Items.Clear();
+
             foreach (var linkedTable in tableData.LinkedTables)
             {
                 var lvi = new ListViewItem();
@@ -80,6 +70,38 @@ namespace Core.Forms.DateBase
 
                 lvDataList.Items.Add(lvi);
             }
+        }
+
+        private void SelectTable(TableData tableData)
+        {
+            gbDateTable.Enabled = true;
+            gbDateTable.Text = $"Таблица - {tableData.Name}";
+
+            var idField = tableData.IdentifierField;
+
+            tableData.Fields.ForEach(fd => cmbIDField.Items.Add(fd));
+
+            // if ID field not exists, try find it
+            if (idField == null)
+            {
+                idField = tableData.Fields.FirstOrDefault(fd => fd.Name.Equals("id", StringComparison.CurrentCultureIgnoreCase));
+                
+                if (idField != null)
+                {
+                    idField.IsIdentifier = true;
+                    cmbIDField.SelectedItem = idField;
+                }
+            }
+            else
+            {
+                cmbIDField.SelectedItem = idField;
+            }
+            
+            RedrawFields(tableData);
+            RedrawLinkedData(tableData);
+
+            // is classificator
+            checkClassif.Checked = tableData.IsClassifier;
         }
 
         private void frmBindSetting_Load(object sender, EventArgs e)
@@ -105,6 +127,7 @@ namespace Core.Forms.DateBase
             if (td == null)
                 return;
 
+            tableData = td;
             SelectTable(td);
         }
 
@@ -121,6 +144,36 @@ namespace Core.Forms.DateBase
                 dataBaseConfigLoader.Save(dataBase);
 
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void cmbIDField_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cmbIDField.SelectedItem == null)
+                return;
+
+            var fieldData = cmbIDField.SelectedItem as FieldData;
+            tableData.Fields.ForEach(fd => fd.IsIdentifier = fd == fieldData);
+
+            RedrawFields(tableData);
+        }
+
+        private void checkClassif_CheckedChanged(object sender, EventArgs e)
+        {
+            tableData.IsClassifier = checkClassif.Checked;
+        }
+
+        private void lvFields_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && lvFields.SelectedItems.Count == 1)
+            {
+                var lvi = lvFields.SelectedItems[0];
+                var result = new frmChangeFieldData() { Field = lvi.Tag as FieldData }.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+
+                }
+            }
         }
     }
 }

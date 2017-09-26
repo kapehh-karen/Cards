@@ -23,6 +23,9 @@ namespace TestApp
 
         private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)
         {
+            if (level.ToString().StartsWith("SYSTEM"))
+                return;
+
             if (param != null)
             {
                 MessageBox.Show($"{level}:\r\n{message}\r\n\r\n{param}", level.ToString());

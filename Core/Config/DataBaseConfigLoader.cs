@@ -92,14 +92,9 @@ namespace Core.Config
                         var fieldData = fieldInTable ?? new FieldData() { Name = fieldName };
                         fieldNames.Add(fieldName);
 
-                        // if field exists in table (only if table loaded from config)
-                        if (fieldInTable != null)
+                        // if field NOT exists in table
+                        if (fieldInTable == null)
                         {
-
-                        }
-                        else
-                        {
-                            // add field in table
                             tableData.Fields.Add(fieldData);
                         }
                     }

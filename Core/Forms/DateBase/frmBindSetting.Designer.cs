@@ -114,13 +114,17 @@
             this.checkClassif.TabIndex = 8;
             this.checkClassif.Text = "Таблица классификатор";
             this.checkClassif.UseVisualStyleBackColor = true;
+            this.checkClassif.CheckedChanged += new System.EventHandler(this.checkClassif_CheckedChanged);
             // 
             // lvDataList
             // 
             this.lvDataList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader6,
             this.columnHeader7});
+            this.lvDataList.FullRowSelect = true;
+            this.lvDataList.GridLines = true;
             this.lvDataList.Location = new System.Drawing.Point(12, 247);
+            this.lvDataList.MultiSelect = false;
             this.lvDataList.Name = "lvDataList";
             this.lvDataList.Size = new System.Drawing.Size(454, 109);
             this.lvDataList.TabIndex = 6;
@@ -143,9 +147,9 @@
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label5.Location = new System.Drawing.Point(9, 231);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(363, 13);
+            this.label5.Size = new System.Drawing.Size(207, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Связанные списки (INS - добавить, DEL - удалить, ENTER - изменить)";
+            this.label5.Text = "Связанные списки [ENTER - изменить]";
             // 
             // label4
             // 
@@ -153,9 +157,9 @@
             this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label4.Location = new System.Drawing.Point(9, 68);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(293, 13);
+            this.label4.Size = new System.Drawing.Size(137, 13);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Поля (INS - добавить, DEL - удалить, ENTER - изменить)";
+            this.label4.Text = "Поля [ENTER - изменить]";
             // 
             // lvFields
             // 
@@ -165,12 +169,16 @@
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader5});
+            this.lvFields.FullRowSelect = true;
+            this.lvFields.GridLines = true;
             this.lvFields.Location = new System.Drawing.Point(12, 84);
+            this.lvFields.MultiSelect = false;
             this.lvFields.Name = "lvFields";
             this.lvFields.Size = new System.Drawing.Size(454, 132);
             this.lvFields.TabIndex = 3;
             this.lvFields.UseCompatibleStateImageBehavior = false;
             this.lvFields.View = System.Windows.Forms.View.Details;
+            this.lvFields.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lvFields_KeyUp);
             // 
             // columnHeader1
             // 
@@ -205,6 +213,7 @@
             this.cmbIDField.Name = "cmbIDField";
             this.cmbIDField.Size = new System.Drawing.Size(102, 21);
             this.cmbIDField.TabIndex = 2;
+            this.cmbIDField.SelectedValueChanged += new System.EventHandler(this.cmbIDField_SelectedValueChanged);
             // 
             // label3
             // 
@@ -279,6 +288,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmBindSetting";
+            this.ShowInTaskbar = false;
             this.Text = "БД: Поля и связи";
             this.Load += new System.EventHandler(this.frmBindSetting_Load);
             this.gbDateBase.ResumeLayout(false);

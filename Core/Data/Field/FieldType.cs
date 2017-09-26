@@ -25,6 +25,6 @@ namespace Core.Data.Field
         /// <summary>
         /// Связанное значение
         /// </summary>
-        BIND = 3,
+        BIND = 3
     }
 }
