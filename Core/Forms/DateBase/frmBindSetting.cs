@@ -7,14 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using Core.Data.Config;
-using Core.DataBase;
+using Core.Data.Base;
 using Core.Data.Table;
+using Core.Config;
 
 namespace Core.Forms.DateBase
 {
     public partial class frmBindSetting : Form
     {
+        private DataBaseConfigLoader dataBaseConfigLoader;
+        private DataBase dataBase;
+
         public frmBindSetting()
         {
             InitializeComponent();
@@ -22,14 +25,14 @@ namespace Core.Forms.DateBase
 
         private void SelectDB(string fileName)
         {
-            var dataBaseConfigLoader = new DataBaseConfigLoader(fileName);
-            var dbc = dataBaseConfigLoader.Load();
+            dataBaseConfigLoader = new DataBaseConfigLoader(fileName);
+            dataBase = dataBaseConfigLoader.Load();
 
             gbDateBase.Enabled = true;
             gbDateBase.Text = $"База - {fileName}";
 
             cmbTables.Items.Clear();
-            foreach (var item in dbc.Tables)
+            foreach (var item in dataBase.Tables)
             {
                 cmbTables.Items.Add(item);
             }
@@ -46,7 +49,7 @@ namespace Core.Forms.DateBase
 
             foreach (var fieldData in tableData.Fields)
             {
-                if (idField == null && fieldData.Name.Equals("ID", StringComparison.InvariantCulture))
+                if (idField == null && fieldData.Name.Equals("id", StringComparison.CurrentCultureIgnoreCase))
                 {
                     idField = fieldData;
                     fieldData.IsIdentifier = true;
@@ -68,7 +71,15 @@ namespace Core.Forms.DateBase
                 cmbIDField.SelectedItem = idField;
             }
 
-            // TODO: tableData.LinkedTables
+            lvDataList.Items.Clear();
+            foreach (var linkedTable in tableData.LinkedTables)
+            {
+                var lvi = new ListViewItem();
+                lvi.Text = linkedTable.Table.Name;
+                lvi.SubItems.Add(linkedTable.Field.Name);
+
+                lvDataList.Items.Add(lvi);
+            }
         }
 
         private void frmBindSetting_Load(object sender, EventArgs e)
@@ -95,6 +106,17 @@ namespace Core.Forms.DateBase
                 return;
 
             SelectTable(td);
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void btnSaveApply_Click(object sender, EventArgs e)
+        {
+            dataBaseConfigLoader.Save(dataBase);
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

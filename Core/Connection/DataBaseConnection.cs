@@ -6,7 +6,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 
-namespace Core.DataBase
+namespace Core.Connection
 {
     public class DataBaseConnection : IDisposable
     {

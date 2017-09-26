@@ -51,6 +51,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -66,6 +67,12 @@
     <Compile Include="frmBDFields.Designer.cs">
       <DependentUpon>frmBDFields.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSerializer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSerializer.Designer.cs">
+      <DependentUpon>frmSerializer.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmTestUserControls.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +83,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmBDFields.resx">
       <DependentUpon>frmBDFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSerializer.resx">
+      <DependentUpon>frmSerializer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmTestUserControls.resx">
       <DependentUpon>frmTestUserControls.cs</DependentUpon>
