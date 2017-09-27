@@ -35,10 +35,7 @@ namespace Core.Forms.DateBase
             gbDateBase.Text = $"База - {fileName}";
 
             cmbTables.Items.Clear();
-            foreach (var item in dataBase.Tables)
-            {
-                cmbTables.Items.Add(item);
-            }
+            dataBase.Tables.ForEach(td => cmbTables.Items.Add(td));
         }
 
         private void RedrawFields(TableData tableData)
@@ -50,7 +47,7 @@ namespace Core.Forms.DateBase
                 var lvi = new ListViewItem();
                 lvi.Text = fieldData.IsIdentifier ? "*" : "";
                 lvi.SubItems.Add(fieldData.Name);
-                lvi.SubItems.Add(fieldData.Type != FieldType.BIND ? fieldData.Type.ToString() : fieldData.BindData.ToString());
+                lvi.SubItems.Add(fieldData.Type != FieldType.BIND ? fieldData.Type.ToString() : fieldData.BindData?.ToString());
                 lvi.SubItems.Add(fieldData.Visible ? "Да" : "Нет");
                 lvi.SubItems.Add(fieldData.Required ? "Да" : "Нет");
                 lvi.Tag = fieldData;
@@ -214,6 +211,7 @@ namespace Core.Forms.DateBase
 
         private void DoSave()
         {
+            // check IDs
             var tableDataWithoutID = dataBase.Tables.FirstOrDefault(td => td.IdentifierField == null);
             if (tableDataWithoutID != null)
             {
@@ -221,6 +219,25 @@ namespace Core.Forms.DateBase
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            // check BindData
+            foreach (var td in dataBase.Tables)
+            {
+                foreach (var fd in td.Fields)
+                {
+                    if (fd.Type != FieldType.BIND)
+                        continue;
+
+                    if (fd.BindData == null || fd.BindData.Table == null || fd.BindData.Field == null)
+                    {
+                        MessageBox.Show($"В таблице \"{td.Name}\" у связанного поля \"{fd.Name}\" отсутствует информация о таблице и поле",
+                            "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+
+            // SUCCESSFUL!!! Save it to *.conf file
 
             if (dataBaseConfigLoader != null)
                 dataBaseConfigLoader.Save(dataBase);

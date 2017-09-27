@@ -102,15 +102,27 @@ namespace Core.Config
 
                     // filter fields
                     tableData.Fields = tableData.Fields.Where(fd => fieldNames.Contains(fd.Name)).ToList();
-
-                    // TODO: Remove fields from BINDED field
                 }
 
                 // filter tables
                 dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
-
-                // TODO: Remove tables from BINDED field
             }
+
+            // cleanup BindData in fields
+            dataBase.Tables.ForEach(td =>
+            {
+                foreach (var fd in td.Fields.Where(fd => fd.Type == FieldType.BIND))
+                {
+                    if (!dataBase.Tables.Contains(fd.BindData.Table))
+                    {
+                        fd.BindData = null;
+                    }
+                    else if (!fd.BindData.Table.Fields.Contains(fd.BindData.Field))
+                    {
+                        fd.BindData.Field = null;
+                    }
+                }
+            });
 
             return dataBase;
         }

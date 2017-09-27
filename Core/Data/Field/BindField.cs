@@ -28,7 +28,7 @@ namespace Core.Data.Field
 
         public override string ToString()
         {
-            return $"Таблица \"{Table.Name}\", поле \"{Field.Name}\"";
+            return $"Таблица \"{Table?.Name}\", поле \"{Field?.Name}\"";
         }
     }
 }
