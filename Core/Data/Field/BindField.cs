@@ -26,6 +26,8 @@ namespace Core.Data.Field
         [DataMember]
         public FieldData Field { get; set; }
 
+        public string Name => $"{Table?.Name}__{Field?.Name}";
+
         public override string ToString()
         {
             return $"Таблица \"{Table?.Name}\", поле \"{Field?.Name}\"";

@@ -171,6 +171,7 @@
             this.MinimizeBox = false;
             this.Name = "frmChangeFieldData";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Поле";
             this.Load += new System.EventHandler(this.frmChangeFieldData_Load);
             this.gbBindSettings.ResumeLayout(false);

@@ -108,7 +108,7 @@ namespace Core.Config
                 dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
             }
 
-            // cleanup BindData in fields
+            // cleanup BindData in fields and linked tables
             dataBase.Tables.ForEach(td =>
             {
                 foreach (var fd in td.Fields.Where(fd => fd.Type == FieldType.BIND))
@@ -122,6 +122,10 @@ namespace Core.Config
                         fd.BindData.Field = null;
                     }
                 }
+                
+                td.LinkedTables = td.LinkedTables
+                    .Where(bf => dataBase.Tables.Contains(bf.Table) && bf.Table.Fields.Contains(bf.Field))
+                    .ToList();
             });
 
             return dataBase;

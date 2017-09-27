@@ -17,8 +17,8 @@ namespace Core.Forms.DateBase
     public partial class frmBindSetting : Form
     {
         private DataBaseConfigLoader dataBaseConfigLoader;
-        private DataBase dataBase;
-        private TableData tableData;
+        private DataBase _dataBase;
+        private TableData _tableData;
         private bool hasChanged = false;
 
         public frmBindSetting()
@@ -29,13 +29,13 @@ namespace Core.Forms.DateBase
         private void SelectDB(string fileName)
         {
             dataBaseConfigLoader = new DataBaseConfigLoader(fileName);
-            dataBase = dataBaseConfigLoader.Load();
+            _dataBase = dataBaseConfigLoader.Load();
 
             gbDateBase.Enabled = true;
             gbDateBase.Text = $"База - {fileName}";
 
             cmbTables.Items.Clear();
-            dataBase.Tables.ForEach(td => cmbTables.Items.Add(td));
+            _dataBase.Tables.ForEach(td => cmbTables.Items.Add(td));
         }
 
         private void RedrawFields(TableData tableData)
@@ -65,6 +65,7 @@ namespace Core.Forms.DateBase
                 var lvi = new ListViewItem();
                 lvi.Text = linkedTable.Table.Name;
                 lvi.SubItems.Add(linkedTable.Field.Name);
+                lvi.Tag = linkedTable;
 
                 lvDataList.Items.Add(lvi);
             }
@@ -130,7 +131,7 @@ namespace Core.Forms.DateBase
             if (td == null)
                 return;
 
-            tableData = td;
+            _tableData = td;
             SelectTable(td);
         }
 
@@ -150,25 +151,27 @@ namespace Core.Forms.DateBase
                 return;
 
             var fieldData = cmbIDField.SelectedItem as FieldData;
-            tableData.Fields.ForEach(fd => fd.IsIdentifier = fd == fieldData);
+            _tableData.Fields.ForEach(fd => fd.IsIdentifier = fd == fieldData);
             hasChanged = true;
 
-            RedrawFields(tableData);
+            RedrawFields(_tableData);
         }
 
         private void checkClassif_CheckedChanged(object sender, EventArgs e)
         {
-            tableData.IsClassifier = checkClassif.Checked;
+            _tableData.IsClassifier = checkClassif.Checked;
             hasChanged = true;
         }
 
         private void lvFields_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter && lvFields.SelectedItems.Count == 1)
+            var listView = sender as ListView;
+
+            if (e.KeyCode == Keys.Enter && listView.SelectedItems.Count == 1)
             {
-                var lvi = lvFields.SelectedItems[0];
+                var lvi = listView.SelectedItems[0];
                 var field = lvi.Tag as FieldData;
-                var frmDialog = new frmChangeFieldData() { Field = field, Base = dataBase };
+                var frmDialog = new frmChangeFieldData() { Field = field, Base = _dataBase };
 
                 if (frmDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -178,7 +181,7 @@ namespace Core.Forms.DateBase
                     field.BindData = frmDialog.SelectedBindField;
                     hasChanged = true;
 
-                    RedrawFields(tableData);
+                    RedrawFields(_tableData);
                 }
             }
         }
@@ -211,8 +214,11 @@ namespace Core.Forms.DateBase
 
         private void DoSave()
         {
+            if (_dataBase == null)
+                return;
+
             // check IDs
-            var tableDataWithoutID = dataBase.Tables.FirstOrDefault(td => td.IdentifierField == null);
+            var tableDataWithoutID = _dataBase.Tables.FirstOrDefault(td => td.IdentifierField == null);
             if (tableDataWithoutID != null)
             {
                 MessageBox.Show($"Не выбрано поле идентификатора в таблице \"{tableDataWithoutID.Name}\".", "Ошибка",
@@ -221,7 +227,7 @@ namespace Core.Forms.DateBase
             }
 
             // check BindData
-            foreach (var td in dataBase.Tables)
+            foreach (var td in _dataBase.Tables)
             {
                 foreach (var fd in td.Fields)
                 {
@@ -240,9 +246,66 @@ namespace Core.Forms.DateBase
             // SUCCESSFUL!!! Save it to *.conf file
 
             if (dataBaseConfigLoader != null)
-                dataBaseConfigLoader.Save(dataBase);
+                dataBaseConfigLoader.Save(_dataBase);
 
+            hasChanged = false;
             this.DialogResult = DialogResult.OK;
+        }
+
+        private void lvDataList_KeyUp(object sender, KeyEventArgs e)
+        {
+            var listView = sender as ListView;
+            BindField bindField;
+
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    if (listView.SelectedItems.Count == 1)
+                    {
+                        var lvi = listView.SelectedItems[0];
+                        bindField = lvi.Tag as BindField;
+                        var formDialogChange = new frmChangeLinkedTable() { BindData = bindField, Base = _dataBase };
+
+                        if (formDialogChange.ShowDialog() == DialogResult.OK)
+                        {
+                            bindField.Table = formDialogChange.SelectedTable;
+                            bindField.Field = formDialogChange.SelectedField;
+                            hasChanged = true;
+                        }
+                    }
+                    break;
+
+                case Keys.Delete:
+                    if (listView.SelectedItems.Count == 1)
+                    {
+                        var lvi = listView.SelectedItems[0];
+                        bindField = lvi.Tag as BindField;
+
+                        if (MessageBox.Show($"Удалить связь?\r\n\r\n{bindField}", "Подтверждение",
+                                            MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                        {
+                            _tableData.LinkedTables.Remove(bindField);
+                            hasChanged = true;
+                        }
+                    }
+                    break;
+
+                case Keys.Insert:
+                    bindField = new BindField();
+                    var formDialogNew = new frmChangeLinkedTable() { Base = _dataBase };
+
+                    if (formDialogNew.ShowDialog() == DialogResult.OK)
+                    {
+                        bindField.Table = formDialogNew.SelectedTable;
+                        bindField.Field = formDialogNew.SelectedField;
+
+                        _tableData.LinkedTables.Add(bindField);
+                        hasChanged = true;
+                    }
+                    break;
+            }
+
+            RedrawLinkedData(_tableData);
         }
     }
 }

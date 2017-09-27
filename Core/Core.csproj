@@ -80,6 +80,12 @@
     <Compile Include="Forms\DateBase\frmChangeFieldData.Designer.cs">
       <DependentUpon>frmChangeFieldData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DateBase\frmChangeLinkedTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DateBase\frmChangeLinkedTable.Designer.cs">
+      <DependentUpon>frmChangeLinkedTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Design\frmEmpty.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DateBase\frmChangeFieldData.resx">
       <DependentUpon>frmChangeFieldData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DateBase\frmChangeLinkedTable.resx">
+      <DependentUpon>frmChangeLinkedTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\frmEmpty.resx">
       <DependentUpon>frmEmpty.cs</DependentUpon>

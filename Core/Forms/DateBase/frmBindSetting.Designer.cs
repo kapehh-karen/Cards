@@ -130,6 +130,7 @@
             this.lvDataList.TabIndex = 6;
             this.lvDataList.UseCompatibleStateImageBehavior = false;
             this.lvDataList.View = System.Windows.Forms.View.Details;
+            this.lvDataList.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lvDataList_KeyUp);
             // 
             // columnHeader6
             // 
@@ -147,9 +148,9 @@
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label5.Location = new System.Drawing.Point(9, 231);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(207, 13);
+            this.label5.Size = new System.Drawing.Size(363, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Связанные списки [ENTER - изменить]";
+            this.label5.Text = "Связанные списки [INS - добавить, DEL - удалить, ENTER - изменить]";
             // 
             // label4
             // 
@@ -289,6 +290,7 @@
             this.MinimizeBox = false;
             this.Name = "frmBindSetting";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "БД: Поля и связи";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBindSetting_FormClosing);
             this.Load += new System.EventHandler(this.frmBindSetting_Load);
