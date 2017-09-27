@@ -35,6 +35,25 @@ namespace Core.Forms.DateBase
 
         public FieldData Field { get; set; }
 
+        public FieldType SelectedType => (cmbFieldType.SelectedItem as ComboBoxItem).ItemType;
+
+        public bool SelectedVisible => chkVisible.Checked;
+
+        public bool SelectedRequire => chkRequire.Checked;
+
+        public BindField SelectedBindField
+        {
+            get
+            {
+                var cbi = cmbFieldType.SelectedItem as ComboBoxItem;
+
+                if (cbi.ItemType != FieldType.BIND)
+                    return null;
+
+                return new BindField() { Field = cmbField.SelectedItem as FieldData, Table = cmbTable.SelectedItem as TableData };
+            }
+        }
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -42,6 +61,27 @@ namespace Core.Forms.DateBase
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+            var cbi = cmbFieldType.SelectedItem as ComboBoxItem;
+
+            if (cbi.ItemType == FieldType.BIND)
+            {
+                var field = cmbField.SelectedItem as FieldData;
+                var table = cmbTable.SelectedItem as TableData;
+
+                if (table.IdentifierField == null)
+                {
+                    MessageBox.Show($"В таблице \"{table.Name}\" не указано поле идентификатора.\r\nПеред выбором этой таблицы укажите поле идентификатора",
+                        "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (field == null || table == null)
+                {
+                    MessageBox.Show("Если выбран тип \"Связанное поле\", то обязательно требуется выбрать таблицу и поле", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
             this.DialogResult = DialogResult.OK;
         }
 

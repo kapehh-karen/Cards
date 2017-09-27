@@ -31,14 +31,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmbFieldType = new System.Windows.Forms.ComboBox();
             this.gbBindSettings = new System.Windows.Forms.GroupBox();
+            this.cmbField = new System.Windows.Forms.ComboBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbTable = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.chkVisible = new System.Windows.Forms.CheckBox();
             this.chkRequire = new System.Windows.Forms.CheckBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.cmbTable = new System.Windows.Forms.ComboBox();
-            this.cmbField = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.gbBindSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,6 +74,34 @@
             this.gbBindSettings.TabIndex = 0;
             this.gbBindSettings.TabStop = false;
             this.gbBindSettings.Text = "Связано с";
+            // 
+            // cmbField
+            // 
+            this.cmbField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbField.FormattingEnabled = true;
+            this.cmbField.Location = new System.Drawing.Point(13, 83);
+            this.cmbField.Name = "cmbField";
+            this.cmbField.Size = new System.Drawing.Size(203, 21);
+            this.cmbField.TabIndex = 5;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(10, 67);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(111, 13);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Отображаемое поле";
+            // 
+            // cmbTable
+            // 
+            this.cmbTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTable.FormattingEnabled = true;
+            this.cmbTable.Location = new System.Drawing.Point(13, 40);
+            this.cmbTable.Name = "cmbTable";
+            this.cmbTable.Size = new System.Drawing.Size(203, 21);
+            this.cmbTable.TabIndex = 4;
+            this.cmbTable.SelectedValueChanged += new System.EventHandler(this.cmbTable_SelectedValueChanged);
             // 
             // label2
             // 
@@ -125,34 +153,6 @@
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // cmbTable
-            // 
-            this.cmbTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTable.FormattingEnabled = true;
-            this.cmbTable.Location = new System.Drawing.Point(13, 40);
-            this.cmbTable.Name = "cmbTable";
-            this.cmbTable.Size = new System.Drawing.Size(203, 21);
-            this.cmbTable.TabIndex = 4;
-            this.cmbTable.SelectedValueChanged += new System.EventHandler(this.cmbTable_SelectedValueChanged);
-            // 
-            // cmbField
-            // 
-            this.cmbField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbField.FormattingEnabled = true;
-            this.cmbField.Location = new System.Drawing.Point(13, 83);
-            this.cmbField.Name = "cmbField";
-            this.cmbField.Size = new System.Drawing.Size(203, 21);
-            this.cmbField.TabIndex = 5;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 67);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(33, 13);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Поле";
             // 
             // frmChangeFieldData
             // 

@@ -290,6 +290,7 @@
             this.Name = "frmBindSetting";
             this.ShowInTaskbar = false;
             this.Text = "БД: Поля и связи";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBindSetting_FormClosing);
             this.Load += new System.EventHandler(this.frmBindSetting_Load);
             this.gbDateBase.ResumeLayout(false);
             this.gbDateBase.PerformLayout();

@@ -35,11 +35,11 @@ namespace Core.Config
             if (File.Exists(configFileName))
             {
                 dbConfig = this.LoadFromConfig();
-                NotificationMessage.SystemInfo($"Конфигурация для базы \"{fileBaseName}\" успешно загружена из файла \"{configFileName}\"");
+                NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" успешно загружена из файла \"{configFileName}\"");
             }
             else
             {
-                NotificationMessage.SystemInfo($"Конфигурация для базы \"{fileBaseName}\" не найдена");
+                NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" не найдена");
             }
 
             return this.LoadFromBase(dbConfig);
@@ -48,6 +48,7 @@ namespace Core.Config
         public void Save(DataBase dbc)
         {
             this.config.WriteToFile(dbc, this.configFileName);
+            NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" сохранена в файл \"{configFileName}\"");
         }
 
         private DataBase LoadFromConfig()

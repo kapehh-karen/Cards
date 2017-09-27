@@ -19,6 +19,7 @@ namespace Core.Forms.DateBase
         private DataBaseConfigLoader dataBaseConfigLoader;
         private DataBase dataBase;
         private TableData tableData;
+        private bool hasChanged = false;
 
         public frmBindSetting()
         {
@@ -95,14 +96,18 @@ namespace Core.Forms.DateBase
             }
             else
             {
+                cmbIDField.SelectedValueChanged -= cmbIDField_SelectedValueChanged;
                 cmbIDField.SelectedItem = idField;
+                cmbIDField.SelectedValueChanged += cmbIDField_SelectedValueChanged;
             }
             
             RedrawFields(tableData);
             RedrawLinkedData(tableData);
 
             // is classificator
+            checkClassif.CheckedChanged -= checkClassif_CheckedChanged;
             checkClassif.Checked = tableData.IsClassifier;
+            checkClassif.CheckedChanged += checkClassif_CheckedChanged;
         }
 
         private void frmBindSetting_Load(object sender, EventArgs e)
@@ -134,10 +139,80 @@ namespace Core.Forms.DateBase
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
+            DoCancel();
         }
 
         private void btnSaveApply_Click(object sender, EventArgs e)
+        {
+            DoSave();
+        }
+
+        private void cmbIDField_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (cmbIDField.SelectedItem == null)
+                return;
+
+            var fieldData = cmbIDField.SelectedItem as FieldData;
+            tableData.Fields.ForEach(fd => fd.IsIdentifier = fd == fieldData);
+            hasChanged = true;
+
+            RedrawFields(tableData);
+        }
+
+        private void checkClassif_CheckedChanged(object sender, EventArgs e)
+        {
+            tableData.IsClassifier = checkClassif.Checked;
+            hasChanged = true;
+        }
+
+        private void lvFields_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && lvFields.SelectedItems.Count == 1)
+            {
+                var lvi = lvFields.SelectedItems[0];
+                var field = lvi.Tag as FieldData;
+                var frmDialog = new frmChangeFieldData() { Field = field, Base = dataBase };
+
+                if (frmDialog.ShowDialog() == DialogResult.OK)
+                {
+                    field.Type = frmDialog.SelectedType;
+                    field.Visible = frmDialog.SelectedVisible;
+                    field.Required = frmDialog.SelectedRequire;
+                    field.BindData = frmDialog.SelectedBindField;
+                    hasChanged = true;
+
+                    RedrawFields(tableData);
+                }
+            }
+        }
+
+        private void frmBindSetting_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing && hasChanged)
+            {
+                e.Cancel = DoCancel();
+            }
+        }
+
+        private bool DoCancel()
+        {
+            if (hasChanged)
+            {
+                if (MessageBox.Show("Вы уверены? Все несохраненные изменения будут утеряны.",
+                        "Предупреждение",
+                        MessageBoxButtons.OKCancel,
+                        MessageBoxIcon.Warning) == DialogResult.Cancel)
+                {
+                    return true;
+                }
+            }
+
+            hasChanged = false;
+            this.DialogResult = DialogResult.Cancel;
+            return false;
+        }
+
+        private void DoSave()
         {
             var tableDataWithoutID = dataBase.Tables.FirstOrDefault(td => td.IdentifierField == null);
             if (tableDataWithoutID != null)
@@ -151,36 +226,6 @@ namespace Core.Forms.DateBase
                 dataBaseConfigLoader.Save(dataBase);
 
             this.DialogResult = DialogResult.OK;
-        }
-
-        private void cmbIDField_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (cmbIDField.SelectedItem == null)
-                return;
-
-            var fieldData = cmbIDField.SelectedItem as FieldData;
-            tableData.Fields.ForEach(fd => fd.IsIdentifier = fd == fieldData);
-
-            RedrawFields(tableData);
-        }
-
-        private void checkClassif_CheckedChanged(object sender, EventArgs e)
-        {
-            tableData.IsClassifier = checkClassif.Checked;
-        }
-
-        private void lvFields_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter && lvFields.SelectedItems.Count == 1)
-            {
-                var lvi = lvFields.SelectedItems[0];
-                var result = new frmChangeFieldData() { Field = lvi.Tag as FieldData, Base = dataBase }.ShowDialog();
-
-                if (result == DialogResult.OK)
-                {
-
-                }
-            }
         }
     }
 }
