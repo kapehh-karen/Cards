@@ -110,7 +110,11 @@ namespace Core.Forms.DateBase
 
         private void frmBindSetting_Load(object sender, EventArgs e)
         {
-            foreach (var fileName in Directory.GetFiles(".").Where(fname => Path.GetExtension(fname).Equals(".mdb")))
+            if (!Directory.Exists("BASE"))
+                Directory.CreateDirectory("BASE");
+
+            foreach (var fileName in Directory.GetFiles("BASE")
+                                              .Where(fname => Path.GetExtension(fname).Equals(".mdb", StringComparison.CurrentCultureIgnoreCase)))
             {
                 cmbBasesList.Items.Add(fileName);
             }
