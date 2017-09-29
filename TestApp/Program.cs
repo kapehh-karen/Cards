@@ -1,4 +1,5 @@
-﻿using Core.Notification;
+﻿using Core.Forms.Design;
+using Core.Notification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace TestApp
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmBDFields());
+            Application.Run(new FormDesigner());
         }
 
         private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)

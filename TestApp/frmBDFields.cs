@@ -93,7 +93,7 @@ namespace TestApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new frmBindSetting().ShowDialog();
+            new FormBindSetting().ShowDialog();
         }
     }
 }

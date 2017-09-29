@@ -1,6 +1,6 @@
 ﻿namespace Core.Forms.DateBase
 {
-    partial class frmBindSetting
+    partial class FormBindSetting
     {
         /// <summary>
         /// Required designer variable.

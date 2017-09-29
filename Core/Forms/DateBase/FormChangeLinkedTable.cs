@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace Core.Forms.DateBase
 {
-    public partial class frmChangeLinkedTable : Form
+    public partial class FormChangeLinkedTable : Form
     {
-        public frmChangeLinkedTable()
+        public FormChangeLinkedTable()
         {
             InitializeComponent();
         }

@@ -63,34 +63,45 @@
     <Compile Include="Config\DataBaseConfigLoader.cs" />
     <Compile Include="Connection\DataBaseConnection.cs" />
     <Compile Include="Data\Base\DataBase.cs" />
+    <Compile Include="Data\Design\Controls\DesignControlType.cs" />
+    <Compile Include="Data\Design\Controls\IDesignControl.cs" />
+    <Compile Include="Data\Design\Controls\Standard\LabelControl.cs" />
     <Compile Include="Data\Design\FormData.cs" />
+    <Compile Include="Data\Design\Properties\IControlProperties.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\TextPropertie.cs" />
     <Compile Include="Data\Field\BindField.cs" />
     <Compile Include="Data\Field\FieldData.cs" />
     <Compile Include="Data\Field\FieldType.cs" />
     <Compile Include="Data\Table\TableData.cs" />
-    <Compile Include="Forms\DateBase\frmBindSetting.cs">
+    <Compile Include="Forms\DateBase\FormBindSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DateBase\frmBindSetting.Designer.cs">
-      <DependentUpon>frmBindSetting.cs</DependentUpon>
+    <Compile Include="Forms\DateBase\FormBindSetting.Designer.cs">
+      <DependentUpon>FormBindSetting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DateBase\frmChangeFieldData.cs">
+    <Compile Include="Forms\DateBase\FormChangeFieldData.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DateBase\frmChangeFieldData.Designer.cs">
-      <DependentUpon>frmChangeFieldData.cs</DependentUpon>
+    <Compile Include="Forms\DateBase\FormChangeFieldData.Designer.cs">
+      <DependentUpon>FormChangeFieldData.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DateBase\frmChangeLinkedTable.cs">
+    <Compile Include="Forms\DateBase\FormChangeLinkedTable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\DateBase\frmChangeLinkedTable.Designer.cs">
-      <DependentUpon>frmChangeLinkedTable.cs</DependentUpon>
+    <Compile Include="Forms\DateBase\FormChangeLinkedTable.Designer.cs">
+      <DependentUpon>FormChangeLinkedTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Design\frmEmpty.cs">
+    <Compile Include="Forms\Design\FormDesigner.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Design\frmEmpty.Designer.cs">
-      <DependentUpon>frmEmpty.cs</DependentUpon>
+    <Compile Include="Forms\Design\FormDesigner.Designer.cs">
+      <DependentUpon>FormDesigner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Design\FormEmpty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Design\FormEmpty.Designer.cs">
+      <DependentUpon>FormEmpty.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Control\Button.cs">
       <SubType>UserControl</SubType>
@@ -107,17 +118,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\DateBase\frmBindSetting.resx">
-      <DependentUpon>frmBindSetting.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DateBase\FormBindSetting.resx">
+      <DependentUpon>FormBindSetting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DateBase\frmChangeFieldData.resx">
-      <DependentUpon>frmChangeFieldData.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DateBase\FormChangeFieldData.resx">
+      <DependentUpon>FormChangeFieldData.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DateBase\frmChangeLinkedTable.resx">
-      <DependentUpon>frmChangeLinkedTable.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\DateBase\FormChangeLinkedTable.resx">
+      <DependentUpon>FormChangeLinkedTable.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Design\frmEmpty.resx">
-      <DependentUpon>frmEmpty.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Design\FormDesigner.resx">
+      <DependentUpon>FormDesigner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Design\FormEmpty.resx">
+      <DependentUpon>FormEmpty.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Control\Button.resx">
       <DependentUpon>Button.cs</DependentUpon>

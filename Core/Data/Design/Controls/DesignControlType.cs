@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Core.Data.Design.Controls
+{
+    public enum DesignControlType
+    {
+        /// <summary>
+        /// Простой элемент формы
+        /// </summary>
+        STANDARD = 1,
+
+        /// <summary>
+        /// Элемент связан с полем
+        /// </summary>
+        FIELD = 2,
+
+        /// <summary>
+        /// Элемент предоставляет таблицу значений
+        /// </summary>
+        TABLE_LIST = 3,
+    }
+}

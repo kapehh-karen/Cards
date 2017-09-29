@@ -14,14 +14,14 @@ using Core.Data.Field;
 
 namespace Core.Forms.DateBase
 {
-    public partial class frmBindSetting : Form
+    public partial class FormBindSetting : Form
     {
         private DataBaseConfigLoader dataBaseConfigLoader;
         private DataBase _dataBase;
         private TableData _tableData;
         private bool hasChanged = false;
 
-        public frmBindSetting()
+        public FormBindSetting()
         {
             InitializeComponent();
         }
@@ -175,7 +175,7 @@ namespace Core.Forms.DateBase
             {
                 var lvi = listView.SelectedItems[0];
                 var field = lvi.Tag as FieldData;
-                var frmDialog = new frmChangeFieldData() { Field = field, Base = _dataBase };
+                var frmDialog = new FormChangeFieldData() { Field = field, Base = _dataBase };
 
                 if (frmDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -268,7 +268,7 @@ namespace Core.Forms.DateBase
                     {
                         var lvi = listView.SelectedItems[0];
                         bindField = lvi.Tag as BindField;
-                        var formDialogChange = new frmChangeLinkedTable() { BindData = bindField, Base = _dataBase };
+                        var formDialogChange = new FormChangeLinkedTable() { BindData = bindField, Base = _dataBase };
 
                         if (formDialogChange.ShowDialog() == DialogResult.OK)
                         {
@@ -296,7 +296,7 @@ namespace Core.Forms.DateBase
 
                 case Keys.Insert:
                     bindField = new BindField();
-                    var formDialogNew = new frmChangeLinkedTable() { Base = _dataBase };
+                    var formDialogNew = new FormChangeLinkedTable() { Base = _dataBase };
 
                     if (formDialogNew.ShowDialog() == DialogResult.OK)
                     {

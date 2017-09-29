@@ -1,6 +1,6 @@
 ﻿namespace Core.Forms.Design
 {
-    partial class frmEmpty
+    partial class FormEmpty
     {
         /// <summary>
         /// Required designer variable.
@@ -30,14 +30,14 @@
         {
             this.SuspendLayout();
             // 
-            // frmEmpty
+            // FormEmpty
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 446);
+            this.ClientSize = new System.Drawing.Size(373, 299);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmEmpty";
+            this.Name = "FormEmpty";
             this.Text = "Новая форма";
             this.ResumeLayout(false);
 

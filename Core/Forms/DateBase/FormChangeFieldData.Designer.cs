@@ -1,6 +1,6 @@
 ﻿namespace Core.Forms.DateBase
 {
-    partial class frmChangeFieldData
+    partial class FormChangeFieldData
     {
         /// <summary>
         /// Required designer variable.

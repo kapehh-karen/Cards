@@ -23,8 +23,13 @@ namespace Core.Data.Field
         DATE = 2,
 
         /// <summary>
+        /// Логический
+        /// </summary>
+        BOOLEAN = 3,
+
+        /// <summary>
         /// Связанное значение
         /// </summary>
-        BIND = 3
+        BIND = 4
     }
 }

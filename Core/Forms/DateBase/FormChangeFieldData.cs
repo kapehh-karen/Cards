@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Core.Forms.DateBase
 {
-    public partial class frmChangeFieldData : Form
+    public partial class FormChangeFieldData : Form
     {
         private class ComboBoxItem
         {
@@ -26,7 +26,7 @@ namespace Core.Forms.DateBase
             }
         }
 
-        public frmChangeFieldData()
+        public FormChangeFieldData()
         {
             InitializeComponent();
         }
@@ -94,6 +94,7 @@ namespace Core.Forms.DateBase
             ComboBoxItem[] types = new ComboBoxItem[] {
                 new ComboBoxItem() { ItemType = FieldType.TEXT, ItemText = "Текст" },
                 new ComboBoxItem() { ItemType = FieldType.NUMBER, ItemText = "Число" },
+                new ComboBoxItem() { ItemType = FieldType.BOOLEAN, ItemText = "Логическое" },
                 new ComboBoxItem() { ItemType = FieldType.DATE, ItemText = "Дата" },
                 new ComboBoxItem() { ItemType = FieldType.BIND, ItemText = "Связанное поле" }
             };

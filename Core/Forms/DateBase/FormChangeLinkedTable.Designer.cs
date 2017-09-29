@@ -1,6 +1,6 @@
 ﻿namespace Core.Forms.DateBase
 {
-    partial class frmChangeLinkedTable
+    partial class FormChangeLinkedTable
     {
         /// <summary>
         /// Required designer variable.

@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Core.Forms.Design
 {
-    public partial class frmEmpty : Form
+    public partial class FormEmpty : Form
     {
-        public frmEmpty()
+        public FormEmpty()
         {
             InitializeComponent();
         }
