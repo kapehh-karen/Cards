@@ -66,9 +66,10 @@
     <Compile Include="Data\Design\Controls\DesignControlType.cs" />
     <Compile Include="Data\Design\Controls\IDesignControl.cs" />
     <Compile Include="Data\Design\Controls\Standard\LabelControl.cs" />
+    <Compile Include="Data\Design\FormBrushes\IFormBrush.cs" />
     <Compile Include="Data\Design\FormData.cs" />
     <Compile Include="Data\Design\Properties\IControlProperties.cs" />
-    <Compile Include="Data\Design\Properties\ControlProperties\TextPropertie.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\TextProperties.cs" />
     <Compile Include="Data\Field\BindField.cs" />
     <Compile Include="Data\Field\FieldData.cs" />
     <Compile Include="Data\Field\FieldType.cs" />

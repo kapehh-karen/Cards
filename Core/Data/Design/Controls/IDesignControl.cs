@@ -17,16 +17,15 @@ namespace Core.Data.Design.Controls
 
         public virtual List<IControlProperties> Properties { get; } = new List<IControlProperties>();
 
-        /*
+        
         /// <summary>
         /// Тип виртуального контрола (просто элементы, либо связаны с полями БД)
         /// </summary>
-        DesignControlType ControlType { get; }
+        public abstract DesignControlType ControlType { get; }
 
         /// <summary>
-        /// Поле, если связано с полем БД
+        /// С чем связано (Fields или LinkedTables в TableData)
         /// </summary>
-        FieldData Field { get; }
-        */
+        public virtual string ConfigItemName { get; set; }
     }
 }
