@@ -69,6 +69,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data\Design\FormBrushes\CreateControlBrush.cs" />
+    <Compile Include="Data\Design\FormBrushes\CreateLabelControl.cs" />
+    <Compile Include="Data\Design\FormBrushes\CursorBrush.cs" />
     <Compile Include="Data\Design\FormBrushes\IFormBrush.cs" />
     <Compile Include="Data\Design\FormData.cs" />
     <Compile Include="Data\Design\Properties\IControlProperties.cs" />

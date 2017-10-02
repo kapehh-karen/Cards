@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Core.Data.Design.Properties;
+using System.Drawing;
 
 namespace Core.Data.Design.Controls.Standard
 {
@@ -17,8 +18,8 @@ namespace Core.Data.Design.Controls.Standard
             Properties.Add(new TextProperties() { Control = this });
 
             Text = "Label";
-            Location = new System.Drawing.Point(0, 0);
-            AutoSize = true;
+            BackColor = Color.Red;
+            //AutoSize = true;
         }
         
         public DesignControlType ControlType => DesignControlType.STANDARD;
