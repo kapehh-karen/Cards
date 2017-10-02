@@ -1,23 +1,23 @@
-﻿using Core.Data.Table;
+﻿using Core.Data.Field;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Core.Data.Field
+namespace Core.Data.Table
 {
     [DataContract(IsReference = true)]
-    public class BindField
+    public class LinkedTable
     {
         /// <summary>
-        /// Какая таблица используется (значение для записи берется из поля идентификатора этой же таблицы)
+        /// Таблица хранящая связанные данные
         /// </summary>
         [DataMember]
         public TableData Table { get; set; }
 
         /// <summary>
-        /// Какое поле отображать пользователю
+        /// Внешний ключ (Foreign Key), в него записывается значение идентификатора
         /// </summary>
         [DataMember]
         public FieldData Field { get; set; }
@@ -26,7 +26,7 @@ namespace Core.Data.Field
 
         public override string ToString()
         {
-            return $"Таблица \"{Table?.Name}\", отображаемое поле \"{Field?.Name}\"";
+            return $"Таблица \"{Table?.Name}\", внешний ключ \"{Field?.Name}\"";
         }
     }
 }

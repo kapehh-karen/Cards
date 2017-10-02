@@ -44,7 +44,7 @@ namespace Core.Data.Table
         /// Связанные данные (списки). Список таблиц и по какому полю связаны
         /// </summary>
         [DataMember]
-        public List<BindField> LinkedTables { get; set; } = new List<BindField>();
+        public List<LinkedTable> LinkedTables { get; set; } = new List<LinkedTable>();
 
         /// <summary>
         /// Является ли таблица классификатором

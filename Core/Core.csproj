@@ -73,6 +73,7 @@
     <Compile Include="Data\Field\BindField.cs" />
     <Compile Include="Data\Field\FieldData.cs" />
     <Compile Include="Data\Field\FieldType.cs" />
+    <Compile Include="Data\Table\LinkedTable.cs" />
     <Compile Include="Data\Table\TableData.cs" />
     <Compile Include="Forms\DateBase\FormBindSetting.cs">
       <SubType>Form</SubType>

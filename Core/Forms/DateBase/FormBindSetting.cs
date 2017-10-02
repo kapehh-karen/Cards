@@ -259,7 +259,7 @@ namespace Core.Forms.DateBase
         private void lvDataList_KeyUp(object sender, KeyEventArgs e)
         {
             var listView = sender as ListView;
-            BindField bindField;
+            LinkedTable linkedTable;
 
             switch (e.KeyCode)
             {
@@ -267,13 +267,13 @@ namespace Core.Forms.DateBase
                     if (listView.SelectedItems.Count == 1)
                     {
                         var lvi = listView.SelectedItems[0];
-                        bindField = lvi.Tag as BindField;
-                        var formDialogChange = new FormChangeLinkedTable() { BindData = bindField, Base = _dataBase };
+                        linkedTable = lvi.Tag as LinkedTable;
+                        var formDialogChange = new FormChangeLinkedTable() { BindData = linkedTable, Base = _dataBase };
 
                         if (formDialogChange.ShowDialog() == DialogResult.OK)
                         {
-                            bindField.Table = formDialogChange.SelectedTable;
-                            bindField.Field = formDialogChange.SelectedField;
+                            linkedTable.Table = formDialogChange.SelectedTable;
+                            linkedTable.Field = formDialogChange.SelectedField;
                             hasChanged = true;
                         }
                     }
@@ -283,27 +283,27 @@ namespace Core.Forms.DateBase
                     if (listView.SelectedItems.Count == 1)
                     {
                         var lvi = listView.SelectedItems[0];
-                        bindField = lvi.Tag as BindField;
+                        linkedTable = lvi.Tag as LinkedTable;
 
-                        if (MessageBox.Show($"Удалить связь?\r\n\r\n{bindField}", "Подтверждение",
+                        if (MessageBox.Show($"Удалить связь?\r\n\r\n{linkedTable}", "Подтверждение",
                                             MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                         {
-                            _tableData.LinkedTables.Remove(bindField);
+                            _tableData.LinkedTables.Remove(linkedTable);
                             hasChanged = true;
                         }
                     }
                     break;
 
                 case Keys.Insert:
-                    bindField = new BindField();
+                    linkedTable = new LinkedTable();
                     var formDialogNew = new FormChangeLinkedTable() { Base = _dataBase };
 
                     if (formDialogNew.ShowDialog() == DialogResult.OK)
                     {
-                        bindField.Table = formDialogNew.SelectedTable;
-                        bindField.Field = formDialogNew.SelectedField;
+                        linkedTable.Table = formDialogNew.SelectedTable;
+                        linkedTable.Field = formDialogNew.SelectedField;
 
-                        _tableData.LinkedTables.Add(bindField);
+                        _tableData.LinkedTables.Add(linkedTable);
                         hasChanged = true;
                     }
                     break;

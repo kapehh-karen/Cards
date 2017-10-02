@@ -139,7 +139,7 @@
             // 
             // columnHeader7
             // 
-            this.columnHeader7.Text = "По полю (Foreign Key)";
+            this.columnHeader7.Text = "Внешнее поле (Foreign Key)";
             this.columnHeader7.Width = 212;
             // 
             // label5
@@ -275,7 +275,7 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // frmBindSetting
+            // FormBindSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -288,7 +288,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmBindSetting";
+            this.Name = "FormBindSetting";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "БД: Поля и связи";

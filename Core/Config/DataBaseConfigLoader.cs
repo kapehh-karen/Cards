@@ -124,7 +124,7 @@ namespace Core.Config
                 }
                 
                 td.LinkedTables = td.LinkedTables
-                    .Where(bf => dataBase.Tables.Contains(bf.Table) && bf.Table.Fields.Contains(bf.Field))
+                    .Where(lt => dataBase.Tables.Contains(lt.Table) && lt.Table.Fields.Contains(lt.Field))
                     .ToList();
             });
 

@@ -19,7 +19,7 @@ namespace Core.Forms.DateBase
             InitializeComponent();
         }
 
-        public BindField BindData { get; set; }
+        public LinkedTable BindData { get; set; }
 
         public DataBase Base { get; set; }
 
