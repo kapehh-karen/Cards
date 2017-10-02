@@ -65,7 +65,10 @@
     <Compile Include="Data\Base\DataBase.cs" />
     <Compile Include="Data\Design\Controls\DesignControlType.cs" />
     <Compile Include="Data\Design\Controls\IDesignControl.cs" />
-    <Compile Include="Data\Design\Controls\Standard\LabelControl.cs" />
+    <Compile Include="Data\Design\Controls\Standard\LabelControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\Design\FormBrushes\CreateControlBrush.cs" />
     <Compile Include="Data\Design\FormBrushes\IFormBrush.cs" />
     <Compile Include="Data\Design\FormData.cs" />
     <Compile Include="Data\Design\Properties\IControlProperties.cs" />

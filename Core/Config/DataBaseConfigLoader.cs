@@ -108,7 +108,7 @@ namespace Core.Config
                 dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
             }
 
-            // cleanup BindData in fields and linked tables
+            // cleanup BindData and LinkedTable: checking fields and tables
             dataBase.Tables.ForEach(td =>
             {
                 foreach (var fd in td.Fields.Where(fd => fd.Type == FieldType.BIND))

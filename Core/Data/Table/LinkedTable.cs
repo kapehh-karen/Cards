@@ -22,7 +22,7 @@ namespace Core.Data.Table
         [DataMember]
         public FieldData Field { get; set; }
 
-        public string Name => $"{Table?.Name}__{Field?.Name}";
+        public string Name => $"LinkedTable__{Table?.Name}_{Field?.Name}";
 
         public override string ToString()
         {

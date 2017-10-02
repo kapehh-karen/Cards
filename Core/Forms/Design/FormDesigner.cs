@@ -59,7 +59,7 @@ namespace Core.Forms.Design
                 var cc = listView.SelectedItems[0].Tag as ControlItem;
                 var control = cc.CreateControll();
                 
-                frmEmpty.Controls.Add(control.FormControl);
+                //frmEmpty.Controls.Add(control.FormControl);
 
                 FillListViewProperties(control);
             }
