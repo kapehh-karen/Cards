@@ -25,7 +25,5 @@ namespace Core.Data.Design.Controls.Standard
         public DesignControlType ControlType => DesignControlType.STANDARD;
 
         public List<IControlProperties> Properties => props;
-
-        public bool IsContainer => false;
     }
 }

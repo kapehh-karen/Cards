@@ -54,7 +54,6 @@ namespace Core.Forms.Design
                     ControlSelected?.Invoke(value);
 
                 control = value;
-                this.Invalidate();
             }
         }
 
@@ -73,7 +72,7 @@ namespace Core.Forms.Design
         private void FormEmpty_MouseDown(object sender, MouseEventArgs e)
         {
             var p = e.Location; // this.PointToClient(Cursor.Position);
-            var c = sender is Control ? sender as Control : null;
+            var c = sender is IDesignControl ? sender as Control : null;
             FormBrush?.MouseDown(this, c, p);
         }
 
@@ -82,7 +81,7 @@ namespace Core.Forms.Design
             if (e.Button == MouseButtons.Left)
             {
                 var p = e.Location;
-                var c = sender is Control ? sender as Control : null;
+                var c = sender is IDesignControl ? sender as Control : null;
                 FormBrush?.MouseMove(this, c, p);
             }
         }
@@ -90,20 +89,13 @@ namespace Core.Forms.Design
         private void FormEmpty_MouseUp(object sender, MouseEventArgs e)
         {
             var p = e.Location;
-            var c = sender is Control ? sender as Control : null;
+            var c = sender is IDesignControl ? sender as Control : null;
             FormBrush?.MouseUp(this, c, p);
         }
 
-        private void FormEmpty_Paint(object sender, PaintEventArgs e)
+        private void FormEmpty_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (SelectedControl != null && SelectedControl is Control c)
-            {
-                var rect = c.Bounds;
-                rect.Offset(-1, -1);
-                rect.Inflate(1, 1);
-
-                e.Graphics.DrawRectangle(Pens.Red, rect);
-            }
+            e.Cancel = e.CloseReason == CloseReason.UserClosing;
         }
     }
 }

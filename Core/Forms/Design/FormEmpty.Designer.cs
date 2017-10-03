@@ -28,18 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.tabPages = new System.Windows.Forms.TabControl();
             this.SuspendLayout();
+            // 
+            // tabPages
+            // 
+            this.tabPages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabPages.Location = new System.Drawing.Point(0, 0);
+            this.tabPages.Name = "tabPages";
+            this.tabPages.SelectedIndex = 0;
+            this.tabPages.Size = new System.Drawing.Size(551, 475);
+            this.tabPages.TabIndex = 0;
             // 
             // FormEmpty
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(373, 299);
+            this.ClientSize = new System.Drawing.Size(551, 475);
+            this.Controls.Add(this.tabPages);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormEmpty";
             this.Text = "Новая форма";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormEmpty_Paint);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEmpty_FormClosing);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseUp);
@@ -48,5 +59,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.TabControl tabPages;
     }
 }

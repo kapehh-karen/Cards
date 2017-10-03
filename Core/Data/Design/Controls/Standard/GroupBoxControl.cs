@@ -19,10 +19,8 @@ namespace Core.Data.Design.Controls.Standard
             Text = "GroupBox";
         }
 
-        public DesignControlType ControlType => DesignControlType.STANDARD;
+        public DesignControlType ControlType => DesignControlType.CONTAINER;
 
         public List<IControlProperties> Properties => props;
-
-        public bool IsContainer => true;
     }
 }

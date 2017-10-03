@@ -13,13 +13,18 @@ namespace Core.Data.Design.Controls
         STANDARD = 1,
 
         /// <summary>
+        /// Элемент содержащий другие подэлементы
+        /// </summary>
+        CONTAINER = 2,
+
+        /// <summary>
         /// Элемент связан с полем
         /// </summary>
-        FIELD = 2,
+        FIELD = 3,
 
         /// <summary>
         /// Элемент предоставляет таблицу значений
         /// </summary>
-        TABLE_LIST = 3,
+        TABLE_LIST = 4,
     }
 }

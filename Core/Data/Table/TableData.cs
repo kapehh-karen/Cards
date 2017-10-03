@@ -5,6 +5,7 @@ using System.Text;
 using Core.Data.Field;
 using Core.Data.Design;
 using System.Runtime.Serialization;
+using Core.Data.Design.InternalData;
 
 namespace Core.Data.Table
 {

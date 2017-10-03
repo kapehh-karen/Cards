@@ -46,7 +46,7 @@
             this.listViewControls.Location = new System.Drawing.Point(0, 24);
             this.listViewControls.MultiSelect = false;
             this.listViewControls.Name = "listViewControls";
-            this.listViewControls.Size = new System.Drawing.Size(188, 487);
+            this.listViewControls.Size = new System.Drawing.Size(188, 587);
             this.listViewControls.TabIndex = 1;
             this.listViewControls.UseCompatibleStateImageBehavior = false;
             this.listViewControls.View = System.Windows.Forms.View.List;
@@ -58,7 +58,7 @@
             this.formToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(939, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1135, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -94,10 +94,10 @@
             this.listViewProperties.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.listViewProperties.Dock = System.Windows.Forms.DockStyle.Right;
             this.listViewProperties.FullRowSelect = true;
-            this.listViewProperties.Location = new System.Drawing.Point(715, 24);
+            this.listViewProperties.Location = new System.Drawing.Point(911, 24);
             this.listViewProperties.MultiSelect = false;
             this.listViewProperties.Name = "listViewProperties";
-            this.listViewProperties.Size = new System.Drawing.Size(224, 487);
+            this.listViewProperties.Size = new System.Drawing.Size(224, 587);
             this.listViewProperties.TabIndex = 3;
             this.listViewProperties.UseCompatibleStateImageBehavior = false;
             this.listViewProperties.View = System.Windows.Forms.View.List;
@@ -107,7 +107,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(939, 511);
+            this.ClientSize = new System.Drawing.Size(1135, 611);
             this.Controls.Add(this.listViewProperties);
             this.Controls.Add(this.listViewControls);
             this.Controls.Add(this.menuStrip1);

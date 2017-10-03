@@ -16,6 +16,7 @@ namespace Core.Forms.Design
     public partial class FormDesigner : Form
     {
         private FormEmpty frmEmpty = new FormEmpty();
+        private IFormBrush cursorBrush = new CursorBrush();
 
         public FormDesigner()
         {
@@ -24,7 +25,7 @@ namespace Core.Forms.Design
 
         private void FillListViewControls()
         {
-            listViewControls.Items.Add(new ListViewItem() { Text = "- Указатель -", Tag = new CursorBrush() });
+            listViewControls.Items.Add(new ListViewItem() { Text = "- Указатель -", Tag = cursorBrush });
             listViewControls.Items.Add(new ListViewItem() { Text = "Надпись", Tag = new CreateLabelControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Группировка", Tag = new CreateGroupBoxControl() });
         }
