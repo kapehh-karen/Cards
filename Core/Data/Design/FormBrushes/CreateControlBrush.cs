@@ -43,9 +43,14 @@ namespace Core.Data.Design.FormBrushes
             var c = DesignControl() as Control;
             var dc = c as IDesignControl;
             c.Location = new Point(Math.Min(startLocation.X, coord.X), Math.Min(startLocation.Y, coord.Y));
-            c.Size = size;
+            c.Size = new Size(Math.Max(size.Width, 26), Math.Max(size.Height, 13));
 
-            form.Controls.Add(c);
+            if (control != null && control is IDesignControl pc && pc.IsContainer)
+                control.Controls.Add(c);
+            else
+                form.Controls.Add(c);
+
+            c.BringToFront();
             form.AddDesignControl(dc);
             form.SelectedControl = dc;
         }

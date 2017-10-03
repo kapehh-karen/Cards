@@ -1,5 +1,6 @@
 ﻿using Core.Data.Design.Controls;
 using Core.Data.Design.FormBrushes;
+using Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +23,19 @@ namespace Core.Forms.Design
         public FormEmpty()
         {
             InitializeComponent();
+
+            ControlSelected += FormEmpty_ControlSelected;
+            ControlRelease += FormEmpty_ControlRelease;
+        }
+
+        private void FormEmpty_ControlRelease(IDesignControl control)
+        {
+
+        }
+
+        private void FormEmpty_ControlSelected(IDesignControl control)
+        {
+
         }
 
         public IFormBrush FormBrush { get; set; }
@@ -40,6 +54,7 @@ namespace Core.Forms.Design
                     ControlSelected?.Invoke(value);
 
                 control = value;
+                this.Invalidate();
             }
         }
 
@@ -57,23 +72,38 @@ namespace Core.Forms.Design
 
         private void FormEmpty_MouseDown(object sender, MouseEventArgs e)
         {
-            var p = this.PointToClient(Cursor.Position);
-            FormBrush?.MouseDown(this, this.GetChildAtPoint(p), p);
+            var p = e.Location; // this.PointToClient(Cursor.Position);
+            var c = sender is Control ? sender as Control : null;
+            FormBrush?.MouseDown(this, c, p);
         }
 
         private void FormEmpty_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                var p = this.PointToClient(Cursor.Position);
-                FormBrush?.MouseMove(this, this.GetChildAtPoint(p), p);
+                var p = e.Location;
+                var c = sender is Control ? sender as Control : null;
+                FormBrush?.MouseMove(this, c, p);
             }
         }
 
         private void FormEmpty_MouseUp(object sender, MouseEventArgs e)
         {
-            var p = this.PointToClient(Cursor.Position);
-            FormBrush?.MouseUp(this, this.GetChildAtPoint(p), p);
+            var p = e.Location;
+            var c = sender is Control ? sender as Control : null;
+            FormBrush?.MouseUp(this, c, p);
+        }
+
+        private void FormEmpty_Paint(object sender, PaintEventArgs e)
+        {
+            if (SelectedControl != null && SelectedControl is Control c)
+            {
+                var rect = c.Bounds;
+                rect.Offset(-1, -1);
+                rect.Inflate(1, 1);
+
+                e.Graphics.DrawRectangle(Pens.Red, rect);
+            }
         }
     }
 }

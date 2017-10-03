@@ -65,10 +65,14 @@
     <Compile Include="Data\Base\DataBase.cs" />
     <Compile Include="Data\Design\Controls\DesignControlType.cs" />
     <Compile Include="Data\Design\Controls\IDesignControl.cs" />
+    <Compile Include="Data\Design\Controls\Standard\GroupBoxControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\Design\Controls\Standard\LabelControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data\Design\FormBrushes\CreateControlBrush.cs" />
+    <Compile Include="Data\Design\FormBrushes\CreateGroupBoxControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateLabelControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CursorBrush.cs" />
     <Compile Include="Data\Design\FormBrushes\IFormBrush.cs" />
@@ -123,6 +127,7 @@
     <Compile Include="Notification\NotificationLevel.cs" />
     <Compile Include="Notification\NotificationMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\DateBase\FormBindSetting.resx">

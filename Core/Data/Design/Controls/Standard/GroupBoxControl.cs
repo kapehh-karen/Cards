@@ -1,31 +1,28 @@
-﻿using Core.Data.Design.Properties.ControlProperties;
+﻿using Core.Data.Design.Properties;
+using Core.Data.Design.Properties.ControlProperties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Core.Data.Design.Properties;
-using System.Drawing;
 
 namespace Core.Data.Design.Controls.Standard
 {
-    public class LabelControl : Label, IDesignControl
+    public class GroupBoxControl : GroupBox, IDesignControl
     {
         private List<IControlProperties> props = new List<IControlProperties>();
 
-        public LabelControl()
+        public GroupBoxControl()
         {
             Properties.Add(new TextProperties() { Control = this });
 
-            Text = "Label";
-            //BackColor = Color.Red;
-            //AutoSize = true;
+            Text = "GroupBox";
         }
-        
+
         public DesignControlType ControlType => DesignControlType.STANDARD;
 
         public List<IControlProperties> Properties => props;
 
-        public bool IsContainer => false;
+        public bool IsContainer => true;
     }
 }

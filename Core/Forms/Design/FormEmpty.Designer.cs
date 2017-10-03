@@ -39,6 +39,7 @@
             this.MinimizeBox = false;
             this.Name = "FormEmpty";
             this.Text = "Новая форма";
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormEmpty_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseUp);

@@ -26,6 +26,7 @@ namespace Core.Forms.Design
         {
             listViewControls.Items.Add(new ListViewItem() { Text = "- Указатель -", Tag = new CursorBrush() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Надпись", Tag = new CreateLabelControl() });
+            listViewControls.Items.Add(new ListViewItem() { Text = "Группировка", Tag = new CreateGroupBoxControl() });
         }
 
         private void FormDesigner_Load(object sender, EventArgs e)

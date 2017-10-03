@@ -19,5 +19,7 @@ namespace Core.Data.Design.Controls
         /// Тип виртуального контрола (просто элементы, либо связаны с полями БД)
         /// </summary>
         DesignControlType ControlType { get; }
+        
+        bool IsContainer { get; }
     }
 }
