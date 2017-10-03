@@ -39,6 +39,7 @@
             this.tabPages.SelectedIndex = 0;
             this.tabPages.Size = new System.Drawing.Size(551, 475);
             this.tabPages.TabIndex = 0;
+            this.tabPages.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabPages_Selected);
             // 
             // FormEmpty
             // 

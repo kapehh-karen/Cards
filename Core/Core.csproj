@@ -76,7 +76,10 @@
     <Compile Include="Data\Design\FormBrushes\CreateLabelControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CursorBrush.cs" />
     <Compile Include="Data\Design\FormBrushes\IFormBrush.cs" />
-    <Compile Include="Data\Design\FormData.cs" />
+    <Compile Include="Data\Design\InternalData\ControlData.cs" />
+    <Compile Include="Data\Design\InternalData\FormData.cs" />
+    <Compile Include="Data\Design\InternalData\PageData.cs" />
+    <Compile Include="Data\Design\InternalData\PropertyData.cs" />
     <Compile Include="Data\Design\Properties\IControlProperties.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\TextProperties.cs" />
     <Compile Include="Data\Field\BindField.cs" />

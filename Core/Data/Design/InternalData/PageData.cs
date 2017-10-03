@@ -7,7 +7,7 @@ namespace Core.Data.Design.InternalData
 {
     public class PageData
     {
-        public string Title { get; set; } = "Страница";
+        public string Title { get; set; }
 
         public List<ControlData> Controls { get; set; } = new List<ControlData>();
     }

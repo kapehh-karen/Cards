@@ -1,5 +1,6 @@
 ﻿using Core.Data.Design.Controls;
 using Core.Data.Design.FormBrushes;
+using Core.Data.Design.InternalData;
 using Core.Utils;
 using System;
 using System.Collections.Generic;
@@ -19,13 +20,24 @@ namespace Core.Forms.Design
         public event EventDesignControl ControlRelease;
 
         private IDesignControl control;
+        private IFormBrush brush;
 
-        public FormEmpty()
+        public FormEmpty(FormData formData = null)
         {
             InitializeComponent();
+            
+            if (formData == null)
+            {
+                tabPages.TabPages.Add(SelectedTabPage = new TabPage("Страница"));
+            }
+            else
+            {
+                // TODO: Loading form data
+            }
 
             ControlSelected += FormEmpty_ControlSelected;
             ControlRelease += FormEmpty_ControlRelease;
+            SetEventListeners();
         }
 
         private void FormEmpty_ControlRelease(IDesignControl control)
@@ -38,7 +50,21 @@ namespace Core.Forms.Design
 
         }
 
-        public IFormBrush FormBrush { get; set; }
+        private TabPage SelectedTabPage { get; set; }
+
+        public IFormBrush FormBrush
+        {
+            get
+            {
+                return brush;
+            }
+            set
+            {
+                brush?.DeactivateBrush(SelectedTabPage);
+                brush = value;
+                brush.ActivateBrush(SelectedTabPage);
+            }
+        }
 
         public IDesignControl SelectedControl
         {
@@ -59,6 +85,7 @@ namespace Core.Forms.Design
 
         public List<IDesignControl> DesignControls { get; } = new List<IDesignControl>();
 
+        // TODO: Перенести в TabPage, т.к. теперь по табам раскидано
         public void AddDesignControl(IDesignControl control)
         {
             if (control is Control c)
@@ -69,11 +96,26 @@ namespace Core.Forms.Design
             }
         }
 
+        private void SetEventListeners()
+        {
+            foreach (TabPage page in tabPages.TabPages)
+            {
+                page.MouseDown -= FormEmpty_MouseDown;
+                page.MouseDown += FormEmpty_MouseDown;
+
+                page.MouseMove -= FormEmpty_MouseMove;
+                page.MouseMove += FormEmpty_MouseMove;
+
+                page.MouseUp -= FormEmpty_MouseUp;
+                page.MouseUp += FormEmpty_MouseUp;
+            }
+        }
+
         private void FormEmpty_MouseDown(object sender, MouseEventArgs e)
         {
             var p = e.Location; // this.PointToClient(Cursor.Position);
             var c = sender is IDesignControl ? sender as Control : null;
-            FormBrush?.MouseDown(this, c, p);
+            FormBrush?.MouseDown(SelectedTabPage, c, p);
         }
 
         private void FormEmpty_MouseMove(object sender, MouseEventArgs e)
@@ -82,7 +124,7 @@ namespace Core.Forms.Design
             {
                 var p = e.Location;
                 var c = sender is IDesignControl ? sender as Control : null;
-                FormBrush?.MouseMove(this, c, p);
+                FormBrush?.MouseMove(SelectedTabPage, c, p);
             }
         }
 
@@ -90,12 +132,17 @@ namespace Core.Forms.Design
         {
             var p = e.Location;
             var c = sender is IDesignControl ? sender as Control : null;
-            FormBrush?.MouseUp(this, c, p);
+            FormBrush?.MouseUp(SelectedTabPage, c, p);
         }
 
         private void FormEmpty_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = e.CloseReason == CloseReason.UserClosing;
+        }
+
+        private void tabPages_Selected(object sender, TabControlEventArgs e)
+        {
+            SelectedTabPage = e.TabPage;
         }
     }
 }

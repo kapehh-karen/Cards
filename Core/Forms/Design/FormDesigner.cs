@@ -63,10 +63,7 @@ namespace Core.Forms.Design
 
             if (listView.SelectedItems.Count == 1)
             {
-                frmEmpty.FormBrush?.DeactivateBrush(frmEmpty);
-                var cc = listView.SelectedItems[0].Tag as IFormBrush;
-                cc.ActivateBrush(frmEmpty);
-                frmEmpty.FormBrush = cc;
+                frmEmpty.FormBrush = listView.SelectedItems[0].Tag as IFormBrush;
             }
         }
 

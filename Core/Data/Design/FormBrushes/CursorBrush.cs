@@ -13,23 +13,26 @@ namespace Core.Data.Design.FormBrushes
     {
         private Cursor prevCurs;
 
-        public override void ActivateBrush(FormEmpty form)
+        public override void ActivateBrush(TabPage sender)
         {
-            prevCurs = form.Cursor;
-            form.Cursor = Cursors.Default;
+            prevCurs = sender.Cursor;
+            sender.Cursor = Cursors.Default;
         }
 
-        public override void DeactivateBrush(FormEmpty form)
+        public override void DeactivateBrush(TabPage sender)
         {
-            form.Cursor = prevCurs;
+            sender.Cursor = prevCurs;
         }
 
-        public override void MouseDown(FormEmpty form, Control control, Point coord)
+        public override void MouseDown(TabPage sender, Control control, Point coord)
         {
-            if (control is IDesignControl cc)
-                form.SelectedControl = cc;
-            else
-                form.SelectedControl = null;
+            if (sender.FindForm() is FormEmpty form)
+            {
+                if (control is IDesignControl cc)
+                    form.SelectedControl = cc;
+                else
+                    form.SelectedControl = null;
+            }
         }
     }
 }

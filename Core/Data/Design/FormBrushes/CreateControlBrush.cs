@@ -15,30 +15,30 @@ namespace Core.Data.Design.FormBrushes
         private Point startLocation;
         private Size size;
 
-        public override void ActivateBrush(FormEmpty form)
+        public override void ActivateBrush(TabPage sender)
         {
-            prevCurs = form.Cursor;
-            form.Cursor = Cursors.Cross;
+            prevCurs = sender.Cursor;
+            sender.Cursor = Cursors.Cross;
         }
 
-        public override void DeactivateBrush(FormEmpty form)
+        public override void DeactivateBrush(TabPage sender)
         {
-            form.Cursor = prevCurs;
+            sender.Cursor = prevCurs;
         }
 
-        public override void MouseDown(FormEmpty form, Control control, Point coord)
+        public override void MouseDown(TabPage sender, Control control, Point coord)
         {
             startLocation = coord;
             size = new Size(0, 0);
         }
 
-        public override void MouseMove(FormEmpty form, Control control, Point coord)
+        public override void MouseMove(TabPage sender, Control control, Point coord)
         {
             size.Height = Math.Abs(startLocation.Y - coord.Y);
             size.Width = Math.Abs(startLocation.X - coord.X);
         }
 
-        public override void MouseUp(FormEmpty form, Control control, Point coord)
+        public override void MouseUp(TabPage sender, Control control, Point coord)
         {
             var c = DesignControl() as Control;
             var dc = c as IDesignControl;
@@ -46,13 +46,26 @@ namespace Core.Data.Design.FormBrushes
             c.Size = new Size(Math.Max(size.Width, 26), Math.Max(size.Height, 13));
 
             if (control != null && control is IDesignControl pc && pc.ControlType == DesignControlType.CONTAINER)
+            {
                 control.Controls.Add(c);
+            }
+            else if (control != null)
+            {
+                c.Location = sender.PointToClient(control.PointToScreen(c.Location));
+                sender.Controls.Add(c);
+            }
             else
-                form.Controls.Add(c);
+            {
+                sender.Controls.Add(c);
+            }
 
             c.BringToFront();
-            form.AddDesignControl(dc);
-            form.SelectedControl = dc;
+
+            if (sender.FindForm() is FormEmpty form)
+            {
+                form.AddDesignControl(dc);
+                form.SelectedControl = dc;
+            }
         }
 
         public abstract IDesignControl DesignControl();
