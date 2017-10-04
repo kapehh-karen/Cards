@@ -105,6 +105,15 @@
     <Compile Include="Forms\DateBase\FormChangeLinkedTable.Designer.cs">
       <DependentUpon>FormChangeLinkedTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Design\CardTabPage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\Design\FormCreateTabPage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Design\FormCreateTabPage.Designer.cs">
+      <DependentUpon>FormCreateTabPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Design\FormDesigner.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +125,12 @@
     </Compile>
     <Compile Include="Forms\Design\FormEmpty.Designer.cs">
       <DependentUpon>FormEmpty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Design\FormTabPages.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Design\FormTabPages.Designer.cs">
+      <DependentUpon>FormTabPages.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Control\Button.cs">
       <SubType>UserControl</SubType>
@@ -142,11 +157,17 @@
     <EmbeddedResource Include="Forms\DateBase\FormChangeLinkedTable.resx">
       <DependentUpon>FormChangeLinkedTable.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Design\FormCreateTabPage.resx">
+      <DependentUpon>FormCreateTabPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\FormDesigner.resx">
       <DependentUpon>FormDesigner.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\FormEmpty.resx">
       <DependentUpon>FormEmpty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Design\FormTabPages.resx">
+      <DependentUpon>FormTabPages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Control\Button.resx">
       <DependentUpon>Button.cs</DependentUpon>

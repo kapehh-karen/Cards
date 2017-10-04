@@ -28,7 +28,7 @@ namespace Core.Forms.Design
             
             if (formData == null)
             {
-                tabPages.TabPages.Add(SelectedTabPage = new TabPage("Страница"));
+                tabPages.TabPages.Add(SelectedTabPage = new CardTabPage() { Text = "Страница 1", Form = this });
             }
             else
             {
@@ -40,17 +40,42 @@ namespace Core.Forms.Design
             SetEventListeners();
         }
 
+        public List<CardTabPage> CardTabPages
+        {
+            get
+            {
+                var list = new List<CardTabPage>();
+                foreach (var item in tabPages.TabPages)
+                    list.Add(item as CardTabPage);
+                return list;
+            }
+            set
+            {
+                SelectedControl = null;
+                tabPages.TabPages.Clear();
+                foreach (var page in value)
+                {
+                    page.Form = this;
+                    tabPages.TabPages.Add(page);
+                }
+                SelectTabPage(value[0]);
+                SetEventListeners();
+            }
+        }
+
         private void FormEmpty_ControlRelease(IDesignControl control)
         {
-
+            if (control is Control c && c != null)
+                c.BackColor = SystemColors.Control;
         }
 
         private void FormEmpty_ControlSelected(IDesignControl control)
         {
-
+            if (control is Control c && c != null)
+                c.BackColor = Color.Red;
         }
 
-        private TabPage SelectedTabPage { get; set; }
+        private CardTabPage SelectedTabPage { get; set; }
 
         public IFormBrush FormBrush
         {
@@ -74,31 +99,20 @@ namespace Core.Forms.Design
             }
             set
             {
-                if (value == null)
-                    ControlRelease?.Invoke(control);
-                else
+                ControlRelease?.Invoke(control);
+
+                if (value != null)
+                {
                     ControlSelected?.Invoke(value);
+                }
 
                 control = value;
             }
         }
 
-        public List<IDesignControl> DesignControls { get; } = new List<IDesignControl>();
-
-        // TODO: Перенести в TabPage, т.к. теперь по табам раскидано
-        public void AddDesignControl(IDesignControl control)
-        {
-            if (control is Control c)
-            {
-                c.MouseDown += FormEmpty_MouseDown;
-                c.MouseMove += FormEmpty_MouseMove;
-                c.MouseUp += FormEmpty_MouseUp;
-            }
-        }
-
         private void SetEventListeners()
         {
-            foreach (TabPage page in tabPages.TabPages)
+            foreach (CardTabPage page in tabPages.TabPages)
             {
                 page.MouseDown -= FormEmpty_MouseDown;
                 page.MouseDown += FormEmpty_MouseDown;
@@ -111,28 +125,25 @@ namespace Core.Forms.Design
             }
         }
 
-        private void FormEmpty_MouseDown(object sender, MouseEventArgs e)
+        public void FormEmpty_MouseDown(object sender, MouseEventArgs e)
         {
-            var p = e.Location; // this.PointToClient(Cursor.Position);
             var c = sender is IDesignControl ? sender as Control : null;
-            FormBrush?.MouseDown(SelectedTabPage, c, p);
+            FormBrush?.MouseDown(SelectedTabPage, c, e.Location);
         }
 
-        private void FormEmpty_MouseMove(object sender, MouseEventArgs e)
+        public void FormEmpty_MouseMove(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
-                var p = e.Location;
                 var c = sender is IDesignControl ? sender as Control : null;
-                FormBrush?.MouseMove(SelectedTabPage, c, p);
+                FormBrush?.MouseMove(SelectedTabPage, c, e.Location);
             }
         }
 
-        private void FormEmpty_MouseUp(object sender, MouseEventArgs e)
+        public void FormEmpty_MouseUp(object sender, MouseEventArgs e)
         {
-            var p = e.Location;
             var c = sender is IDesignControl ? sender as Control : null;
-            FormBrush?.MouseUp(SelectedTabPage, c, p);
+            FormBrush?.MouseUp(SelectedTabPage, c, e.Location);
         }
 
         private void FormEmpty_FormClosing(object sender, FormClosingEventArgs e)
@@ -140,9 +151,25 @@ namespace Core.Forms.Design
             e.Cancel = e.CloseReason == CloseReason.UserClosing;
         }
 
+        private void SelectTabPage(TabPage tabPage)
+        {
+            if (SelectedTabPage != null)
+                FormBrush?.DeactivateBrush(SelectedTabPage);
+
+            if (tabPage == null)
+            {
+                SelectedTabPage = null;
+            }
+            else
+            {
+                SelectedTabPage = tabPage as CardTabPage;
+                FormBrush?.ActivateBrush(SelectedTabPage);
+            }
+        }
+
         private void tabPages_Selected(object sender, TabControlEventArgs e)
         {
-            SelectedTabPage = e.TabPage;
+            SelectTabPage(e.TabPage);
         }
     }
 }

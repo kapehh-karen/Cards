@@ -15,30 +15,30 @@ namespace Core.Data.Design.FormBrushes
         private Point startLocation;
         private Size size;
 
-        public override void ActivateBrush(TabPage sender)
+        public override void ActivateBrush(CardTabPage sender)
         {
             prevCurs = sender.Cursor;
             sender.Cursor = Cursors.Cross;
         }
 
-        public override void DeactivateBrush(TabPage sender)
+        public override void DeactivateBrush(CardTabPage sender)
         {
             sender.Cursor = prevCurs;
         }
 
-        public override void MouseDown(TabPage sender, Control control, Point coord)
+        public override void MouseDown(CardTabPage sender, Control control, Point coord)
         {
             startLocation = coord;
             size = new Size(0, 0);
         }
 
-        public override void MouseMove(TabPage sender, Control control, Point coord)
+        public override void MouseMove(CardTabPage sender, Control control, Point coord)
         {
             size.Height = Math.Abs(startLocation.Y - coord.Y);
             size.Width = Math.Abs(startLocation.X - coord.X);
         }
 
-        public override void MouseUp(TabPage sender, Control control, Point coord)
+        public override void MouseUp(CardTabPage sender, Control control, Point coord)
         {
             var c = DesignControl() as Control;
             var dc = c as IDesignControl;
@@ -63,7 +63,7 @@ namespace Core.Data.Design.FormBrushes
 
             if (sender.FindForm() is FormEmpty form)
             {
-                form.AddDesignControl(dc);
+                sender.AddDesignControl(dc);
                 form.SelectedControl = dc;
             }
         }

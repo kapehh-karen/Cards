@@ -13,18 +13,18 @@ namespace Core.Data.Design.FormBrushes
     {
         private Cursor prevCurs;
 
-        public override void ActivateBrush(TabPage sender)
+        public override void ActivateBrush(CardTabPage sender)
         {
             prevCurs = sender.Cursor;
             sender.Cursor = Cursors.Default;
         }
 
-        public override void DeactivateBrush(TabPage sender)
+        public override void DeactivateBrush(CardTabPage sender)
         {
             sender.Cursor = prevCurs;
         }
 
-        public override void MouseDown(TabPage sender, Control control, Point coord)
+        public override void MouseDown(CardTabPage sender, Control control, Point coord)
         {
             if (sender.FindForm() is FormEmpty form)
             {

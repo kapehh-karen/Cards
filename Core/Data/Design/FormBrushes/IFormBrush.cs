@@ -10,14 +10,14 @@ namespace Core.Data.Design.FormBrushes
 {
     public abstract class IFormBrush
     {
-        public virtual void ActivateBrush(TabPage sender) { }
+        public virtual void ActivateBrush(CardTabPage sender) { }
 
-        public virtual void DeactivateBrush(TabPage sender) { }
+        public virtual void DeactivateBrush(CardTabPage sender) { }
 
-        public virtual void MouseDown(TabPage sender, Control control, Point coord) { }
+        public virtual void MouseDown(CardTabPage sender, Control control, Point coord) { }
 
-        public virtual void MouseMove(TabPage sender, Control control, Point coord) { }
+        public virtual void MouseMove(CardTabPage sender, Control control, Point coord) { }
 
-        public virtual void MouseUp(TabPage sender, Control control, Point coord) { }
+        public virtual void MouseUp(CardTabPage sender, Control control, Point coord) { }
     }
 }
