@@ -34,9 +34,9 @@
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listViewProperties = new System.Windows.Forms.ListView();
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.listViewProperties = new System.Windows.Forms.ListView();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,33 +78,19 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.saveToolStripMenuItem.Text = "Сохранить";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(129, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.closeToolStripMenuItem.Text = "Закрыть";
-            // 
-            // listViewProperties
-            // 
-            this.listViewProperties.Activation = System.Windows.Forms.ItemActivation.TwoClick;
-            this.listViewProperties.Dock = System.Windows.Forms.DockStyle.Right;
-            this.listViewProperties.FullRowSelect = true;
-            this.listViewProperties.Location = new System.Drawing.Point(911, 24);
-            this.listViewProperties.MultiSelect = false;
-            this.listViewProperties.Name = "listViewProperties";
-            this.listViewProperties.Size = new System.Drawing.Size(224, 587);
-            this.listViewProperties.TabIndex = 3;
-            this.listViewProperties.UseCompatibleStateImageBehavior = false;
-            this.listViewProperties.View = System.Windows.Forms.View.List;
-            this.listViewProperties.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewProperties_MouseDoubleClick);
             // 
             // settingToolStripMenuItem
             // 
@@ -121,6 +107,20 @@
             this.tabPagesToolStripMenuItem.Text = "Вкладки формы";
             this.tabPagesToolStripMenuItem.Click += new System.EventHandler(this.tabPagesToolStripMenuItem_Click);
             // 
+            // listViewProperties
+            // 
+            this.listViewProperties.Activation = System.Windows.Forms.ItemActivation.TwoClick;
+            this.listViewProperties.Dock = System.Windows.Forms.DockStyle.Right;
+            this.listViewProperties.FullRowSelect = true;
+            this.listViewProperties.Location = new System.Drawing.Point(911, 24);
+            this.listViewProperties.MultiSelect = false;
+            this.listViewProperties.Name = "listViewProperties";
+            this.listViewProperties.Size = new System.Drawing.Size(224, 587);
+            this.listViewProperties.TabIndex = 3;
+            this.listViewProperties.UseCompatibleStateImageBehavior = false;
+            this.listViewProperties.View = System.Windows.Forms.View.List;
+            this.listViewProperties.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewProperties_MouseDoubleClick);
+            // 
             // FormDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -132,7 +132,7 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormDesigner";
-            this.Text = "FormDesigner";
+            this.Text = "Дизайнер форм";
             this.Load += new System.EventHandler(this.FormDesigner_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

@@ -85,7 +85,14 @@ namespace Core.Forms.Design
         {
             if (listTabPages.SelectedItem is ListBoxItem item && item != null)
             {
+                var index = CardTabPages.IndexOf(item.Page);
 
+                if (index > 0)
+                {
+                    CardTabPages.Remove(item.Page);
+                    CardTabPages.Insert(index - 1, item.Page);
+                    ResetList();
+                }
             }
         }
 
@@ -93,7 +100,14 @@ namespace Core.Forms.Design
         {
             if (listTabPages.SelectedItem is ListBoxItem item && item != null)
             {
+                var index = CardTabPages.IndexOf(item.Page);
 
+                if (index < CardTabPages.Count - 1)
+                {
+                    CardTabPages.Remove(item.Page);
+                    CardTabPages.Insert(index + 1, item.Page);
+                    ResetList();
+                }
             }
         }
 
@@ -101,7 +115,13 @@ namespace Core.Forms.Design
         {
             if (listTabPages.SelectedItem is ListBoxItem item && item != null)
             {
+                var dialog = new FormCreateTabPage() { EnteredText = item.Page.Text };
 
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    item.Page.Text = dialog.EnteredText;
+                    ResetList();
+                }
             }
         }
     }

@@ -11,6 +11,8 @@ namespace Core.Forms.Design
 {
     public partial class FormCreateTabPage : Form
     {
+        private string enteredText;
+
         public FormCreateTabPage()
         {
             InitializeComponent();
@@ -23,7 +25,9 @@ namespace Core.Forms.Design
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(EnteredText))
+            enteredText = txtCaption.Text.Trim();
+
+            if (string.IsNullOrEmpty(enteredText))
             {
                 MessageBox.Show("Нельзя создать вкладку с пустым заголовком", "Пустой заголовок", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -32,6 +36,6 @@ namespace Core.Forms.Design
             DialogResult = DialogResult.OK;
         }
 
-        public string EnteredText { get => txtCaption.Text.Trim(); set => txtCaption.Text = value; }
+        public string EnteredText { get => enteredText; set => txtCaption.Text = enteredText = value; }
     }
 }
