@@ -14,5 +14,7 @@ namespace Core.Data.Design.InternalData
         public string FullClassName { get; set; }
 
         public List<PropertyData> Properties { get; set; } = new List<PropertyData>();
+
+        public List<ControlData> Chields { get; set; } = new List<ControlData>();
     }
 }
