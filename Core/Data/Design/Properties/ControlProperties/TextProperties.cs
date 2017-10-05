@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Forms.Design.FormProperties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,8 +15,17 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override bool ChangeValue()
         {
-            Value = $"Label example: {DateTime.Now}";
-            return true;
+            using (var dialog = new FormEditText())
+            {
+                dialog.EnteredText = Control.Text;
+
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    Control.Text = dialog.EnteredText;
+                    return true;
+                }
+                return false;
+            }
         }
     }
 }
