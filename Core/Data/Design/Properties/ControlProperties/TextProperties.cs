@@ -10,7 +10,6 @@ namespace Core.Data.Design.Properties.ControlProperties
     {
         public override string Name => "Text";
         
-        // TODO: В этом свойстве будем делать нужную нам сериализацию/десериализацию при сохранении в файл и т.п.
         public override object Value { get => Control.Text; set => Control.Text = value as string; }
 
         public override bool ChangeValue()

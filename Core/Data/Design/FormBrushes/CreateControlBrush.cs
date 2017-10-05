@@ -45,9 +45,11 @@ namespace Core.Data.Design.FormBrushes
             c.Location = new Point(Math.Min(startLocation.X, coord.X), Math.Min(startLocation.Y, coord.Y));
             c.Size = new Size(Math.Max(size.Width, 26), Math.Max(size.Height, 13));
 
+            IDesignControl container = null;
             if (control != null && control is IDesignControl pc && pc.ControlType == DesignControlType.CONTAINER)
             {
                 control.Controls.Add(c);
+                container = pc;
             }
             else if (control != null)
             {
@@ -63,7 +65,7 @@ namespace Core.Data.Design.FormBrushes
 
             if (sender.FindForm() is FormEmpty form)
             {
-                sender.AddDesignControl(dc);
+                sender.AddDesignControl(dc, container);
                 form.SelectedControl = dc;
             }
         }

@@ -15,6 +15,8 @@ namespace Core.Data.Design.Controls.Standard
         public GroupBoxControl()
         {
             Properties.Add(new TextProperties() { Control = this });
+            Properties.Add(new SizeProperties() { Control = this });
+            Properties.Add(new PositionProperties() { Control = this });
 
             Text = "GroupBox";
         }
@@ -22,5 +24,7 @@ namespace Core.Data.Design.Controls.Standard
         public DesignControlType ControlType => DesignControlType.CONTAINER;
 
         public List<IControlProperties> Properties => props;
+
+        public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
     }
 }

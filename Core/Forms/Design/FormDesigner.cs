@@ -1,6 +1,8 @@
-﻿using Core.Data.Design.Controls;
+﻿using Core.Config;
+using Core.Data.Design.Controls;
 using Core.Data.Design.Controls.Standard;
 using Core.Data.Design.FormBrushes;
+using Core.Data.Design.InternalData;
 using Core.Data.Design.Properties;
 using System;
 using System.Collections.Generic;
@@ -15,30 +17,44 @@ namespace Core.Forms.Design
 {
     public partial class FormDesigner : Form
     {
-        private FormEmpty frmEmpty = new FormEmpty();
+        private FormEmpty frmEmpty;
+        private CursorBrush cursorBrush;
 
         public FormDesigner()
         {
             InitializeComponent();
         }
 
-        private void FillListViewControls()
+        private void InitializeEmptyForm(FormData formData = null)
         {
-            listViewControls.Items.Add(new ListViewItem() { Text = "- Указатель -", Tag = new CursorBrush() });
-            listViewControls.Items.Add(new ListViewItem() { Text = "Надпись", Tag = new CreateLabelControl() });
-            listViewControls.Items.Add(new ListViewItem() { Text = "Группировка", Tag = new CreateGroupBoxControl() });
-        }
+            if (frmEmpty != null)
+            {
+                frmEmpty.Close();
+                frmEmpty.Dispose();
+            }
 
-        private void FormDesigner_Load(object sender, EventArgs e)
-        {
+            frmEmpty = new FormEmpty(formData);
             frmEmpty.MdiParent = this;
             frmEmpty.Location = new Point(0, 0);
+            frmEmpty.FormBrush = cursorBrush;
             frmEmpty.Show();
 
             frmEmpty.ControlSelected += FrmEmpty_ControlSelected;
             frmEmpty.ControlRelease += FrmEmpty_ControlRelease;
+            frmEmpty.SelectedControl = null;
+        }
 
+        private void FormDesigner_Load(object sender, EventArgs e)
+        {
             FillListViewControls();
+            InitializeEmptyForm();
+        }
+
+        private void FillListViewControls()
+        {
+            listViewControls.Items.Add(new ListViewItem() { Text = "- Указатель -", Tag = cursorBrush = new CursorBrush() });
+            listViewControls.Items.Add(new ListViewItem() { Text = "Надпись", Tag = new CreateLabelControl() });
+            listViewControls.Items.Add(new ListViewItem() { Text = "Группировка", Tag = new CreateGroupBoxControl() });
         }
 
         private void FrmEmpty_ControlRelease(IDesignControl control)
@@ -73,11 +89,7 @@ namespace Core.Forms.Design
             if (listView.SelectedItems.Count == 1)
             {
                 var proper = listView.SelectedItems[0].Tag as IControlProperties;
-
-                if (proper.ChangeValue())
-                {
-                    MessageBox.Show("UPDATED");
-                }
+                proper.ChangeValue();
             }
         }
 
@@ -89,6 +101,45 @@ namespace Core.Forms.Design
             {
                 frmEmpty.CardTabPages = dialog.CardTabPages;
             }
+        }
+        
+        private FormData GetFormData()
+        {
+            return new FormData()
+            {
+                Pages = frmEmpty.CardTabPages.Select(tp => new PageData()
+                {
+                    Title = tp.Text,
+                    Controls = tp.DesignControls.Select(MapDesignControlToData).ToList()
+                }).ToList()
+            };
+        }
+
+        private ControlData MapDesignControlToData(IDesignControl control)
+        {
+            return new ControlData()
+            {
+                FullClassName = control.GetType().FullName,
+                Chields = control.DesignControls.Select(MapDesignControlToData).ToList(),
+                Properties = control.Properties.Select(p => new PropertyData()
+                {
+                    Name = p.Name,
+                    Value = p.Value
+                }).ToList()
+            };
+        }
+        
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var configForm = new Configuration<FormData>();
+            configForm.WriteToFile(GetFormData(), "form.xml");
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var configForm = new Configuration<FormData>();
+            var formData = configForm.ReadFromFile("form.xml");
+            InitializeEmptyForm(formData);
         }
     }
 }

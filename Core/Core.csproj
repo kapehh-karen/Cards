@@ -64,6 +64,7 @@
     <Compile Include="Connection\DataBaseConnection.cs" />
     <Compile Include="Data\Base\DataBase.cs" />
     <Compile Include="Data\Design\Controls\DesignControlType.cs" />
+    <Compile Include="Data\Design\Controls\IDesignContainer.cs" />
     <Compile Include="Data\Design\Controls\IDesignControl.cs" />
     <Compile Include="Data\Design\Controls\Standard\GroupBoxControl.cs">
       <SubType>Component</SubType>
@@ -80,6 +81,8 @@
     <Compile Include="Data\Design\InternalData\FormData.cs" />
     <Compile Include="Data\Design\InternalData\PageData.cs" />
     <Compile Include="Data\Design\InternalData\PropertyData.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\PositionProperties.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\SizeProperties.cs" />
     <Compile Include="Data\Design\Properties\IControlProperties.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\TextProperties.cs" />
     <Compile Include="Data\Field\BindField.cs" />

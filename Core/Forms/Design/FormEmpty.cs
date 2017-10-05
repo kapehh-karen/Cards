@@ -32,12 +32,47 @@ namespace Core.Forms.Design
             }
             else
             {
-                // TODO: Loading form data
+                LoadFromData(formData);
             }
 
             ControlSelected += FormEmpty_ControlSelected;
             ControlRelease += FormEmpty_ControlRelease;
             SetEventListeners();
+        }
+
+        private void LoadFromData(FormData formData)
+        {
+            var pages = formData.Pages.Select(page =>
+            {
+                var cardTabPage = new CardTabPage() { Text = page.Title, Form = this };
+                cardTabPage.DesignControls = page.Controls.Select(cdata => MapDataToDesignControl(cdata, cardTabPage, cardTabPage)).ToList();
+                return cardTabPage;
+            }).ToArray();
+
+            if (pages.Length > 0)
+                SelectedTabPage = pages[0];
+
+            tabPages.TabPages.AddRange(pages);
+        }
+
+        private IDesignControl MapDataToDesignControl(ControlData control, Control parent, CardTabPage cardTabPage)
+        {
+            var type = Type.GetType(control.FullClassName);
+            var element = Activator.CreateInstance(type) as IDesignControl;
+
+            element.Properties.ForEach(property =>
+            {
+                var p = control.Properties.FirstOrDefault(pdata => pdata.Name == property.Name);
+                
+                if (p != null)
+                    property.Value = p.Value;
+            });
+
+            element.DesignControls = control.Chields.Select(cdata => MapDataToDesignControl(cdata, element as Control, cardTabPage)).ToList();
+
+            parent.Controls.Add(element as Control);
+            cardTabPage.AddDesignControl(element);
+            return element;
         }
 
         public List<CardTabPage> CardTabPages
@@ -66,7 +101,7 @@ namespace Core.Forms.Design
         private void FormEmpty_ControlRelease(IDesignControl control)
         {
             if (control is Control c && c != null)
-                c.BackColor = SystemColors.Control;
+                c.BackColor = Color.Transparent;
         }
 
         private void FormEmpty_ControlSelected(IDesignControl control)

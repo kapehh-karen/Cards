@@ -16,14 +16,17 @@ namespace Core.Data.Design.Controls.Standard
         public LabelControl()
         {
             Properties.Add(new TextProperties() { Control = this });
+            Properties.Add(new SizeProperties() { Control = this });
+            Properties.Add(new PositionProperties() { Control = this });
 
             Text = "Label";
-            //BackColor = Color.Red;
             //AutoSize = true;
         }
         
         public DesignControlType ControlType => DesignControlType.STANDARD;
 
         public List<IControlProperties> Properties => props;
+
+        public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
     }
 }

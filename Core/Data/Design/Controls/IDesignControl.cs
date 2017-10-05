@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Controls
 {
-    public interface IDesignControl
+    public interface IDesignControl : IDesignContainer
     {
         /// <summary>
         /// Список пропертей

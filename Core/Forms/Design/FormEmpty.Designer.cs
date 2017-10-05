@@ -50,7 +50,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormEmpty";
-            this.Text = "Новая форма";
+            this.Text = "Форма";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEmpty_FormClosing);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseMove);

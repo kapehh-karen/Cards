@@ -7,13 +7,13 @@ using System.Windows.Forms;
 
 namespace Core.Forms.Design
 {
-    public class CardTabPage : TabPage
+    public class CardTabPage : TabPage, IDesignContainer
     {
         public FormEmpty Form { get; set; }
 
-        public List<IDesignControl> DesignControls { get; } = new List<IDesignControl>();
+        public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 
-        public void AddDesignControl(IDesignControl control)
+        public void AddDesignControl(IDesignControl control, IDesignControl container = null)
         {
             if (control is Control c)
             {
@@ -22,7 +22,10 @@ namespace Core.Forms.Design
                 c.MouseUp += Form.FormEmpty_MouseUp;
             }
 
-            DesignControls.Add(control);
+            if (container == null)
+                DesignControls.Add(control);
+            else
+                container.DesignControls.Add(control);
         }
 
         public override string ToString()
