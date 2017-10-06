@@ -129,6 +129,18 @@
     <Compile Include="Forms\Design\FormEmpty.Designer.cs">
       <DependentUpon>FormEmpty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Design\FormProperties\FormEditPosition.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Design\FormProperties\FormEditPosition.Designer.cs">
+      <DependentUpon>FormEditPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Design\FormProperties\FormEditSize.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Design\FormProperties\FormEditSize.Designer.cs">
+      <DependentUpon>FormEditSize.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Design\FormProperties\FormEditText.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +186,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\FormEmpty.resx">
       <DependentUpon>FormEmpty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Design\FormProperties\FormEditPosition.resx">
+      <DependentUpon>FormEditPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Design\FormProperties\FormEditSize.resx">
+      <DependentUpon>FormEditSize.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\FormProperties\FormEditText.resx">
       <DependentUpon>FormEditText.cs</DependentUpon>

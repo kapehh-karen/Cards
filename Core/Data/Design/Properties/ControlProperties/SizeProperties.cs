@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Forms.Design.FormProperties;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -14,8 +15,17 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override bool ChangeValue()
         {
-            Control.Size = new Size(50, 50);
-            return true;
+            using (var dialog = new FormEditSize())
+            {
+                dialog.EnteredSize = Control.Size;
+
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    Control.Size = dialog.EnteredSize;
+                    return true;
+                }
+                return false;
+            }
         }
     }
 }

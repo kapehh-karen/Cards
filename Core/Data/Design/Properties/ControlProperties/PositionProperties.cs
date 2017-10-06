@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Forms.Design.FormProperties;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -14,8 +15,17 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override bool ChangeValue()
         {
-            Value = new Point(50, 50);
-            return true;
+            using (var dialog = new FormEditPosition())
+            {
+                dialog.EnteredPosition = Control.Location;
+
+                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    Control.Location = dialog.EnteredPosition;
+                    return true;
+                }
+                return false;
+            }
         }
     }
 }
