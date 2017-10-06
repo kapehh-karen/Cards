@@ -28,49 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.SuspendLayout();
             // 
-            // button1
+            // maskedTextBox1
             // 
-            this.button1.Location = new System.Drawing.Point(28, 50);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 72);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(12, 128);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 93);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.AutoCompleteCustomSource.AddRange(new string[] {
-            "АЛЕКСЕЙ",
-            "ИВАН",
-            "СЕРГЕЙ",
-            "ДМИТРИЙ",
-            "ВАСИЛИЙ",
-            "ВЛАДИМИР",
-            "КИРИЛЛ",
-            "АМИР"});
-            this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.ForeColor = System.Drawing.Color.Maroon;
-            this.textBox1.Location = new System.Drawing.Point(12, 259);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(487, 13);
-            this.textBox1.TabIndex = 3;
+            this.maskedTextBox1.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+            this.maskedTextBox1.Location = new System.Drawing.Point(108, 146);
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(97, 20);
+            this.maskedTextBox1.TabIndex = 0;
             // 
             // frmTestUserControls
             // 
@@ -78,9 +45,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(556, 423);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.maskedTextBox1);
             this.Name = "frmTestUserControls";
             this.Text = "frmTestUserControls";
             this.ResumeLayout(false);
@@ -89,8 +54,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
+
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
     }
 }

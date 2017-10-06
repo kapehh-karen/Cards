@@ -115,7 +115,8 @@ namespace Core.Config
                 {
                     if (!dataBase.Tables.Contains(fd.BindData.Table))
                     {
-                        fd.BindData = null;
+                        fd.BindData.Table = null;
+                        fd.BindData.Field = null;
                     }
                     else if (!fd.BindData.Table.Fields.Contains(fd.BindData.Field))
                     {
@@ -123,9 +124,18 @@ namespace Core.Config
                     }
                 }
                 
-                td.LinkedTables = td.LinkedTables
-                    .Where(lt => dataBase.Tables.Contains(lt.Table) && lt.Table.Fields.Contains(lt.Field))
-                    .ToList();
+                foreach (var lt in td.LinkedTables)
+                {
+                    if (!dataBase.Tables.Contains(lt.Table))
+                    {
+                        lt.Table = null;
+                        lt.Field = null;
+                    }
+                    else if (!lt.Table.Fields.Contains(lt.Field))
+                    {
+                        lt.Field = null;
+                    }
+                }
             });
 
             return dataBase;

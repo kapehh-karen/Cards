@@ -240,7 +240,17 @@ namespace Core.Forms.DateBase
 
                     if (fd.BindData == null || fd.BindData.Table == null || fd.BindData.Field == null)
                     {
-                        MessageBox.Show($"В таблице \"{td.Name}\" у связанного поля \"{fd.Name}\" отсутствует информация о таблице и поле",
+                        MessageBox.Show($"В таблице \"{td.Name}\" у связанного поля \"{fd.Name}\" отсутствует информация о таблице или поле",
+                            "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+
+                foreach (var lt in td.LinkedTables)
+                {
+                    if (lt.Field == null || lt.Table == null)
+                    {
+                        MessageBox.Show($"В таблице \"{td.Name}\" имеются связанные данные, у которых отсутствует информация о таблице или поле",
                             "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
