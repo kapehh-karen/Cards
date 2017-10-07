@@ -9,6 +9,11 @@ namespace Core.Forms.Design
 {
     public class CardTabPage : TabPage, IDesignContainer
     {
+        public CardTabPage()
+        {
+            AutoScroll = true;
+        }
+
         public FormEmpty Form { get; set; }
 
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
