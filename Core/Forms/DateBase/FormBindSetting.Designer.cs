@@ -234,6 +234,7 @@
             this.btnForm.TabIndex = 0;
             this.btnForm.Text = "Форма";
             this.btnForm.UseVisualStyleBackColor = true;
+            this.btnForm.Click += new System.EventHandler(this.btnForm_Click);
             // 
             // cmbTables
             // 
@@ -289,7 +290,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormBindSetting";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "БД: Поля и связи";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBindSetting_FormClosing);

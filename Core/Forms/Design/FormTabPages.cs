@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Helper;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,7 +35,7 @@ namespace Core.Forms.Design
         {
             listTabPages.Items.Clear();
             (listTabPages.Tag as List<CardTabPage>).ForEach(tp => 
-                listTabPages.Items.Add(new ListBoxItem() { Text = tp.Text, Page = tp }));
+                listTabPages.Items.Add(new ListBoxItem() { Text = tp.TempString ?? tp.Text, Page = tp }));
         }
 
         public List<CardTabPage> CardTabPages
@@ -47,6 +48,10 @@ namespace Core.Forms.Design
             {
                 listTabPages.Tag = value;
                 cardTabPages = value;
+
+                // clear saved text
+                cardTabPages.ForEach(tp => tp.TempString = null);
+
                 ResetList();
             }
         }
@@ -58,6 +63,9 @@ namespace Core.Forms.Design
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
+            // save entered text
+            cardTabPages.Where(tp => !string.IsNullOrEmpty(tp.TempString)).ForEach(tp => tp.Text = tp.TempString);
+
             DialogResult = DialogResult.OK;
         }
 
@@ -119,7 +127,7 @@ namespace Core.Forms.Design
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    item.Page.Text = dialog.EnteredText;
+                    item.Page.TempString = dialog.EnteredText;
                     ResetList();
                 }
             }

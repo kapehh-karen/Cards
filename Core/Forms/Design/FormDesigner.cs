@@ -4,6 +4,7 @@ using Core.Data.Design.Controls.Standard;
 using Core.Data.Design.FormBrushes;
 using Core.Data.Design.InternalData;
 using Core.Data.Design.Properties;
+using Core.Data.Table;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +26,7 @@ namespace Core.Forms.Design
             InitializeComponent();
         }
 
-        private void InitializeEmptyForm(FormData formData = null)
+        private void InitializeEmptyForm()
         {
             if (frmEmpty != null)
             {
@@ -33,10 +34,12 @@ namespace Core.Forms.Design
                 frmEmpty.Dispose();
             }
 
-            frmEmpty = new FormEmpty(formData);
-            frmEmpty.MdiParent = this;
-            frmEmpty.Location = new Point(0, 0);
-            frmEmpty.FormBrush = cursorBrush;
+            frmEmpty = new FormEmpty(this.FormData)
+            {
+                MdiParent = this,
+                Location = new Point(0, 0),
+                FormBrush = cursorBrush
+            };
             frmEmpty.Show();
 
             frmEmpty.ControlSelected += FrmEmpty_ControlSelected;
@@ -48,6 +51,8 @@ namespace Core.Forms.Design
         {
             FillListViewControls();
             InitializeEmptyForm();
+
+            this.Text = $"Дизайнер формы для таблицы - {TableData.Name}";
         }
 
         private void FillListViewControls()
@@ -55,6 +60,7 @@ namespace Core.Forms.Design
             listViewControls.Items.Add(new ListViewItem() { Text = "- Указатель -", Tag = cursorBrush = new CursorBrush() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Надпись", Tag = new CreateLabelControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Группировка", Tag = new CreateGroupBoxControl() });
+            listViewControls.Items.Add(new ListViewItem() { Text = "Текстовое поле", Tag = new CreateTextControl() });
         }
 
         private void FrmEmpty_ControlRelease(IDesignControl control)
@@ -102,7 +108,11 @@ namespace Core.Forms.Design
                 frmEmpty.CardTabPages = dialog.CardTabPages;
             }
         }
-        
+
+        public FormData FormData { get; set; }
+
+        public TableData TableData { get; set; }
+
         private FormData GetFormData()
         {
             return new FormData()
@@ -131,15 +141,14 @@ namespace Core.Forms.Design
         
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var configForm = new Configuration<FormData>();
-            configForm.WriteToFile(GetFormData(), "form.xml");
+            this.FormData = GetFormData();
+
+            DialogResult = DialogResult.OK;
         }
 
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var configForm = new Configuration<FormData>();
-            var formData = configForm.ReadFromFile("form.xml");
-            InitializeEmptyForm(formData);
+            DialogResult = DialogResult.Cancel;
         }
     }
 }

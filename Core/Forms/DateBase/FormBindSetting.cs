@@ -11,6 +11,7 @@ using Core.Data.Base;
 using Core.Data.Table;
 using Core.Config;
 using Core.Data.Field;
+using Core.Forms.Design;
 
 namespace Core.Forms.DateBase
 {
@@ -260,7 +261,10 @@ namespace Core.Forms.DateBase
             // SUCCESSFUL!!! Save it to *.conf file
 
             if (dataBaseConfigLoader != null)
+            {
                 dataBaseConfigLoader.Save(_dataBase);
+                MessageBox.Show("Конфигурация успешно сохранена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
             hasChanged = false;
             this.DialogResult = DialogResult.OK;
@@ -320,6 +324,17 @@ namespace Core.Forms.DateBase
             }
 
             RedrawLinkedData(_tableData);
+        }
+
+        private void btnForm_Click(object sender, EventArgs e)
+        {
+            using (var formDesign = new FormDesigner() { FormData = _tableData.Form, TableData = _tableData })
+            {
+                if (formDesign.ShowDialog() == DialogResult.OK)
+                {
+                    _tableData.Form = formDesign.FormData;
+                }
+            }
         }
     }
 }

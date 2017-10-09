@@ -33,6 +33,11 @@ namespace Core.Forms.Design
                 container.DesignControls.Add(control);
         }
 
+        /// <summary>
+        /// For save strings for this tab
+        /// </summary>
+        public string TempString { get; set; }
+
         public override string ToString()
         {
             return Text;

@@ -42,6 +42,10 @@ namespace Core.Data.Design.FormBrushes
         {
             var c = DesignControl() as Control;
             var dc = c as IDesignControl;
+
+            // set default properties
+            //dc.Properties.ForEach(_prop => _prop.Value = _prop.DefaultValue);
+
             c.Location = new Point(Math.Min(startLocation.X, coord.X), Math.Min(startLocation.Y, coord.Y));
             c.Size = new Size(Math.Max(size.Width, 26), Math.Max(size.Height, 13));
 

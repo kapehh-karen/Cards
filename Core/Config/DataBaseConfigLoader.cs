@@ -22,7 +22,7 @@ namespace Core.Config
 
         public DataBaseConfigLoader(string fileBaseName)
         {
-            this.configFileName = fileBaseName + ".conf";
+            this.configFileName = $"{Path.GetDirectoryName(fileBaseName)}\\{Path.GetFileNameWithoutExtension(fileBaseName)}.conf";
             this.fileBaseName = fileBaseName;
             this.config = new Configuration<DataBase>();
         }

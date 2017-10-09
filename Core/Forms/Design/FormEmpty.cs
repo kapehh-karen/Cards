@@ -101,7 +101,7 @@ namespace Core.Forms.Design
         private void FormEmpty_ControlRelease(IDesignControl control)
         {
             if (control is Control c && c != null)
-                c.BackColor = Color.Transparent;
+                c.BackColor = control.DefaultColor;
         }
 
         private void FormEmpty_ControlSelected(IDesignControl control)

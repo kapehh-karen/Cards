@@ -84,7 +84,7 @@
             this.MinimizeBox = false;
             this.Name = "FormEditText";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Изменение текста";
+            this.Text = "Изменение текстового свойства";
             this.ResumeLayout(false);
             this.PerformLayout();
 

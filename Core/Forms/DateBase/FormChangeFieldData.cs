@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Core.Helper;
 
 namespace Core.Forms.DateBase
 {
@@ -92,11 +93,11 @@ namespace Core.Forms.DateBase
             chkRequire.Checked = Field.Required;
 
             ComboBoxItem[] types = new ComboBoxItem[] {
-                new ComboBoxItem() { ItemType = FieldType.TEXT, ItemText = "Текст" },
-                new ComboBoxItem() { ItemType = FieldType.NUMBER, ItemText = "Число" },
-                new ComboBoxItem() { ItemType = FieldType.BOOLEAN, ItemText = "Логическое" },
-                new ComboBoxItem() { ItemType = FieldType.DATE, ItemText = "Дата" },
-                new ComboBoxItem() { ItemType = FieldType.BIND, ItemText = "Связанное поле" }
+                new ComboBoxItem() { ItemType = FieldType.TEXT, ItemText = FieldType.TEXT.GetTextFieldType() },
+                new ComboBoxItem() { ItemType = FieldType.NUMBER, ItemText = FieldType.NUMBER.GetTextFieldType() },
+                new ComboBoxItem() { ItemType = FieldType.BOOLEAN, ItemText = FieldType.BOOLEAN.GetTextFieldType() },
+                new ComboBoxItem() { ItemType = FieldType.DATE, ItemText = FieldType.DATE.GetTextFieldType() },
+                new ComboBoxItem() { ItemType = FieldType.BIND, ItemText = FieldType.BIND.GetTextFieldType() }
             };
             cmbFieldType.Items.AddRange(types);
             cmbFieldType.SelectedItem = types.FirstOrDefault(t => t.ItemType == Field.Type);

@@ -9,9 +9,13 @@ namespace Core.Data.Design.Properties.ControlProperties
 {
     public class PositionProperties : IControlProperties
     {
+        public PositionProperties() : base() { }
+
         public override string Name => "Position";
 
         public override object Value { get => Control.Location; set => Control.Location = (Point)value; }
+
+        public override object DefaultValue => new Point(0, 0);
 
         public override bool ChangeValue()
         {

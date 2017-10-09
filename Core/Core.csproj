@@ -64,6 +64,9 @@
     <Compile Include="Connection\DataBaseConnection.cs" />
     <Compile Include="Data\Base\DataBase.cs" />
     <Compile Include="Data\Design\Controls\DesignControlType.cs" />
+    <Compile Include="Data\Design\Controls\FieldControl\TextControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\Design\Controls\IDesignContainer.cs" />
     <Compile Include="Data\Design\Controls\IDesignControl.cs" />
     <Compile Include="Data\Design\Controls\Standard\GroupBoxControl.cs">
@@ -75,12 +78,14 @@
     <Compile Include="Data\Design\FormBrushes\CreateControlBrush.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateGroupBoxControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateLabelControl.cs" />
+    <Compile Include="Data\Design\FormBrushes\CreateTextControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CursorBrush.cs" />
     <Compile Include="Data\Design\FormBrushes\IFormBrush.cs" />
     <Compile Include="Data\Design\InternalData\ControlData.cs" />
     <Compile Include="Data\Design\InternalData\FormData.cs" />
     <Compile Include="Data\Design\InternalData\PageData.cs" />
     <Compile Include="Data\Design\InternalData\PropertyData.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\NameProperties.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\PositionProperties.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\SizeProperties.cs" />
     <Compile Include="Data\Design\Properties\IControlProperties.cs" />
@@ -159,6 +164,8 @@
     <Compile Include="GUI\Control\Button.Designer.cs">
       <DependentUpon>Button.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\IterableHelper.cs" />
+    <Compile Include="Helper\TextHelper.cs" />
     <Compile Include="Network\CoreClient.cs" />
     <Compile Include="Network\CoreServer.cs" />
     <Compile Include="Network\Extensions\TCPHelper.cs" />
