@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class PositionProperties : IControlProperties
+    public class PositionProperty : IControlProperties
     {
-        public PositionProperties(Control control) : base(control) { }
+        public PositionProperty(Control control) : base(control) { }
 
         public override string Name => "Position";
 

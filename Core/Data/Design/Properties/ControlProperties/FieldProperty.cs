@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class FieldProperties : IControlProperties
+    public class FieldProperty : IControlProperties
     {
-        public FieldProperties(Control control) : base(control) { }
+        public FieldProperty(Control control) : base(control) { }
 
         public override string Name => "Field";
 

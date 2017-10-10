@@ -13,13 +13,15 @@ namespace Core.Data.Design.Controls.FieldControl
     {
         public TextControl()
         {
-            Properties.Add(new NameProperties(this));
-            Properties.Add(new TextProperties(this));
-            Properties.Add(new SizeProperties(this));
-            Properties.Add(new PositionProperties(this));
-            Properties.Add(new FieldProperties(this));
+            Properties.Add(new NameProperty(this));
+            Properties.Add(new TextProperty(this));
+            Properties.Add(new MaskProperty(this));
+            Properties.Add(new SizeProperty(this));
+            Properties.Add(new PositionProperty(this));
+            Properties.Add(new FieldProperty(this));
 
             DefaultColor = BackColor;
+            InsertKeyMode = InsertKeyMode.Overwrite;
         }
         
         public DesignControlType ControlType => DesignControlType.FIELD;

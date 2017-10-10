@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class LinkedTableProperties : IControlProperties
+    public class LinkedTableProperty : IControlProperties
     {
-        public LinkedTableProperties(Control control) : base(control) { }
+        public LinkedTableProperty(Control control) : base(control) { }
 
         public override string Name => "LinkedTable";
 

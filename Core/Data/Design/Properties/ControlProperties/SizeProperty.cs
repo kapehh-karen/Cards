@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class SizeProperties : IControlProperties
+    public class SizeProperty : IControlProperties
     {
-        public SizeProperties(Control control) : base(control) { }
+        public SizeProperty(Control control) : base(control) { }
 
         public override string Name => "Size";
 
