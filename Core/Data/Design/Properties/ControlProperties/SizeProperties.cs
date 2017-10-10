@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
     public class SizeProperties : IControlProperties
     {
-        public SizeProperties() : base() { }
+        public SizeProperties(Control control) : base(control) { }
 
         public override string Name => "Size";
 
@@ -23,7 +24,7 @@ namespace Core.Data.Design.Properties.ControlProperties
             {
                 dialog.EnteredSize = Control.Size;
 
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     Control.Size = dialog.EnteredSize;
                     return true;

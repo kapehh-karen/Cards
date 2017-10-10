@@ -13,10 +13,12 @@ namespace Core.Data.Design.Controls.Standard
     {
         public GroupBoxControl()
         {
-            Properties.Add(new TextProperties() { Control = this });
-            Properties.Add(new SizeProperties() { Control = this });
-            Properties.Add(new PositionProperties() { Control = this });
-            
+            Properties.Add(new NameProperties(this));
+            Properties.Add(new TextProperties(this));
+            Properties.Add(new SizeProperties(this));
+            Properties.Add(new PositionProperties(this));
+
+            Text = "Группа";
             DefaultColor = BackColor;
         }
 

@@ -8,14 +8,15 @@ namespace Core.Data.Design.Properties
 {
     public abstract class IControlProperties
     {
-        public IControlProperties()
+        public IControlProperties(Control control)
         {
-            Value = DefaultValue;
+            this.Control = control;
+            this.Value = DefaultValue;
         }
 
         public abstract string Name { get; }
 
-        public virtual Control Control { get; set; }
+        public Control Control { get; set; }
 
         public virtual object Value { get; set; }
 

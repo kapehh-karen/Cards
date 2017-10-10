@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
     public class PositionProperties : IControlProperties
     {
-        public PositionProperties() : base() { }
+        public PositionProperties(Control control) : base(control) { }
 
         public override string Name => "Position";
 
@@ -23,7 +24,7 @@ namespace Core.Data.Design.Properties.ControlProperties
             {
                 dialog.EnteredPosition = Control.Location;
 
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     Control.Location = dialog.EnteredPosition;
                     return true;
