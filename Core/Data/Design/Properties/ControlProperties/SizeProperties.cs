@@ -18,7 +18,7 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override object DefaultValue => new Size(100, 20);
 
-        public override bool ChangeValue()
+        public override bool ChangeValue(object sender)
         {
             using (var dialog = new FormEditSize())
             {

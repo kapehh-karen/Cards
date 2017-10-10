@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.Data.Field;
+using Core.Data.Table;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,6 +12,8 @@ namespace Core.Data.Design.InternalData
     [DataContract]
     [KnownType(typeof(Size))]
     [KnownType(typeof(Point))]
+    [KnownType(typeof(FieldData))]
+    [KnownType(typeof(LinkedTable))]
     public class PropertyData
     {
         [DataMember]

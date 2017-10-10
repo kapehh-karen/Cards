@@ -251,7 +251,7 @@ namespace Core.Forms.DateBase
                 {
                     if (lt.Field == null || lt.Table == null)
                     {
-                        MessageBox.Show($"В таблице \"{td.Name}\" имеются связанные данные, у которых отсутствует информация о таблице или поле",
+                        MessageBox.Show($"В таблице \"{td.Name}\" имеются внешние данные, у которых отсутствует информация о таблице или поле",
                             "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }

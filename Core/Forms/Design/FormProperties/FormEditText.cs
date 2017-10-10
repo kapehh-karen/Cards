@@ -6,11 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using static Core.Forms.Design.FormProperties.PropertiesEvent;
 
 namespace Core.Forms.Design.FormProperties
 {
     public partial class FormEditText : Form
     {
+        public event PropertyEvent ChangingText;
+
         public FormEditText()
         {
             InitializeComponent();
@@ -26,6 +29,11 @@ namespace Core.Forms.Design.FormProperties
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void txtText_TextChanged(object sender, EventArgs e)
+        {
+            ChangingText?.Invoke(txtText.Text);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override object DefaultValue => $"{Control.GetType().Name}__{DateTime.Now.Ticks.ToString("x")}";
 
-        public override bool ChangeValue()
+        public override bool ChangeValue(object sender)
         {
             using (var dialog = new FormEditText())
             {

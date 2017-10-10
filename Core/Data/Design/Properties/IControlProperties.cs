@@ -26,6 +26,6 @@ namespace Core.Data.Design.Properties
         /// Вызвать форму редактирования проперти
         /// </summary>
         /// <returns>true - если пропертя поменялась</returns>
-        public abstract bool ChangeValue();
+        public abstract bool ChangeValue(object sender = null);
     }
 }

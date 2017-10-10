@@ -23,8 +23,8 @@ namespace Core.Data.Design.Controls
         FIELD = 3,
 
         /// <summary>
-        /// Элемент предоставляет таблицу значений
+        /// Элемент предоставляет внешние данные
         /// </summary>
-        TABLE_LIST = 4,
+        LINKED_TABLE = 4,
     }
 }

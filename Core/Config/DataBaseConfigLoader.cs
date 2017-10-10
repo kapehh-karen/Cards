@@ -108,7 +108,7 @@ namespace Core.Config
                 dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
             }
 
-            // cleanup BindData and LinkedTable: checking fields and tables
+            // cleanup removed tables and fields in BindData, LinkedTable, FormData
             dataBase.Tables.ForEach(td =>
             {
                 foreach (var fd in td.Fields.Where(fd => fd.Type == FieldType.BIND))
@@ -136,6 +136,18 @@ namespace Core.Config
                         lt.Field = null;
                     }
                 }
+
+                td.Form?.Pages.ForEach(page => page.Controls.ForEach(ctl => ctl.Properties.ForEach(p =>
+                {
+                    if (p.Value is FieldData field && !td.Fields.Contains(field))
+                    {
+                        p.Value = null;
+                    }
+                    else if (p.Value is LinkedTable table && !td.LinkedTables.Contains(table))
+                    {
+                        p.Value = null;
+                    }
+                })));
             });
 
             return dataBase;

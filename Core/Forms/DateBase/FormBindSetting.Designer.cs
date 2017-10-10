@@ -148,9 +148,9 @@
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label5.Location = new System.Drawing.Point(9, 231);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(363, 13);
+            this.label5.Size = new System.Drawing.Size(353, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Связанные списки [INS - добавить, DEL - удалить, ENTER - изменить]";
+            this.label5.Text = "Внешние данные [INS - добавить, DEL - удалить, ENTER - изменить]";
             // 
             // label4
             // 

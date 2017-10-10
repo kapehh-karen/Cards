@@ -34,6 +34,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -84,7 +85,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(429, 327);
+            this.tabPage2.Size = new System.Drawing.Size(188, 108);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -94,12 +95,20 @@
             this.maskedTextBox1.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
             this.maskedTextBox1.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
             this.maskedTextBox1.Location = new System.Drawing.Point(79, 249);
-            this.maskedTextBox1.Mask = "8 (999) 000-0000";
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.Size = new System.Drawing.Size(245, 20);
             this.maskedTextBox1.TabIndex = 1;
-            this.maskedTextBox1.Text = "9093672311";
-            this.maskedTextBox1.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals;
+            this.maskedTextBox1.Text = "89093672312sdsdsd";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(237, 176);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(110, 27);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // frmTestUserControls
             // 
@@ -107,6 +116,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(556, 423);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.tabControl1);
             this.Name = "frmTestUserControls";
@@ -126,5 +136,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.Button button3;
     }
 }

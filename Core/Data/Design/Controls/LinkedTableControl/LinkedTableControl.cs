@@ -1,28 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Core.Data.Design.Properties;
 using Core.Data.Design.Properties.ControlProperties;
-using System.Drawing;
 
-namespace Core.Data.Design.Controls.FieldControl
+namespace Core.Data.Design.Controls.LinkedTableControl
 {
-    public class TextControl : MaskedTextBox, IDesignControl
+    public class LinkedTableControl : ListView, IDesignControl
     {
-        public TextControl()
+        public LinkedTableControl()
         {
             Properties.Add(new NameProperties(this));
             Properties.Add(new TextProperties(this));
             Properties.Add(new SizeProperties(this));
             Properties.Add(new PositionProperties(this));
-            Properties.Add(new FieldProperties(this));
+            Properties.Add(new LinkedTableProperties(this));
 
             DefaultColor = BackColor;
         }
-        
-        public DesignControlType ControlType => DesignControlType.FIELD;
+
+        public DesignControlType ControlType => DesignControlType.LINKED_TABLE;
 
         public List<IControlProperties> Properties { get; set; } = new List<IControlProperties>();
 

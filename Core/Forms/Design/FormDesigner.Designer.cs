@@ -37,6 +37,7 @@
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewProperties = new System.Windows.Forms.ListView();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             this.listViewControls.Location = new System.Drawing.Point(0, 24);
             this.listViewControls.MultiSelect = false;
             this.listViewControls.Name = "listViewControls";
-            this.listViewControls.Size = new System.Drawing.Size(188, 587);
+            this.listViewControls.Size = new System.Drawing.Size(150, 447);
             this.listViewControls.TabIndex = 1;
             this.listViewControls.UseCompatibleStateImageBehavior = false;
             this.listViewControls.View = System.Windows.Forms.View.List;
@@ -61,7 +62,7 @@
             this.settingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1135, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(863, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -78,19 +79,19 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.saveToolStripMenuItem.Text = "Сохранить";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(129, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.closeToolStripMenuItem.Text = "Закрыть";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -114,20 +115,29 @@
             this.listViewProperties.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.listViewProperties.Dock = System.Windows.Forms.DockStyle.Right;
             this.listViewProperties.FullRowSelect = true;
-            this.listViewProperties.Location = new System.Drawing.Point(911, 24);
+            this.listViewProperties.Location = new System.Drawing.Point(718, 24);
             this.listViewProperties.MultiSelect = false;
             this.listViewProperties.Name = "listViewProperties";
-            this.listViewProperties.Size = new System.Drawing.Size(224, 587);
+            this.listViewProperties.Size = new System.Drawing.Size(145, 447);
             this.listViewProperties.TabIndex = 3;
             this.listViewProperties.UseCompatibleStateImageBehavior = false;
             this.listViewProperties.View = System.Windows.Forms.View.List;
             this.listViewProperties.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewProperties_MouseDoubleClick);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Location = new System.Drawing.Point(150, 449);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(568, 22);
+            this.statusStrip1.TabIndex = 6;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
             // FormDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1135, 611);
+            this.ClientSize = new System.Drawing.Size(863, 471);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.listViewProperties);
             this.Controls.Add(this.listViewControls);
             this.Controls.Add(this.menuStrip1);
@@ -135,6 +145,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormDesigner";
             this.Text = "Дизайнер форм";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormDesigner_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -154,5 +165,6 @@
         private System.Windows.Forms.ListView listViewProperties;
         private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tabPagesToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }

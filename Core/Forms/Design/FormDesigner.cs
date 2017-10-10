@@ -61,6 +61,7 @@ namespace Core.Forms.Design
             listViewControls.Items.Add(new ListViewItem() { Text = "Надпись", Tag = new CreateLabelControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Группировка", Tag = new CreateGroupBoxControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Текстовое поле", Tag = new CreateTextControl() });
+            listViewControls.Items.Add(new ListViewItem() { Text = "Таблица внешних данных", Tag = new CreateLinkedTableControl() });
         }
 
         private void FrmEmpty_ControlRelease(IDesignControl control)
@@ -95,7 +96,7 @@ namespace Core.Forms.Design
             if (listView.SelectedItems.Count == 1)
             {
                 var proper = listView.SelectedItems[0].Tag as IControlProperties;
-                proper.ChangeValue();
+                proper.ChangeValue(TableData);
             }
         }
 

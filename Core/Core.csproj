@@ -69,6 +69,9 @@
     </Compile>
     <Compile Include="Data\Design\Controls\IDesignContainer.cs" />
     <Compile Include="Data\Design\Controls\IDesignControl.cs" />
+    <Compile Include="Data\Design\Controls\LinkedTableControl\LinkedTableControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\Design\Controls\Standard\GroupBoxControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -78,6 +81,7 @@
     <Compile Include="Data\Design\FormBrushes\CreateControlBrush.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateGroupBoxControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateLabelControl.cs" />
+    <Compile Include="Data\Design\FormBrushes\CreateLinkedTableControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateTextControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CursorBrush.cs" />
     <Compile Include="Data\Design\FormBrushes\IFormBrush.cs" />
@@ -85,6 +89,8 @@
     <Compile Include="Data\Design\InternalData\FormData.cs" />
     <Compile Include="Data\Design\InternalData\PageData.cs" />
     <Compile Include="Data\Design\InternalData\PropertyData.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\FieldProperties.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\LinkedTableProperties.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\NameProperties.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\PositionProperties.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\SizeProperties.cs" />
@@ -134,6 +140,18 @@
     <Compile Include="Forms\Design\FormEmpty.Designer.cs">
       <DependentUpon>FormEmpty.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Design\FormProperties\FormEditFieldProperty.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Design\FormProperties\FormEditFieldProperty.Designer.cs">
+      <DependentUpon>FormEditFieldProperty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Design\FormProperties\FormEditLinkedTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Design\FormProperties\FormEditLinkedTable.Designer.cs">
+      <DependentUpon>FormEditLinkedTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Design\FormProperties\FormEditPosition.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +170,7 @@
     <Compile Include="Forms\Design\FormProperties\FormEditText.Designer.cs">
       <DependentUpon>FormEditText.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Design\FormProperties\PropertiesEvent.cs" />
     <Compile Include="Forms\Design\FormTabPages.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -193,6 +212,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\FormEmpty.resx">
       <DependentUpon>FormEmpty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Design\FormProperties\FormEditFieldProperty.resx">
+      <DependentUpon>FormEditFieldProperty.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Design\FormProperties\FormEditLinkedTable.resx">
+      <DependentUpon>FormEditLinkedTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\FormProperties\FormEditPosition.resx">
       <DependentUpon>FormEditPosition.cs</DependentUpon>
