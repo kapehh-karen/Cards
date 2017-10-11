@@ -47,11 +47,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(551, 475);
             this.Controls.Add(this.tabPages);
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormEmpty";
             this.Text = "Форма";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEmpty_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormEmpty_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseUp);

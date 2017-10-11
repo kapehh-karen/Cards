@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Core.Data.Design.Properties;
+using System.Drawing;
 
 namespace Core.Forms.Design
 {
-    public class CardTabPage : TabPage, IDesignContainer
+    public class CardTabPage : TabPage, IDesignControl
     {
         public CardTabPage()
         {
@@ -37,6 +39,14 @@ namespace Core.Forms.Design
         /// For save strings for this tab
         /// </summary>
         public string TempString { get; set; }
+
+        public List<IControlProperties> Properties => throw new NotImplementedException();
+
+        public DesignControlType ControlType => throw new NotImplementedException();
+
+        public IDesignControl ParentControl { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
+        public Color DefaultColor => throw new NotImplementedException();
 
         public override string ToString()
         {

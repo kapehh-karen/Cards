@@ -10,6 +10,8 @@ namespace Core.Data.Design.FormBrushes
 {
     public abstract class IFormBrush
     {
+        public abstract string Name { get; }
+
         public virtual void ActivateBrush(CardTabPage sender) { }
 
         public virtual void DeactivateBrush(CardTabPage sender) { }

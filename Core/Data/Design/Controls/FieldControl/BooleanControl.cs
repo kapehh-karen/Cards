@@ -1,30 +1,29 @@
-﻿using System;
+﻿using Core.Data.Design.Properties;
+using Core.Data.Design.Properties.ControlProperties;
+using Core.Data.Field;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Core.Data.Design.Properties;
-using Core.Data.Design.Properties.ControlProperties;
-using System.Drawing;
-using Core.Data.Field;
 
 namespace Core.Data.Design.Controls.FieldControl
 {
-    public class TextControl : MaskedTextBox, IDesignControl
+    public class BooleanControl : CheckBox, IDesignControl
     {
-        public TextControl()
+        public BooleanControl()
         {
             Properties.Add(new NameProperty(this));
             Properties.Add(new TextProperty(this));
-            Properties.Add(new MaskProperty(this));
             Properties.Add(new SizeProperty(this));
             Properties.Add(new PositionProperty(this));
-            Properties.Add(new FieldProperty(this) { AccessTypes = new FieldType[] { FieldType.TEXT, FieldType.NUMBER, FieldType.DATE } });
+            Properties.Add(new FieldProperty(this) { AccessTypes = new FieldType[] { FieldType.BOOLEAN } });
 
+            AutoSize = true;
             DefaultColor = BackColor;
-            InsertKeyMode = InsertKeyMode.Overwrite;
         }
-        
+
         public DesignControlType ControlType => DesignControlType.FIELD;
 
         public List<IControlProperties> Properties { get; set; } = new List<IControlProperties>();

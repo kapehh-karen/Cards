@@ -37,7 +37,10 @@
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPagesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.listViewProperties = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.btnDelete = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +65,7 @@
             this.settingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(863, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(939, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -113,30 +116,56 @@
             // listViewProperties
             // 
             this.listViewProperties.Activation = System.Windows.Forms.ItemActivation.TwoClick;
+            this.listViewProperties.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2});
             this.listViewProperties.Dock = System.Windows.Forms.DockStyle.Right;
             this.listViewProperties.FullRowSelect = true;
-            this.listViewProperties.Location = new System.Drawing.Point(718, 24);
+            this.listViewProperties.GridLines = true;
+            this.listViewProperties.Location = new System.Drawing.Point(641, 24);
             this.listViewProperties.MultiSelect = false;
             this.listViewProperties.Name = "listViewProperties";
-            this.listViewProperties.Size = new System.Drawing.Size(145, 447);
+            this.listViewProperties.Size = new System.Drawing.Size(298, 447);
             this.listViewProperties.TabIndex = 3;
             this.listViewProperties.UseCompatibleStateImageBehavior = false;
-            this.listViewProperties.View = System.Windows.Forms.View.List;
+            this.listViewProperties.View = System.Windows.Forms.View.Details;
             this.listViewProperties.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listViewProperties_MouseDoubleClick);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Свойство";
+            this.columnHeader1.Width = 102;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Значение";
+            this.columnHeader2.Width = 116;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Location = new System.Drawing.Point(150, 449);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(568, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(491, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDelete.Location = new System.Drawing.Point(830, 436);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(97, 23);
+            this.btnDelete.TabIndex = 8;
+            this.btnDelete.Text = "Удалить";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // FormDesigner
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(863, 471);
+            this.ClientSize = new System.Drawing.Size(939, 471);
+            this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.listViewProperties);
             this.Controls.Add(this.listViewControls);
@@ -166,5 +195,8 @@
         private System.Windows.Forms.ToolStripMenuItem settingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tabPagesToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.Button btnDelete;
     }
 }

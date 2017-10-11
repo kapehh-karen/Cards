@@ -15,6 +15,8 @@ namespace Core.Data.Design.FormBrushes
         private Point startLocation;
         private Size size;
 
+        public override string Name => "Создание элемента";
+
         public override void ActivateBrush(CardTabPage sender)
         {
             prevCurs = sender.Cursor;
@@ -43,9 +45,7 @@ namespace Core.Data.Design.FormBrushes
             var c = DesignControl() as Control;
             var dc = c as IDesignControl;
 
-            // set default properties
-            //dc.Properties.ForEach(_prop => _prop.Value = _prop.DefaultValue);
-
+            dc.ParentControl = control is IDesignControl ? control as IDesignControl : null;
             c.Location = new Point(Math.Min(startLocation.X, coord.X), Math.Min(startLocation.Y, coord.Y));
             c.Size = new Size(Math.Max(size.Width, 26), Math.Max(size.Height, 13));
 

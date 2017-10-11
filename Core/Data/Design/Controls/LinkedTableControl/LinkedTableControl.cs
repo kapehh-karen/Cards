@@ -20,6 +20,8 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             Properties.Add(new LinkedTableProperty(this));
 
             DefaultColor = BackColor;
+            View = View.Details;
+            MultiSelect = false;
         }
 
         public DesignControlType ControlType => DesignControlType.LINKED_TABLE;
@@ -27,6 +29,8 @@ namespace Core.Data.Design.Controls.LinkedTableControl
         public List<IControlProperties> Properties { get; set; } = new List<IControlProperties>();
 
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
+
+        public IDesignControl ParentControl { get; set; }
 
         public Color DefaultColor { get; set; }
     }

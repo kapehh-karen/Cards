@@ -28,6 +28,8 @@ namespace Core.Data.Design.Controls.Standard
 
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 
+        public IDesignControl ParentControl { get; set; }
+
         public Color DefaultColor { get; set; }
     }
 }

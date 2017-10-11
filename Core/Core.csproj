@@ -64,6 +64,12 @@
     <Compile Include="Connection\DataBaseConnection.cs" />
     <Compile Include="Data\Base\DataBase.cs" />
     <Compile Include="Data\Design\Controls\DesignControlType.cs" />
+    <Compile Include="Data\Design\Controls\FieldControl\BindControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Data\Design\Controls\FieldControl\BooleanControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\Design\Controls\FieldControl\TextControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -78,6 +84,8 @@
     <Compile Include="Data\Design\Controls\Standard\LabelControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Data\Design\FormBrushes\CreateBindControl.cs" />
+    <Compile Include="Data\Design\FormBrushes\CreateBooleanControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateControlBrush.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateGroupBoxControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateLabelControl.cs" />

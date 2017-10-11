@@ -21,6 +21,8 @@ namespace Core.Data.Design.Controls
         /// </summary>
         DesignControlType ControlType { get; }
 
+        IDesignControl ParentControl { get; set; }
+
         Color DefaultColor { get; }
     }
 }

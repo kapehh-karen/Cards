@@ -1,5 +1,6 @@
 ﻿using Core.Data.Field;
 using Core.Data.Table;
+using Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,10 +16,13 @@ namespace Core.Forms.Design.FormProperties
     {
         private TableData _tableData;
 
-        public FormEditFieldProperty()
+        public FormEditFieldProperty(FieldType[] acceptedTypes)
         {
             InitializeComponent();
+            AcceptedTypes = acceptedTypes;
         }
+
+        public FieldType[] AcceptedTypes { get; set; }
 
         public TableData TableData
         {
@@ -30,7 +34,7 @@ namespace Core.Forms.Design.FormProperties
             {
                 _tableData = value;
                 Text = $"Выбор поля в таблице {_tableData.Name}";
-                _tableData.Fields.ForEach(fld => cmbFields.Items.Add(fld));
+                _tableData.Fields.Where(fld => AcceptedTypes.Contains(fld.Type)).ForEach(fld => cmbFields.Items.Add(fld));
             }
         }
 

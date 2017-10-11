@@ -20,6 +20,7 @@ namespace Core.Forms.Design
     {
         private FormEmpty frmEmpty;
         private CursorBrush cursorBrush;
+        private IDesignControl selectedControl;
 
         public FormDesigner()
         {
@@ -60,23 +61,33 @@ namespace Core.Forms.Design
             listViewControls.Items.Add(new ListViewItem() { Text = "- Указатель -", Tag = cursorBrush = new CursorBrush() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Надпись", Tag = new CreateLabelControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Группировка", Tag = new CreateGroupBoxControl() });
-            listViewControls.Items.Add(new ListViewItem() { Text = "Текстовое поле", Tag = new CreateTextControl() });
+            listViewControls.Items.Add(new ListViewItem() { Text = "Текстовое значение", Tag = new CreateTextControl() });
+            listViewControls.Items.Add(new ListViewItem() { Text = "Логическое значение", Tag = new CreateBooleanControl() });
+            listViewControls.Items.Add(new ListViewItem() { Text = "Связанное значение", Tag = new CreateBindControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Таблица внешних данных", Tag = new CreateLinkedTableControl() });
         }
 
         private void FrmEmpty_ControlRelease(IDesignControl control)
         {
+            selectedControl = null;
             listViewProperties.Items.Clear();
+            btnDelete.Enabled = false;
         }
 
         private void FrmEmpty_ControlSelected(IDesignControl control)
         {
+            selectedControl = control;
             listViewProperties.Items.Clear();
+            btnDelete.Enabled = true;
 
             foreach (var proper in control.Properties)
             {
-                listViewProperties.Items.Add(new ListViewItem() { Text = proper.Name, Tag = proper });
+                var lvi = new ListViewItem() { Text = proper.Name, Tag = proper };
+                lvi.SubItems.Add(proper.Value?.ToString());
+                listViewProperties.Items.Add(lvi);
             }
+
+            frmEmpty.FormBrush = cursorBrush;
         }
 
         private void listViewControls_SelectedIndexChanged(object sender, EventArgs e)
@@ -96,7 +107,12 @@ namespace Core.Forms.Design
             if (listView.SelectedItems.Count == 1)
             {
                 var proper = listView.SelectedItems[0].Tag as IControlProperties;
-                proper.ChangeValue(TableData);
+
+                // refresh properties
+                if (proper.ChangeValue(TableData))
+                {
+                    FrmEmpty_ControlSelected(selectedControl);
+                }
             }
         }
 
@@ -150,6 +166,11 @@ namespace Core.Forms.Design
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            frmEmpty?.DeleteControl();
         }
     }
 }

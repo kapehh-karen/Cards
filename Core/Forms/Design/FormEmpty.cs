@@ -60,6 +60,7 @@ namespace Core.Forms.Design
             var type = Type.GetType(control.FullClassName);
             var element = Activator.CreateInstance(type) as IDesignControl;
 
+            element.ParentControl = parent as IDesignControl;
             element.Properties.ForEach(property =>
             {
                 var p = control.Properties.FirstOrDefault(pdata => pdata.Name == property.Name);
@@ -67,7 +68,6 @@ namespace Core.Forms.Design
                 if (p != null)
                     property.Value = p.Value;
             });
-
             element.DesignControls = control.Chields.Select(cdata => MapDataToDesignControl(cdata, element as Control, cardTabPage)).ToList();
 
             parent.Controls.Add(element as Control);
@@ -123,6 +123,7 @@ namespace Core.Forms.Design
                 brush?.DeactivateBrush(SelectedTabPage);
                 brush = value;
                 brush.ActivateBrush(SelectedTabPage);
+                Text = $"Форма - Выбранный режим .:: {value.Name} ::.";
             }
         }
 
@@ -162,7 +163,7 @@ namespace Core.Forms.Design
 
         public void FormEmpty_MouseDown(object sender, MouseEventArgs e)
         {
-            var c = sender is IDesignControl ? sender as Control : null;
+            var c = sender is IDesignControl && !(sender is CardTabPage) ? sender as Control : null;
             FormBrush?.MouseDown(SelectedTabPage, c, e.Location);
         }
 
@@ -170,14 +171,14 @@ namespace Core.Forms.Design
         {
             if (e.Button == MouseButtons.Left)
             {
-                var c = sender is IDesignControl ? sender as Control : null;
+                var c = sender is IDesignControl && !(sender is CardTabPage) ? sender as Control : null;
                 FormBrush?.MouseMove(SelectedTabPage, c, e.Location);
             }
         }
 
         public void FormEmpty_MouseUp(object sender, MouseEventArgs e)
         {
-            var c = sender is IDesignControl ? sender as Control : null;
+            var c = sender is IDesignControl && !(sender is CardTabPage) ? sender as Control : null;
             FormBrush?.MouseUp(SelectedTabPage, c, e.Location);
         }
 
@@ -205,6 +206,21 @@ namespace Core.Forms.Design
         private void tabPages_Selected(object sender, TabControlEventArgs e)
         {
             SelectTabPage(e.TabPage);
+        }
+
+        private void FormEmpty_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && SelectedControl != null)
+            {
+                DeleteControl();
+            }
+        }
+
+        public void DeleteControl()
+        {
+            SelectedControl.ParentControl?.DesignControls.Remove(SelectedControl);
+            (SelectedControl as Control)?.Dispose();
+            SelectedControl = null;
         }
     }
 }

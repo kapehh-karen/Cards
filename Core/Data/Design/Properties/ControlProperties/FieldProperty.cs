@@ -14,14 +14,20 @@ namespace Core.Data.Design.Properties.ControlProperties
         public FieldProperty(Control control) : base(control) { }
 
         public override string Name => "Field";
-
+        
         public override object DefaultValue => null;
+
+        public FieldType[] AccessTypes { get; set; }
 
         public override bool ChangeValue(object sender)
         {
             if (sender is TableData tableData)
             {
-                using (var dialog = new FormEditFieldProperty() { TableData = tableData, SelectedField = Value as FieldData })
+                using (var dialog = new FormEditFieldProperty(AccessTypes)
+                {
+                    TableData = tableData,
+                    SelectedField = Value as FieldData
+                })
                 {
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
