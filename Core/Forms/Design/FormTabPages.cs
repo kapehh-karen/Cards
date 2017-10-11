@@ -84,8 +84,11 @@ namespace Core.Forms.Design
         {
             if (listTabPages.SelectedItem is ListBoxItem item && item != null)
             {
-                CardTabPages.Remove(item.Page);
-                ResetList();
+                if (CardTabPages.Count > 1)
+                {
+                    CardTabPages.Remove(item.Page);
+                    ResetList();
+                }
             }
         }
 

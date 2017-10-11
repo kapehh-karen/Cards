@@ -16,6 +16,8 @@ namespace Core.Data.Design.Properties
 
         public abstract string Name { get; }
 
+        public virtual string Description => string.Empty;
+
         public Control Control { get; set; }
 
         public virtual object Value { get; set; }
