@@ -97,12 +97,15 @@
     <Compile Include="Data\Design\InternalData\FormData.cs" />
     <Compile Include="Data\Design\InternalData\PageData.cs" />
     <Compile Include="Data\Design\InternalData\PropertyData.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\ColorProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\FieldProperty.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\FontProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\LinkedTableProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\MaskProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\NameProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\PositionProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\SizeProperty.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\TabIndexProperty.cs" />
     <Compile Include="Data\Design\Properties\IControlProperties.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\TextProperty.cs" />
     <Compile Include="Data\Field\BindField.cs" />
@@ -160,6 +163,12 @@
     </Compile>
     <Compile Include="Forms\Design\FormProperties\FormEditLinkedTable.Designer.cs">
       <DependentUpon>FormEditLinkedTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Design\FormProperties\FormEditNumber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Design\FormProperties\FormEditNumber.Designer.cs">
+      <DependentUpon>FormEditNumber.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Design\FormProperties\FormEditPosition.cs">
       <SubType>Form</SubType>
@@ -227,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\FormProperties\FormEditLinkedTable.resx">
       <DependentUpon>FormEditLinkedTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Design\FormProperties\FormEditNumber.resx">
+      <DependentUpon>FormEditNumber.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\FormProperties\FormEditPosition.resx">
       <DependentUpon>FormEditPosition.cs</DependentUpon>

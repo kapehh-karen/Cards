@@ -88,6 +88,7 @@ namespace Core.Forms.Design
             }
 
             frmEmpty.FormBrush = cursorBrush;
+            listViewControls.SelectedItems.Clear();
         }
 
         private void listViewControls_SelectedIndexChanged(object sender, EventArgs e)

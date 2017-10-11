@@ -15,12 +15,15 @@ namespace Core.Data.Design.Controls.Standard
         {
             Properties.Add(new NameProperty(this));
             Properties.Add(new TextProperty(this));
+            Properties.Add(new FontProperty(this));
+            Properties.Add(new ColorProperty(this));
             Properties.Add(new SizeProperty(this));
             Properties.Add(new PositionProperty(this));
 
             Text = "Текст";
             AutoSize = true;
             DefaultColor = BackColor;
+            TabStop = false;
         }
         
         public DesignControlType ControlType => DesignControlType.STANDARD;

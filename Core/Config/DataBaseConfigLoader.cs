@@ -137,7 +137,7 @@ namespace Core.Config
                     }
                 }
 
-                td.Form?.Pages.ForEach(page => page.Controls.ForEach(ctl => ctl.Properties.ForEach(p =>
+                /*td.Form?.Pages.ForEach(page => page.Controls.ForEach(ctl => ctl.Properties.ForEach(p =>
                 {
                     if (p.Value is FieldData field && !td.Fields.Contains(field))
                     {
@@ -147,7 +147,7 @@ namespace Core.Config
                     {
                         p.Value = null;
                     }
-                })));
+                })));*/
             });
 
             return dataBase;

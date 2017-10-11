@@ -19,6 +19,7 @@ namespace Core.Data.Design.Controls.FieldControl
             Properties.Add(new SizeProperty(this));
             Properties.Add(new PositionProperty(this));
             Properties.Add(new FieldProperty(this) { AccessTypes = new FieldType[] { FieldType.BOOLEAN } });
+            Properties.Add(new TabIndexProperty(this));
 
             AutoSize = true;
             DefaultColor = BackColor;

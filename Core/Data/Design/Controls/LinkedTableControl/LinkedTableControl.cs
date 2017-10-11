@@ -18,6 +18,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             Properties.Add(new SizeProperty(this));
             Properties.Add(new PositionProperty(this));
             Properties.Add(new LinkedTableProperty(this));
+            Properties.Add(new TabIndexProperty(this));
 
             DefaultColor = BackColor;
             View = View.Details;

@@ -14,6 +14,10 @@ namespace Core.Data.Design.InternalData
     [KnownType(typeof(Point))]
     [KnownType(typeof(FieldData))]
     [KnownType(typeof(LinkedTable))]
+    [KnownType(typeof(FontStyle))]
+    [KnownType(typeof(Font))]
+    [KnownType(typeof(Color))]
+    [KnownType(typeof(GraphicsUnit))]
     public class PropertyData
     {
         [DataMember]

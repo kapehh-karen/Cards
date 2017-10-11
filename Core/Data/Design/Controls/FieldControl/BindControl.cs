@@ -19,7 +19,8 @@ namespace Core.Data.Design.Controls.FieldControl
             Properties.Add(new SizeProperty(this));
             Properties.Add(new PositionProperty(this));
             Properties.Add(new FieldProperty(this) { AccessTypes = new FieldType[] { FieldType.BIND } });
-            
+            Properties.Add(new TabIndexProperty(this));
+
             BackColor = Color.White;
             ForeColor = Color.Black;
             DefaultColor = BackColor;
