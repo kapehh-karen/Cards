@@ -135,6 +135,7 @@ namespace Core.Forms.Design
         {
             return new FormData()
             {
+                Size = frmEmpty.Size,
                 Pages = frmEmpty.CardTabPages.Select(tp => new PageData()
                 {
                     Title = tp.Text,

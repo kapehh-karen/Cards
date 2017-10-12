@@ -53,6 +53,7 @@ namespace Core.Forms.Design
                 SelectedTabPage = pages[0];
 
             tabPages.TabPages.AddRange(pages);
+            Size = formData.Size;
         }
 
         private IDesignControl MapDataToDesignControl(ControlData control, Control parent, CardTabPage cardTabPage)
