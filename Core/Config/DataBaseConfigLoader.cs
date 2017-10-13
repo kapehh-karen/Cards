@@ -137,6 +137,8 @@ namespace Core.Config
                     }
                 }
 
+                // TODO: Доделать удаление удаленных полей и таблиц из FormData-контролов
+
                 /*td.Form?.Pages.ForEach(page => page.Controls.ForEach(ctl => ctl.Properties.ForEach(p =>
                 {
                     if (p.Value is FieldData field && !td.Fields.Contains(field))

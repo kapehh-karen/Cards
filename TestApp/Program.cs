@@ -20,7 +20,7 @@ namespace TestApp
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormBindSetting());
+            Application.Run(new frmBDFields());
         }
 
         private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)

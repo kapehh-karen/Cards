@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,60 +30,24 @@ namespace TestApp
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OleDbConnection conn = new OleDbConnection();
+            listBox1.Items.Clear();
 
-            conn.ConnectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=test_db.mdb";
-            DataSet dset = new DataSet();
+            SqlConnection conn = new SqlConnection();
 
-
+            conn.ConnectionString = @"server=DESKTOP-M4QPOPI\CARDS;uid=root;pwd=123;database=OFFICERS";
             conn.Open();
+
             // Insert code to process data.
             DataTable table = conn.GetSchema("Tables");
 
             foreach (DataRow row in table.Rows)
             {
-                if (!"TABLE".Equals(row["TABLE_TYPE"]))
-                    continue;
-
-                listBox1.Items.Add("============================");
-
+                //if (!"TABLE".Equals(row["TABLE_TYPE"]))
+                //    continue;
+                
                 foreach (DataColumn col in table.Columns)
                 {
                     listBox1.Items.Add($"{col.ColumnName} = {row[col]}");
-                }
-
-                listBox1.Items.Add("COLUMNS:");
-
-                var dt = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, row["TABLE_NAME"] });
-                foreach (DataRow rrr in dt.Rows)
-                {
-                    listBox1.Items.Add($"    {rrr}:");
-                    foreach (DataColumn ccc in dt.Columns)
-                    {
-                        listBox1.Items.Add($"        {ccc.ColumnName} = {rrr[ccc]}");
-                    }
-                }
-                
-                try
-                {
-                    listBox1.Items.Add("ROWS:");
-
-                    var cmd = new OleDbCommand($"SELECT * FROM {row["TABLE_NAME"]}", conn);
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            for (var i = 0; i < reader.FieldCount; i++)
-                            {
-                                listBox1.Items.Add($"    {reader.GetName(i)} = {reader[i]}");
-                            }
-                            listBox1.Items.Add("    ---");
-                        }
-                    }
-                }
-                catch (Exception)
-                {
-
                 }
 
                 listBox1.Items.Add("============================");
@@ -93,7 +58,7 @@ namespace TestApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new FormBindSetting().ShowDialog();
+
         }
     }
 }
