@@ -1,6 +1,8 @@
 ﻿using Core.Config;
 using Core.Connection;
 using Core.Data.Base;
+using Core.Data.Design.Controls;
+using Core.Data.Design.InternalData;
 using Core.Data.Field;
 using Core.Data.Table;
 using Core.Notification;
@@ -136,23 +138,33 @@ namespace Core.Config
                         lt.Field = null;
                     }
                 }
-
-                // TODO: Доделать удаление удаленных полей и таблиц из FormData-контролов
-
-                /*td.Form?.Pages.ForEach(page => page.Controls.ForEach(ctl => ctl.Properties.ForEach(p =>
-                {
-                    if (p.Value is FieldData field && !td.Fields.Contains(field))
-                    {
-                        p.Value = null;
-                    }
-                    else if (p.Value is LinkedTable table && !td.LinkedTables.Contains(table))
-                    {
-                        p.Value = null;
-                    }
-                })));*/
+                
+                td.Form?.Pages.ForEach(page => CleanupProperties(td, page.Controls));
             });
 
             return dataBase;
+        }
+
+        private void CleanupProperties(TableData tableData, List<ControlData> Controls)
+        {
+            Controls.ForEach(ctl =>
+            {
+                // Properties cleanup
+                ctl.Properties.ForEach(p =>
+                {
+                    if (p.Value is FieldData field && !tableData.Fields.Contains(field))
+                    {
+                        p.Value = null;
+                    }
+                    else if (p.Value is LinkedTable table && !tableData.LinkedTables.Contains(table))
+                    {
+                        p.Value = null;
+                    }
+                });
+
+                // In Deepth
+                CleanupProperties(tableData, ctl.Chields);
+            });
         }
     }
 }

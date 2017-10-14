@@ -44,10 +44,65 @@ namespace TestApp
             {
                 //if (!"TABLE".Equals(row["TABLE_TYPE"]))
                 //    continue;
-                
+
+                string tableName = row["TABLE_NAME"].ToString();
+
                 foreach (DataColumn col in table.Columns)
                 {
                     listBox1.Items.Add($"{col.ColumnName} = {row[col]}");
+                }
+
+                listBox1.Items.Add("FIELDS:");
+
+                using (SqlCommand command = new SqlCommand($"SELECT TOP 0 [{tableName}].* FROM [{tableName}] WHERE 1 = 2", conn))
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        // This will return false - we don't care, we just want to make sure the schema table is there.
+                        reader.Read();
+
+                        var tableSchema = reader.GetSchemaTable();
+
+                        /*
+                            <string>ColumnName</string>
+                            <string>ColumnOrdinal</string>
+                            <string>ColumnSize</string>
+                            <string>NumericPrecision</string>
+                            <string>NumericScale</string>
+                            <string>IsUnique</string>
+                            <string>IsKey</string>
+                            <string>BaseServerName</string>
+                            <string>BaseCatalogName</string>
+                            <string>BaseColumnName</string>
+                            <string>BaseSchemaName</string>
+                            <string>BaseTableName</string>
+                            <string>DataType</string>
+                            <string>AllowDBNull</string>
+                            <string>ProviderType</string>
+                            <string>IsAliased</string>
+                            <string>IsExpression</string>
+                            <string>IsIdentity</string>
+                            <string>IsAutoIncrement</string>
+                            <string>IsRowVersion</string>
+                            <string>IsHidden</string>
+                            <string>IsLong</string>
+                            <string>IsReadOnly</string>
+                            <string>ProviderSpecificDataType</string>
+                            <string>DataTypeName</string>
+                            <string>XmlSchemaCollectionDatabase</string>
+                            <string>XmlSchemaCollectionOwningSchema</string>
+                            <string>XmlSchemaCollectionName</string>
+                            <string>UdtAssemblyQualifiedName</string>
+                            <string>NonVersionedProviderType</string>
+                            <string>IsColumnSet</string>
+                         */
+
+                        // Each row in the table schema describes a column
+                        foreach (DataRow rowColumn in tableSchema.Rows)
+                        {
+                            listBox1.Items.Add($"    {rowColumn["ColumnName"]}");
+                        }
+                    }
                 }
 
                 listBox1.Items.Add("============================");

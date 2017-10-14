@@ -22,6 +22,8 @@ namespace Core.Forms.Design
         private CursorBrush cursorBrush;
         private IDesignControl selectedControl;
 
+        private bool closing;
+
         public FormDesigner()
         {
             InitializeComponent();
@@ -161,18 +163,39 @@ namespace Core.Forms.Design
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.FormData = GetFormData();
-
+            closing = true;
             DialogResult = DialogResult.OK;
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            closing = true;
             DialogResult = DialogResult.Cancel;
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             frmEmpty?.DeleteControl();
+        }
+
+        private void FormDesigner_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (closing)
+            {
+                closing = false;
+                return;
+            }
+
+            if (MessageBox.Show("Сохранить все изменения?", "Редактор форм",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            {
+                this.FormData = GetFormData();
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                DialogResult = DialogResult.Cancel;
+            }
         }
     }
 }

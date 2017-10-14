@@ -262,7 +262,7 @@
             this.btnSaveApply.Name = "btnSaveApply";
             this.btnSaveApply.Size = new System.Drawing.Size(163, 23);
             this.btnSaveApply.TabIndex = 3;
-            this.btnSaveApply.Text = "Сохранить и применить";
+            this.btnSaveApply.Text = "Сохранить";
             this.btnSaveApply.UseVisualStyleBackColor = true;
             this.btnSaveApply.Click += new System.EventHandler(this.btnSaveApply_Click);
             // 

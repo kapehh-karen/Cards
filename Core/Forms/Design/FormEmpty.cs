@@ -141,6 +141,9 @@ namespace Core.Forms.Design
                 if (value != null)
                 {
                     ControlSelected?.Invoke(value);
+
+                    // For hook KeyDown, set focus to selected element
+                    (value as Control).Focus();
                 }
 
                 control = value;
@@ -219,9 +222,13 @@ namespace Core.Forms.Design
 
         public void DeleteControl()
         {
-            SelectedControl.ParentControl?.DesignControls.Remove(SelectedControl);
-            (SelectedControl as Control)?.Dispose();
-            SelectedControl = null;
+            if (MessageBox.Show("Вы уверены что хотите удалить элемент?", "Удаление элемента",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            {
+                SelectedControl.ParentControl?.DesignControls.Remove(SelectedControl);
+                (SelectedControl as Control)?.Dispose();
+                SelectedControl = null;
+            }
         }
     }
 }
