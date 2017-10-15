@@ -16,7 +16,7 @@ namespace TestApp
         [STAThread]
         static void Main()
         {
-            NotificationMessage.ReceiveMessage += NotificationMessage_ReceiveMessage;
+            //NotificationMessage.ReceiveMessage += NotificationMessage_ReceiveMessage;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -25,8 +25,8 @@ namespace TestApp
 
         private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)
         {
-            if (level.ToString().StartsWith("SYSTEM"))
-                return;
+            //if (level.ToString().StartsWith("SYSTEM"))
+            //    return;
 
             if (param != null)
             {

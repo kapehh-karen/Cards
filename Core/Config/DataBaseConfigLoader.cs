@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,30 +19,33 @@ namespace Core.Config
 {
     public class DataBaseConfigLoader
     {
-        private string configFileName;
+        //private string configFileName;
         private string fileBaseName;
         private Configuration<DataBase> config;
 
         public DataBaseConfigLoader(string fileBaseName)
         {
-            this.configFileName = $"{Path.GetDirectoryName(fileBaseName)}\\{Path.GetFileNameWithoutExtension(fileBaseName)}.conf";
+            //this.configFileName = $"{Path.GetDirectoryName(fileBaseName)}\\{Path.GetFileNameWithoutExtension(fileBaseName)}.conf";
             this.fileBaseName = fileBaseName;
             this.config = new Configuration<DataBase>();
         }
 
-        public DataBase Load()
+        public DataBase Load(DataBase fromDataBaseConfig = null)
         {
-            DataBase dbConfig = null;
+            DataBase dbConfig = fromDataBaseConfig;
 
-            // load configuration if exists
-            if (File.Exists(configFileName))
+            if (fromDataBaseConfig == null)
             {
-                dbConfig = this.LoadFromConfig();
-                NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" успешно загружена из файла \"{configFileName}\"");
-            }
-            else
-            {
-                NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" не найдена");
+                // load configuration if exists
+                if (File.Exists(this.fileBaseName))
+                {
+                    dbConfig = this.LoadFromConfig();
+                    NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" успешно загружена");
+                }
+                else
+                {
+                    NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" не найдена");
+                }
             }
 
             return this.LoadFromBase(dbConfig);
@@ -49,22 +53,31 @@ namespace Core.Config
 
         public void Save(DataBase dbc)
         {
-            this.config.WriteToFile(dbc, this.configFileName);
-            NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" сохранена в файл \"{configFileName}\"");
+            this.config.WriteToFile(dbc, this.fileBaseName);
+            NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" успешно сохранена");
         }
 
         private DataBase LoadFromConfig()
         {
-            return this.config.ReadFromFile(this.configFileName);
+            return this.config.ReadFromFile(this.fileBaseName);
         }
 
         private DataBase LoadFromBase(DataBase dataBaseConfig)
         {
             var dataBase = dataBaseConfig ?? new DataBase();
-
-            using (var dbc = new DataBaseConnection(fileBaseName))
+            
+            using (var dbc = new SQLServerConnection(
+                dataBaseConfig?.Sever,
+                dataBaseConfig?.Port ?? 0,
+                dataBaseConfig?.UserName,
+                dataBaseConfig?.Password,
+                dataBaseConfig?.BaseName))
             {
                 var conn = dbc.Connection;
+
+                if (conn.State == ConnectionState.Closed)
+                    return dataBase;
+
                 DataTable table = conn.GetSchema("Tables");
 
                 var tableNames = new List<string>();
@@ -72,9 +85,9 @@ namespace Core.Config
 
                 foreach (DataRow row in table.Rows)
                 {
-                    // skip system tables
-                    if (!"TABLE".Equals(row["TABLE_TYPE"]))
-                        continue;
+                    // skip system tables (only access db)
+                    //if (!"TABLE".Equals(row["TABLE_TYPE"]))
+                    //    continue;
 
                     var tableName = row["TABLE_NAME"].ToString();
                     var tableInConfig = dataBase.Tables.FirstOrDefault(td => td.Name == tableName);
@@ -87,7 +100,33 @@ namespace Core.Config
                         dataBase.Tables.Add(tableData);
                     }
 
-                    var dataTable = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, tableName });
+                    using (SqlCommand command = new SqlCommand($"SELECT TOP 0 [{tableName}].* FROM [{tableName}] WHERE 1 = 2", conn))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            // This will return false - we don't care, we just want to make sure the schema table is there.
+                            reader.Read();
+
+                            var tableSchema = reader.GetSchemaTable();
+
+                            // Each row in the table schema describes a column
+                            foreach (DataRow rowColumn in tableSchema.Rows)
+                            {
+                                var fieldName = rowColumn["ColumnName"].ToString();
+                                var fieldInTable = tableData.Fields.FirstOrDefault(fd => fd.Name == fieldName);
+                                var fieldData = fieldInTable ?? new FieldData() { Name = fieldName };
+                                fieldNames.Add(fieldName);
+
+                                // if field NOT exists in table
+                                if (fieldInTable == null)
+                                {
+                                    tableData.Fields.Add(fieldData);
+                                }
+                            }
+                        }
+                    }
+
+                    /*var dataTable = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, tableName });
                     foreach (DataRow dtRow in dataTable.Rows)
                     {
                         var fieldName = dtRow["COLUMN_NAME"].ToString();
@@ -100,7 +139,7 @@ namespace Core.Config
                         {
                             tableData.Fields.Add(fieldData);
                         }
-                    }
+                    }*/
 
                     // filter fields
                     tableData.Fields = tableData.Fields.Where(fd => fieldNames.Contains(fd.Name)).ToList();

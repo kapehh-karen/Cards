@@ -68,17 +68,17 @@ namespace Core.Forms.DateBase
             {
                 var field = cmbField.SelectedItem as FieldData;
                 var table = cmbTable.SelectedItem as TableData;
+                
+                if (field == null || table == null)
+                {
+                    MessageBox.Show("Если выбран тип \"Связанное поле\", то обязательно требуется выбрать таблицу и поле", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 if (table.IdentifierField == null)
                 {
                     MessageBox.Show($"В таблице \"{table.Name}\" не указано поле идентификатора.\r\nПеред выбором этой таблицы укажите поле идентификатора",
                         "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                if (field == null || table == null)
-                {
-                    MessageBox.Show("Если выбран тип \"Связанное поле\", то обязательно требуется выбрать таблицу и поле", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }

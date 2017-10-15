@@ -29,11 +29,18 @@ namespace Core.Forms.DateBase
 
         private void SelectDB(string fileName)
         {
+            _dataBase = null;
             dataBaseConfigLoader = new DataBaseConfigLoader(fileName);
-            _dataBase = dataBaseConfigLoader.Load();
+            LoadDBInfo();
+        }
+
+        private void LoadDBInfo()
+        {
+            _dataBase = dataBaseConfigLoader.Load(_dataBase);
 
             gbDateBase.Enabled = true;
-            gbDateBase.Text = $"База - {fileName}";
+            gbDateTable.Enabled = false;
+            gbDateBase.Text = $"База: Server={_dataBase.Sever ?? "***"}, Port={_dataBase.Port}, User={_dataBase.UserName ?? "***"}, Password={_dataBase.Password ?? "***"}";
 
             cmbTables.Items.Clear();
             _dataBase.Tables.ForEach(td => cmbTables.Items.Add(td));
@@ -111,11 +118,17 @@ namespace Core.Forms.DateBase
 
         private void frmBindSetting_Load(object sender, EventArgs e)
         {
+            FillDBList();
+        }
+
+        private void FillDBList()
+        {
             if (!Directory.Exists("BASE"))
                 Directory.CreateDirectory("BASE");
 
+            cmbBasesList.Items.Clear();
             foreach (var fileName in Directory.GetFiles("BASE")
-                                              .Where(fname => Path.GetExtension(fname).Equals(".mdb", StringComparison.CurrentCultureIgnoreCase)))
+                                              .Where(fname => Path.GetExtension(fname).Equals(".cards", StringComparison.CurrentCultureIgnoreCase)))
             {
                 cmbBasesList.Items.Add(fileName);
             }
@@ -333,6 +346,54 @@ namespace Core.Forms.DateBase
                 if (formDesign.ShowDialog() == DialogResult.OK)
                 {
                     _tableData.Form = formDesign.FormData;
+                    hasChanged = true;
+                }
+            }
+        }
+
+        private void btnAddDB_Click(object sender, EventArgs e)
+        {
+            using (var dialogFile = new SaveFileDialog()
+            {
+                Filter = "CARDS Config|*.cards",
+                InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), "BASE")
+            })
+            {
+                if (dialogFile.ShowDialog() != DialogResult.OK)
+                    return;
+
+                if (!File.Exists(dialogFile.FileName))
+                {
+                    File.Create(dialogFile.FileName);
+
+                    FillDBList();
+                }
+            }
+        }
+
+        private void btnEditDB_Click(object sender, EventArgs e)
+        {
+            if (_dataBase == null)
+                return;
+
+            using (var dialog = new FormEditConnection()
+            {
+                Server = _dataBase.Sever,
+                Port = _dataBase.Port,
+                UserName = _dataBase.UserName,
+                Password = _dataBase.Password,
+                BaseName = _dataBase.BaseName
+            })
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    _dataBase.Sever = dialog.Server;
+                    _dataBase.Port = dialog.Port;
+                    _dataBase.UserName = dialog.UserName;
+                    _dataBase.Password = dialog.Password;
+                    _dataBase.BaseName = dialog.BaseName;
+
+                    LoadDBInfo();
                 }
             }
         }

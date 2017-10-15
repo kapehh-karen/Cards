@@ -51,6 +51,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnSaveApply = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.btnEditDB = new System.Windows.Forms.Button();
+            this.btnAddDB = new System.Windows.Forms.Button();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             this.SuspendLayout();
@@ -61,9 +63,9 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.Size = new System.Drawing.Size(109, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "База";
+            this.label1.Text = "Конфигурация базы";
             // 
             // cmbBasesList
             // 
@@ -258,7 +260,7 @@
             // 
             // btnSaveApply
             // 
-            this.btnSaveApply.Location = new System.Drawing.Point(15, 537);
+            this.btnSaveApply.Location = new System.Drawing.Point(371, 537);
             this.btnSaveApply.Name = "btnSaveApply";
             this.btnSaveApply.Size = new System.Drawing.Size(163, 23);
             this.btnSaveApply.TabIndex = 3;
@@ -268,7 +270,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(184, 537);
+            this.btnCancel.Location = new System.Drawing.Point(290, 537);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -276,11 +278,33 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // btnEditDB
+            // 
+            this.btnEditDB.Location = new System.Drawing.Point(345, 24);
+            this.btnEditDB.Name = "btnEditDB";
+            this.btnEditDB.Size = new System.Drawing.Size(189, 21);
+            this.btnEditDB.TabIndex = 5;
+            this.btnEditDB.Text = "Изменить настройки соединения";
+            this.btnEditDB.UseVisualStyleBackColor = true;
+            this.btnEditDB.Click += new System.EventHandler(this.btnEditDB_Click);
+            // 
+            // btnAddDB
+            // 
+            this.btnAddDB.Location = new System.Drawing.Point(206, 24);
+            this.btnAddDB.Name = "btnAddDB";
+            this.btnAddDB.Size = new System.Drawing.Size(25, 22);
+            this.btnAddDB.TabIndex = 6;
+            this.btnAddDB.Text = "+";
+            this.btnAddDB.UseVisualStyleBackColor = true;
+            this.btnAddDB.Click += new System.EventHandler(this.btnAddDB_Click);
+            // 
             // FormBindSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(549, 567);
+            this.Controls.Add(this.btnAddDB);
+            this.Controls.Add(this.btnEditDB);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveApply);
             this.Controls.Add(this.gbDateBase);
@@ -328,5 +352,7 @@
         private System.Windows.Forms.CheckBox checkClassif;
         private System.Windows.Forms.Button btnSaveApply;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnEditDB;
+        private System.Windows.Forms.Button btnAddDB;
     }
 }

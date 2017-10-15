@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Notification;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,7 +26,15 @@ namespace Core.Config
         {
             using (FileStream stream = File.OpenRead(filename))
             {
-                return (T)serializer.ReadObject(stream);
+                try
+                {
+                    return (T)serializer.ReadObject(stream);
+                }
+                catch (Exception e)
+                {
+                    NotificationMessage.Error($"Произошла ошибка при считывании конфигурации {typeof(T).Name}: {e.Message}", e);
+                }
+                return default(T);
             }
         }
     }
