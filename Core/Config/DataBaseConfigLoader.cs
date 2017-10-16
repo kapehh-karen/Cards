@@ -5,6 +5,7 @@ using Core.Data.Design.Controls;
 using Core.Data.Design.InternalData;
 using Core.Data.Field;
 using Core.Data.Table;
+using Core.Helper;
 using Core.Notification;
 using System;
 using System.Collections.Generic;
@@ -66,89 +67,87 @@ namespace Core.Config
         {
             var dataBase = dataBaseConfig ?? new DataBase();
             
-            using (var dbc = new SQLServerConnection(
-                dataBaseConfig?.Sever,
-                dataBaseConfig?.Port ?? 0,
-                dataBaseConfig?.UserName,
-                dataBaseConfig?.Password,
-                dataBaseConfig?.BaseName))
+            if (string.IsNullOrEmpty(dataBaseConfig?.Sever)
+                || string.IsNullOrEmpty(dataBaseConfig?.UserName)
+                || string.IsNullOrEmpty(dataBaseConfig?.Password)
+                || string.IsNullOrEmpty(dataBaseConfig?.BaseName))
             {
-                var conn = dbc.Connection;
+                dataBase.IsConnected = false;
+                return dataBase;
+            }
 
-                if (conn.State == ConnectionState.Closed)
-                    return dataBase;
+            var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server",
+                                     () => new SQLServerConnection(dataBaseConfig?.Sever,
+                                                                   dataBaseConfig?.Port ?? 0,
+                                                                   dataBaseConfig?.UserName,
+                                                                   dataBaseConfig?.Password,
+                                                                   dataBaseConfig?.BaseName));
 
-                DataTable table = conn.GetSchema("Tables");
+            var conn = dbc.Connection;
 
-                var tableNames = new List<string>();
-                var fieldNames = new List<string>();
+            if (conn.State == ConnectionState.Closed)
+            {
+                dataBase.IsConnected = false;
+                return dataBase;
+            }
+            else
+            {
+                dataBase.IsConnected = true;
+            }
 
-                foreach (DataRow row in table.Rows)
+            DataTable table = conn.GetSchema("Tables");
+
+            var tableNames = new List<string>();
+            var fieldNames = new List<string>();
+
+            foreach (DataRow row in table.Rows)
+            {
+                var tableName = row["TABLE_NAME"].ToString();
+                var tableInConfig = dataBase.Tables.FirstOrDefault(td => td.Name == tableName);
+                var tableData = tableInConfig ?? new TableData() { Name = tableName };
+                tableNames.Add(tableName);
+
+                // if table not exists in config
+                if (tableInConfig == null)
                 {
-                    // skip system tables (only access db)
-                    //if (!"TABLE".Equals(row["TABLE_TYPE"]))
-                    //    continue;
+                    dataBase.Tables.Add(tableData);
+                }
 
-                    var tableName = row["TABLE_NAME"].ToString();
-                    var tableInConfig = dataBase.Tables.FirstOrDefault(td => td.Name == tableName);
-                    var tableData = tableInConfig ?? new TableData() { Name = tableName };
-                    tableNames.Add(tableName);
-
-                    // if table not exists in config
-                    if (tableInConfig == null)
+                using (SqlCommand command = new SqlCommand($"SELECT TOP 0 [{tableName}].* FROM [{tableName}] WHERE 1 = 2", conn))
+                {
+                    using (var reader = command.ExecuteReader())
                     {
-                        dataBase.Tables.Add(tableData);
-                    }
+                        // This will return false - we don't care, we just want to make sure the schema table is there.
+                        reader.Read();
 
-                    using (SqlCommand command = new SqlCommand($"SELECT TOP 0 [{tableName}].* FROM [{tableName}] WHERE 1 = 2", conn))
-                    {
-                        using (var reader = command.ExecuteReader())
+                        var tableSchema = reader.GetSchemaTable();
+
+                        // Each row in the table schema describes a column
+                        foreach (DataRow rowColumn in tableSchema.Rows)
                         {
-                            // This will return false - we don't care, we just want to make sure the schema table is there.
-                            reader.Read();
+                            var fieldName = rowColumn["ColumnName"].ToString();
+                            var fieldInTable = tableData.Fields.FirstOrDefault(fd => fd.Name == fieldName);
+                            var fieldData = fieldInTable ?? new FieldData() { Name = fieldName };
+                            fieldNames.Add(fieldName);
 
-                            var tableSchema = reader.GetSchemaTable();
-
-                            // Each row in the table schema describes a column
-                            foreach (DataRow rowColumn in tableSchema.Rows)
+                            // if field NOT exists in table
+                            if (fieldInTable == null)
                             {
-                                var fieldName = rowColumn["ColumnName"].ToString();
-                                var fieldInTable = tableData.Fields.FirstOrDefault(fd => fd.Name == fieldName);
-                                var fieldData = fieldInTable ?? new FieldData() { Name = fieldName };
-                                fieldNames.Add(fieldName);
-
-                                // if field NOT exists in table
-                                if (fieldInTable == null)
-                                {
-                                    tableData.Fields.Add(fieldData);
-                                }
+                                tableData.Fields.Add(fieldData);
                             }
                         }
                     }
-
-                    /*var dataTable = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, new object[] { null, null, tableName });
-                    foreach (DataRow dtRow in dataTable.Rows)
-                    {
-                        var fieldName = dtRow["COLUMN_NAME"].ToString();
-                        var fieldInTable = tableData.Fields.FirstOrDefault(fd => fd.Name == fieldName);
-                        var fieldData = fieldInTable ?? new FieldData() { Name = fieldName };
-                        fieldNames.Add(fieldName);
-
-                        // if field NOT exists in table
-                        if (fieldInTable == null)
-                        {
-                            tableData.Fields.Add(fieldData);
-                        }
-                    }*/
-
-                    // filter fields
-                    tableData.Fields = tableData.Fields.Where(fd => fieldNames.Contains(fd.Name)).ToList();
                 }
 
-                // filter tables
-                dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
+                // filter fields
+                tableData.Fields = tableData.Fields.Where(fd => fieldNames.Contains(fd.Name)).ToList();
             }
 
+            dbc.Dispose();
+
+            // filter tables
+            dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
+            
             // cleanup removed tables and fields in BindData, LinkedTable, FormData
             dataBase.Tables.ForEach(td =>
             {

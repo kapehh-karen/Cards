@@ -34,5 +34,7 @@ namespace Core.Data.Base
         /// </summary>
         [DataMember]
         public List<TableData> Tables { get; set; } = new List<TableData>();
+
+        public bool IsConnected { get; set; } = false;
     }
 }

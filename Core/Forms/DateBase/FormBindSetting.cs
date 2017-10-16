@@ -38,12 +38,22 @@ namespace Core.Forms.DateBase
         {
             _dataBase = dataBaseConfigLoader.Load(_dataBase);
 
-            gbDateBase.Enabled = true;
-            gbDateTable.Enabled = false;
-            gbDateBase.Text = $"База: Server={_dataBase.Sever ?? "***"}, Port={_dataBase.Port}, User={_dataBase.UserName ?? "***"}, Password={_dataBase.Password ?? "***"}";
-
+            gbDateBase.Enabled = _dataBase.IsConnected;
+            gbDateBase.Text = $"База: Server={_dataBase.Sever ?? "***"}, Port={_dataBase.Port}, User={_dataBase.UserName ?? "***"}, Password={_dataBase.Password ?? "***"}, Basename={_dataBase.BaseName ?? "***"}";
+            
             cmbTables.Items.Clear();
             _dataBase.Tables.ForEach(td => cmbTables.Items.Add(td));
+
+            ClearTableElementInfo();
+        }
+
+        private void ClearTableElementInfo()
+        {
+            gbDateTable.Enabled = false;
+            gbDateTable.Text = string.Empty;
+            cmbIDField.Items.Clear();
+            lvFields.Items.Clear();
+            lvDataList.Items.Clear();
         }
 
         private void RedrawFields(TableData tableData)
@@ -226,7 +236,7 @@ namespace Core.Forms.DateBase
             }
 
             hasChanged = false;
-            this.DialogResult = DialogResult.Cancel;
+            this.Close();
             return false;
         }
 
@@ -280,7 +290,7 @@ namespace Core.Forms.DateBase
             }
 
             hasChanged = false;
-            this.DialogResult = DialogResult.OK;
+            //this.Close();
         }
 
         private void lvDataList_KeyUp(object sender, KeyEventArgs e)
@@ -392,6 +402,8 @@ namespace Core.Forms.DateBase
                     _dataBase.UserName = dialog.UserName;
                     _dataBase.Password = dialog.Password;
                     _dataBase.BaseName = dialog.BaseName;
+
+                    hasChanged = true;
 
                     LoadDBInfo();
                 }

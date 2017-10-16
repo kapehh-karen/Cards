@@ -202,6 +202,12 @@
     <Compile Include="Forms\Design\FormTabPages.Designer.cs">
       <DependentUpon>FormTabPages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FormWaitDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormWaitDialog.Designer.cs">
+      <DependentUpon>FormWaitDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Control\Button.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -210,6 +216,7 @@
     </Compile>
     <Compile Include="Helper\IterableHelper.cs" />
     <Compile Include="Helper\TextHelper.cs" />
+    <Compile Include="Helper\WaitDialog.cs" />
     <Compile Include="Network\CoreClient.cs" />
     <Compile Include="Network\CoreServer.cs" />
     <Compile Include="Network\Extensions\TCPHelper.cs" />
@@ -261,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Design\FormTabPages.resx">
       <DependentUpon>FormTabPages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormWaitDialog.resx">
+      <DependentUpon>FormWaitDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Control\Button.resx">
       <DependentUpon>Button.cs</DependentUpon>

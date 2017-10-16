@@ -16,7 +16,7 @@ namespace Core.Connection
         {
             conn = new SqlConnection()
             {
-                ConnectionString = $@"server='tcp:{server},{port}'; uid='{user}'; pwd='{pass}'; database='{basename}'; Connection Timeout=2"
+                ConnectionString = $@"server='tcp:{server},{port}'; uid='{user}'; pwd='{pass}'; database='{basename}'; Connection Timeout=5"
             };
 
             try
