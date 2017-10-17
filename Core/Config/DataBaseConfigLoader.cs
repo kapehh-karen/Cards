@@ -143,6 +143,7 @@ namespace Core.Config
                 tableData.Fields = tableData.Fields.Where(fd => fieldNames.Contains(fd.Name)).ToList();
             }
 
+            // Close connection
             dbc.Dispose();
 
             // filter tables

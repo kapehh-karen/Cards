@@ -1,4 +1,5 @@
-﻿using Core.Notification;
+﻿using Core.Data.Base;
+using Core.Notification;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,6 +12,11 @@ namespace Core.Connection
     {
         private SqlConnection conn;
         private bool connected;
+
+        public SQLServerConnection(DataBase dataBase)
+            : this(dataBase.Sever, dataBase.Port, dataBase.UserName, dataBase.Password, dataBase.BaseName)
+        {
+        }
 
         public SQLServerConnection(string server, int port, string user, string pass, string basename)
         {

@@ -1,4 +1,6 @@
-﻿using Core.Forms.DateBase;
+﻿using Core.Data.Base;
+using Core.Data.Table;
+using Core.Forms.DateBase;
 using Core.Forms.Design;
 using Core.Forms.Main;
 using Core.Helper;
@@ -18,12 +20,29 @@ namespace TestApp
         [STAThread]
         static void Main()
         {
-            //NotificationMessage.ReceiveMessage += NotificationMessage_ReceiveMessage;
+            NotificationMessage.ReceiveMessage += NotificationMessage_ReceiveMessage;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new FormSelectTable());
+            DataBase selectedBase = null;
+            TableData selectedTable = null;
+
+            using (var dialogSelectTable = new FormSelectTable())
+            {
+                if (dialogSelectTable.ShowDialog() == DialogResult.OK)
+                {
+                    selectedBase = dialogSelectTable.SelectedDataBase;
+                    selectedTable = dialogSelectTable.SelectedTableData;
+                }
+            }
+
+            if (selectedBase != null && selectedTable != null)
+                Application.Run(new FormTableView()
+                {
+                    Base = selectedBase,
+                    Table = selectedTable
+                });
         }
 
         private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)
@@ -31,14 +50,15 @@ namespace TestApp
             //if (level.ToString().StartsWith("SYSTEM"))
             //    return;
 
-            if (param != null)
-            {
-                MessageBox.Show($"{level}:\r\n{message}\r\n\r\n{param}", level.ToString());
-            }
-            else
-            {
-                MessageBox.Show(message, level.ToString());
-            }
+            if (level == NotificationLevel.ERROR || level == NotificationLevel.SYSTEM_ERROR)
+                if (param != null)
+                {
+                    MessageBox.Show($"{level}:\r\n{message}\r\n\r\n{param}", level.ToString());
+                }
+                else
+                {
+                    MessageBox.Show(message, level.ToString());
+                }
         }
     }
 }
