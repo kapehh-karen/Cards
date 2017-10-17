@@ -1,5 +1,6 @@
 ﻿using Core.Forms.DateBase;
 using Core.Forms.Design;
+using Core.Forms.Main;
 using Core.Helper;
 using Core.Notification;
 using System;
@@ -21,7 +22,8 @@ namespace TestApp
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormBindSetting());
+
+            Application.Run(new FormSelectTable());
         }
 
         private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)

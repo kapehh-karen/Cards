@@ -208,6 +208,21 @@
     <Compile Include="Forms\FormWaitDialog.Designer.cs">
       <DependentUpon>FormWaitDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Main\FormSelectTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\FormSelectTable.Designer.cs">
+      <DependentUpon>FormSelectTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Main\FormTableView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\FormTableView.Designer.cs">
+      <DependentUpon>FormTableView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Main\TableDataGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GUI\Control\Button.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -271,6 +286,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormWaitDialog.resx">
       <DependentUpon>FormWaitDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Main\FormSelectTable.resx">
+      <DependentUpon>FormSelectTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Main\FormTableView.resx">
+      <DependentUpon>FormTableView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Control\Button.resx">
       <DependentUpon>Button.cs</DependentUpon>

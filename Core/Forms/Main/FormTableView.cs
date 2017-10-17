@@ -7,14 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace TestApp
+namespace Core.Forms.Main
 {
-    public partial class frmTestUserControls : Form
+    public partial class FormTableView : Form
     {
-        public frmTestUserControls()
+        public FormTableView()
         {
             InitializeComponent();
         }
-        
+
+        private void FormTableView_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
