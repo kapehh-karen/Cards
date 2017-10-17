@@ -187,7 +187,7 @@ namespace Core.Forms.Design
             }
 
             if (MessageBox.Show("Сохранить все изменения?", "Редактор форм",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
                 this.FormData = GetFormData();
                 DialogResult = DialogResult.OK;

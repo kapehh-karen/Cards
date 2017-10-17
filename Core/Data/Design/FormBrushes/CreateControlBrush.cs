@@ -45,7 +45,7 @@ namespace Core.Data.Design.FormBrushes
             var c = DesignControl() as Control;
             var dc = c as IDesignControl;
 
-            dc.ParentControl = control is IDesignControl ? control as IDesignControl : null;
+            dc.ParentControl = control is IDesignControl ? control as IDesignControl : sender;
             c.Location = new Point(Math.Min(startLocation.X, coord.X), Math.Min(startLocation.Y, coord.Y));
             c.Size = new Size(Math.Max(size.Width, 26), Math.Max(size.Height, 13));
 
