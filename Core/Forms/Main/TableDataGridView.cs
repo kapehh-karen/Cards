@@ -23,6 +23,8 @@ namespace Core.Forms.Main
 
         public List<FieldData> ColumnFields { get; } = new List<FieldData>();
 
+        public FieldData FieldID { get; private set; }
+
         public TableData Table
         {
             get => tableData;
@@ -34,27 +36,49 @@ namespace Core.Forms.Main
                 {
                     ColumnFields.Clear();
                     ColumnFields.AddRange(tableData.Fields);
+                    FieldID = tableData.IdentifierField;
                 }
             }
         }
 
         public DataBase Base { get; set; }
 
-        public DataSet Data { get; set; }
+        public DataTable CurrentDataTable { get; set; }
 
         public void FillTable()
         {
-            using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server",
-                () => new SQLServerConnection(Base)))
+            using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
             {
-                var columns = string.Join(", ", ColumnFields.Select(f => $"{Table.Name}.{f.Name}").ToArray());
-                var query = $"SELECT {columns} FROM {Table.Name}";
+                // main part query
+                var columns = string.Join(", ", ColumnFields.Where(f => f.Visible || f.IsIdentifier).Select(f =>
+                    f.Type != FieldType.BIND ? $"[{Table.Name}].[{f.Name}]" : $"[{f.BindData.Table.Name}].[{f.BindData.Field.Name}] AS [{f.Name}]").ToArray());
+
+                // joins part query
+                var joins = string.Join("\r\n", ColumnFields.Where(f => f.Type == FieldType.BIND)
+                    .Select(f => $"LEFT JOIN [{f.BindData.Table.Name}] ON [{f.BindData.Table.Name}].[{f.BindData.Table.IdentifierField.Name}] = [{Table.Name}].[{f.Name}]").ToArray());
+
+                var query = $"SELECT {columns} FROM {Table.Name}\r\n{joins}";
                 var connection = dbc.Connection;
                 var adapter = new SqlDataAdapter(query, connection);
+                var data = new DataSet();
+                adapter.Fill(data);
 
-                Data = new DataSet();
-                adapter.Fill(Data);
-                DataSource = Data.Tables[0];
+                var tableData = data.Tables[0];
+                CurrentDataTable = tableData;
+                DataSource = tableData;
+
+                // Hide ID column
+                this.Columns[FieldID.Name].Visible = false;
+
+                // Renaming columns header
+                /*
+                int i = 0;
+                foreach (DataGridViewColumn column in this.Columns)
+                {
+                    column.HeaderText = "FIXED: " + ColumnFields.Single(f => f.Name.Equals(column.Name)).Name;
+                    i++;
+                }
+                */
             }
         }
     }

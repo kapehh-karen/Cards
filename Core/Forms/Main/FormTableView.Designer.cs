@@ -40,7 +40,6 @@
             this.tableDataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.tableDataGridView1.Base = null;
             this.tableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.tableDataGridView1.Data = null;
             this.tableDataGridView1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableDataGridView1.Location = new System.Drawing.Point(0, 39);
             this.tableDataGridView1.Name = "tableDataGridView1";
@@ -48,6 +47,7 @@
             this.tableDataGridView1.Size = new System.Drawing.Size(752, 489);
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
+            this.tableDataGridView1.SelectionChanged += new System.EventHandler(this.tableDataGridView1_SelectionChanged);
             // 
             // FormTableView
             // 

@@ -44,5 +44,14 @@ namespace Core.Forms.Main
         {
 
         }
+
+        private void tableDataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (sender is TableDataGridView gridView && gridView.CurrentRow != null)
+            {
+                Text = gridView.Rows[gridView.CurrentRow.Index].Cells[Table.IdentifierField.Name].Value.ToString();
+                //this.Text = string.Join(" / ", (from DataGridViewCell col in gridView.SelectedCells select col.OwningColumn.Name).Distinct().ToArray());
+            }
+        }
     }
 }
