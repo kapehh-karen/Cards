@@ -42,6 +42,8 @@ namespace Core.Forms.DateBase
 
         public bool SelectedRequire => chkRequire.Checked;
 
+        public string SelectedDisplayName => txtDisplayName.Text;
+
         public BindField SelectedBindField
         {
             get
@@ -91,6 +93,7 @@ namespace Core.Forms.DateBase
             Text = $"Поле - {Field.Name}";
             chkVisible.Checked = Field.Visible;
             chkRequire.Checked = Field.Required;
+            txtDisplayName.Text = Field.DisplayName;
 
             ComboBoxItem[] types = new ComboBoxItem[] {
                 new ComboBoxItem() { ItemType = FieldType.TEXT, ItemText = FieldType.TEXT.GetTextFieldType() },

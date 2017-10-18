@@ -39,6 +39,8 @@
             this.chkRequire = new System.Windows.Forms.CheckBox();
             this.btnOk = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtDisplayName = new System.Windows.Forms.TextBox();
             this.gbBindSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,7 +118,7 @@
             // 
             this.chkVisible.AutoSize = true;
             this.chkVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkVisible.Location = new System.Drawing.Point(311, 127);
+            this.chkVisible.Location = new System.Drawing.Point(311, 179);
             this.chkVisible.Name = "chkVisible";
             this.chkVisible.Size = new System.Drawing.Size(98, 17);
             this.chkVisible.TabIndex = 2;
@@ -127,7 +129,7 @@
             // 
             this.chkRequire.AutoSize = true;
             this.chkRequire.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkRequire.Location = new System.Drawing.Point(283, 150);
+            this.chkRequire.Location = new System.Drawing.Point(283, 202);
             this.chkRequire.Name = "chkRequire";
             this.chkRequire.Size = new System.Drawing.Size(126, 17);
             this.chkRequire.TabIndex = 3;
@@ -154,11 +156,29 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // frmChangeFieldData
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 182);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(135, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Отображаемое название";
+            // 
+            // txtDisplayName
+            // 
+            this.txtDisplayName.Location = new System.Drawing.Point(15, 198);
+            this.txtDisplayName.Name = "txtDisplayName";
+            this.txtDisplayName.Size = new System.Drawing.Size(227, 20);
+            this.txtDisplayName.TabIndex = 9;
+            // 
+            // FormChangeFieldData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(421, 176);
+            this.ClientSize = new System.Drawing.Size(421, 231);
+            this.Controls.Add(this.txtDisplayName);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.chkRequire);
@@ -169,7 +189,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmChangeFieldData";
+            this.Name = "FormChangeFieldData";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Поле";
@@ -194,5 +214,7 @@
         private System.Windows.Forms.ComboBox cmbTable;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtDisplayName;
     }
 }

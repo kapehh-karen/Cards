@@ -12,11 +12,26 @@ namespace Core.Data.Table
     [DataContract(IsReference = true)]
     public class TableData
     {
+        private string displayName;
+
         /// <summary>
         /// Имя таблицы
         /// </summary>
         [DataMember]
         public string Name { get; set; } = "NULL";
+
+        /// <summary>
+        /// Отображаемое название таблицы
+        /// </summary>
+        [DataMember]
+        public string DisplayName
+        {
+            get => string.IsNullOrEmpty(displayName) ? Name : displayName;
+            set
+            {
+                displayName = value;
+            }
+        }
 
         /// <summary>
         /// Поле идентификатор
@@ -61,7 +76,7 @@ namespace Core.Data.Table
 
         public override string ToString()
         {
-            return this.Name;
+            return DisplayName;
         }
     }
 }

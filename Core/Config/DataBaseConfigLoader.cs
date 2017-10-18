@@ -142,13 +142,13 @@ namespace Core.Config
                 // filter fields
                 tableData.Fields = tableData.Fields.Where(fd => fieldNames.Contains(fd.Name)).ToList();
             }
+            
+            // filter tables
+            dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
 
             // Close connection
             dbc.Dispose();
 
-            // filter tables
-            dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
-            
             // cleanup removed tables and fields in BindData, LinkedTable, FormData
             dataBase.Tables.ForEach(td =>
             {

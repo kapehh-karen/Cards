@@ -29,7 +29,7 @@ namespace Core.Forms.Main
 
                 if (table != null)
                 {
-                    Text = $"Таблица - {table.Name}";
+                    Text = $"Таблица - {table.DisplayName}";
 
                     tableDataGridView1.Base = Base;
                     tableDataGridView1.Table = table;
@@ -49,9 +49,15 @@ namespace Core.Forms.Main
         {
             if (sender is TableDataGridView gridView && gridView.CurrentRow != null)
             {
-                Text = gridView.Rows[gridView.CurrentRow.Index].Cells[Table.IdentifierField.Name].Value.ToString();
+                Text = gridView.RowCount.ToString();
+                //Text = gridView.Rows[gridView.CurrentRow.Index].Cells[gridView.FieldID.Name].Value.ToString();
                 //this.Text = string.Join(" / ", (from DataGridViewCell col in gridView.SelectedCells select col.OwningColumn.Name).Distinct().ToArray());
             }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            tableDataGridView1.FillTable();
         }
     }
 }

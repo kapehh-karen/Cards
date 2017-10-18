@@ -47,6 +47,9 @@ namespace Core.Forms.Main
 
         public void FillTable()
         {
+            if (Base == null || Table == null)
+                return;
+
             using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
             {
                 // main part query
@@ -61,7 +64,8 @@ namespace Core.Forms.Main
                 var connection = dbc.Connection;
                 var adapter = new SqlDataAdapter(query, connection);
                 var data = new DataSet();
-                adapter.Fill(data);
+
+                WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
 
                 var tableData = data.Tables[0];
                 CurrentDataTable = tableData;
@@ -71,14 +75,14 @@ namespace Core.Forms.Main
                 this.Columns[FieldID.Name].Visible = false;
 
                 // Renaming columns header
-                /*
                 int i = 0;
                 foreach (DataGridViewColumn column in this.Columns)
                 {
-                    column.HeaderText = "FIXED: " + ColumnFields.Single(f => f.Name.Equals(column.Name)).Name;
+                    var fieldData = ColumnFields.Single(f => f.Name.Equals(column.Name));
+                    column.HeaderText = fieldData.DisplayName;
+                    column.Tag = fieldData;
                     i++;
                 }
-                */
             }
         }
     }

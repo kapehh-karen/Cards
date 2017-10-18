@@ -53,6 +53,9 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
             this.btnAddDB = new System.Windows.Forms.Button();
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtTableDisplayName = new System.Windows.Forms.TextBox();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             this.SuspendLayout();
@@ -91,6 +94,8 @@
             // 
             // gbDateTable
             // 
+            this.gbDateTable.Controls.Add(this.txtTableDisplayName);
+            this.gbDateTable.Controls.Add(this.label6);
             this.gbDateTable.Controls.Add(this.checkClassif);
             this.gbDateTable.Controls.Add(this.lvDataList);
             this.gbDateTable.Controls.Add(this.label5);
@@ -110,7 +115,7 @@
             // 
             this.checkClassif.AutoSize = true;
             this.checkClassif.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkClassif.Location = new System.Drawing.Point(315, 23);
+            this.checkClassif.Location = new System.Drawing.Point(315, 61);
             this.checkClassif.Name = "checkClassif";
             this.checkClassif.Size = new System.Drawing.Size(151, 17);
             this.checkClassif.TabIndex = 8;
@@ -171,7 +176,8 @@
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
-            this.columnHeader5});
+            this.columnHeader5,
+            this.columnHeader8});
             this.lvFields.FullRowSelect = true;
             this.lvFields.GridLines = true;
             this.lvFields.Location = new System.Drawing.Point(12, 84);
@@ -191,12 +197,12 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Имя поля";
-            this.columnHeader2.Width = 130;
+            this.columnHeader2.Width = 194;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Тип поля";
-            this.columnHeader3.Width = 181;
+            this.columnHeader3.Width = 115;
             // 
             // columnHeader4
             // 
@@ -230,9 +236,9 @@
             // 
             // btnForm
             // 
-            this.btnForm.Location = new System.Drawing.Point(391, 373);
+            this.btnForm.Location = new System.Drawing.Point(368, 19);
             this.btnForm.Name = "btnForm";
-            this.btnForm.Size = new System.Drawing.Size(75, 23);
+            this.btnForm.Size = new System.Drawing.Size(98, 23);
             this.btnForm.TabIndex = 0;
             this.btnForm.Text = "Форма";
             this.btnForm.UseVisualStyleBackColor = true;
@@ -298,6 +304,28 @@
             this.btnAddDB.UseVisualStyleBackColor = true;
             this.btnAddDB.Click += new System.EventHandler(this.btnAddDB_Click);
             // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Отображаемое имя поля";
+            this.columnHeader8.Width = 204;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 374);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(184, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Отображаемое название таблицы:";
+            // 
+            // txtTableDisplayName
+            // 
+            this.txtTableDisplayName.Location = new System.Drawing.Point(196, 371);
+            this.txtTableDisplayName.Name = "txtTableDisplayName";
+            this.txtTableDisplayName.Size = new System.Drawing.Size(270, 20);
+            this.txtTableDisplayName.TabIndex = 10;
+            this.txtTableDisplayName.TextChanged += new System.EventHandler(this.txtTableDisplayName_TextChanged);
+            // 
             // FormBindSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -354,5 +382,8 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnEditDB;
         private System.Windows.Forms.Button btnAddDB;
+        private System.Windows.Forms.ColumnHeader columnHeader8;
+        private System.Windows.Forms.TextBox txtTableDisplayName;
+        private System.Windows.Forms.Label label6;
     }
 }

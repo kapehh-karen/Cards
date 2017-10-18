@@ -9,6 +9,8 @@ namespace Core.Data.Field
     [DataContract(IsReference = true)]
     public class FieldData
     {
+        private string displayName;
+
         /// <summary>
         /// Является ли поле идентификатором таблицы
         /// </summary>
@@ -16,10 +18,23 @@ namespace Core.Data.Field
         public bool IsIdentifier { get; set; } = false;
 
         /// <summary>
-        /// Название поля
+        /// Имя поля
         /// </summary>
         [DataMember]
-        public string Name { get; set; } = "NULL";
+        public string Name { get; set; } = "NoName";
+
+        /// <summary>
+        /// Отображаемое название поля
+        /// </summary>
+        [DataMember]
+        public string DisplayName
+        {
+            get => string.IsNullOrEmpty(displayName) ? Name : displayName;
+            set
+            {
+                displayName = value;
+            }
+        }
 
         /// <summary>
         /// Тип поля
@@ -47,7 +62,7 @@ namespace Core.Data.Field
 
         public override string ToString()
         {
-            return this.Name;
+            return DisplayName;
         }
     }
 }

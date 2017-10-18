@@ -21,6 +21,7 @@ namespace Core.Forms.DateBase
         private DataBase _dataBase;
         private TableData _tableData;
         private bool hasChanged = false;
+        private bool initializeChanges = false;
 
         public FormBindSetting()
         {
@@ -51,6 +52,8 @@ namespace Core.Forms.DateBase
         {
             gbDateTable.Enabled = false;
             gbDateTable.Text = string.Empty;
+            checkClassif.Checked = false;
+            txtTableDisplayName.Text = string.Empty;
             cmbIDField.Items.Clear();
             lvFields.Items.Clear();
             lvDataList.Items.Clear();
@@ -68,6 +71,7 @@ namespace Core.Forms.DateBase
                 lvi.SubItems.Add(fieldData.Type != FieldType.BIND ? fieldData.Type.ToString() : fieldData.BindData?.ToString());
                 lvi.SubItems.Add(fieldData.Visible ? "Да" : "Нет");
                 lvi.SubItems.Add(fieldData.Required ? "Да" : "Нет");
+                lvi.SubItems.Add(fieldData.DisplayName);
                 lvi.Tag = fieldData;
 
                 lvFields.Items.Add(lvi);
@@ -91,6 +95,8 @@ namespace Core.Forms.DateBase
 
         private void SelectTable(TableData tableData)
         {
+            initializeChanges = true;
+
             gbDateTable.Enabled = true;
             gbDateTable.Text = $"Таблица - {tableData.Name}";
 
@@ -112,18 +118,16 @@ namespace Core.Forms.DateBase
             }
             else
             {
-                cmbIDField.SelectedValueChanged -= cmbIDField_SelectedValueChanged;
                 cmbIDField.SelectedItem = idField;
-                cmbIDField.SelectedValueChanged += cmbIDField_SelectedValueChanged;
             }
             
             RedrawFields(tableData);
             RedrawLinkedData(tableData);
-
-            // is classificator
-            checkClassif.CheckedChanged -= checkClassif_CheckedChanged;
+            
             checkClassif.Checked = tableData.IsClassifier;
-            checkClassif.CheckedChanged += checkClassif_CheckedChanged;
+            txtTableDisplayName.Text = tableData.DisplayName;
+
+            initializeChanges = false;
         }
 
         private void frmBindSetting_Load(object sender, EventArgs e)
@@ -175,6 +179,9 @@ namespace Core.Forms.DateBase
 
         private void cmbIDField_SelectedValueChanged(object sender, EventArgs e)
         {
+            if (initializeChanges)
+                return;
+
             if (cmbIDField.SelectedItem == null)
                 return;
 
@@ -187,6 +194,9 @@ namespace Core.Forms.DateBase
 
         private void checkClassif_CheckedChanged(object sender, EventArgs e)
         {
+            if (initializeChanges)
+                return;
+
             _tableData.IsClassifier = checkClassif.Checked;
             hasChanged = true;
         }
@@ -207,6 +217,7 @@ namespace Core.Forms.DateBase
                     field.Visible = frmDialog.SelectedVisible;
                     field.Required = frmDialog.SelectedRequire;
                     field.BindData = frmDialog.SelectedBindField;
+                    field.DisplayName = frmDialog.SelectedDisplayName;
                     hasChanged = true;
 
                     RedrawFields(_tableData);
@@ -408,6 +419,15 @@ namespace Core.Forms.DateBase
                     LoadDBInfo();
                 }
             }
+        }
+
+        private void txtTableDisplayName_TextChanged(object sender, EventArgs e)
+        {
+            if (initializeChanges)
+                return;
+
+            _tableData.DisplayName = txtTableDisplayName.Text;
+            hasChanged = true;
         }
     }
 }
