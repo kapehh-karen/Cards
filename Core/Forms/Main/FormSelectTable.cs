@@ -26,6 +26,9 @@ namespace Core.Forms.Main
 
         private void FormSelectTable_Load(object sender, EventArgs e)
         {
+            if (!Directory.Exists("BASE"))
+                Directory.CreateDirectory("BASE");
+
             foreach (var fileName in Directory.GetFiles("BASE")
                                               .Where(fname => Path.GetExtension(fname).Equals(".cards", StringComparison.CurrentCultureIgnoreCase)))
             {

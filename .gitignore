@@ -48,6 +48,8 @@ Temporary Items
 
 Core/obj
 Core/bin
+Cards/obj
+Cards/bin
 CardsServer/obj
 CardsServer/bin
 CardsClient/obj

@@ -75,13 +75,11 @@ namespace Core.Forms.Main
                 this.Columns[FieldID.Name].Visible = false;
 
                 // Renaming columns header
-                int i = 0;
                 foreach (DataGridViewColumn column in this.Columns)
                 {
                     var fieldData = ColumnFields.Single(f => f.Name.Equals(column.Name));
                     column.HeaderText = fieldData.DisplayName;
                     column.Tag = fieldData;
-                    i++;
                 }
             }
         }

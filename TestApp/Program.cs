@@ -24,25 +24,7 @@ namespace TestApp
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            DataBase selectedBase = null;
-            TableData selectedTable = null;
-
-            using (var dialogSelectTable = new FormSelectTable())
-            {
-                if (dialogSelectTable.ShowDialog() == DialogResult.OK)
-                {
-                    selectedBase = dialogSelectTable.SelectedDataBase;
-                    selectedTable = dialogSelectTable.SelectedTableData;
-                }
-            }
-
-            if (selectedBase != null && selectedTable != null)
-                Application.Run(new FormTableView()
-                {
-                    Base = selectedBase,
-                    Table = selectedTable
-                });
+            Application.Run();
         }
 
         private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)
