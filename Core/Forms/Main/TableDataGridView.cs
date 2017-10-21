@@ -53,12 +53,14 @@ namespace Core.Forms.Main
             using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
             {
                 // main part query
-                var columns = string.Join(", ", ColumnFields.Where(f => f.Visible || f.IsIdentifier).Select(f =>
-                    f.Type != FieldType.BIND ? $"[{Table.Name}].[{f.Name}]" : $"[{f.BindData.Table.Name}].[{f.BindData.Field.Name}] AS [{f.Name}]").ToArray());
+                var columns = string.Join(", ", ColumnFields.Where(f => f.Visible || f.IsIdentifier)
+                    .Select(f => f.Type != FieldType.BIND ? $"[{Table.Name}].[{f.Name}]" : $"[{f.BindData.Table.Name}].[{f.BindData.Field.Name}] AS [{f.Name}]")
+                    .ToArray());
 
                 // joins part query
-                var joins = string.Join("\r\n", ColumnFields.Where(f => f.Type == FieldType.BIND)
-                    .Select(f => $"LEFT JOIN [{f.BindData.Table.Name}] ON [{f.BindData.Table.Name}].[{f.BindData.Table.IdentifierField.Name}] = [{Table.Name}].[{f.Name}]").ToArray());
+                var joins = string.Join("\r\n", ColumnFields.Where(f => f.Visible || f.IsIdentifier).Where(f => f.Type == FieldType.BIND)
+                    .Select(f => $"LEFT JOIN [{f.BindData.Table.Name}] ON [{f.BindData.Table.Name}].[{f.BindData.Table.IdentifierField.Name}] = [{Table.Name}].[{f.Name}]")
+                    .ToArray());
 
                 var query = $"SELECT {columns} FROM {Table.Name}\r\n{joins}";
                 var connection = dbc.Connection;

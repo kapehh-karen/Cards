@@ -32,11 +32,15 @@ namespace Cards
             }
 
             if (selectedBase != null && selectedTable != null)
-                Application.Run(new FormTableView()
+            {
+                var dialog = new FormTableView()
                 {
                     Base = selectedBase,
                     Table = selectedTable
-                });
+                };
+                dialog.FillTable();
+                Application.Run(dialog);
+            }
         }
     }
 }

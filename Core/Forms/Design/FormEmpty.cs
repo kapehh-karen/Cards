@@ -28,7 +28,7 @@ namespace Core.Forms.Design
             
             if (formData == null)
             {
-                tabPages.TabPages.Add(SelectedTabPage = new CardTabPage() { Text = "Страница 1", Form = this });
+                tabPages.TabPages.Add(SelectedTabPage = new CardTabPage() { Text = "Основная информация", Form = this });
             }
             else
             {

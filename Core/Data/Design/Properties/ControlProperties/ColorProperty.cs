@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class ColorProperty : IControlProperties
+    public class ColorProperty : IControlProperty
     {
         public ColorProperty(Control control) : base(control) { }
 

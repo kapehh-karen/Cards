@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class NameProperty : IControlProperties
+    public class NameProperty : IControlProperty
     {
         public NameProperty(Control control) : base(control) { }
 

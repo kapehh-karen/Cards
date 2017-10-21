@@ -9,6 +9,7 @@ using Core.Data.Design.Properties.ControlProperties;
 
 namespace Core.Data.Design.Controls.LinkedTableControl
 {
+    // TODO: Добавление, изменение и удаление записей можно сделать на клавиши и на контекстное меню
     public class LinkedTableControl : ListView, IDesignControl
     {
         public LinkedTableControl()
@@ -27,7 +28,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
 
         public DesignControlType ControlType => DesignControlType.LINKED_TABLE;
 
-        public List<IControlProperties> Properties { get; set; } = new List<IControlProperties>();
+        public List<IControlProperty> Properties { get; set; } = new List<IControlProperty>();
 
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 

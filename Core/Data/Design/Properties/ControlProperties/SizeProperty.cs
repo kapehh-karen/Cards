@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class SizeProperty : IControlProperties
+    public class SizeProperty : IControlProperty
     {
         public SizeProperty(Control control) : base(control) { }
 

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class PositionProperty : IControlProperties
+    public class PositionProperty : IControlProperty
     {
         public PositionProperty(Control control) : base(control) { }
 

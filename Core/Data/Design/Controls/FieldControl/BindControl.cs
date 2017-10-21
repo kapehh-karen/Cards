@@ -23,12 +23,14 @@ namespace Core.Data.Design.Controls.FieldControl
 
             BackColor = Color.White;
             ForeColor = Color.Black;
+            FlatStyle = FlatStyle.Flat;
+            Cursor = Cursors.Hand;
             DefaultColor = BackColor;
         }
 
         public DesignControlType ControlType => DesignControlType.FIELD;
 
-        public List<IControlProperties> Properties { get; set; } = new List<IControlProperties>();
+        public List<IControlProperty> Properties { get; set; } = new List<IControlProperty>();
 
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 

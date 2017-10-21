@@ -76,7 +76,7 @@ namespace Core.Data.Table
 
         public override string ToString()
         {
-            return DisplayName;
+            return Name;
         }
     }
 }

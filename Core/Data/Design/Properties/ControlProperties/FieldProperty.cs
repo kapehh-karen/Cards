@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class FieldProperty : IControlProperties
+    public class FieldProperty : IControlProperty
     {
         public FieldProperty(Control control) : base(control) { }
 

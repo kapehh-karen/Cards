@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class MaskProperty : IControlProperties
+    public class MaskProperty : IControlProperty
     {
         public MaskProperty(Control control) : base(control) { }
 

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class LinkedTableProperty : IControlProperties
+    public class LinkedTableProperty : IControlProperty
     {
         public LinkedTableProperty(Control control) : base(control) { }
 

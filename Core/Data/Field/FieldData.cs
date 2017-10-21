@@ -62,7 +62,7 @@ namespace Core.Data.Field
 
         public override string ToString()
         {
-            return DisplayName;
+            return Name;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Core.Data.Design.Controls
         /// <summary>
         /// Список пропертей
         /// </summary>
-        List<IControlProperties> Properties { get; }
+        List<IControlProperty> Properties { get; }
         
         /// <summary>
         /// Тип виртуального контрола (просто элементы, либо связаны с полями БД)

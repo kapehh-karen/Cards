@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class TabIndexProperty : IControlProperties
+    public class TabIndexProperty : IControlProperty
     {
         public TabIndexProperty(Control control) : base(control) { }
 
@@ -15,7 +15,7 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override object Value { get => Control.TabIndex; set => Control.TabIndex = (int)value; }
 
-        public override object DefaultValue => 0;
+        public override object DefaultValue => 1;
 
         public override bool ChangeValue(object sender)
         {

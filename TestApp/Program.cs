@@ -24,7 +24,7 @@ namespace TestApp
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run();
+            Application.Run(new frmTestUserControls());
         }
 
         private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)

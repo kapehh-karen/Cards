@@ -30,6 +30,7 @@
         {
             this.tableDataGridView1 = new Core.Forms.Main.TableDataGridView();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnOpenForm = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,11 +62,22 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // btnOpenForm
+            // 
+            this.btnOpenForm.Location = new System.Drawing.Point(93, 10);
+            this.btnOpenForm.Name = "btnOpenForm";
+            this.btnOpenForm.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenForm.TabIndex = 2;
+            this.btnOpenForm.Text = "test";
+            this.btnOpenForm.UseVisualStyleBackColor = true;
+            this.btnOpenForm.Click += new System.EventHandler(this.btnOpenForm_Click);
+            // 
             // FormTableView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(752, 528);
+            this.Controls.Add(this.btnOpenForm);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.tableDataGridView1);
             this.Name = "FormTableView";
@@ -81,5 +93,6 @@
 
         private TableDataGridView tableDataGridView1;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnOpenForm;
     }
 }

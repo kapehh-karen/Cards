@@ -15,6 +15,18 @@ namespace Core.Forms.Main
 {
     public partial class FormSelectTable : Form
     {
+        private class ComboBoxTableItem
+        {
+            public TableData Table { get; set; }
+
+            public string Text { get; set; }
+
+            public override string ToString()
+            {
+                return Text;
+            }
+        }
+
         public FormSelectTable()
         {
             InitializeComponent();
@@ -43,15 +55,15 @@ namespace Core.Forms.Main
                 SelectedDataBase = new Configuration<DataBase>().ReadFromFile(combo.SelectedItem.ToString());
 
                 lbTables.Items.Clear();
-                SelectedDataBase?.Tables.ForEach(t => lbTables.Items.Add(t));
+                SelectedDataBase?.Tables.ForEach(t => lbTables.Items.Add(new ComboBoxTableItem() { Table = t, Text = t.DisplayName }));
             }
         }
 
         private void btnSelectTable_Click(object sender, EventArgs e)
         {
-            if (lbTables.SelectedItem is TableData table && table != null)
+            if (lbTables.SelectedItem is ComboBoxTableItem item && item != null)
             {
-                SelectedTableData = table;
+                SelectedTableData = item.Table;
                 DialogResult = DialogResult.OK;
             }
         }

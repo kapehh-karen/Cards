@@ -3,6 +3,7 @@ using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Design.Controls;
 using Core.Data.Design.InternalData;
+using Core.Data.Design.Properties.ControlProperties;
 using Core.Data.Field;
 using Core.Data.Table;
 using Core.Helper;
@@ -191,6 +192,7 @@ namespace Core.Config
                 // Properties cleanup
                 ctl.Properties.ForEach(p =>
                 {
+                    // TODO: Изменить метод обнуления значения не по типу значения, а по типу проперти
                     if (p.Value is FieldData field && !tableData.Fields.Contains(field))
                     {
                         p.Value = null;

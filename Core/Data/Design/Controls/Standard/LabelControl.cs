@@ -14,7 +14,7 @@ namespace Core.Data.Design.Controls.Standard
         public LabelControl()
         {
             Properties.Add(new NameProperty(this));
-            Properties.Add(new TextProperty(this));
+            Properties.Add(new TextProperty(this, true));
             Properties.Add(new FontProperty(this));
             Properties.Add(new ColorProperty(this));
             Properties.Add(new SizeProperty(this));
@@ -28,7 +28,7 @@ namespace Core.Data.Design.Controls.Standard
         
         public DesignControlType ControlType => DesignControlType.STANDARD;
 
-        public List<IControlProperties> Properties { get; set; } = new List<IControlProperties>();
+        public List<IControlProperty> Properties { get; set; } = new List<IControlProperty>();
 
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 

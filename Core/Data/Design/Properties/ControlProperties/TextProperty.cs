@@ -8,13 +8,30 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class TextProperty : IControlProperties
+    public class TextProperty : IControlProperty
     {
-        public TextProperty(Control control) : base(control) { }
+        private bool protectByEmpty;
+
+        public TextProperty(Control control, bool protectByEmpty = false) : base(control)
+        {
+            this.protectByEmpty = protectByEmpty;
+        }
 
         public override string Name => "Text";
         
-        public override object Value { get => Control.Text; set => Control.Text = value as string; }
+        public override object Value
+        {
+            get => Control.Text;
+            set
+            {
+                var txt = (value as string)?.Trim();
+
+                if (protectByEmpty && string.IsNullOrEmpty(txt))
+                    Control.Text = "--";
+                else
+                    Control.Text = txt;
+            }
+        }
 
         public override object DefaultValue => string.Empty;
 
@@ -22,11 +39,11 @@ namespace Core.Data.Design.Properties.ControlProperties
         {
             using (var dialog = new FormEditText())
             {
-                dialog.EnteredText = Control.Text;
+                dialog.EnteredText = Value as string;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Control.Text = dialog.EnteredText;
+                    Value = dialog.EnteredText;
                     return true;
                 }
                 return false;

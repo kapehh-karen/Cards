@@ -1,5 +1,6 @@
 ﻿using Core.Data.Base;
 using Core.Data.Table;
+using Core.Forms.Main.CardForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +15,7 @@ namespace Core.Forms.Main
     public partial class FormTableView : Form
     {
         private TableData table;
+        private DataBase mainBase;
 
         public FormTableView()
         {
@@ -26,19 +28,25 @@ namespace Core.Forms.Main
             set
             {
                 table = value;
-
-                if (table != null)
-                {
-                    Text = $"Таблица - {table.DisplayName}";
-
-                    tableDataGridView1.Base = Base;
-                    tableDataGridView1.Table = table;
-                    tableDataGridView1.FillTable();
-                }
+                tableDataGridView1.Table = table;
+                Text = $"Таблица - {table?.DisplayName}";
             }
         }
 
-        public DataBase Base { get; set; }
+        public DataBase Base
+        {
+            get => mainBase;
+            set
+            {
+                mainBase = value;
+                tableDataGridView1.Base = Base;
+            }
+        }
+
+        public void FillTable()
+        {
+            tableDataGridView1.FillTable();
+        }
 
         private void FormTableView_Load(object sender, EventArgs e)
         {
@@ -49,8 +57,8 @@ namespace Core.Forms.Main
         {
             if (sender is TableDataGridView gridView && gridView.CurrentRow != null)
             {
-                Text = gridView.RowCount.ToString();
-                //Text = gridView.Rows[gridView.CurrentRow.Index].Cells[gridView.FieldID.Name].Value.ToString();
+                //Text = gridView.RowCount.ToString();
+                Text = gridView.Rows[gridView.CurrentRow.Index].Cells[gridView.FieldID.Name].Value.ToString();
                 //this.Text = string.Join(" / ", (from DataGridViewCell col in gridView.SelectedCells select col.OwningColumn.Name).Distinct().ToArray());
             }
         }
@@ -58,6 +66,14 @@ namespace Core.Forms.Main
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             tableDataGridView1.FillTable();
+        }
+
+        private void btnOpenForm_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new FormCardView() { Form = Table.Form })
+            {
+                dialog.ShowDialog();
+            }
         }
     }
 }

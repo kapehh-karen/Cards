@@ -6,9 +6,9 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties
 {
-    public abstract class IControlProperties
+    public abstract class IControlProperty
     {
-        public IControlProperties(Control control)
+        public IControlProperty(Control control)
         {
             this.Control = control;
             this.Value = DefaultValue;

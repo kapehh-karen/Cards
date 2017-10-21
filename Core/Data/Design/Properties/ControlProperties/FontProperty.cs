@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class FontProperty : IControlProperties
+    public class FontProperty : IControlProperty
     {
         public FontProperty(Control control) : base(control) { }
 

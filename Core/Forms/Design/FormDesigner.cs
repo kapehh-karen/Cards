@@ -109,7 +109,7 @@ namespace Core.Forms.Design
 
             if (listView.SelectedItems.Count == 1)
             {
-                var proper = listView.SelectedItems[0].Tag as IControlProperties;
+                var proper = listView.SelectedItems[0].Tag as IControlProperty;
 
                 // refresh properties
                 if (proper.ChangeValue(TableData))
