@@ -53,6 +53,17 @@ namespace Core.Forms.Main
             element.DesignControls = control.Chields.Select(cdata => MapDataToDesignControl(cdata, element as Control)).ToList();
 
             parent.Controls.Add(element as Control);
+
+            switch (element.ControlType)
+            {
+                case DesignControlType.FIELD:
+                    // TODO: Attach type preprocessor
+                    break;
+                case DesignControlType.LINKED_TABLE:
+                    // TODO: Attack table preprocessor
+                    break;
+            }
+
             return element;
         }
     }

@@ -24,6 +24,7 @@ namespace Core.Forms.Main.CardForm
                 if (form != null)
                 {
                     this.Size = new Size(form.Size.Width, form.Size.Height + 80);
+                    modelCardView1.Size = form.Size;
                     modelCardView1.Form = form;
                 }
             }

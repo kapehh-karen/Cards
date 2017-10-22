@@ -36,6 +36,7 @@ namespace Core.Forms.Main
                 {
                     ColumnFields.Clear();
                     ColumnFields.AddRange(tableData.Fields);
+                    // TODO: Add to ColumnFields IdentificatorField if it not contains
                     FieldID = tableData.IdentifierField;
                 }
             }
