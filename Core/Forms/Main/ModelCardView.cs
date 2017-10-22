@@ -1,5 +1,9 @@
 ﻿using Core.Data.Design.Controls;
 using Core.Data.Design.InternalData;
+using Core.Data.Field;
+using Core.Data.Model;
+using Core.Data.Model.Preprocessors;
+using Core.Data.Table;
 using Core.Forms.Design;
 using System;
 using System.Collections.Generic;
@@ -11,19 +15,27 @@ namespace Core.Forms.Main
 {
     public class ModelCardView : TabControl
     {
-        private FormData form;
+        private List<IFieldProcessor> fieldProcessors = new List<IFieldProcessor>();
+        private TableData table;
 
-        public FormData Form
+        public TableData Table
         {
-            get => form;
+            get => table;
             set
             {
-                form = value;
+                table = value;
 
-                if (form != null)
-                    LoadFromData(form);
+                if (table?.Form != null)
+                {
+                    Model.ID.Field = Table.IdentifierField;
+                    Model.FieldValues.AddRange(Table.Fields.Where(f => !f.IsIdentifier).Select(f => new ModelFieldValue() { Field = f }));
+
+                    LoadFromData(table.Form);
+                }
             }
         }
+
+        public CardModel Model { get; } = new CardModel();
 
         private void LoadFromData(FormData formData)
         {
@@ -51,19 +63,22 @@ namespace Core.Forms.Main
                     property.Value = p.Value;
             });
             element.DesignControls = control.Chields.Select(cdata => MapDataToDesignControl(cdata, element as Control)).ToList();
-
-            parent.Controls.Add(element as Control);
-
+            
             switch (element.ControlType)
             {
                 case DesignControlType.FIELD:
-                    // TODO: Attach type preprocessor
+                    var preprocessor = Processors.GetFieldProcessor(element);
+                    if (preprocessor != null)
+                    {
+                        preprocessor.ModelField = Model.FieldValues.FirstOrDefault(fv => fv.Field == preprocessor.Field);
+                        fieldProcessors.Add(preprocessor);
+                    }
                     break;
                 case DesignControlType.LINKED_TABLE:
-                    // TODO: Attack table preprocessor
                     break;
             }
-
+            
+            parent.Controls.Add(element as Control);
             return element;
         }
     }

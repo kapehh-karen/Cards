@@ -112,6 +112,14 @@
     <Compile Include="Data\Field\BindField.cs" />
     <Compile Include="Data\Field\FieldData.cs" />
     <Compile Include="Data\Field\FieldType.cs" />
+    <Compile Include="Data\Model\CardModel.cs" />
+    <Compile Include="Data\Model\ModelFieldValue.cs" />
+    <Compile Include="Data\Model\ModelLinkedItemState.cs" />
+    <Compile Include="Data\Model\ModelLinkedValue.cs" />
+    <Compile Include="Data\Model\ModelValueState.cs" />
+    <Compile Include="Data\Model\Preprocessors\IFieldProcessor.cs" />
+    <Compile Include="Data\Model\Preprocessors\Processors.cs" />
+    <Compile Include="Data\Model\Preprocessors\TextProcessor.cs" />
     <Compile Include="Data\Table\LinkedTable.cs" />
     <Compile Include="Data\Table\TableData.cs" />
     <Compile Include="Forms\DateBase\FormBindSetting.cs">

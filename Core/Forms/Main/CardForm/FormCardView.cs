@@ -1,4 +1,6 @@
 ﻿using Core.Data.Design.InternalData;
+using Core.Data.Model;
+using Core.Data.Table;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,20 +14,20 @@ namespace Core.Forms.Main.CardForm
 {
     public partial class FormCardView : Form
     {
-        private FormData form;
+        private TableData table;
 
-        public FormData Form
+        public TableData Table
         {
-            get => form;
+            get => table;
             set
             {
-                form = value;
+                table = value;
 
-                if (form != null)
+                if (table?.Form != null)
                 {
-                    this.Size = new Size(form.Size.Width, form.Size.Height + 80);
-                    modelCardView1.Size = form.Size;
-                    modelCardView1.Form = form;
+                    this.Size = new Size(table.Form.Size.Width, table.Form.Size.Height + 80);
+                    modelCardView1.Size = table.Form.Size;
+                    modelCardView1.Table = table;
                 }
             }
         }
@@ -38,6 +40,17 @@ namespace Core.Forms.Main.CardForm
         private void FormCardView_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            var model = modelCardView1.Model;
+            model.ResetStates();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
