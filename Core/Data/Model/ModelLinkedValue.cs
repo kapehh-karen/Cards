@@ -9,7 +9,7 @@ namespace Core.Data.Model
     public class ModelLinkedValue
     {
         public ModelValueState State =>
-            Items.Any(item => item.State == ModelValueState.CHANGED) ? ModelValueState.CHANGED : ModelValueState.UNCHANGED;
+            Items.Any(item => item.State != ModelValueState.UNCHANGED) ? ModelValueState.CHANGED : ModelValueState.UNCHANGED;
 
         public LinkedTable Table { get; set; } = null;
 

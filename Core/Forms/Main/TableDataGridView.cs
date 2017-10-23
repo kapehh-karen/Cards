@@ -46,6 +46,11 @@ namespace Core.Forms.Main
 
         public DataTable CurrentDataTable { get; set; }
 
+        public object GetCurrentID()
+        {
+            return Rows[CurrentRow.Index].Cells[FieldID.Name].Value;
+        }
+
         public void FillTable()
         {
             if (Base == null || Table == null)

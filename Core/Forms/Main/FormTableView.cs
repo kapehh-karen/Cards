@@ -58,7 +58,7 @@ namespace Core.Forms.Main
             if (sender is TableDataGridView gridView && gridView.CurrentRow != null)
             {
                 //Text = gridView.RowCount.ToString();
-                Text = gridView.Rows[gridView.CurrentRow.Index].Cells[gridView.FieldID.Name].Value.ToString();
+                Text = gridView.GetCurrentID().ToString();
                 //this.Text = string.Join(" / ", (from DataGridViewCell col in gridView.SelectedCells select col.OwningColumn.Name).Distinct().ToArray());
             }
         }
@@ -70,7 +70,7 @@ namespace Core.Forms.Main
 
         private void btnOpenForm_Click(object sender, EventArgs e)
         {
-            using (var dialog = new FormCardView() { Form = Table.Form })
+            using (var dialog = new FormCardView() { Table = this.Table })
             {
                 dialog.ShowDialog();
             }

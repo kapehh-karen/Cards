@@ -23,12 +23,20 @@ namespace Core.Data.Model.Preprocessors
             switch (field.Type)
             {
                 case FieldType.TEXT:
-                    proc = new TextProcessor() { Control = control, Field = field };
+                    proc = new TextProcessor();
+                    break;
+                case FieldType.NUMBER:
+                    proc = new NumberProcessor();
+                    break;
+                case FieldType.BOOLEAN:
+                    proc = new BooleanProcessor();
                     break;
                 default:
                     return null;
             }
 
+            proc.Control = control;
+            proc.Field = field;
             return proc;
         }
     }

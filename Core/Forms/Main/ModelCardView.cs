@@ -27,15 +27,13 @@ namespace Core.Forms.Main
 
                 if (table?.Form != null)
                 {
-                    Model.ID.Field = Table.IdentifierField;
-                    Model.FieldValues.AddRange(Table.Fields.Where(f => !f.IsIdentifier).Select(f => new ModelFieldValue() { Field = f }));
-
+                    Model = CardModel.CreateFromTable(table);
                     LoadFromData(table.Form);
                 }
             }
         }
 
-        public CardModel Model { get; } = new CardModel();
+        public CardModel Model { get; private set; }
 
         private void LoadFromData(FormData formData)
         {

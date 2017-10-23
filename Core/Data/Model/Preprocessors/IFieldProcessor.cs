@@ -11,13 +11,8 @@ namespace Core.Data.Model.Preprocessors
     {
         public void Save()
         {
-            var value = Value;
-
-            if (ModelField.OldValue != value)
-            {
-                ModelField.State = ModelValueState.CHANGED;
-                ModelField.Value = value;
-            }
+            ModelField.Value = Value;
+            ModelField.State = ModelField.OldValue != ModelField.Value ? ModelValueState.CHANGED : ModelValueState.UNCHANGED;
         }
 
         public FieldData Field { get; set; }
