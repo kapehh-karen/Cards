@@ -8,7 +8,7 @@ namespace Core.Data.Model
 {
     public class ModelFieldValue
     {
-        public ModelValueState State { get; set; } = ModelValueState.UNCHANGED;
+        public ModelValueState State => OldValue != Value ? ModelValueState.CHANGED : ModelValueState.UNCHANGED;
 
         public FieldData Field { get; set; } = null;
 

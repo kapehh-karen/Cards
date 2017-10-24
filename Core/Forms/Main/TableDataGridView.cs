@@ -19,6 +19,7 @@ namespace Core.Forms.Main
 
         public TableDataGridView()
         {
+            DoubleBuffered = true;
         }
 
         public List<FieldData> ColumnFields { get; } = new List<FieldData>();
