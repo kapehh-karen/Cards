@@ -12,18 +12,28 @@ namespace Core.Data.Model.Preprocessors
     {
         private TextControl control;
 
+        public override void Attach()
+        {
+            base.Attach();
+
+            if (control != null)
+                control.TextChanged += Control_TextChanged;
+        }
+
+        public override void Detach()
+        {
+            if (control != null)
+                control.TextChanged -= Control_TextChanged;
+        }
+
         public override IDesignControl Control
         {
             get => control as IDesignControl;
             set
             {
-                if (control != null)
-                {
-                    control.TextChanged -= Control_TextChanged;
-                }
-
+                Detach();
                 control = value as TextControl;
-                control.TextChanged += Control_TextChanged;
+                Attach();
             }
         }
 

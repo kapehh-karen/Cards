@@ -36,7 +36,29 @@ namespace Core.Data.Model
         public List<ModelFieldValue> FieldValues { get; set; } = new List<ModelFieldValue>();
 
         public List<ModelLinkedValue> LinkedValues { get; set; } = new List<ModelLinkedValue>();
-        
+
+        public object this[string field]
+        {
+            get => FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field))?.Value;
+            set
+            {
+                var fieldValue = FieldValues.First(mfv => mfv.Field.Name.Equals(field));
+                if (fieldValue != null)
+                    fieldValue.Value = value;
+            }
+        }
+
+        public object this[FieldData field]
+        {
+            get => FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field))?.Value;
+            set
+            {
+                var fieldValue = FieldValues.First(mfv => mfv.Field.Equals(field));
+                if (fieldValue != null)
+                    fieldValue.Value = value;
+            }
+        }
+
         /// <summary>
         /// При удачном сохранении модели, вызывать это.
         /// Сбрасывает состояние полей в UNCHANGED и устанавливает OldValue в текущее значение

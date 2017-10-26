@@ -14,7 +14,7 @@ namespace Core.Data.Model.Preprocessors
         public static IFieldProcessor GetFieldProcessor(IDesignControl control)
         {
             var property = (FieldProperty)control.GetProperty<FieldProperty>();
-            var field = property.Value as FieldData;
+            var field = property?.Value as FieldData;
             IFieldProcessor proc;
 
             if (field is null)

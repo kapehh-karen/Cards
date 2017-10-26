@@ -16,27 +16,62 @@ namespace Core.Forms.Main
     public class ModelCardView : TabControl
     {
         private List<IFieldProcessor> fieldProcessors = new List<IFieldProcessor>();
-        private TableData table;
+        private List<IDesignControl> fieldControls = new List<IDesignControl>();
+        private List<IDesignControl> linkedTableControls = new List<IDesignControl>();
+        private FormData form;
+        private CardModel model;
 
-        public TableData Table
+        public FormData Form
         {
-            get => table;
+            get => form;
             set
             {
-                table = value;
+                form = value;
 
-                if (table?.Form != null)
-                {
-                    Model = CardModel.CreateFromTable(table);
-                    LoadFromData(table.Form);
-                }
+                if (form != null)
+                    LoadFromData(form);
             }
         }
 
-        public CardModel Model { get; private set; }
+        public CardModel Model
+        {
+            get => model;
+            set
+            {
+                model = value;
+
+                if (model != null)
+                    AttachModel();
+            }
+        }
+
+        public void UpdateElements()
+        {
+            fieldProcessors.ForEach(p => p.Load());
+        }
+
+        private void AttachModel()
+        {
+            fieldProcessors.ForEach(p => p.Detach());
+            fieldProcessors.Clear();
+
+            fieldControls.ForEach(element =>
+            {
+                var preprocessor = Processors.GetFieldProcessor(element);
+                if (preprocessor != null)
+                {
+                    preprocessor.ModelField = Model.FieldValues.FirstOrDefault(fv => fv.Field == preprocessor.Field);
+                    preprocessor.Attach();
+                    fieldProcessors.Add(preprocessor);
+                }
+            });
+        }
 
         private void LoadFromData(FormData formData)
         {
+            fieldControls.Clear();
+            linkedTableControls.Clear();
+
             var pages = formData.Pages.Select(page =>
             {
                 var cardTabPage = new CardTabPage() { Text = page.Title };
@@ -65,14 +100,10 @@ namespace Core.Forms.Main
             switch (element.ControlType)
             {
                 case DesignControlType.FIELD:
-                    var preprocessor = Processors.GetFieldProcessor(element);
-                    if (preprocessor != null)
-                    {
-                        preprocessor.ModelField = Model.FieldValues.FirstOrDefault(fv => fv.Field == preprocessor.Field);
-                        fieldProcessors.Add(preprocessor);
-                    }
+                    fieldControls.Add(element);
                     break;
                 case DesignControlType.LINKED_TABLE:
+                    linkedTableControls.Add(element);
                     break;
             }
             

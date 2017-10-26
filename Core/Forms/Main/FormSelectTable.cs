@@ -1,6 +1,7 @@
 ﻿using Core.Config;
 using Core.Data.Base;
 using Core.Data.Table;
+using Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,14 +39,7 @@ namespace Core.Forms.Main
 
         private void FormSelectTable_Load(object sender, EventArgs e)
         {
-            if (!Directory.Exists("BASE"))
-                Directory.CreateDirectory("BASE");
-
-            foreach (var fileName in Directory.GetFiles("BASE")
-                                              .Where(fname => Path.GetExtension(fname).Equals(".cards", StringComparison.CurrentCultureIgnoreCase)))
-            {
-                cmbConfigs.Items.Add(fileName);
-            }
+            cmbConfigs.Items.AddRange(FileSystemHelper.GetFilesFromFolder(Consts.DirectoryBase, Consts.ConfigBaseExtension).ToArray());
         }
 
         private void cmbConfigs_SelectedValueChanged(object sender, EventArgs e)

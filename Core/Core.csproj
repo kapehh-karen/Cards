@@ -63,6 +63,7 @@
     <Compile Include="Config\DataBaseConfigLoader.cs" />
     <Compile Include="Connection\DataBaseConnection.cs" />
     <Compile Include="Connection\SQLServerConnection.cs" />
+    <Compile Include="Consts.cs" />
     <Compile Include="Data\Base\DataBase.cs" />
     <Compile Include="Data\Design\Controls\DesignControlType.cs" />
     <Compile Include="Data\Design\Controls\FieldControl\BindControl.cs">
@@ -249,6 +250,7 @@
       <DependentUpon>Button.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\DesignControlHelper.cs" />
+    <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\IterableHelper.cs" />
     <Compile Include="Helper\TextHelper.cs" />
     <Compile Include="Helper\WaitDialog.cs" />

@@ -8,7 +8,9 @@ namespace Core.Data.Model
 {
     public class ModelFieldValue
     {
-        public ModelValueState State => OldValue != Value ? ModelValueState.CHANGED : ModelValueState.UNCHANGED;
+        public ModelValueState State =>
+            OldValue?.Equals(Value) ?? Value?.Equals(OldValue) ?? (OldValue == null && Value == null)
+            ? ModelValueState.UNCHANGED : ModelValueState.CHANGED;
 
         public FieldData Field { get; set; } = null;
 

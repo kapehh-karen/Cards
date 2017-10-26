@@ -11,22 +11,32 @@ namespace Core.Data.Model.Preprocessors
     {
         private BooleanControl control;
 
+        public override void Attach()
+        {
+            base.Attach();
+
+            if (control != null)
+                control.CheckedChanged += Control_CheckedChanged;
+        }
+
+        public override void Detach()
+        {
+            if (control != null)
+                control.CheckedChanged -= Control_CheckedChanged;
+        }
+
         public override IDesignControl Control
         {
             get => control as IDesignControl;
             set
             {
-                if (control != null)
-                {
-                    control.CheckedChanged -= Control_CheckedChanged;
-                }
-
+                Detach();
                 control = value as BooleanControl;
-                control.CheckedChanged += Control_CheckedChanged;
+                Attach();
             }
         }
 
-        public override object Value { get => control.Checked; set => control.Checked = (bool)value; }
+        public override object Value { get => control.Checked; set => control.Checked = (bool)(value ?? false); }
 
         private void Control_CheckedChanged(object sender, EventArgs e)
         {

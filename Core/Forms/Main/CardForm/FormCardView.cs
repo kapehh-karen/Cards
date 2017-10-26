@@ -27,7 +27,12 @@ namespace Core.Forms.Main.CardForm
                 {
                     this.Size = new Size(table.Form.Size.Width + 15, table.Form.Size.Height + 80);
                     modelCardView1.Size = table.Form.Size;
-                    modelCardView1.Table = table;
+                    modelCardView1.Form = table.Form;
+
+                    var model = CardModel.CreateFromTable(table);
+                    model["age"] = 228;
+                    model.ResetStates();
+                    modelCardView1.Model = model;
                 }
             }
         }
@@ -50,6 +55,9 @@ namespace Core.Forms.Main.CardForm
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            /*var model = modelCardView1.Model;
+            model["username"] = "Keked";
+            modelCardView1.UpdateElements();*/
             this.Close();
         }
     }

@@ -90,6 +90,8 @@ namespace Core.Forms.Main
                     column.HeaderText = fieldData.DisplayName;
                     column.Tag = fieldData;
                 }
+
+                adapter.Dispose();
             }
         }
     }

@@ -23,6 +23,7 @@ namespace Core.Data.Design.Controls.FieldControl
 
             AutoSize = true;
             DefaultColor = BackColor;
+            CheckAlign = ContentAlignment.MiddleRight;
         }
 
         public DesignControlType ControlType => DesignControlType.FIELD;

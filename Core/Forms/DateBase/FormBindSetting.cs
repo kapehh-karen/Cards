@@ -12,6 +12,7 @@ using Core.Data.Table;
 using Core.Config;
 using Core.Data.Field;
 using Core.Forms.Design;
+using Core.Helper;
 
 namespace Core.Forms.DateBase
 {
@@ -137,15 +138,8 @@ namespace Core.Forms.DateBase
 
         private void FillDBList()
         {
-            if (!Directory.Exists("BASE"))
-                Directory.CreateDirectory("BASE");
-
             cmbBasesList.Items.Clear();
-            foreach (var fileName in Directory.GetFiles("BASE")
-                                              .Where(fname => Path.GetExtension(fname).Equals(".cards", StringComparison.CurrentCultureIgnoreCase)))
-            {
-                cmbBasesList.Items.Add(fileName);
-            }
+            cmbBasesList.Items.AddRange(FileSystemHelper.GetFilesFromFolder(Consts.DirectoryBase, Consts.ConfigBaseExtension).ToArray());
         }
 
         private void cmbBasesList_SelectedValueChanged(object sender, EventArgs e)
@@ -377,7 +371,7 @@ namespace Core.Forms.DateBase
             using (var dialogFile = new SaveFileDialog()
             {
                 Filter = "CARDS Config|*.cards",
-                InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), "BASE")
+                InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), Consts.DirectoryBase)
             })
             {
                 if (dialogFile.ShowDialog() != DialogResult.OK)
