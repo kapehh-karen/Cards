@@ -1,4 +1,5 @@
-﻿using Core.Data.Design.InternalData;
+﻿using Core.Data.Base;
+using Core.Data.Design.InternalData;
 using Core.Data.Model;
 using Core.Data.Table;
 using System;
@@ -15,6 +16,7 @@ namespace Core.Forms.Main.CardForm
     public partial class FormCardView : Form
     {
         private TableData table;
+        private DataBase mainBase;
 
         public TableData Table
         {
@@ -22,15 +24,30 @@ namespace Core.Forms.Main.CardForm
             set
             {
                 table = value;
+                modelCardView1.Table = table;
 
                 if (table?.Form != null)
                 {
                     this.Size = new Size(table.Form.Size.Width + 15, table.Form.Size.Height + 80);
                     modelCardView1.Size = table.Form.Size;
                     modelCardView1.Form = table.Form;
-                    modelCardView1.Model = CardModel.CreateFromTable(table);
                 }
             }
+        }
+
+        public DataBase Base
+        {
+            get => mainBase;
+            set
+            {
+                mainBase = value;
+                modelCardView1.Base = mainBase;
+            }
+        }
+        
+        public void InitializeModel()
+        {
+            modelCardView1.Model = CardModel.CreateFromTable(table);
         }
 
         public FormCardView()
@@ -54,6 +71,7 @@ namespace Core.Forms.Main.CardForm
             /*var model = modelCardView1.Model;
             model["username"] = "Keked";
             modelCardView1.UpdateElements();*/
+
             this.Close();
         }
     }

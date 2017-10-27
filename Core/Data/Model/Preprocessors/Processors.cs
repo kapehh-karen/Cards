@@ -34,6 +34,9 @@ namespace Core.Data.Model.Preprocessors
                 case FieldType.DATE:
                     proc = new DateProcessor();
                     break;
+                case FieldType.BIND:
+                    proc = new BindProcessor();
+                    break;
                 default:
                     return null;
             }

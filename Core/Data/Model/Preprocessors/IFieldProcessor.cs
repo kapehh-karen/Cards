@@ -1,5 +1,7 @@
-﻿using Core.Data.Design.Controls;
+﻿using Core.Data.Base;
+using Core.Data.Design.Controls;
 using Core.Data.Field;
+using Core.Data.Table;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,7 @@ namespace Core.Data.Model.Preprocessors
         /// </summary>
         public virtual void Attach()
         {
+            Detach();
             Load();
         }
 
@@ -41,5 +44,9 @@ namespace Core.Data.Model.Preprocessors
         public abstract object Value { get; set; }
 
         public abstract IDesignControl Control { get; set; }
+
+        public TableData Table { get; set; }
+
+        public DataBase Base { get; set; }
     }
 }

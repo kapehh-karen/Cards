@@ -70,8 +70,9 @@ namespace Core.Forms.Main
 
         private void btnOpenForm_Click(object sender, EventArgs e)
         {
-            using (var dialog = new FormCardView() { Table = this.Table })
+            using (var dialog = new FormCardView() { Table = this.Table, Base = this.Base })
             {
+                dialog.InitializeModel();
                 dialog.ShowDialog();
             }
         }

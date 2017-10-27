@@ -15,11 +15,14 @@ namespace Core.Forms.Main
 {
     public class TableDataGridView : DataGridView
     {
+        public event KeyEventHandler PressedEnter;
+
         private TableData tableData;
 
         public TableDataGridView()
         {
             DoubleBuffered = true;
+            BackgroundColor = System.Drawing.Color.White;
         }
 
         public List<FieldData> ColumnFields { get; } = new List<FieldData>();
@@ -49,7 +52,7 @@ namespace Core.Forms.Main
 
         public object GetCurrentID()
         {
-            return Rows[CurrentRow.Index].Cells[FieldID.Name].Value;
+            return CurrentRow == null ? null : Rows[CurrentRow.Index].Cells[FieldID.Name].Value;
         }
 
         public void FillTable()
@@ -93,6 +96,18 @@ namespace Core.Forms.Main
 
                 adapter.Dispose();
             }
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if ((e.KeyData & Keys.KeyCode) == Keys.Enter)
+            {
+                if (CurrentRow != null)
+                    PressedEnter?.Invoke(this, e);
+                return;
+            }
+            else
+                base.OnKeyDown(e);
         }
     }
 }

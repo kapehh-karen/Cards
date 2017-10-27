@@ -1,4 +1,5 @@
-﻿using Core.Data.Design.Controls;
+﻿using Core.Data.Base;
+using Core.Data.Design.Controls;
 using Core.Data.Design.InternalData;
 using Core.Data.Field;
 using Core.Data.Model;
@@ -20,6 +21,10 @@ namespace Core.Forms.Main
         private List<IDesignControl> linkedTableControls = new List<IDesignControl>();
         private FormData form;
         private CardModel model;
+
+        public TableData Table { get; set; }
+
+        public DataBase Base { get; set; }
 
         public FormData Form
         {
@@ -60,6 +65,8 @@ namespace Core.Forms.Main
                 var preprocessor = Processors.GetFieldProcessor(element);
                 if (preprocessor != null)
                 {
+                    preprocessor.Table = Table;
+                    preprocessor.Base = Base;
                     preprocessor.ModelField = Model.FieldValues.FirstOrDefault(fv => fv.Field == preprocessor.Field);
                     preprocessor.Attach();
                     fieldProcessors.Add(preprocessor);
