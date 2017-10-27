@@ -14,6 +14,8 @@ namespace Core.Data.Model
 
         public FieldData Field { get; set; } = null;
 
+        public CardModel BindData { get; set; } = null;
+
         public object Value { get; set; } = null;
 
         public object OldValue { get; set; } = null;

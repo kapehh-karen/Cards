@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Core.Data.Model.Preprocessors
 {
-    public class NumberProcessor : IFieldProcessor
+    public class DateProcessor : IFieldProcessor
     {
         private TextControl control;
 
@@ -38,8 +38,8 @@ namespace Core.Data.Model.Preprocessors
 
         public override object Value
         {
-            get => int.TryParse(control.Text, out int x) ? x : 0;
-            set => control.Text = value?.ToString();
+            get => DateTime.TryParse(control.Text, out var date) ? (object)date : null;
+            set => control.Text = (value != null && value is DateTime) ? ((DateTime)value).ToString(@"dd/MM/yyyy") : string.Empty;
         }
 
         private void Control_TextChanged(object sender, EventArgs e)

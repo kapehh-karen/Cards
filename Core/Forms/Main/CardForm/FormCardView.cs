@@ -28,11 +28,7 @@ namespace Core.Forms.Main.CardForm
                     this.Size = new Size(table.Form.Size.Width + 15, table.Form.Size.Height + 80);
                     modelCardView1.Size = table.Form.Size;
                     modelCardView1.Form = table.Form;
-
-                    var model = CardModel.CreateFromTable(table);
-                    model["age"] = 228;
-                    model.ResetStates();
-                    modelCardView1.Model = model;
+                    modelCardView1.Model = CardModel.CreateFromTable(table);
                 }
             }
         }

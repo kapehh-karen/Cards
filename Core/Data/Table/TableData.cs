@@ -27,22 +27,13 @@ namespace Core.Data.Table
         public string DisplayName
         {
             get => string.IsNullOrEmpty(displayName) ? Name : displayName;
-            set
-            {
-                displayName = value;
-            }
+            set => displayName = value;
         }
 
         /// <summary>
         /// Поле идентификатор
         /// </summary>
-        public FieldData IdentifierField
-        {
-            get
-            {
-                return this.Fields.FirstOrDefault(fd => fd.IsIdentifier);
-            }
-        }
+        public FieldData IdentifierField => Fields.FirstOrDefault(fd => fd.IsIdentifier);
 
         /// <summary>
         /// Поля таблицы (включая поле идентификатора)
@@ -71,7 +62,6 @@ namespace Core.Data.Table
         /// <summary>
         /// Последнее изменение таблицы (для классификаторов)
         /// </summary>
-        [DataMember]
         public DateTime LastUpdate { get; set; } = DateTime.MinValue;
 
         public override string ToString()

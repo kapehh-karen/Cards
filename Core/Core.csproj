@@ -119,6 +119,7 @@
     <Compile Include="Data\Model\ModelLinkedValue.cs" />
     <Compile Include="Data\Model\ModelValueState.cs" />
     <Compile Include="Data\Model\Preprocessors\BooleanProcessor.cs" />
+    <Compile Include="Data\Model\Preprocessors\DateProcessor.cs" />
     <Compile Include="Data\Model\Preprocessors\IFieldProcessor.cs" />
     <Compile Include="Data\Model\Preprocessors\NumberProcessor.cs" />
     <Compile Include="Data\Model\Preprocessors\Processors.cs" />

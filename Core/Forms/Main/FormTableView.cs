@@ -58,14 +58,14 @@ namespace Core.Forms.Main
             if (sender is TableDataGridView gridView && gridView.CurrentRow != null)
             {
                 //Text = gridView.RowCount.ToString();
-                Text = gridView.GetCurrentID().ToString();
+                //Text = gridView.GetCurrentID().ToString();
                 //this.Text = string.Join(" / ", (from DataGridViewCell col in gridView.SelectedCells select col.OwningColumn.Name).Distinct().ToArray());
             }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            tableDataGridView1.FillTable();
+            FillTable();
         }
 
         private void btnOpenForm_Click(object sender, EventArgs e)

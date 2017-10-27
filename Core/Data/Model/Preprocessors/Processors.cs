@@ -31,6 +31,9 @@ namespace Core.Data.Model.Preprocessors
                 case FieldType.BOOLEAN:
                     proc = new BooleanProcessor();
                     break;
+                case FieldType.DATE:
+                    proc = new DateProcessor();
+                    break;
                 default:
                     return null;
             }

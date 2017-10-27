@@ -42,7 +42,7 @@ namespace Core.Data.Model
             get => FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field))?.Value;
             set
             {
-                var fieldValue = FieldValues.First(mfv => mfv.Field.Name.Equals(field));
+                var fieldValue = FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field));
                 if (fieldValue != null)
                     fieldValue.Value = value;
             }
@@ -53,7 +53,7 @@ namespace Core.Data.Model
             get => FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field))?.Value;
             set
             {
-                var fieldValue = FieldValues.First(mfv => mfv.Field.Equals(field));
+                var fieldValue = FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field));
                 if (fieldValue != null)
                     fieldValue.Value = value;
             }
@@ -68,6 +68,13 @@ namespace Core.Data.Model
         {
             FieldValues.ForEach(fieldValue => fieldValue.OldValue = fieldValue.Value);
             LinkedValues.ForEach(linkedValue => linkedValue.Items.ForEach(item => item.ResetStates()));
+            LinkedState = ModelLinkedItemState.UNCHANGED;
+        }
+
+        public void Clear()
+        {
+            FieldValues.ForEach(fieldValue => fieldValue.OldValue = fieldValue.Value = null);
+            LinkedValues.ForEach(linkedValue => linkedValue.Items.Clear());
             LinkedState = ModelLinkedItemState.UNCHANGED;
         }
 
@@ -94,6 +101,18 @@ namespace Core.Data.Model
         public static bool operator !=(CardModel a, CardModel b)
         {
             return !(a == b);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is CardModel cardObj)
+                return this == cardObj;
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
         }
     }
 }
