@@ -39,10 +39,10 @@ namespace Core.Data.Model
 
         public object this[string field]
         {
-            get => FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field))?.Value;
+            get => ID.Field.Name.Equals(field) ? ID.Value : FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field))?.Value;
             set
             {
-                var fieldValue = FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field));
+                var fieldValue = ID.Field.Name.Equals(field) ? ID : FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field));
                 if (fieldValue != null)
                     fieldValue.Value = value;
             }
@@ -50,10 +50,10 @@ namespace Core.Data.Model
 
         public object this[FieldData field]
         {
-            get => FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field))?.Value;
+            get => ID.Field.Equals(field) ? ID.Value : FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field))?.Value;
             set
             {
-                var fieldValue = FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field));
+                var fieldValue = ID.Field.Equals(field) ? ID : FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field));
                 if (fieldValue != null)
                     fieldValue.Value = value;
             }
@@ -66,6 +66,7 @@ namespace Core.Data.Model
         /// </summary>
         public void ResetStates()
         {
+            if (ID != null) ID.OldValue = ID.Value;
             FieldValues.ForEach(fieldValue => fieldValue.OldValue = fieldValue.Value);
             LinkedValues.ForEach(linkedValue => linkedValue.Items.ForEach(item => item.ResetStates()));
             LinkedState = ModelLinkedItemState.UNCHANGED;
@@ -73,6 +74,7 @@ namespace Core.Data.Model
 
         public void Clear()
         {
+            if (ID != null) ID.OldValue = ID.Value = null;
             FieldValues.ForEach(fieldValue => fieldValue.OldValue = fieldValue.Value = null);
             LinkedValues.ForEach(linkedValue => linkedValue.Items.Clear());
             LinkedState = ModelLinkedItemState.UNCHANGED;

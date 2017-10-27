@@ -1,6 +1,7 @@
 ﻿using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Field;
+using Core.Data.Model;
 using Core.Data.Table;
 using Core.Helper;
 using System;
@@ -50,9 +51,29 @@ namespace Core.Forms.Main
 
         public DataTable CurrentDataTable { get; set; }
 
-        public object GetCurrentID()
+        public object SelectedID => CurrentRow == null ? null : Rows[CurrentRow.Index].Cells[FieldID.Name].Value;
+
+        public CardModel SelectedModel
         {
-            return CurrentRow == null ? null : Rows[CurrentRow.Index].Cells[FieldID.Name].Value;
+            get
+            {
+                if (CurrentRow == null)
+                    return null;
+
+                var model = CardModel.CreateFromTable(Table);
+                //var row = CurrentDataTable.Select($"{FieldID.Name} = {SelectedID}");
+
+                //if (row.Length > 0)
+                //    ColumnFields.ForEach(colField => model[colField] = row[0][colField.Name]);
+                (from DataGridViewCell col in CurrentRow.Cells select col)
+                    .ForEach(cell =>
+                    {
+                        model[cell.OwningColumn.Tag as FieldData] = cell.Value;
+                    });
+
+                model.ResetStates();
+                return model;
+            }
         }
 
         public void FillTable()

@@ -51,18 +51,9 @@ namespace Core.Forms.Main.CardForm
             tableDataGridView1.FillTable();
         }
 
-        public object SelectedID => tableDataGridView1.CurrentRow != null ? tableDataGridView1.GetCurrentID() : null;
+        public object SelectedID => tableDataGridView1.SelectedID;
 
-        public CardModel Model
-        {
-            get
-            {
-                var model = CardModel.CreateFromTable(this.Table);
-                model[Field.BindData.Field] = "Test";
-                model.ResetStates();
-                return model;
-            }
-        }
+        public CardModel Model => tableDataGridView1.SelectedModel;
 
         private void FormSelectInClassificator_Load(object sender, EventArgs e)
         {
