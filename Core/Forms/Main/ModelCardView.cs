@@ -68,7 +68,6 @@ namespace Core.Forms.Main
                     preprocessor.Table = Table;
                     preprocessor.Base = Base;
                     preprocessor.ModelField = Model.FieldValues.FirstOrDefault(fv => fv.Field == preprocessor.Field);
-                    preprocessor.Attach();
                     fieldProcessors.Add(preprocessor);
                 }
             });

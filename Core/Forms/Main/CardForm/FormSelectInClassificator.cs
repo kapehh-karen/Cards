@@ -51,7 +51,11 @@ namespace Core.Forms.Main.CardForm
             tableDataGridView1.FillTable();
         }
 
-        public object SelectedID => tableDataGridView1.SelectedID;
+        public object SelectedID
+        {
+            get => tableDataGridView1.SelectedID;
+            set => tableDataGridView1.SelectedID = value;
+        }
 
         public CardModel Model => tableDataGridView1.SelectedModel;
 

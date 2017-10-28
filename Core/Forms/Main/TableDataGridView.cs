@@ -4,6 +4,7 @@ using Core.Data.Field;
 using Core.Data.Model;
 using Core.Data.Table;
 using Core.Helper;
+using Core.Storage;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,10 +16,11 @@ using System.Windows.Forms;
 namespace Core.Forms.Main
 {
     public class TableDataGridView : DataGridView
-    {
+    {   
         public event KeyEventHandler PressedEnter;
 
         private TableData tableData;
+        private object needSelectID;
 
         public TableDataGridView()
         {
@@ -51,7 +53,11 @@ namespace Core.Forms.Main
 
         public DataTable CurrentDataTable { get; set; }
 
-        public object SelectedID => CurrentRow == null ? null : Rows[CurrentRow.Index].Cells[FieldID.Name].Value;
+        public object SelectedID
+        {
+            get => CurrentRow == null ? null : Rows[CurrentRow.Index].Cells[FieldID.Name].Value;
+            set => needSelectID = value;
+        }
 
         public CardModel SelectedModel
         {
@@ -61,10 +67,7 @@ namespace Core.Forms.Main
                     return null;
 
                 var model = CardModel.CreateFromTable(Table);
-                //var row = CurrentDataTable.Select($"{FieldID.Name} = {SelectedID}");
 
-                //if (row.Length > 0)
-                //    ColumnFields.ForEach(colField => model[colField] = row[0][colField.Name]);
                 (from DataGridViewCell col in CurrentRow.Cells select col)
                     .ForEach(cell =>
                     {
@@ -76,46 +79,66 @@ namespace Core.Forms.Main
             }
         }
 
+        private TableStorageInformation TableClassificatorInformation { get; set; }
+
         public void FillTable()
         {
             if (Base == null || Table == null)
                 return;
 
-            using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
+            DataTable dataTable = null;
+
+            if (Table.IsClassifier)
             {
-                // main part query
-                var columns = string.Join(", ", ColumnFields.Where(f => f.Visible || f.IsIdentifier)
-                    .Select(f => f.Type != FieldType.BIND ? $"[{Table.Name}].[{f.Name}]" : $"[{f.BindData.Table.Name}].[{f.BindData.Field.Name}] AS [{f.Name}]")
-                    .ToArray());
+                TableClassificatorInformation = TableStorage.Get(Table);
+                dataTable = TableClassificatorInformation?.Data;
+            }
 
-                // joins part query
-                var joins = string.Join("\r\n", ColumnFields.Where(f => f.Visible || f.IsIdentifier).Where(f => f.Type == FieldType.BIND)
-                    .Select(f => $"LEFT JOIN [{f.BindData.Table.Name}] ON [{f.BindData.Table.Name}].[{f.BindData.Table.IdentifierField.Name}] = [{Table.Name}].[{f.Name}]")
-                    .ToArray());
-
-                var query = $"SELECT {columns} FROM {Table.Name}\r\n{joins}";
-                var connection = dbc.Connection;
-                var adapter = new SqlDataAdapter(query, connection);
-                var data = new DataSet();
-
-                WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
-
-                var tableData = data.Tables[0];
-                CurrentDataTable = tableData;
-                DataSource = tableData;
-
-                // Hide ID column
-                this.Columns[FieldID.Name].Visible = false;
-
-                // Renaming columns header
-                foreach (DataGridViewColumn column in this.Columns)
+            if (dataTable == null)
+            {
+                // Make SQL request
+                using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
                 {
-                    var fieldData = ColumnFields.Single(f => f.Name.Equals(column.Name));
-                    column.HeaderText = fieldData.DisplayName;
-                    column.Tag = fieldData;
+                    // main part query
+                    var columns = string.Join(", ", ColumnFields.Where(f => f.Visible || f.IsIdentifier)
+                        .Select(f => f.Type != FieldType.BIND ? $"[{Table.Name}].[{f.Name}]" : $"[{f.BindData.Table.Name}].[{f.BindData.Field.Name}] AS [{f.Name}]")
+                        .ToArray());
+
+                    // joins part query
+                    var joins = string.Join("\r\n", ColumnFields.Where(f => f.Visible || f.IsIdentifier).Where(f => f.Type == FieldType.BIND)
+                        .Select(f => $"LEFT JOIN [{f.BindData.Table.Name}] ON [{f.BindData.Table.Name}].[{f.BindData.Table.IdentifierField.Name}] = [{Table.Name}].[{f.Name}]")
+                        .ToArray());
+
+                    var query = $"SELECT {columns} FROM {Table.Name}\r\n{joins}";
+                    var connection = dbc.Connection;
+                    var adapter = new SqlDataAdapter(query, connection);
+                    var data = new DataSet();
+
+                    WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
+
+                    dataTable = data.Tables[0];
+
+                    adapter.Dispose();
                 }
 
-                adapter.Dispose();
+                if (Table.IsClassifier && dataTable != null)
+                {
+                    TableClassificatorInformation = TableStorage.Set(Table, dataTable);
+                }
+            }
+
+            CurrentDataTable = dataTable;
+            DataSource = dataTable;
+
+            // Hide ID column
+            this.Columns[FieldID.Name].Visible = false;
+
+            // Renaming columns header
+            foreach (DataGridViewColumn column in this.Columns)
+            {
+                var fieldData = ColumnFields.Single(f => f.Name.Equals(column.Name));
+                column.HeaderText = fieldData.DisplayName;
+                column.Tag = fieldData;
             }
         }
 
@@ -124,11 +147,29 @@ namespace Core.Forms.Main
             if ((e.KeyData & Keys.KeyCode) == Keys.Enter)
             {
                 if (CurrentRow != null)
+                {
                     PressedEnter?.Invoke(this, e);
+                }
                 return;
             }
             else
                 base.OnKeyDown(e);
+        }
+
+        protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
+        {
+            base.OnDataBindingComplete(e);
+
+            if (needSelectID != null)
+            {
+                CurrentRow.Selected = false;
+                var findedRow = (from DataGridViewRow row in Rows select row).FirstOrDefault(row => row.Cells[FieldID.Name].Value.Equals(needSelectID));
+                if (findedRow != null)
+                {
+                    findedRow.Selected = true;
+                    CurrentCell = (from DataGridViewCell col in findedRow.Cells select col).FirstOrDefault(col => col.Visible);
+                }
+            }
         }
     }
 }

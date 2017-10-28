@@ -58,6 +58,7 @@ namespace Core.Data.Model.Preprocessors
             })
             {
                 dialog.FillTable();
+                dialog.SelectedID = Value;
 
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
