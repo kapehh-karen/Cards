@@ -31,6 +31,7 @@
             this.modelCardView1 = new Core.Forms.Main.ModelCardView();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.txtID = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // modelCardView1
@@ -38,11 +39,15 @@
             this.modelCardView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.modelCardView1.Base = null;
+            this.modelCardView1.Form = null;
             this.modelCardView1.Location = new System.Drawing.Point(0, 0);
+            this.modelCardView1.Model = null;
             this.modelCardView1.Name = "modelCardView1";
             this.modelCardView1.SelectedIndex = 0;
             this.modelCardView1.Size = new System.Drawing.Size(478, 410);
             this.modelCardView1.TabIndex = 0;
+            this.modelCardView1.Table = null;
             // 
             // btnClose
             // 
@@ -66,11 +71,20 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // txtID
+            // 
+            this.txtID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtID.Location = new System.Drawing.Point(359, 421);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(105, 20);
+            this.txtID.TabIndex = 1;
+            // 
             // FormCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(476, 451);
+            this.Controls.Add(this.txtID);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.modelCardView1);
@@ -79,6 +93,7 @@
             this.Text = "Просмотр и изменение";
             this.Load += new System.EventHandler(this.FormCardView_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -87,5 +102,6 @@
         private ModelCardView modelCardView1;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TextBox txtID;
     }
 }

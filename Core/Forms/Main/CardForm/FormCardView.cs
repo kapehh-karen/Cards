@@ -5,6 +5,7 @@ using Core.Data.Field;
 using Core.Data.Model;
 using Core.Data.Table;
 using Core.Helper;
+using Core.Notification;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -48,36 +49,45 @@ namespace Core.Forms.Main.CardForm
                 modelCardView1.Base = mainBase;
             }
         }
+
+        public bool IsNew { get; private set; }
         
         public void InitializeModel(object id = null)
         {
             var model = CardModel.CreateFromTable(table);
             var fieldId = Table.IdentifierField;
 
+            IsNew = id == null;
+
             if (id != null)
             {
                 // Make SQL request
                 using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
                 {   
-                    var query = $"SELECT * FROM {Table.Name} WHERE {fieldId.Name} = @Id";
+                    var query = $"SELECT * FROM [{Table.Name}] WHERE [{fieldId.Name}] = @{fieldId.Name}";
                     var connection = dbc.Connection;
 
                     using (var command = new SqlCommand(query, connection))
                     {
                         command.Parameters.Add(new SqlParameter(fieldId.Name, id));
-
-                        SqlDataReader reader = null;
-                        var readed = WaitDialog.Run("Получение данных", () =>
+                        using (var reader = command.ExecuteReader())
                         {
-                            reader = command.ExecuteReader();
-                            return reader.Read();
-                        });
-
-                        if (readed)
-                            Table.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValue(f, reader[f.Name]));
+                            if (reader.Read())
+                            {
+                                Table.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValue(f, reader[f.Name]));
+                                
+                                txtID.Text = id.ToString(); // Просто для отображения, если запись найдена
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Запись с идентификатором {id} не найдена", "Запись не найдена");
+                            }
+                        }
                     }
+                    
+                    // TODO: Помимо всего прочего, получать и связанные строки, и внешние данные
                 }
-
+                
                 model.ResetStates();
             }
 
@@ -97,7 +107,64 @@ namespace Core.Forms.Main.CardForm
         private void btnSave_Click(object sender, EventArgs e)
         {
             var model = modelCardView1.Model;
-            // TODO: Save model to bd
+            var fieldId = Table.IdentifierField;
+
+            if (model.State == ModelValueState.UNCHANGED)
+                return;
+
+            // Make SQL request
+            using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
+            {
+                var connection = dbc.Connection;
+                var transaction = connection.BeginTransaction();
+                object id = model[fieldId];
+
+                try
+                {
+                    var changedFields = model.FieldValues.Where(fv => fv.State == ModelValueState.CHANGED).Select(fv => fv.Field).ToArray();
+
+                    if (IsNew)
+                    {
+                        var sqlFields = string.Join(", ", changedFields.Select(f => $"[{f.Name}]").ToArray());
+                        var sqlValues = string.Join(", ", changedFields.Select(f => $"@{f.Name}").ToArray());
+                        var sqlNewItem = $"INSERT INTO [{Table.Name}]({sqlFields}) VALUES({sqlValues}); SELECT SCOPE_IDENTITY();";
+                        
+                        using (var command = new SqlCommand(sqlNewItem, connection, transaction))
+                        {
+                            changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
+                            id = command.ExecuteScalar();
+                        }
+                    }
+                    else
+                    {
+                        var sqlSet = string.Join(", ", changedFields.Select(f => $"[{f.Name}] = @{f.Name}").ToArray());
+                        var sqlUpdateItem = $"UPDATE [{Table.Name}] SET {sqlSet} WHERE [{fieldId.Name}] = @{fieldId.Name};";
+
+                        using (var command = new SqlCommand(sqlUpdateItem, connection, transaction))
+                        {
+                            command.Parameters.AddWithValue(fieldId.Name, model[fieldId]);
+                            changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
+                            command.ExecuteNonQuery();
+                        }
+                    }
+
+                    // TODO: Insert/Update linked data
+                    
+                    transaction.Commit();
+
+                    model[fieldId] = id;
+                    txtID.Text = id?.ToString(); // Просто для отображения, если запись добавлена
+                    IsNew = false;
+                }
+                catch (SqlException ex)
+                {
+                    transaction.Rollback();
+                    NotificationMessage.Error(ex.Message, ex);
+                }
+
+                transaction.Dispose();
+            }
+
             model.ResetStates();
         }
 

@@ -1,6 +1,7 @@
 ﻿using Core.Data.Base;
 using Core.Data.Table;
 using Core.Forms.Main;
+using Core.Notification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Cards
         [STAThread]
         static void Main()
         {
+            NotificationMessage.ReceiveMessage += NotificationMessage_ReceiveMessage;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -41,6 +44,11 @@ namespace Cards
                 dialog.FillTable();
                 Application.Run(dialog);
             }
+        }
+
+        private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)
+        {
+            MessageBox.Show(message, $"Level - {level}");
         }
     }
 }
