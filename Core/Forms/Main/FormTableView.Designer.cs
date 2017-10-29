@@ -50,10 +50,12 @@
             this.tableDataGridView1.Location = new System.Drawing.Point(0, 56);
             this.tableDataGridView1.Name = "tableDataGridView1";
             this.tableDataGridView1.ReadOnly = true;
+            this.tableDataGridView1.SelectedID = null;
             this.tableDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tableDataGridView1.Size = new System.Drawing.Size(752, 447);
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
+            this.tableDataGridView1.PressedEnter += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
             this.tableDataGridView1.SelectionChanged += new System.EventHandler(this.tableDataGridView1_SelectionChanged);
             // 
             // btnRefresh

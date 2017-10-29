@@ -76,5 +76,14 @@ namespace Core.Forms.Main
                 dialog.ShowDialog();
             }
         }
+
+        private void tableDataGridView1_PressedEnter(object sender, KeyEventArgs e)
+        {
+            using (var dialog = new FormCardView() { Table = this.Table, Base = this.Base })
+            {
+                dialog.InitializeModel(tableDataGridView1.SelectedID);
+                dialog.ShowDialog();
+            }
+        }
     }
 }

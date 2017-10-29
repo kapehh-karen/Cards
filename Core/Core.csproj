@@ -258,6 +258,7 @@
       <DependentUpon>Button.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\DesignControlHelper.cs" />
+    <Compile Include="Helper\FieldHelper.cs" />
     <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\IterableHelper.cs" />
     <Compile Include="Helper\TextHelper.cs" />

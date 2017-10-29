@@ -9,7 +9,5 @@ namespace Core.Storage
     public class TableStorageInformation
     {
         public DataTable Data { get; set; } = null;
-
-        public int RowIndex { get; set; } = 0;
     }
 }

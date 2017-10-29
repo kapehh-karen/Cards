@@ -71,6 +71,8 @@ namespace Core.Forms.Main
                     fieldProcessors.Add(preprocessor);
                 }
             });
+
+            UpdateElements();
         }
 
         private void LoadFromData(FormData formData)
