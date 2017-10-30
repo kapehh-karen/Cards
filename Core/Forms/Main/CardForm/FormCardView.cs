@@ -52,46 +52,73 @@ namespace Core.Forms.Main.CardForm
 
         public bool IsNew { get; private set; }
         
-        public void InitializeModel(object id = null)
+        private CardModel GetModelById(SqlConnection connection, TableData tableModel, object id, bool inDeep = true)
         {
-            var model = CardModel.CreateFromTable(table);
-            var fieldId = Table.IdentifierField;
+            if (id == null)
+                return null;
 
-            IsNew = id == null;
+            var model = CardModel.CreateFromTable(tableModel);
+            var fieldId = tableModel.IdentifierField;
+            var query = $"SELECT * FROM [{tableModel.Name}] WHERE [{fieldId.Name}] = @{fieldId.Name}";
 
-            if (id != null)
+            using (var command = new SqlCommand(query, connection))
             {
-                // Make SQL request
-                using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
-                {   
-                    var query = $"SELECT * FROM [{Table.Name}] WHERE [{fieldId.Name}] = @{fieldId.Name}";
-                    var connection = dbc.Connection;
-
-                    using (var command = new SqlCommand(query, connection))
+                command.Parameters.Add(new SqlParameter(fieldId.Name, id));
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
                     {
-                        command.Parameters.Add(new SqlParameter(fieldId.Name, id));
-                        using (var reader = command.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                Table.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValue(f, reader[f.Name]));
-                                
-                                txtID.Text = id.ToString(); // Просто для отображения, если запись найдена
-                            }
-                            else
-                            {
-                                MessageBox.Show($"Запись с идентификатором {id} не найдена", "Запись не найдена");
-                            }
-                        }
+                        tableModel.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValue(f, reader[f.Name]));
                     }
-                    
-                    // TODO: Помимо всего прочего, получать и связанные строки, и внешние данные
+                    else
+                    {
+                        MessageBox.Show($"Запись с идентификатором {id} в таблице {tableModel.Name} ({tableModel.DisplayName}) не найдена", "Ошибка результата");
+                        return null;
+                    }
                 }
-                
-                model.ResetStates();
             }
 
-            modelCardView1.Model = model;
+            if (inDeep)
+            {
+                // TODO: Помимо всего прочего, получать и связанные строки, и внешние данные
+
+                // Получаем связанные значения
+                tableModel.Fields.Where(f => f.Type == FieldType.BIND).ForEach(f =>
+                {
+                    var modelFieldValue = model.FieldValues.First(fv => fv.Field.Equals(f));
+
+                    if (modelFieldValue.Value != null)
+                    {
+                        modelFieldValue.BindData = GetModelById(connection, modelFieldValue.Field.BindData.Table, modelFieldValue.Value, false);
+                    }
+                });
+            }
+
+            model.ResetStates();
+            return model;
+        }
+
+        public void InitializeModel(object id = null)
+        {
+            IsNew = id == null;
+
+            if (IsNew)
+            {
+                modelCardView1.Model = CardModel.CreateFromTable(Table);
+            }
+            else
+            {
+                using (var dbc = new SQLServerConnection(Base))
+                {
+                    var model = GetModelById(dbc.Connection, Table, id);
+
+                    if (model != null)
+                    {
+                        modelCardView1.Model = model;
+                        txtID.Text = id.ToString(); // Просто для отображения, если запись найдена
+                    }
+                }
+            }
         }
 
         public FormCardView()
@@ -113,7 +140,7 @@ namespace Core.Forms.Main.CardForm
                 return;
 
             // Make SQL request
-            using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
+            using (var dbc = new SQLServerConnection(Base))
             {
                 var connection = dbc.Connection;
                 var transaction = connection.BeginTransaction();
