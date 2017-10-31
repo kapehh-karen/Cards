@@ -59,6 +59,9 @@ namespace Core.Data.Table
         [DataMember]
         public bool IsClassifier { get; set; } = false;
 
+        [DataMember]
+        public bool Visible { get; set; } = true;
+
         /// <summary>
         /// Последнее изменение таблицы (для классификаторов)
         /// </summary>

@@ -37,6 +37,7 @@
             // 
             // tableDataGridView1
             // 
+            this.tableDataGridView1.AllowCache = false;
             this.tableDataGridView1.AllowUserToAddRows = false;
             this.tableDataGridView1.AllowUserToDeleteRows = false;
             this.tableDataGridView1.AllowUserToOrderColumns = true;

@@ -81,6 +81,8 @@ namespace Core.Forms.Main
 
         private TableStorageInformation TableClassificatorInformation { get; set; }
 
+        public bool AllowCache { get; set; } = true;
+
         public void FillTable()
         {
             if (Base == null || Table == null)
@@ -88,7 +90,7 @@ namespace Core.Forms.Main
 
             DataTable dataTable = null;
 
-            if (Table.IsClassifier)
+            if (AllowCache && Table.IsClassifier)
             {
                 TableClassificatorInformation = TableStorage.Get(Table);
                 dataTable = TableClassificatorInformation?.Data;
@@ -162,7 +164,9 @@ namespace Core.Forms.Main
 
             if (needSelectID != null)
             {
-                CurrentRow.Selected = false;
+                if (CurrentRow != null)
+                    CurrentRow.Selected = false;
+
                 var findedRow = (from DataGridViewRow row in Rows select row).FirstOrDefault(row => row.Cells[FieldID.Name].Value.Equals(needSelectID));
                 if (findedRow != null)
                 {

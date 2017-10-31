@@ -127,6 +127,7 @@ namespace Core.Forms.DateBase
             
             checkClassif.Checked = tableData.IsClassifier;
             txtTableDisplayName.Text = tableData.DisplayName;
+            checkVisible.Checked = tableData.Visible;
 
             initializeChanges = false;
         }
@@ -421,6 +422,15 @@ namespace Core.Forms.DateBase
                 return;
 
             _tableData.DisplayName = txtTableDisplayName.Text;
+            hasChanged = true;
+        }
+
+        private void checkVisible_CheckedChanged(object sender, EventArgs e)
+        {
+            if (initializeChanges)
+                return;
+
+            _tableData.Visible = checkVisible.Checked;
             hasChanged = true;
         }
     }

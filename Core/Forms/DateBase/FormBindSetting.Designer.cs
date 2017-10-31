@@ -32,6 +32,8 @@
             this.cmbBasesList = new System.Windows.Forms.ComboBox();
             this.gbDateBase = new System.Windows.Forms.GroupBox();
             this.gbDateTable = new System.Windows.Forms.GroupBox();
+            this.txtTableDisplayName = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.checkClassif = new System.Windows.Forms.CheckBox();
             this.lvDataList = new System.Windows.Forms.ListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -44,6 +46,7 @@
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmbIDField = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnForm = new System.Windows.Forms.Button();
@@ -53,9 +56,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
             this.btnAddDB = new System.Windows.Forms.Button();
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtTableDisplayName = new System.Windows.Forms.TextBox();
+            this.checkVisible = new System.Windows.Forms.CheckBox();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             this.SuspendLayout();
@@ -88,12 +89,13 @@
             this.gbDateBase.Enabled = false;
             this.gbDateBase.Location = new System.Drawing.Point(15, 52);
             this.gbDateBase.Name = "gbDateBase";
-            this.gbDateBase.Size = new System.Drawing.Size(519, 479);
+            this.gbDateBase.Size = new System.Drawing.Size(511, 530);
             this.gbDateBase.TabIndex = 2;
             this.gbDateBase.TabStop = false;
             // 
             // gbDateTable
             // 
+            this.gbDateTable.Controls.Add(this.checkVisible);
             this.gbDateTable.Controls.Add(this.txtTableDisplayName);
             this.gbDateTable.Controls.Add(this.label6);
             this.gbDateTable.Controls.Add(this.checkClassif);
@@ -107,15 +109,32 @@
             this.gbDateTable.Enabled = false;
             this.gbDateTable.Location = new System.Drawing.Point(15, 59);
             this.gbDateTable.Name = "gbDateTable";
-            this.gbDateTable.Size = new System.Drawing.Size(481, 407);
+            this.gbDateTable.Size = new System.Drawing.Size(481, 455);
             this.gbDateTable.TabIndex = 2;
             this.gbDateTable.TabStop = false;
+            // 
+            // txtTableDisplayName
+            // 
+            this.txtTableDisplayName.Location = new System.Drawing.Point(196, 371);
+            this.txtTableDisplayName.Name = "txtTableDisplayName";
+            this.txtTableDisplayName.Size = new System.Drawing.Size(270, 20);
+            this.txtTableDisplayName.TabIndex = 10;
+            this.txtTableDisplayName.TextChanged += new System.EventHandler(this.txtTableDisplayName_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 374);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(184, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Отображаемое название таблицы:";
             // 
             // checkClassif
             // 
             this.checkClassif.AutoSize = true;
             this.checkClassif.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkClassif.Location = new System.Drawing.Point(315, 61);
+            this.checkClassif.Location = new System.Drawing.Point(315, 397);
             this.checkClassif.Name = "checkClassif";
             this.checkClassif.Size = new System.Drawing.Size(151, 17);
             this.checkClassif.TabIndex = 8;
@@ -207,12 +226,17 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Видимость";
-            this.columnHeader4.Width = 53;
+            this.columnHeader4.Width = 51;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Обязательное";
             this.columnHeader5.Width = 47;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Отображаемое имя поля";
+            this.columnHeader8.Width = 204;
             // 
             // cmbIDField
             // 
@@ -266,7 +290,7 @@
             // 
             // btnSaveApply
             // 
-            this.btnSaveApply.Location = new System.Drawing.Point(371, 537);
+            this.btnSaveApply.Location = new System.Drawing.Point(363, 588);
             this.btnSaveApply.Name = "btnSaveApply";
             this.btnSaveApply.Size = new System.Drawing.Size(163, 23);
             this.btnSaveApply.TabIndex = 3;
@@ -276,7 +300,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(290, 537);
+            this.btnCancel.Location = new System.Drawing.Point(282, 588);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -286,7 +310,7 @@
             // 
             // btnEditDB
             // 
-            this.btnEditDB.Location = new System.Drawing.Point(345, 24);
+            this.btnEditDB.Location = new System.Drawing.Point(337, 24);
             this.btnEditDB.Name = "btnEditDB";
             this.btnEditDB.Size = new System.Drawing.Size(189, 21);
             this.btnEditDB.TabIndex = 5;
@@ -304,33 +328,23 @@
             this.btnAddDB.UseVisualStyleBackColor = true;
             this.btnAddDB.Click += new System.EventHandler(this.btnAddDB_Click);
             // 
-            // columnHeader8
+            // checkVisible
             // 
-            this.columnHeader8.Text = "Отображаемое имя поля";
-            this.columnHeader8.Width = 204;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 374);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(184, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "Отображаемое название таблицы:";
-            // 
-            // txtTableDisplayName
-            // 
-            this.txtTableDisplayName.Location = new System.Drawing.Point(196, 371);
-            this.txtTableDisplayName.Name = "txtTableDisplayName";
-            this.txtTableDisplayName.Size = new System.Drawing.Size(270, 20);
-            this.txtTableDisplayName.TabIndex = 10;
-            this.txtTableDisplayName.TextChanged += new System.EventHandler(this.txtTableDisplayName_TextChanged);
+            this.checkVisible.AutoSize = true;
+            this.checkVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkVisible.Location = new System.Drawing.Point(384, 420);
+            this.checkVisible.Name = "checkVisible";
+            this.checkVisible.Size = new System.Drawing.Size(82, 17);
+            this.checkVisible.TabIndex = 11;
+            this.checkVisible.Text = "Видимость";
+            this.checkVisible.UseVisualStyleBackColor = true;
+            this.checkVisible.CheckedChanged += new System.EventHandler(this.checkVisible_CheckedChanged);
             // 
             // FormBindSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 567);
+            this.ClientSize = new System.Drawing.Size(539, 623);
             this.Controls.Add(this.btnAddDB);
             this.Controls.Add(this.btnEditDB);
             this.Controls.Add(this.btnCancel);
@@ -385,5 +399,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.TextBox txtTableDisplayName;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox checkVisible;
     }
 }

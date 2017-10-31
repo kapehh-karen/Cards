@@ -49,7 +49,7 @@ namespace Core.Forms.Main
                 SelectedDataBase = new Configuration<DataBase>().ReadFromFile(combo.SelectedItem.ToString());
 
                 lbTables.Items.Clear();
-                SelectedDataBase?.Tables.ForEach(t => lbTables.Items.Add(new ComboBoxTableItem() { Table = t, Text = t.DisplayName }));
+                SelectedDataBase?.Tables.Where(t => t.Visible).ForEach(t => lbTables.Items.Add(new ComboBoxTableItem() { Table = t, Text = t.DisplayName }));
             }
         }
 
