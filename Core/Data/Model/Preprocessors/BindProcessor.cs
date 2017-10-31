@@ -44,7 +44,7 @@ namespace Core.Data.Model.Preprocessors
             {
                 ModelField.Value = value;
                 if (control != null)
-                    control.Text = ModelField.BindData?[ModelField.Field.BindData?.Field]?.ToString();
+                    control.Text = ModelField.ToString();
             }
         }
 

@@ -19,5 +19,20 @@ namespace Core.Data.Model
         public object Value { get; set; } = null;
 
         public object OldValue { get; set; } = null;
+
+        public override string ToString()
+        {
+            switch (Field.Type)
+            {
+                case FieldType.BIND:
+                    return BindData?[Field.BindData?.Field]?.ToString();
+                case FieldType.BOOLEAN:
+                case FieldType.DATE:
+                case FieldType.NUMBER:
+                case FieldType.TEXT:
+                default:
+                    return Value?.ToString();
+            }
+        }
     }
 }

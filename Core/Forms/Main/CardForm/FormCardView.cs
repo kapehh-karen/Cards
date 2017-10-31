@@ -51,8 +51,26 @@ namespace Core.Forms.Main.CardForm
         }
 
         public bool IsNew { get; private set; }
+
+        private void ModelFieldsFill(CardModel model, TableData tableModel, SqlDataReader reader)
+        {
+            tableModel.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValue(f, reader[f.Name]));
+        }
+
+        private void ModelBindDataFill(SqlConnection connection, CardModel model, TableData tableModel)
+        {
+            tableModel.Fields.Where(f => f.Type == FieldType.BIND).ForEach(f =>
+            {
+                var modelFieldValue = model.FieldValues.First(fv => fv.Field.Equals(f));
+
+                if (modelFieldValue.Value != null)
+                {
+                    modelFieldValue.BindData = GetModelById(connection, modelFieldValue.Field.BindData.Table, modelFieldValue.Value, false, false);
+                }
+            });
+        }
         
-        private CardModel GetModelById(SqlConnection connection, TableData tableModel, object id, bool inDeep = true)
+        private CardModel GetModelById(SqlConnection connection, TableData tableModel, object id, bool includeBindData = true, bool includeLinkedData = true)
         {
             if (id == null)
                 return null;
@@ -68,7 +86,7 @@ namespace Core.Forms.Main.CardForm
                 {
                     if (reader.Read())
                     {
-                        tableModel.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValue(f, reader[f.Name]));
+                        ModelFieldsFill(model, tableModel, reader);
                     }
                     else
                     {
@@ -78,19 +96,37 @@ namespace Core.Forms.Main.CardForm
                 }
             }
 
-            if (inDeep)
+            // Получаем связанные значения
+            if (includeBindData)
             {
-                // TODO: Помимо всего прочего, получать и связанные строки, и внешние данные
+                ModelBindDataFill(connection, model, tableModel);
+            }
 
-                // Получаем связанные значения
-                tableModel.Fields.Where(f => f.Type == FieldType.BIND).ForEach(f =>
+            // Получаем внешние данные
+            if (includeLinkedData)
+            {
+                tableModel.LinkedTables.ForEach(lt =>
                 {
-                    var modelFieldValue = model.FieldValues.First(fv => fv.Field.Equals(f));
+                    var linkedItem = model.LinkedValues.Find(lv => lv.Table.Equals(lt));
+                    var queryLinkedItem = $"SELECT * FROM [{lt.Table.Name}] WHERE [{lt.Field.Name}] = @{lt.Field.Name}";
 
-                    if (modelFieldValue.Value != null)
+                    using (var command = new SqlCommand(queryLinkedItem, connection))
                     {
-                        modelFieldValue.BindData = GetModelById(connection, modelFieldValue.Field.BindData.Table, modelFieldValue.Value, false);
+                        command.Parameters.Add(new SqlParameter(lt.Field.Name, id));
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var innerModel = CardModel.CreateFromTable(lt.Table);
+                                
+                                ModelFieldsFill(innerModel, lt.Table, reader);
+
+                                linkedItem.Items.Add(innerModel);
+                            }
+                        }
                     }
+
+                    linkedItem.Items.ForEach(innerModel => ModelBindDataFill(connection, innerModel, lt.Table));
                 });
             }
 
@@ -135,6 +171,7 @@ namespace Core.Forms.Main.CardForm
         {
             var model = modelCardView1.Model;
             var fieldId = Table.IdentifierField;
+            object id = model[fieldId];
 
             if (model.State == ModelValueState.UNCHANGED)
                 return;
@@ -144,7 +181,6 @@ namespace Core.Forms.Main.CardForm
             {
                 var connection = dbc.Connection;
                 var transaction = connection.BeginTransaction();
-                object id = model[fieldId];
 
                 try
                 {
@@ -179,8 +215,7 @@ namespace Core.Forms.Main.CardForm
                     
                     transaction.Commit();
 
-                    model[fieldId] = id;
-                    txtID.Text = id?.ToString(); // Просто для отображения, если запись добавлена
+                    model[fieldId] = id; // Присваиваю тут, убедившись что commit транзакции успешен, раньше присваивать нельзя
                     IsNew = false;
                 }
                 catch (SqlException ex)
@@ -193,6 +228,8 @@ namespace Core.Forms.Main.CardForm
             }
 
             model.ResetStates();
+
+            txtID.Text = id?.ToString(); // Просто для отображения, если запись добавлена
         }
 
         private void btnClose_Click(object sender, EventArgs e)
