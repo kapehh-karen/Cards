@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.tableDataGridView1 = new Core.Forms.Main.TableDataGridView();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tableDataGridView1
             // 
+            this.tableDataGridView1.AllowCache = true;
             this.tableDataGridView1.AllowUserToAddRows = false;
             this.tableDataGridView1.AllowUserToDeleteRows = false;
             this.tableDataGridView1.AllowUserToOrderColumns = true;
@@ -45,29 +45,21 @@
             this.tableDataGridView1.Base = null;
             this.tableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableDataGridView1.CurrentDataTable = null;
-            this.tableDataGridView1.Location = new System.Drawing.Point(0, 62);
+            this.tableDataGridView1.Location = new System.Drawing.Point(12, 62);
             this.tableDataGridView1.MultiSelect = false;
             this.tableDataGridView1.Name = "tableDataGridView1";
             this.tableDataGridView1.ReadOnly = true;
-            this.tableDataGridView1.Size = new System.Drawing.Size(633, 495);
+            this.tableDataGridView1.SelectedID = null;
+            this.tableDataGridView1.Size = new System.Drawing.Size(609, 508);
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
             this.tableDataGridView1.PressedEnter += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 560);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(633, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
             // 
             // FormSelectInClassificator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(633, 582);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.tableDataGridView1);
             this.Name = "FormSelectInClassificator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -75,13 +67,11 @@
             this.Load += new System.EventHandler(this.FormSelectInClassificator_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private TableDataGridView tableDataGridView1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }

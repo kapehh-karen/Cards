@@ -46,9 +46,9 @@ namespace Cards
             }
         }
 
-        private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)
+        private static void NotificationMessage_ReceiveMessage(string message, string title, object[] param, NotificationLevel level)
         {
-            MessageBox.Show(message, $"Level - {level}");
+            MessageBox.Show(message, title);
         }
     }
 }

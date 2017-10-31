@@ -217,19 +217,20 @@ namespace Core.Forms.Main.CardForm
 
                     model[fieldId] = id; // Присваиваю тут, убедившись что commit транзакции успешен, раньше присваивать нельзя
                     IsNew = false;
+
+                    model.ResetStates();
+                    txtID.Text = id?.ToString(); // Просто для отображения, если запись добавлена
+
+                    NotificationMessage.Info("Сохранено!");
                 }
                 catch (SqlException ex)
                 {
                     transaction.Rollback();
-                    NotificationMessage.Error(ex.Message, ex);
+                    NotificationMessage.Error($"Ошибка при сохранении:\r\n\r\n{ex.Message}");
                 }
 
                 transaction.Dispose();
             }
-
-            model.ResetStates();
-
-            txtID.Text = id?.ToString(); // Просто для отображения, если запись добавлена
         }
 
         private void btnClose_Click(object sender, EventArgs e)

@@ -31,7 +31,6 @@
             this.tableDataGridView1 = new Core.Forms.Main.TableDataGridView();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnOpenForm = new System.Windows.Forms.Button();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,12 +47,12 @@
             this.tableDataGridView1.Base = null;
             this.tableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableDataGridView1.CurrentDataTable = null;
-            this.tableDataGridView1.Location = new System.Drawing.Point(0, 56);
+            this.tableDataGridView1.Location = new System.Drawing.Point(12, 56);
             this.tableDataGridView1.Name = "tableDataGridView1";
             this.tableDataGridView1.ReadOnly = true;
             this.tableDataGridView1.SelectedID = null;
             this.tableDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tableDataGridView1.Size = new System.Drawing.Size(752, 447);
+            this.tableDataGridView1.Size = new System.Drawing.Size(751, 465);
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
             this.tableDataGridView1.PressedEnter += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
@@ -79,20 +78,11 @@
             this.btnOpenForm.UseVisualStyleBackColor = true;
             this.btnOpenForm.Click += new System.EventHandler(this.btnOpenForm_Click);
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 506);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(752, 22);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
             // FormTableView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 528);
-            this.Controls.Add(this.statusStrip1);
+            this.ClientSize = new System.Drawing.Size(775, 533);
             this.Controls.Add(this.btnOpenForm);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.tableDataGridView1);
@@ -102,7 +92,6 @@
             this.Load += new System.EventHandler(this.FormTableView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -111,6 +100,5 @@
         private TableDataGridView tableDataGridView1;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnOpenForm;
-        private System.Windows.Forms.StatusStrip statusStrip1;
     }
 }
