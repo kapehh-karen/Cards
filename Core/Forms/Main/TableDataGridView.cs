@@ -21,6 +21,7 @@ namespace Core.Forms.Main
 
         private TableData tableData;
         private object needSelectID;
+        private bool firstAfterBind;
 
         public TableDataGridView()
         {
@@ -89,6 +90,7 @@ namespace Core.Forms.Main
                 return;
 
             DataTable dataTable = null;
+            firstAfterBind = true;
 
             if (AllowCache && Table.IsClassifier)
             {
@@ -161,18 +163,22 @@ namespace Core.Forms.Main
         protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
         {
             base.OnDataBindingComplete(e);
-
-            if (needSelectID != null)
+            
+            if (firstAfterBind && needSelectID != null)
             {
                 if (CurrentRow != null)
                     CurrentRow.Selected = false;
 
-                var findedRow = (from DataGridViewRow row in Rows select row).FirstOrDefault(row => row.Cells[FieldID.Name].Value.Equals(needSelectID));
+                var findedRow = WaitDialog.Run("Подождите...", () =>
+                    (from DataGridViewRow row in Rows select row).FirstOrDefault(row => row.Cells[FieldID.Name].Value.Equals(needSelectID)));
+
                 if (findedRow != null)
                 {
                     findedRow.Selected = true;
                     CurrentCell = (from DataGridViewCell col in findedRow.Cells select col).FirstOrDefault(col => col.Visible);
                 }
+
+                firstAfterBind = false;
             }
         }
     }

@@ -216,10 +216,8 @@ namespace Core.Forms.Main.CardForm
                     transaction.Commit();
 
                     model[fieldId] = id; // Присваиваю тут, убедившись что commit транзакции успешен, раньше присваивать нельзя
-                    IsNew = false;
-
                     model.ResetStates();
-                    txtID.Text = id?.ToString(); // Просто для отображения, если запись добавлена
+                    IsNew = false;
 
                     NotificationMessage.Info("Сохранено!");
                 }
@@ -231,6 +229,8 @@ namespace Core.Forms.Main.CardForm
 
                 transaction.Dispose();
             }
+
+            txtID.Text = id?.ToString(); // Просто для отображения, если запись добавлена
         }
 
         private void btnClose_Click(object sender, EventArgs e)

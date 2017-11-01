@@ -10,7 +10,7 @@ using Core.Data.Design.Properties.ControlProperties;
 namespace Core.Data.Design.Controls.LinkedTableControl
 {
     // TODO: Добавление, изменение и удаление записей можно сделать на клавиши и на контекстное меню
-    public class LinkedTableControl : ListView, IDesignControl
+    public class LinkedTableControl : DataGridView, IDesignControl
     {
         public LinkedTableControl()
         {
@@ -21,9 +21,10 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             Properties.Add(new LinkedTableProperty(this));
             Properties.Add(new TabIndexProperty(this));
 
-            DefaultColor = BackColor;
-            View = View.Details;
+            BackgroundColor = Color.White;
+            DefaultColor = BackgroundColor;
             MultiSelect = false;
+            //View = View.Details;
         }
 
         public DesignControlType ControlType => DesignControlType.LINKED_TABLE;

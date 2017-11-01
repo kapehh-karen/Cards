@@ -27,7 +27,7 @@ namespace TestApp
             Application.Run(new frmTestUserControls());
         }
 
-        private static void NotificationMessage_ReceiveMessage(string message, object[] param, NotificationLevel level)
+        private static void NotificationMessage_ReceiveMessage(string message, string title, object[] param, NotificationLevel level)
         {
             //if (level.ToString().StartsWith("SYSTEM"))
             //    return;
@@ -35,11 +35,11 @@ namespace TestApp
             if (level == NotificationLevel.ERROR || level == NotificationLevel.SYSTEM_ERROR)
                 if (param != null)
                 {
-                    MessageBox.Show($"{level}:\r\n{message}\r\n\r\n{param}", level.ToString());
+                    MessageBox.Show($"{level}:\r\n{message}\r\n\r\n{param}", title);
                 }
                 else
                 {
-                    MessageBox.Show(message, level.ToString());
+                    MessageBox.Show(message, title);
                 }
         }
     }
