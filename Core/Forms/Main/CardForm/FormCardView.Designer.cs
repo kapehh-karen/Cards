@@ -45,7 +45,7 @@
             this.modelCardView1.Model = null;
             this.modelCardView1.Name = "modelCardView1";
             this.modelCardView1.SelectedIndex = 0;
-            this.modelCardView1.Size = new System.Drawing.Size(478, 410);
+            this.modelCardView1.Size = new System.Drawing.Size(395, 354);
             this.modelCardView1.TabIndex = 0;
             this.modelCardView1.Table = null;
             // 
@@ -74,8 +74,10 @@
             // txtID
             // 
             this.txtID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtID.BackColor = System.Drawing.SystemColors.Window;
             this.txtID.Location = new System.Drawing.Point(359, 421);
             this.txtID.Name = "txtID";
+            this.txtID.ReadOnly = true;
             this.txtID.Size = new System.Drawing.Size(105, 20);
             this.txtID.TabIndex = 1;
             // 

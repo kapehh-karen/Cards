@@ -51,6 +51,7 @@ namespace Core.Data.Model.Preprocessors
 
             ModelLinkedTable.Table.Table.Fields.ForEach(field =>
             {
+                // TODO: Может использовать свойство FieldData.Visible для определения видимости, а не так костыльно
                 // Hide ID and ForeignKey column
                 if (field.IsIdentifier || field.Equals(ModelLinkedTable.Table.Field))
                 {
@@ -72,10 +73,14 @@ namespace Core.Data.Model.Preprocessors
         private void Control_KeyDown(object sender, KeyEventArgs e)
         {
             // TODO: Сделать хорошо!
-            using (var dialog = new FormCardView() { Table = ModelLinkedTable.Table.Table, Base = Base })
+            using (var dialog = new FormCardView() { Table = ModelLinkedTable.Table.Table, Base = Base, IsLinkedModel = true })
             {
-                dialog.InitializeModel(SelectedID);
-                dialog.ShowDialog();
+                var model = ModelLinkedTable.Items.FirstOrDefault(cm => cm.ID.Value.Equals(SelectedID));
+                dialog.InitializeModel(model);
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    MessageBox.Show("OK");
+                }
             }
         }
     }

@@ -54,6 +54,10 @@ namespace Core.Forms.Main.CardForm
 
         public bool IsNew { get; private set; }
 
+        public bool IsLinkedModel { get; set; }
+
+        public CardModel Model => modelCardView1.Model;
+
         private void ModelFieldsFill(CardModel model, TableData tableModel, SqlDataReader reader)
         {
             tableModel.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValue(f, reader[f.Name]));
@@ -153,10 +157,16 @@ namespace Core.Forms.Main.CardForm
                     if (model != null)
                     {
                         modelCardView1.Model = model;
-                        txtID.Text = id.ToString(); // Просто для отображения, если запись найдена
+                        txtID.Text = id.ToString().PadLeft(6, '0'); // Просто для отображения, если запись найдена
                     }
                 }
             }
+        }
+
+        public void InitializeModel(CardModel model)
+        {
+            modelCardView1.Model = model;
+            txtID.Text = model.ID.Value?.ToString().PadLeft(6, '0'); // Просто для отображения
         }
 
         public FormCardView()
@@ -171,6 +181,12 @@ namespace Core.Forms.Main.CardForm
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (IsLinkedModel)
+            {
+                DialogResult = DialogResult.OK;
+                return;
+            }
+
             var model = modelCardView1.Model;
             var fieldId = Table.IdentifierField;
             object id = model[fieldId];
@@ -232,11 +248,17 @@ namespace Core.Forms.Main.CardForm
                 transaction.Dispose();
             }
 
-            txtID.Text = id?.ToString(); // Просто для отображения, если запись добавлена
+            txtID.Text = id?.ToString().PadLeft(6, '0'); // Просто для отображения, если запись добавлена
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            if (IsLinkedModel)
+            {
+                DialogResult = DialogResult.Cancel;
+                return;
+            }
+
             this.Close();
         }
     }
