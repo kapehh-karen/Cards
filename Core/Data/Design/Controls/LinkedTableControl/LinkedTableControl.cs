@@ -27,6 +27,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             AllowUserToAddRows = false;
             AllowUserToDeleteRows = false;
             ReadOnly = true;
+            StandardTab = true;
         }
 
         // Override for red color in FormDesigner
