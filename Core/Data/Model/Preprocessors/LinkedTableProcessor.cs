@@ -7,6 +7,7 @@ using Core.Data.Design.Controls.LinkedTableControl;
 using System.Data;
 using Core.Helper;
 using System.Windows.Forms;
+using Core.Forms.Main.CardForm;
 
 namespace Core.Data.Model.Preprocessors
 {
@@ -16,6 +17,20 @@ namespace Core.Data.Model.Preprocessors
         private DataTable data;
 
         public override IDesignControl Control { get => control; set => control = value as LinkedTableControl; }
+
+        public override void Attach()
+        {
+            base.Attach();
+
+            if (control != null)
+                control.KeyDown += Control_KeyDown;
+        }
+
+        public override void Detach()
+        {
+            if (control != null)
+                control.KeyDown -= Control_KeyDown;
+        }
 
         public override void Load()
         {
@@ -48,6 +63,20 @@ namespace Core.Data.Model.Preprocessors
                 column.HeaderText = field.DisplayName;
                 column.Tag = field;
             });
+        }
+
+        public object SelectedID => control.CurrentRow == null
+            ? null
+            : control.Rows[control.CurrentRow.Index].Cells[ModelLinkedTable.Table.Table.IdentifierField.Name].Value;
+
+        private void Control_KeyDown(object sender, KeyEventArgs e)
+        {
+            // TODO: Сделать хорошо!
+            using (var dialog = new FormCardView() { Table = ModelLinkedTable.Table.Table, Base = Base })
+            {
+                dialog.InitializeModel(SelectedID);
+                dialog.ShowDialog();
+            }
         }
     }
 }

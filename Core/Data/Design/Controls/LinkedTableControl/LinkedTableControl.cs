@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using Core.Data.Design.Properties;
 using Core.Data.Design.Properties.ControlProperties;
+using Core.Data.Table;
 
 namespace Core.Data.Design.Controls.LinkedTableControl
 {

@@ -37,7 +37,11 @@ namespace Core.Data.Model.Preprocessors
             }
         }
 
-        public override object Value { get => control.Text; set => control.Text = value as string; }
+        public override object Value
+        {
+            get => control.Text;
+            set => control.Text = value as string;
+        }
 
         private void Control_TextChanged(object sender, EventArgs e)
         {

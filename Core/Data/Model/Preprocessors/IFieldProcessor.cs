@@ -19,18 +19,16 @@ namespace Core.Data.Model.Preprocessors
 
         public void Load()
         {
+            Detach();
             if (ModelField != null)
                 Value = ModelField.Value;
+            Attach();
         }
         
         /// <summary>
         /// Attach events
         /// </summary>
-        public virtual void Attach()
-        {
-            Detach();
-            Load();
-        }
+        public virtual void Attach() { }
 
         /// <summary>
         /// Detach events

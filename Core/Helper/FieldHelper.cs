@@ -30,12 +30,12 @@ namespace Core.Helper
             }
         }
 
-        public static Type GetTypeFromField(FieldData field)
+        public static Type GetTypeFromField(FieldData field, bool inDepth = true)
         {
             switch (field.Type)
             {
                 case FieldType.BIND:
-                    return GetTypeFromField(field.BindData.Field);
+                    return inDepth ? GetTypeFromField(field.BindData.Field, false) : typeof(Int32);
                 case FieldType.BOOLEAN:
                     return typeof(Boolean);
                 case FieldType.DATE:
