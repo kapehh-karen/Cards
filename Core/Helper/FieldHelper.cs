@@ -29,5 +29,23 @@ namespace Core.Helper
                     return null;
             }
         }
+
+        public static Type GetTypeFromField(FieldData field)
+        {
+            switch (field.Type)
+            {
+                case FieldType.BIND:
+                    return GetTypeFromField(field.BindData.Field);
+                case FieldType.BOOLEAN:
+                    return typeof(Boolean);
+                case FieldType.DATE:
+                    return typeof(DateTime);
+                case FieldType.NUMBER:
+                    return typeof(Int32);
+                case FieldType.TEXT:
+                    return typeof(String);
+            }
+            return null;
+        }
     }
 }

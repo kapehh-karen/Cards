@@ -19,6 +19,7 @@ namespace Core.Forms.Main
         private List<IFieldProcessor> fieldProcessors = new List<IFieldProcessor>();
         private List<IDesignControl> fieldControls = new List<IDesignControl>();
         private List<IDesignControl> linkedTableControls = new List<IDesignControl>();
+        private List<ILinkedTableProcessor> linkedTableProcessors = new List<ILinkedTableProcessor>();
         private FormData form;
         private CardModel model;
 
@@ -53,6 +54,7 @@ namespace Core.Forms.Main
         public void UpdateElements()
         {
             fieldProcessors.ForEach(p => p.Load());
+            linkedTableProcessors.ForEach(p => p.Load());
         }
 
         private void AttachModel()
@@ -60,15 +62,28 @@ namespace Core.Forms.Main
             fieldProcessors.ForEach(p => p.Detach());
             fieldProcessors.Clear();
 
+            linkedTableProcessors.ForEach(p => p.Detach());
+            linkedTableProcessors.Clear();
+
             fieldControls.ForEach(element =>
             {
-                var preprocessor = Processors.GetFieldProcessor(element);
-                if (preprocessor != null)
+                var proc = Processors.GetFieldProcessor(element);
+                if (proc != null)
                 {
-                    preprocessor.Table = Table;
-                    preprocessor.Base = Base;
-                    preprocessor.ModelField = Model.FieldValues.FirstOrDefault(fv => fv.Field == preprocessor.Field);
-                    fieldProcessors.Add(preprocessor);
+                    proc.Base = Base;
+                    proc.ModelField = Model.FieldValues.FirstOrDefault(fv => fv.Field == proc.Field);
+                    fieldProcessors.Add(proc);
+                }
+            });
+
+            linkedTableControls.ForEach(element =>
+            {
+                var proc = Processors.GetLinkedTableProcessor(element);
+                if (proc != null)
+                {
+                    proc.Base = Base;
+                    proc.ModelLinkedTable = Model.LinkedValues.FirstOrDefault(lv => lv.Table == proc.Table);
+                    linkedTableProcessors.Add(proc);
                 }
             });
 

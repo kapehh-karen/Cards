@@ -24,8 +24,13 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             BackgroundColor = Color.White;
             DefaultColor = BackgroundColor;
             MultiSelect = false;
-            //View = View.Details;
+            AllowUserToAddRows = false;
+            AllowUserToDeleteRows = false;
+            ReadOnly = true;
         }
+
+        // Override for red color in FormDesigner
+        public override Color BackColor { get => base.BackgroundColor; set => base.BackgroundColor = value; }
 
         public DesignControlType ControlType => DesignControlType.LINKED_TABLE;
 

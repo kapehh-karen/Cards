@@ -33,8 +33,10 @@ namespace Core.Forms.Main.CardForm
 
                 if (table?.Form != null)
                 {
-                    this.Size = new Size(table.Form.Size.Width + 15, table.Form.Size.Height + 80);
-                    modelCardView1.Size = table.Form.Size;
+                    this.Size = new Size(table.Form.Size.Width, table.Form.Size.Height);
+                    var clientSize = this.ClientSize;
+                    this.Height += 40;
+                    modelCardView1.Size = clientSize;
                     modelCardView1.Form = table.Form;
                 }
             }

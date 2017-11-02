@@ -1,6 +1,7 @@
 ﻿using Core.Data.Design.Controls;
 using Core.Data.Design.Properties.ControlProperties;
 using Core.Data.Field;
+using Core.Data.Table;
 using Core.Helper;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,17 @@ namespace Core.Data.Model.Preprocessors
             proc.Control = control;
             proc.Field = field;
             return proc;
+        }
+
+        public static ILinkedTableProcessor GetLinkedTableProcessor(IDesignControl control)
+        {
+            var property = (LinkedTableProperty)control.GetProperty<LinkedTableProperty>();
+            var linkedTable = property?.Value as LinkedTable;
+
+            if (linkedTable is null)
+                return null;
+
+            return new LinkedTableProcessor() { Table = linkedTable, Control = control };
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Core.Forms.Main
                 {
                     ColumnFields.Clear();
                     ColumnFields.AddRange(tableData.Fields);
-                    // TODO: Add to ColumnFields IdentificatorField if it not contains
+                    // TODO: Добавлять поле идентификатора автоматически, если оно не добавлено
                     FieldID = tableData.IdentifierField;
                 }
             }
@@ -69,6 +69,7 @@ namespace Core.Forms.Main
 
                 var model = CardModel.CreateFromTable(Table);
 
+                // TODO: Возможно лучше извлекать значения ячеек из DataTable а не DataGidView, для сохранения типа значения
                 (from DataGridViewCell col in CurrentRow.Cells select col)
                     .ForEach(cell =>
                     {

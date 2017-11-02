@@ -39,14 +39,12 @@ namespace Core.Data.Model.Preprocessors
 
         public FieldData Field { get; set; }
 
+        public DataBase Base { get; set; }
+
         public ModelFieldValue ModelField { get; set; }
 
         public abstract object Value { get; set; }
 
         public abstract IDesignControl Control { get; set; }
-
-        public TableData Table { get; set; }
-
-        public DataBase Base { get; set; }
     }
 }
