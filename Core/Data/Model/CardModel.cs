@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Core.Data.Model
 {
-    public class CardModel
+    public class CardModel : ICloneable
     {
         public static CardModel CreateFromTable(TableData table)
         {
@@ -78,6 +78,20 @@ namespace Core.Data.Model
             FieldValues.ForEach(fieldValue => fieldValue.OldValue = fieldValue.Value = null);
             LinkedValues.ForEach(linkedValue => linkedValue.Items.Clear());
             LinkedState = ModelLinkedItemState.UNCHANGED;
+        }
+
+        public object Clone()
+        {
+            var model = new CardModel()
+            {
+                ID = ID.Clone() as ModelFieldValue,
+                LinkedState = LinkedState
+            };
+
+            FieldValues.Select(fv => fv.Clone() as ModelFieldValue).ForEach(model.FieldValues.Add);
+            LinkedValues.Select(lv => lv.Clone() as ModelLinkedValue).ForEach(model.LinkedValues.Add);
+
+            return model;
         }
 
         // -------------------- START EQUALS --------------------

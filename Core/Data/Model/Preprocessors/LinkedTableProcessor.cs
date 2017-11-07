@@ -36,9 +36,18 @@ namespace Core.Data.Model.Preprocessors
         {
             if (ModelLinkedTable == null)
                 return;
+            
+            if (data == null)
+            {
+                data = new DataTable();
+                ModelLinkedTable.Table.Table.Fields.ForEach(f => data.Columns.Add(f.Name, FieldHelper.GetTypeFromField(f)));
+                control.DataSource = data;
+            }
+            else
+            {
+                data.Clear();
+            }
 
-            data = new DataTable();
-            ModelLinkedTable.Table.Table.Fields.ForEach(f => data.Columns.Add(f.Name, FieldHelper.GetTypeFromField(f)));
             ModelLinkedTable.Items.ForEach(item =>
             {
                 var row = data.NewRow();
@@ -46,8 +55,6 @@ namespace Core.Data.Model.Preprocessors
                 item.FieldValues.ForEach(fv => row[fv.Field.Name] = fv.ToDataGridValue());
                 data.Rows.Add(row);
             });
-
-            control.DataSource = data;
 
             ModelLinkedTable.Table.Table.Fields.ForEach(field =>
             {
@@ -75,11 +82,23 @@ namespace Core.Data.Model.Preprocessors
             // TODO: Сделать хорошо!
             using (var dialog = new FormCardView() { Table = ModelLinkedTable.Table.Table, Base = Base, IsLinkedModel = true })
             {
-                var model = ModelLinkedTable.Items.FirstOrDefault(cm => cm.ID.Value.Equals(SelectedID));
-                dialog.InitializeModel(model);
+                // TODO: Возможно передавать клон модели и заменять в списке его
+                var selectedId = SelectedID;
+                var model = ModelLinkedTable.Items.FirstOrDefault(cm => cm.ID.Value.Equals(selectedId));
+
+                if (model == null)
+                    return;
+
+                dialog.InitializeModel(model.Clone() as CardModel);
+
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
+                    var index = ModelLinkedTable.Items.IndexOf(model);
+                    ModelLinkedTable.Items[index] = dialog.Model;
+
                     MessageBox.Show("OK");
+
+                    Load();
                 }
             }
         }

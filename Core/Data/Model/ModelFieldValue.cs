@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core.Data.Model
 {
-    public class ModelFieldValue
+    public class ModelFieldValue : ICloneable
     {
         public ModelValueState State =>
             OldValue?.Equals(Value) ?? Value?.Equals(OldValue) ?? (OldValue == null && Value == null)
@@ -19,6 +19,17 @@ namespace Core.Data.Model
         public object Value { get; set; } = null;
 
         public object OldValue { get; set; } = null;
+
+        public object Clone()
+        {
+            return new ModelFieldValue()
+            {
+                Field = Field,
+                BindData = BindData,
+                Value = Value,
+                OldValue = OldValue
+            };
+        }
 
         public object ToDataGridValue()
         {
