@@ -95,9 +95,7 @@ namespace Core.Data.Model.Preprocessors
                 {
                     var index = ModelLinkedTable.Items.IndexOf(model);
                     ModelLinkedTable.Items[index] = dialog.Model;
-
-                    MessageBox.Show("OK");
-
+                    
                     Load();
                 }
             }

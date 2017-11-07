@@ -134,6 +134,9 @@ namespace Core.Forms.Main.CardForm
 
                     linkedItem.Items.ForEach(innerModel => ModelBindDataFill(connection, innerModel, lt.Table));
                 });
+
+                // Так как получены внешние данные, то эта запись не заглушка
+                model.IsEmpty = false;
             }
 
             model.ResetStates();
@@ -157,7 +160,7 @@ namespace Core.Forms.Main.CardForm
                     if (model != null)
                     {
                         modelCardView1.Model = model;
-                        txtID.Text = id.ToString().PadLeft(6, '0'); // Просто для отображения, если запись найдена
+                        UpdateIDTextBox(id);
                     }
                 }
             }
@@ -165,8 +168,15 @@ namespace Core.Forms.Main.CardForm
 
         public void InitializeModel(CardModel model)
         {
-            modelCardView1.Model = model;
-            txtID.Text = model.ID.Value?.ToString().PadLeft(6, '0'); // Просто для отображения
+            if (model.IsEmpty)
+            {
+                InitializeModel(model.ID?.Value);
+            }
+            else
+            {
+                modelCardView1.Model = model;
+                UpdateIDTextBox(model.ID.Value);
+            }
         }
 
         public FormCardView()
@@ -204,28 +214,32 @@ namespace Core.Forms.Main.CardForm
                 {
                     var changedFields = model.FieldValues.Where(fv => fv.State == ModelValueState.CHANGED).Select(fv => fv.Field).ToArray();
 
-                    if (IsNew)
+                    // Если есть что обновлять из полей
+                    if (changedFields.Length > 0)
                     {
-                        var sqlFields = string.Join(", ", changedFields.Select(f => $"[{f.Name}]").ToArray());
-                        var sqlValues = string.Join(", ", changedFields.Select(f => $"@{f.Name}").ToArray());
-                        var sqlNewItem = $"INSERT INTO [{Table.Name}]({sqlFields}) VALUES({sqlValues}); SELECT SCOPE_IDENTITY();";
-                        
-                        using (var command = new SqlCommand(sqlNewItem, connection, transaction))
+                        if (IsNew)
                         {
-                            changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
-                            id = command.ExecuteScalar();
-                        }
-                    }
-                    else
-                    {
-                        var sqlSet = string.Join(", ", changedFields.Select(f => $"[{f.Name}] = @{f.Name}").ToArray());
-                        var sqlUpdateItem = $"UPDATE [{Table.Name}] SET {sqlSet} WHERE [{fieldId.Name}] = @{fieldId.Name};";
+                            var sqlFields = string.Join(", ", changedFields.Select(f => $"[{f.Name}]").ToArray());
+                            var sqlValues = string.Join(", ", changedFields.Select(f => $"@{f.Name}").ToArray());
+                            var sqlNewItem = $"INSERT INTO [{Table.Name}]({sqlFields}) VALUES({sqlValues}); SELECT SCOPE_IDENTITY();";
 
-                        using (var command = new SqlCommand(sqlUpdateItem, connection, transaction))
+                            using (var command = new SqlCommand(sqlNewItem, connection, transaction))
+                            {
+                                changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
+                                id = command.ExecuteScalar();
+                            }
+                        }
+                        else
                         {
-                            command.Parameters.AddWithValue(fieldId.Name, model[fieldId]);
-                            changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
-                            command.ExecuteNonQuery();
+                            var sqlSet = string.Join(", ", changedFields.Select(f => $"[{f.Name}] = @{f.Name}").ToArray());
+                            var sqlUpdateItem = $"UPDATE [{Table.Name}] SET {sqlSet} WHERE [{fieldId.Name}] = @{fieldId.Name};";
+
+                            using (var command = new SqlCommand(sqlUpdateItem, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue(fieldId.Name, model[fieldId]);
+                                changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
+                                command.ExecuteNonQuery();
+                            }
                         }
                     }
 
@@ -248,7 +262,7 @@ namespace Core.Forms.Main.CardForm
                 transaction.Dispose();
             }
 
-            txtID.Text = id?.ToString().PadLeft(6, '0'); // Просто для отображения, если запись добавлена
+            UpdateIDTextBox(id);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -260,6 +274,11 @@ namespace Core.Forms.Main.CardForm
             }
 
             this.Close();
+        }
+
+        private void UpdateIDTextBox(object id)
+        {
+            txtID.Text = id?.ToString().PadLeft(6, '0'); // Просто для отображения, если запись добавлена
         }
     }
 }

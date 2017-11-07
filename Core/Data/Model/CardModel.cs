@@ -29,6 +29,11 @@ namespace Core.Data.Model
             ? ModelValueState.CHANGED : ModelValueState.UNCHANGED;
 
         /// <summary>
+        /// Используется для записи-загрушки, записи без внешних данных
+        /// </summary>
+        public bool IsEmpty { get; set; } = true;
+
+        /// <summary>
         /// Используется когда CardModel является частью ModelLinkedValue, а не root-ом
         /// </summary>
         public ModelLinkedItemState LinkedState { get; set; } = ModelLinkedItemState.UNCHANGED;
@@ -85,7 +90,8 @@ namespace Core.Data.Model
             var model = new CardModel()
             {
                 ID = ID.Clone() as ModelFieldValue,
-                LinkedState = LinkedState
+                LinkedState = LinkedState,
+                IsEmpty = IsEmpty
             };
 
             FieldValues.Select(fv => fv.Clone() as ModelFieldValue).ForEach(model.FieldValues.Add);
