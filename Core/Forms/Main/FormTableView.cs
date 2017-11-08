@@ -81,8 +81,11 @@ namespace Core.Forms.Main
         {
             using (var dialog = new FormCardView() { Table = this.Table, Base = this.Base })
             {
-                dialog.InitializeModel(tableDataGridView1.SelectedID);
+                var selectedID = tableDataGridView1.SelectedID;
+                dialog.InitializeModel(selectedID);
                 dialog.ShowDialog();
+                tableDataGridView1.SelectedID = selectedID;
+                FillTable();
             }
         }
     }

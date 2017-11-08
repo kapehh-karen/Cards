@@ -90,16 +90,16 @@ namespace Core.Forms.Main
             if (Base == null || Table == null)
                 return;
 
-            DataTable dataTable = null;
-            firstAfterBind = true;
+            var needUpdate = true;
 
-            if (AllowCache && Table.IsClassifier)
+            if (Table.IsClassifier && CurrentDataTable == null && AllowCache)
             {
                 TableClassificatorInformation = TableStorage.Get(Table);
-                dataTable = TableClassificatorInformation?.Data;
+                CurrentDataTable = TableClassificatorInformation?.Data;
+                needUpdate = CurrentDataTable == null;
             }
 
-            if (dataTable == null)
+            if (needUpdate)
             {
                 // Make SQL request
                 using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
@@ -117,24 +117,32 @@ namespace Core.Forms.Main
                     var query = $"SELECT {columns} FROM {Table.Name}\r\n{joins}";
                     var connection = dbc.Connection;
                     var adapter = new SqlDataAdapter(query, connection);
-                    var data = new DataSet();
 
-                    WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
-
-                    dataTable = data.Tables[0];
+                    if (CurrentDataTable == null)
+                    {
+                        var data = new DataSet();
+                        WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
+                        CurrentDataTable = data.Tables[0];
+                    }
+                    else
+                    {
+                        DataSource = null;
+                        CurrentDataTable.Clear();
+                        WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(CurrentDataTable));
+                    }
 
                     adapter.Dispose();
                 }
-
-                if (Table.IsClassifier && dataTable != null)
-                {
-                    TableClassificatorInformation = TableStorage.Set(Table, dataTable);
-                }
             }
+            
+            firstAfterBind = true;
+            DataSource = CurrentDataTable;
 
-            CurrentDataTable = dataTable;
-            DataSource = dataTable;
-
+            if (Table.IsClassifier && CurrentDataTable != null)
+            {
+                TableClassificatorInformation = TableStorage.Set(Table, CurrentDataTable);
+            }
+            
             // Hide ID column
             this.Columns[FieldID.Name].Visible = false;
 

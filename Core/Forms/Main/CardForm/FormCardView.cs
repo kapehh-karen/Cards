@@ -22,6 +22,7 @@ namespace Core.Forms.Main.CardForm
     {
         private TableData table;
         private DataBase mainBase;
+        private bool isLinkedModel;
 
         public TableData Table
         {
@@ -54,7 +55,15 @@ namespace Core.Forms.Main.CardForm
 
         public bool IsNew { get; private set; }
 
-        public bool IsLinkedModel { get; set; }
+        public bool IsLinkedModel
+        {
+            get => isLinkedModel;
+            set
+            {
+                isLinkedModel = value;
+                txtID.Visible = !isLinkedModel;
+            }
+        }
 
         public CardModel Model => modelCardView1.Model;
 
@@ -278,7 +287,7 @@ namespace Core.Forms.Main.CardForm
 
         private void UpdateIDTextBox(object id)
         {
-            txtID.Text = id?.ToString().PadLeft(6, '0'); // Просто для отображения, если запись добавлена
+            txtID.Text = id?.ToString(); //.PadLeft(6, '0'); // Просто для отображения, если запись добавлена
         }
     }
 }
