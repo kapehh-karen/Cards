@@ -45,12 +45,12 @@
             this.tableDataGridView1.Base = null;
             this.tableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableDataGridView1.CurrentDataTable = null;
-            this.tableDataGridView1.Location = new System.Drawing.Point(12, 62);
+            this.tableDataGridView1.Location = new System.Drawing.Point(12, 12);
             this.tableDataGridView1.MultiSelect = false;
             this.tableDataGridView1.Name = "tableDataGridView1";
             this.tableDataGridView1.ReadOnly = true;
             this.tableDataGridView1.SelectedID = null;
-            this.tableDataGridView1.Size = new System.Drawing.Size(609, 508);
+            this.tableDataGridView1.Size = new System.Drawing.Size(609, 478);
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
             this.tableDataGridView1.PressedEnter += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
@@ -59,7 +59,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(633, 582);
+            this.ClientSize = new System.Drawing.Size(633, 502);
             this.Controls.Add(this.tableDataGridView1);
             this.Name = "FormSelectInClassificator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

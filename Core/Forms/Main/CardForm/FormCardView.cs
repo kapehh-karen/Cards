@@ -183,7 +183,7 @@ namespace Core.Forms.Main.CardForm
             }
             else
             {
-                modelCardView1.Model = model;
+                modelCardView1.Model = model.Clone() as CardModel;
                 UpdateIDTextBox(model.ID.Value);
             }
         }
@@ -198,6 +198,57 @@ namespace Core.Forms.Main.CardForm
 
         }
 
+        private object SaveModel(SqlConnection connection, SqlTransaction transaction, TableData table, CardModel model)
+        {
+            if (model.State == ModelValueState.UNCHANGED)
+                return null;
+
+            object id = model.ID?.Value;
+            var fieldId = table.IdentifierField;
+            var changedFields = model.FieldValues.Where(fv => fv.State == ModelValueState.CHANGED).Select(fv => fv.Field).ToArray();
+
+            // Если есть что обновлять из полей
+            if (changedFields.Length > 0)
+            {
+                switch (model.LinkedState)
+                {
+                    case ModelLinkedItemState.ADDED:
+                        var sqlFields = string.Join(", ", changedFields.Select(f => $"[{f.Name}]").ToArray());
+                        var sqlValues = string.Join(", ", changedFields.Select(f => $"@{f.Name}").ToArray());
+                        var sqlNewItem = $"INSERT INTO [{table.Name}]({sqlFields}) VALUES({sqlValues}); SELECT SCOPE_IDENTITY();";
+
+                        using (var command = new SqlCommand(sqlNewItem, connection, transaction))
+                        {
+                            changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
+                            id = command.ExecuteScalar();
+                        }
+                        break;
+
+                    case ModelLinkedItemState.CHANGED:
+                        var sqlSet = string.Join(", ", changedFields.Select(f => $"[{f.Name}] = @{f.Name}").ToArray());
+                        var sqlUpdateItem = $"UPDATE [{table.Name}] SET {sqlSet} WHERE [{fieldId.Name}] = @{fieldId.Name};";
+
+                        using (var command = new SqlCommand(sqlUpdateItem, connection, transaction))
+                        {
+                            command.Parameters.AddWithValue(fieldId.Name, model[fieldId]);
+                            changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
+                            command.ExecuteNonQuery();
+                        }
+                        break;
+                }
+            }
+
+            model.LinkedValues.Where(lv => lv.State != ModelValueState.UNCHANGED).ForEach(lv =>
+            {
+                lv.Items.Where(item => item.State != ModelValueState.UNCHANGED).ForEach(item =>
+                {
+                    SaveModel(connection, transaction, lv.Table.Table, item);
+                });
+            });
+
+            return id;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (IsLinkedModel)
@@ -207,12 +258,12 @@ namespace Core.Forms.Main.CardForm
             }
 
             var model = modelCardView1.Model;
-            var fieldId = Table.IdentifierField;
-            object id = model[fieldId];
-
             if (model.State == ModelValueState.UNCHANGED)
                 return;
 
+            var fieldId = Table.IdentifierField;
+            object id = null;
+            
             // Make SQL request
             using (var dbc = new SQLServerConnection(Base))
             {
@@ -221,38 +272,8 @@ namespace Core.Forms.Main.CardForm
 
                 try
                 {
-                    var changedFields = model.FieldValues.Where(fv => fv.State == ModelValueState.CHANGED).Select(fv => fv.Field).ToArray();
-
-                    // Если есть что обновлять из полей
-                    if (changedFields.Length > 0)
-                    {
-                        if (IsNew)
-                        {
-                            var sqlFields = string.Join(", ", changedFields.Select(f => $"[{f.Name}]").ToArray());
-                            var sqlValues = string.Join(", ", changedFields.Select(f => $"@{f.Name}").ToArray());
-                            var sqlNewItem = $"INSERT INTO [{Table.Name}]({sqlFields}) VALUES({sqlValues}); SELECT SCOPE_IDENTITY();";
-
-                            using (var command = new SqlCommand(sqlNewItem, connection, transaction))
-                            {
-                                changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
-                                id = command.ExecuteScalar();
-                            }
-                        }
-                        else
-                        {
-                            var sqlSet = string.Join(", ", changedFields.Select(f => $"[{f.Name}] = @{f.Name}").ToArray());
-                            var sqlUpdateItem = $"UPDATE [{Table.Name}] SET {sqlSet} WHERE [{fieldId.Name}] = @{fieldId.Name};";
-
-                            using (var command = new SqlCommand(sqlUpdateItem, connection, transaction))
-                            {
-                                command.Parameters.AddWithValue(fieldId.Name, model[fieldId]);
-                                changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
-                                command.ExecuteNonQuery();
-                            }
-                        }
-                    }
-
-                    // TODO: Insert/Update linked data
+                    model.LinkedState = IsNew ? ModelLinkedItemState.ADDED : ModelLinkedItemState.CHANGED;
+                    id = SaveModel(connection, transaction, Table, model);
                     
                     transaction.Commit();
 

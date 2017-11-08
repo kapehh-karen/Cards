@@ -16,8 +16,9 @@ using System.Windows.Forms;
 namespace Core.Forms.Main
 {
     public class TableDataGridView : DataGridView
-    {   
+    {
         public event KeyEventHandler PressedEnter;
+        public event KeyEventHandler PressedKey;
 
         private TableData tableData;
         private object needSelectID;
@@ -27,6 +28,7 @@ namespace Core.Forms.Main
         {
             DoubleBuffered = true;
             BackgroundColor = System.Drawing.Color.White;
+            MultiSelect = false;
         }
 
         public List<FieldData> ColumnFields { get; } = new List<FieldData>();
@@ -163,10 +165,11 @@ namespace Core.Forms.Main
                 {
                     PressedEnter?.Invoke(this, e);
                 }
-                return;
             }
             else
                 base.OnKeyDown(e);
+
+            PressedKey?.Invoke(this, e);
         }
 
         protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)

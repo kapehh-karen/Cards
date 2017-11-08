@@ -48,6 +48,7 @@
             this.tableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableDataGridView1.CurrentDataTable = null;
             this.tableDataGridView1.Location = new System.Drawing.Point(12, 56);
+            this.tableDataGridView1.MultiSelect = false;
             this.tableDataGridView1.Name = "tableDataGridView1";
             this.tableDataGridView1.ReadOnly = true;
             this.tableDataGridView1.SelectedID = null;
@@ -62,9 +63,9 @@
             // 
             this.btnRefresh.Location = new System.Drawing.Point(12, 10);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.Size = new System.Drawing.Size(75, 40);
             this.btnRefresh.TabIndex = 1;
-            this.btnRefresh.Text = "refresh";
+            this.btnRefresh.Text = "Обновить";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
@@ -72,9 +73,9 @@
             // 
             this.btnOpenForm.Location = new System.Drawing.Point(93, 10);
             this.btnOpenForm.Name = "btnOpenForm";
-            this.btnOpenForm.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenForm.Size = new System.Drawing.Size(75, 40);
             this.btnOpenForm.TabIndex = 2;
-            this.btnOpenForm.Text = "test";
+            this.btnOpenForm.Text = "Создать";
             this.btnOpenForm.UseVisualStyleBackColor = true;
             this.btnOpenForm.Click += new System.EventHandler(this.btnOpenForm_Click);
             // 

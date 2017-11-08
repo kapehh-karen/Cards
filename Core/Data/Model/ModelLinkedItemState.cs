@@ -7,9 +7,10 @@ namespace Core.Data.Model
 {
     public enum ModelLinkedItemState
     {
-        UNCHANGED = 0,
-        CHANGED = 1,
-        ADDED = 2,
-        DELETED = 3
+        UNKNOWN = 0,
+        UNCHANGED = 1,
+        CHANGED = 2,
+        ADDED = 3,
+        DELETED = 4
     }
 }

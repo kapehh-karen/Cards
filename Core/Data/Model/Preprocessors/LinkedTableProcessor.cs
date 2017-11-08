@@ -23,13 +23,13 @@ namespace Core.Data.Model.Preprocessors
             base.Attach();
 
             if (control != null)
-                control.KeyDown += Control_KeyDown;
+                control.PressedKey += Control_KeyDown;
         }
 
         public override void Detach()
         {
             if (control != null)
-                control.KeyDown -= Control_KeyDown;
+                control.PressedKey -= Control_KeyDown;
         }
 
         public override void Load()
@@ -79,24 +79,27 @@ namespace Core.Data.Model.Preprocessors
 
         private void Control_KeyDown(object sender, KeyEventArgs e)
         {
-            // TODO: Сделать хорошо!
-            using (var dialog = new FormCardView() { Table = ModelLinkedTable.Table.Table, Base = Base, IsLinkedModel = true })
+            if (e.KeyCode == Keys.Enter)
             {
-                // TODO: Возможно передавать клон модели и заменять в списке его
                 var selectedId = SelectedID;
                 var model = ModelLinkedTable.Items.FirstOrDefault(cm => cm.ID.Value.Equals(selectedId));
 
                 if (model == null)
                     return;
 
-                dialog.InitializeModel(model.Clone() as CardModel);
-
-                if (dialog.ShowDialog() == DialogResult.OK)
+                using (var dialog = new FormCardView() { Table = ModelLinkedTable.Table.Table, Base = Base, IsLinkedModel = true })
                 {
-                    var index = ModelLinkedTable.Items.IndexOf(model);
-                    ModelLinkedTable.Items[index] = dialog.Model;
-                    
-                    Load();
+                    dialog.InitializeModel(model);
+
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        var newModel = dialog.Model;
+                        var index = ModelLinkedTable.Items.IndexOf(model);
+                        
+                        ModelLinkedTable.Items[index] = newModel;
+
+                        Load();
+                    }
                 }
             }
         }

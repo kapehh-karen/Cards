@@ -20,10 +20,11 @@ namespace Core.Data.Model
 
         // -------------------- START BODY --------------------
 
+        private ModelLinkedItemState linkedState = ModelLinkedItemState.UNKNOWN;
+
         public ModelFieldValue ID { get; set; } = null;
 
         public ModelValueState State =>
-            (LinkedState != ModelLinkedItemState.UNCHANGED) ||
             FieldValues.Any(field => field.State != ModelValueState.UNCHANGED) ||
             LinkedValues.Any(link => link.State != ModelValueState.UNCHANGED)
             ? ModelValueState.CHANGED : ModelValueState.UNCHANGED;
@@ -36,7 +37,13 @@ namespace Core.Data.Model
         /// <summary>
         /// Используется когда CardModel является частью ModelLinkedValue, а не root-ом
         /// </summary>
-        public ModelLinkedItemState LinkedState { get; set; } = ModelLinkedItemState.UNCHANGED;
+        public ModelLinkedItemState LinkedState
+        {
+            get => linkedState == ModelLinkedItemState.UNKNOWN
+                    ? State != ModelValueState.UNCHANGED ? ModelLinkedItemState.CHANGED : ModelLinkedItemState.UNCHANGED
+                    : linkedState;
+            set => linkedState = value;
+        }
 
         public List<ModelFieldValue> FieldValues { get; set; } = new List<ModelFieldValue>();
 
@@ -74,7 +81,7 @@ namespace Core.Data.Model
             if (ID != null) ID.OldValue = ID.Value;
             FieldValues.ForEach(fieldValue => fieldValue.OldValue = fieldValue.Value);
             LinkedValues.ForEach(linkedValue => linkedValue.Items.ForEach(item => item.ResetStates()));
-            LinkedState = ModelLinkedItemState.UNCHANGED;
+            LinkedState = ModelLinkedItemState.UNKNOWN;
         }
 
         public void Clear()
@@ -82,15 +89,18 @@ namespace Core.Data.Model
             if (ID != null) ID.OldValue = ID.Value = null;
             FieldValues.ForEach(fieldValue => fieldValue.OldValue = fieldValue.Value = null);
             LinkedValues.ForEach(linkedValue => linkedValue.Items.Clear());
-            LinkedState = ModelLinkedItemState.UNCHANGED;
+            LinkedState = ModelLinkedItemState.UNKNOWN;
         }
 
         public object Clone()
         {
             var model = new CardModel()
             {
+                // private
+                linkedState = linkedState,
+
+                // public
                 ID = ID.Clone() as ModelFieldValue,
-                LinkedState = LinkedState,
                 IsEmpty = IsEmpty
             };
 

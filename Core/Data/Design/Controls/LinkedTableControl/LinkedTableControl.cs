@@ -13,6 +13,9 @@ namespace Core.Data.Design.Controls.LinkedTableControl
     // TODO: Добавление, изменение и удаление записей можно сделать на клавиши и на контекстное меню
     public class LinkedTableControl : DataGridView, IDesignControl
     {
+        public event KeyEventHandler PressedEnter;
+        public event KeyEventHandler PressedKey;
+
         public LinkedTableControl()
         {
             Properties.Add(new NameProperty(this));
@@ -29,6 +32,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             AllowUserToDeleteRows = false;
             ReadOnly = true;
             StandardTab = true;
+            SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         // Override for red color in FormDesigner
@@ -43,5 +47,20 @@ namespace Core.Data.Design.Controls.LinkedTableControl
         public IDesignControl ParentControl { get; set; }
 
         public Color DefaultColor { get; set; }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if ((e.KeyData & Keys.KeyCode) == Keys.Enter)
+            {
+                if (CurrentRow != null)
+                {
+                    PressedEnter?.Invoke(this, e);
+                }
+            }
+            else
+                base.OnKeyDown(e);
+
+            PressedKey?.Invoke(this, e);
+        }
     }
 }
