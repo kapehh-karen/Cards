@@ -8,6 +8,7 @@ using System.Data;
 using Core.Helper;
 using System.Windows.Forms;
 using Core.Forms.Main.CardForm;
+using Core.Data.Field;
 
 namespace Core.Data.Model.Preprocessors
 {
@@ -15,6 +16,7 @@ namespace Core.Data.Model.Preprocessors
     {
         private LinkedTableControl control;
         private DataTable data;
+        private FieldData fieldId;
 
         public override IDesignControl Control { get => control; set => control = value as LinkedTableControl; }
 
@@ -36,7 +38,9 @@ namespace Core.Data.Model.Preprocessors
         {
             if (ModelLinkedTable == null)
                 return;
-            
+
+            fieldId = ModelLinkedTable.Table.Table.IdentifierField;
+
             if (data == null)
             {
                 data = new DataTable();
@@ -48,11 +52,11 @@ namespace Core.Data.Model.Preprocessors
                 data.Clear();
             }
 
-            ModelLinkedTable.Items.ForEach(item =>
+            ModelLinkedTable.Items.Where(item => item.LinkedState != ModelLinkedItemState.DELETED).ForEach(item =>
             {
                 var row = data.NewRow();
-                row[item.ID.Field.Name] = item.ID.Value;
-                item.FieldValues.ForEach(fv => row[fv.Field.Name] = fv.ToDataGridValue());
+                row[item.ID.Field.Name] = item.ID.Value ?? DBNull.Value;
+                item.FieldValues.ForEach(fv => row[fv.Field.Name] = fv.ToDataGridValue() ?? DBNull.Value);
                 data.Rows.Add(row);
             });
 
@@ -65,34 +69,66 @@ namespace Core.Data.Model.Preprocessors
                 column.HeaderText = field.DisplayName;
                 column.Tag = field;
                 column.Visible = field.Visible;
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
             });
         }
 
-        public object SelectedID => control.CurrentRow == null
-            ? null
-            : control.Rows[control.CurrentRow.Index].Cells[ModelLinkedTable.Table.Table.IdentifierField.Name].Value;
+        public int SelectedIndex => control.CurrentRow == null ? -1 : control.CurrentRow.Index;
 
         private void Control_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                var selectedId = SelectedID;
-                var model = ModelLinkedTable.Items.FirstOrDefault(cm => cm.ID.Value.Equals(selectedId));
+            if (ModelLinkedTable == null)
+                return;
 
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Delete)
+            {
+                var selectedIndex = SelectedIndex;
+                if (selectedIndex < 0)
+                    return;
+
+                var model = ModelLinkedTable.Items[selectedIndex];
                 if (model == null)
                     return;
 
+                switch (e.KeyCode)
+                {
+                    case Keys.Enter:
+                        using (var dialog = new FormCardView() { Table = ModelLinkedTable.Table.Table, Base = Base, IsLinkedModel = true })
+                        {
+                            dialog.InitializeModel(model);
+
+                            if (dialog.ShowDialog() == DialogResult.OK)
+                            {
+                                var newModel = dialog.Model;
+                                var index = ModelLinkedTable.Items.IndexOf(model);
+                                ModelLinkedTable.Items[index] = newModel;
+                                Load();
+                            }
+                        }
+                        break;
+
+                    case Keys.Delete:
+                        if (MessageBox.Show("Удалить запись?", "Подтверждение действия",
+                            MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
+                        {
+                            model.CheckDeleteFull();
+                            Load();
+                        }
+                        break;
+                }
+            }
+            else if (e.KeyCode == Keys.Insert)
+            {
                 using (var dialog = new FormCardView() { Table = ModelLinkedTable.Table.Table, Base = Base, IsLinkedModel = true })
                 {
-                    dialog.InitializeModel(model);
+                    dialog.InitializeModel();
 
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
                         var newModel = dialog.Model;
-                        var index = ModelLinkedTable.Items.IndexOf(model);
-                        
-                        ModelLinkedTable.Items[index] = newModel;
-
+                        ModelLinkedTable.Items.Add(newModel);
+                        newModel.LinkedState = ModelLinkedItemState.ADDED;
+                        //newModel[ModelLinkedTable.Table.Field] = ParentModel.ID.Value;
                         Load();
                     }
                 }

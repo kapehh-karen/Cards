@@ -162,7 +162,9 @@ namespace Core.Forms.Main.CardForm
 
             if (IsNew)
             {
-                modelCardView1.Model = CardModel.CreateFromTable(Table);
+                var model = CardModel.CreateFromTable(Table);
+                model.IsEmpty = false; // Для новой записи будем считать что она "Полная" а не "Пустая"
+                modelCardView1.Model = model;
             }
             else
             {
@@ -204,48 +206,72 @@ namespace Core.Forms.Main.CardForm
 
         private object SaveModel(SqlConnection connection, SqlTransaction transaction, TableData table, CardModel model)
         {
-            if (model.State == ModelValueState.UNCHANGED)
+            if (model.LinkedState == ModelLinkedItemState.UNCHANGED)
                 return null;
 
-            object id = model.ID?.Value;
+            object id = model.ID.Value;
             var fieldId = table.IdentifierField;
             var changedFields = model.FieldValues.Where(fv => fv.State == ModelValueState.CHANGED).Select(fv => fv.Field).ToArray();
-
-            // Если есть что обновлять из полей
-            if (changedFields.Length > 0)
+            
+            switch (model.LinkedState)
             {
-                switch (model.LinkedState)
-                {
-                    case ModelLinkedItemState.ADDED:
-                        var sqlFields = string.Join(", ", changedFields.Select(f => $"[{f.Name}]").ToArray());
-                        var sqlValues = string.Join(", ", changedFields.Select(f => $"@{f.Name}").ToArray());
-                        var sqlNewItem = $"INSERT INTO [{table.Name}]({sqlFields}) VALUES({sqlValues}); SELECT SCOPE_IDENTITY();";
+                case ModelLinkedItemState.ADDED:
+                    // Нельзя добавить совсем пустую запись
+                    if (changedFields.Length == 0)
+                    {
+                        NotificationMessage.SystemError("Нельзя добавить запись с пустыми полями.");
+                        return id;
+                    }
 
-                        using (var command = new SqlCommand(sqlNewItem, connection, transaction))
-                        {
-                            changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
-                            id = command.ExecuteScalar();
-                        }
+                    var sqlFields = string.Join(", ", changedFields.Select(f => $"[{f.Name}]").ToArray());
+                    var sqlValues = string.Join(", ", changedFields.Select(f => $"@{f.Name}").ToArray());
+                    var sqlNewItem = $"INSERT INTO [{table.Name}]({sqlFields}) VALUES({sqlValues}); SELECT SCOPE_IDENTITY();";
+
+                    using (var command = new SqlCommand(sqlNewItem, connection, transaction))
+                    {
+                        changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
+                        id = command.ExecuteScalar();
+                    }
+                    break;
+
+                case ModelLinkedItemState.CHANGED:
+                    // Если нечего изменять - пропускаем
+                    if (changedFields.Length == 0)
                         break;
 
-                    case ModelLinkedItemState.CHANGED:
-                        var sqlSet = string.Join(", ", changedFields.Select(f => $"[{f.Name}] = @{f.Name}").ToArray());
-                        var sqlUpdateItem = $"UPDATE [{table.Name}] SET {sqlSet} WHERE [{fieldId.Name}] = @{fieldId.Name};";
+                    var sqlSet = string.Join(", ", changedFields.Select(f => $"[{f.Name}] = @{f.Name}").ToArray());
+                    var sqlUpdateItem = $"UPDATE [{table.Name}] SET {sqlSet} WHERE [{fieldId.Name}] = @{fieldId.Name};";
 
-                        using (var command = new SqlCommand(sqlUpdateItem, connection, transaction))
-                        {
-                            command.Parameters.AddWithValue(fieldId.Name, model[fieldId]);
-                            changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
-                            command.ExecuteNonQuery();
-                        }
+                    using (var command = new SqlCommand(sqlUpdateItem, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue(fieldId.Name, id);
+                        changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
+                        command.ExecuteNonQuery();
+                    }
+                    break;
+
+                case ModelLinkedItemState.DELETED:
+                    // Если запись не создана, то её нет смысла удалять
+                    if (id == null)
                         break;
-                }
+
+                    var sqlDeleteItem = $"DELETE FROM [{table.Name}] WHERE [{fieldId.Name}] = @{fieldId.Name};";
+
+                    using (var command = new SqlCommand(sqlDeleteItem, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue(fieldId.Name, id);
+                        command.ExecuteNonQuery();
+                    }
+                    break;
             }
+
+            model.ID.Value = id;
 
             model.LinkedValues.Where(lv => lv.State != ModelValueState.UNCHANGED).ForEach(lv =>
             {
-                lv.Items.Where(item => item.State != ModelValueState.UNCHANGED).ForEach(item =>
+                lv.Items.Where(item => item.LinkedState != ModelLinkedItemState.UNCHANGED).ForEach(item =>
                 {
+                    item[lv.Table.Field] = id;
                     SaveModel(connection, transaction, lv.Table.Table, item);
                 });
             });
@@ -262,10 +288,12 @@ namespace Core.Forms.Main.CardForm
             }
 
             var model = modelCardView1.Model;
-            if (model.State == ModelValueState.UNCHANGED)
+            if (model.LinkedState == ModelLinkedItemState.UNCHANGED)
+            {
+                NotificationMessage.Info("Изменений нет. Сохранение не требуется.");
                 return;
-
-            var fieldId = Table.IdentifierField;
+            }
+            
             object id = null;
             
             // Make SQL request
@@ -281,7 +309,7 @@ namespace Core.Forms.Main.CardForm
                     
                     transaction.Commit();
 
-                    model[fieldId] = id; // Присваиваю тут, убедившись что commit транзакции успешен, раньше присваивать нельзя
+                    //model.ID.Value = id; // Присваиваю тут, убедившись что commit транзакции успешен, раньше присваивать нельзя
                     model.ResetStates();
                     IsNew = false;
 

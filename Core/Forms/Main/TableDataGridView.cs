@@ -130,6 +130,7 @@ namespace Core.Forms.Main
                     }
                     else
                     {
+                        firstAfterBind = false; // Чтобы не обнулять needSelectID
                         CurrentDataTable.Clear();
                         WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(CurrentDataTable));
                         firstAfterBind = true; // Делаем только перед применением изменений
@@ -157,6 +158,7 @@ namespace Core.Forms.Main
                 column.HeaderText = fieldData.DisplayName;
                 column.Tag = fieldData;
                 column.Visible = fieldData.Visible;
+                column.SortMode = DataGridViewColumnSortMode.Automatic;
             }
         }
 
@@ -177,6 +179,7 @@ namespace Core.Forms.Main
                 }
 
                 firstAfterBind = false;
+                needSelectID = null;
             }
         }
 

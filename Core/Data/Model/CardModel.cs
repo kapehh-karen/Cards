@@ -79,17 +79,28 @@ namespace Core.Data.Model
         public void ResetStates()
         {
             if (ID != null) ID.OldValue = ID.Value;
-            FieldValues.ForEach(fieldValue => fieldValue.OldValue = fieldValue.Value);
-            LinkedValues.ForEach(linkedValue => linkedValue.Items.ForEach(item => item.ResetStates()));
+
+            FieldValues.ForEach(fieldValue => {
+                fieldValue.OldValue = fieldValue.Value;
+            });
+
+            LinkedValues.ForEach(linkedValue => {
+                // Удаляем удаленные записи
+                linkedValue.Items = linkedValue.Items.Where(item => item.LinkedState != ModelLinkedItemState.DELETED).ToList();
+
+                // Ресетаем все внешние элементы
+                linkedValue.Items.ForEach(item => item.ResetStates());
+            });
+
             LinkedState = ModelLinkedItemState.UNKNOWN;
         }
 
-        public void Clear()
+        public void CheckDeleteFull()
         {
-            if (ID != null) ID.OldValue = ID.Value = null;
-            FieldValues.ForEach(fieldValue => fieldValue.OldValue = fieldValue.Value = null);
-            LinkedValues.ForEach(linkedValue => linkedValue.Items.Clear());
-            LinkedState = ModelLinkedItemState.UNKNOWN;
+            LinkedState = ModelLinkedItemState.DELETED;
+
+            // Помечаем как удаленную не только эту запись, но и все связанные с нею записи
+            LinkedValues.ForEach(linkedValue => linkedValue.Items.ForEach(item => item.CheckDeleteFull()));
         }
 
         public object Clone()

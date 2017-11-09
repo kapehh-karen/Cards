@@ -83,6 +83,7 @@ namespace Core.Forms.Main
                 {
                     proc.Base = Base;
                     proc.ModelLinkedTable = Model.LinkedValues.FirstOrDefault(lv => lv.Table == proc.Table);
+                    proc.ParentModel = model;
                     proc.Attach();
                     linkedTableProcessors.Add(proc);
                 }

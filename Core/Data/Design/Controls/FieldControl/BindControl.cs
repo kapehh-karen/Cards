@@ -26,6 +26,7 @@ namespace Core.Data.Design.Controls.FieldControl
             FlatStyle = FlatStyle.Flat;
             Cursor = Cursors.Hand;
             DefaultColor = BackColor;
+            TextAlign = ContentAlignment.MiddleLeft;
         }
 
         public DesignControlType ControlType => DesignControlType.FIELD;

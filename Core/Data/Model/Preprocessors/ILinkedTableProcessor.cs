@@ -14,6 +14,8 @@ namespace Core.Data.Model.Preprocessors
 
         public LinkedTable Table { get; set; }
 
+        public CardModel ParentModel { get; set; }
+
         public ModelLinkedValue ModelLinkedTable { get; set; }
 
         public abstract IDesignControl Control { get; set; }
