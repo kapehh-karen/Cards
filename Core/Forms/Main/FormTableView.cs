@@ -1,10 +1,12 @@
-﻿using Core.Data.Base;
+﻿using Core.Connection;
+using Core.Data.Base;
 using Core.Data.Table;
 using Core.Forms.Main.CardForm;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -53,16 +55,6 @@ namespace Core.Forms.Main
 
         }
 
-        private void tableDataGridView1_SelectionChanged(object sender, EventArgs e)
-        {
-            if (sender is TableDataGridView gridView && gridView.CurrentRow != null)
-            {
-                //Text = gridView.RowCount.ToString();
-                //Text = gridView.GetCurrentID().ToString();
-                //this.Text = string.Join(" / ", (from DataGridViewCell col in gridView.SelectedCells select col.OwningColumn.Name).Distinct().ToArray());
-            }
-        }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             FillTable();
@@ -70,32 +62,89 @@ namespace Core.Forms.Main
 
         private void btnOpenForm_Click(object sender, EventArgs e)
         {
+            PerformNew();
+        }
+
+        private void tableDataGridView1_PressedKey(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    PerformChange();
+                    break;
+
+                case Keys.Insert:
+                    PerformNew();
+                    break;
+
+                case Keys.Delete:
+                    PerformDelete();
+                    break;
+            }
+        }
+
+        private void PerformNew()
+        {
             using (var dialog = new FormCardView() { Table = this.Table, Base = this.Base })
             {
                 dialog.InitializeModel();
                 dialog.ShowDialog();
 
-                var model = dialog.Model;
-                if (model != null)
-                {
-                    tableDataGridView1.SelectedID = model.ID?.Value;
-                    FillTable();
-                }
+                tableDataGridView1.SelectedID = dialog.Model.ID.Value;
+                FillTable();
             }
         }
 
-        private void tableDataGridView1_PressedEnter(object sender, KeyEventArgs e)
+        private void PerformChange()
         {
+            var selectedID = tableDataGridView1.SelectedID;
+            if (selectedID == null)
+                return;
+
             using (var dialog = new FormCardView() { Table = this.Table, Base = this.Base })
             {
-                var selectedID = tableDataGridView1.SelectedID;
-
                 dialog.InitializeModel(selectedID);
                 dialog.ShowDialog();
 
                 tableDataGridView1.SelectedID = selectedID;
                 FillTable();
             }
+        }
+
+        private void PerformDelete()
+        {
+            var selectedID = tableDataGridView1.SelectedID;
+            if (selectedID == null)
+                return;
+
+            if (MessageBox.Show("Удалить запись?", "Подтверждение действия",
+                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
+                return;
+
+            // Make SQL request
+            using (var dbc = new SQLServerConnection(Base))
+            {
+                var connection = dbc.Connection;
+                var sqlDeleteItem = $"DELETE FROM [{table.Name}] WHERE [{table.IdentifierField.Name}] = @id;";
+
+                using (var command = new SqlCommand(sqlDeleteItem, connection))
+                {
+                    command.Parameters.AddWithValue("id", selectedID);
+                    command.ExecuteNonQuery();
+                }
+            }
+
+            FillTable();
+        }
+
+        private void btnChange_Click(object sender, EventArgs e)
+        {
+            PerformChange();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            PerformDelete();
         }
     }
 }
