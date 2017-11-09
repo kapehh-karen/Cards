@@ -93,7 +93,7 @@
             this.MinimumSize = new System.Drawing.Size(400, 80);
             this.Name = "FormCardView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Просмотр и изменение";
+            this.Text = "Запись";
             this.Load += new System.EventHandler(this.FormCardView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -125,35 +125,58 @@ namespace Core.Forms.Main
                         var data = new DataSet();
                         WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
                         CurrentDataTable = data.Tables[0];
+                        firstAfterBind = true; // Перед биндингом
+                        this.DataSource = CurrentDataTable;
                     }
                     else
                     {
-                        DataSource = null;
                         CurrentDataTable.Clear();
                         WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(CurrentDataTable));
+                        firstAfterBind = true; // Делаем только перед применением изменений
+                        CurrentDataTable.AcceptChanges();
                     }
 
                     adapter.Dispose();
                 }
-            }
-            
-            firstAfterBind = true;
-            DataSource = CurrentDataTable;
 
-            if (Table.IsClassifier && CurrentDataTable != null)
+                if (Table.IsClassifier && CurrentDataTable != null)
+                {
+                    TableClassificatorInformation = TableStorage.Set(Table, CurrentDataTable);
+                }
+            }
+            else
             {
-                TableClassificatorInformation = TableStorage.Set(Table, CurrentDataTable);
+                firstAfterBind = true; // Перед биндингом
+                this.DataSource = CurrentDataTable;
             }
             
-            // Hide ID column
-            this.Columns[FieldID.Name].Visible = false;
-
             // Renaming columns header
             foreach (DataGridViewColumn column in this.Columns)
             {
                 var fieldData = ColumnFields.Single(f => f.Name.Equals(column.Name));
                 column.HeaderText = fieldData.DisplayName;
                 column.Tag = fieldData;
+                column.Visible = fieldData.Visible;
+            }
+        }
+
+        private void TrySelectRow()
+        {
+            if (firstAfterBind && needSelectID != null)
+            {
+                if (CurrentRow != null)
+                    CurrentRow.Selected = false;
+
+                var findedRow = WaitDialog.Run("Подождите...", () =>
+                    (from DataGridViewRow row in Rows select row).FirstOrDefault(row => row.Cells[FieldID.Name].Value.Equals(needSelectID)));
+
+                if (findedRow != null)
+                {
+                    findedRow.Selected = true;
+                    CurrentCell = (from DataGridViewCell col in findedRow.Cells select col).FirstOrDefault(col => col.Visible);
+                }
+
+                firstAfterBind = false;
             }
         }
 
@@ -175,23 +198,7 @@ namespace Core.Forms.Main
         protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
         {
             base.OnDataBindingComplete(e);
-            
-            if (firstAfterBind && needSelectID != null)
-            {
-                if (CurrentRow != null)
-                    CurrentRow.Selected = false;
-
-                var findedRow = WaitDialog.Run("Подождите...", () =>
-                    (from DataGridViewRow row in Rows select row).FirstOrDefault(row => row.Cells[FieldID.Name].Value.Equals(needSelectID)));
-
-                if (findedRow != null)
-                {
-                    findedRow.Selected = true;
-                    CurrentCell = (from DataGridViewCell col in findedRow.Cells select col).FirstOrDefault(col => col.Visible);
-                }
-
-                firstAfterBind = false;
-            }
+            TrySelectRow();
         }
     }
 }

@@ -32,6 +32,7 @@
             this.cmbBasesList = new System.Windows.Forms.ComboBox();
             this.gbDateBase = new System.Windows.Forms.GroupBox();
             this.gbDateTable = new System.Windows.Forms.GroupBox();
+            this.checkVisible = new System.Windows.Forms.CheckBox();
             this.txtTableDisplayName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.checkClassif = new System.Windows.Forms.CheckBox();
@@ -56,7 +57,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
             this.btnAddDB = new System.Windows.Forms.Button();
-            this.checkVisible = new System.Windows.Forms.CheckBox();
+            this.btnFormRemove = new System.Windows.Forms.Button();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +96,7 @@
             // 
             // gbDateTable
             // 
+            this.gbDateTable.Controls.Add(this.btnFormRemove);
             this.gbDateTable.Controls.Add(this.checkVisible);
             this.gbDateTable.Controls.Add(this.txtTableDisplayName);
             this.gbDateTable.Controls.Add(this.label6);
@@ -112,6 +114,18 @@
             this.gbDateTable.Size = new System.Drawing.Size(481, 455);
             this.gbDateTable.TabIndex = 2;
             this.gbDateTable.TabStop = false;
+            // 
+            // checkVisible
+            // 
+            this.checkVisible.AutoSize = true;
+            this.checkVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkVisible.Location = new System.Drawing.Point(384, 420);
+            this.checkVisible.Name = "checkVisible";
+            this.checkVisible.Size = new System.Drawing.Size(82, 17);
+            this.checkVisible.TabIndex = 11;
+            this.checkVisible.Text = "Видимость";
+            this.checkVisible.UseVisualStyleBackColor = true;
+            this.checkVisible.CheckedChanged += new System.EventHandler(this.checkVisible_CheckedChanged);
             // 
             // txtTableDisplayName
             // 
@@ -260,7 +274,7 @@
             // 
             // btnForm
             // 
-            this.btnForm.Location = new System.Drawing.Point(368, 19);
+            this.btnForm.Location = new System.Drawing.Point(337, 19);
             this.btnForm.Name = "btnForm";
             this.btnForm.Size = new System.Drawing.Size(98, 23);
             this.btnForm.TabIndex = 0;
@@ -328,17 +342,15 @@
             this.btnAddDB.UseVisualStyleBackColor = true;
             this.btnAddDB.Click += new System.EventHandler(this.btnAddDB_Click);
             // 
-            // checkVisible
+            // btnFormRemove
             // 
-            this.checkVisible.AutoSize = true;
-            this.checkVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkVisible.Location = new System.Drawing.Point(384, 420);
-            this.checkVisible.Name = "checkVisible";
-            this.checkVisible.Size = new System.Drawing.Size(82, 17);
-            this.checkVisible.TabIndex = 11;
-            this.checkVisible.Text = "Видимость";
-            this.checkVisible.UseVisualStyleBackColor = true;
-            this.checkVisible.CheckedChanged += new System.EventHandler(this.checkVisible_CheckedChanged);
+            this.btnFormRemove.Location = new System.Drawing.Point(441, 19);
+            this.btnFormRemove.Name = "btnFormRemove";
+            this.btnFormRemove.Size = new System.Drawing.Size(25, 23);
+            this.btnFormRemove.TabIndex = 12;
+            this.btnFormRemove.Text = "X";
+            this.btnFormRemove.UseVisualStyleBackColor = true;
+            this.btnFormRemove.Click += new System.EventHandler(this.btnFormRemove_Click);
             // 
             // FormBindSetting
             // 
@@ -400,5 +412,6 @@
         private System.Windows.Forms.TextBox txtTableDisplayName;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkVisible;
+        private System.Windows.Forms.Button btnFormRemove;
     }
 }

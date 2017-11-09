@@ -56,20 +56,15 @@ namespace Core.Data.Model.Preprocessors
                 data.Rows.Add(row);
             });
 
+            data.AcceptChanges();
+
             ModelLinkedTable.Table.Table.Fields.ForEach(field =>
             {
-                // TODO: Может использовать свойство FieldData.Visible для определения видимости, а не так костыльно
-                // Hide ID and ForeignKey column
-                if (field.IsIdentifier || field.Equals(ModelLinkedTable.Table.Field))
-                {
-                    control.Columns[field.Name].Visible = false;
-                    return;
-                }
-
                 // Renaming columns header
                 var column = control.Columns[field.Name];
                 column.HeaderText = field.DisplayName;
                 column.Tag = field;
+                column.Visible = field.Visible;
             });
         }
 

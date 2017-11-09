@@ -40,6 +40,10 @@ namespace Core.Forms.Main.CardForm
                     modelCardView1.Size = clientSize;
                     modelCardView1.Form = table.Form;
                 }
+                else
+                {
+                    NotificationMessage.Error($"В таблице \"{table?.DisplayName}\" нет формы.");
+                }
             }
         }
 

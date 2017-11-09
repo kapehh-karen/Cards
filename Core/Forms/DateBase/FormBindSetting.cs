@@ -328,7 +328,7 @@ namespace Core.Forms.DateBase
                         var lvi = listView.SelectedItems[0];
                         linkedTable = lvi.Tag as LinkedTable;
 
-                        if (MessageBox.Show($"Удалить связь?\r\n\r\n{linkedTable}", "Подтверждение",
+                        if (MessageBox.Show($"Удалить связь?\r\n\r\n{linkedTable}", "Подтверждение действия",
                                             MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                         {
                             _tableData.LinkedTables.Remove(linkedTable);
@@ -432,6 +432,15 @@ namespace Core.Forms.DateBase
 
             _tableData.Visible = checkVisible.Checked;
             hasChanged = true;
+        }
+
+        private void btnFormRemove_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show($"Удалить форму в таблице \"{_tableData.Name}\"?", "Подтверждение действия", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            {
+                _tableData.Form = null;
+                hasChanged = true;
+            }
         }
     }
 }
