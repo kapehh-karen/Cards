@@ -38,7 +38,7 @@ namespace Core.Data.Model.Preprocessors
 
         public override object Value
         {
-            get => int.TryParse(control.Text, out int x) ? x : 0;
+            get => int.TryParse(control.Text, out int x) ? (int?)x : null;
             set => control.Text = value?.ToString();
         }
 

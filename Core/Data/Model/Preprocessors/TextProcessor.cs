@@ -39,7 +39,7 @@ namespace Core.Data.Model.Preprocessors
 
         public override object Value
         {
-            get => control.Text;
+            get => string.IsNullOrEmpty(control.Text) ? null : control.Text;
             set => control.Text = value as string;
         }
 

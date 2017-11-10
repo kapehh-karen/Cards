@@ -229,7 +229,7 @@ namespace Core.Forms.Main.CardForm
 
                     using (var command = new SqlCommand(sqlNewItem, connection, transaction))
                     {
-                        changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
+                        changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f] ?? DBNull.Value));
                         id = command.ExecuteScalar();
                     }
                     break;
@@ -245,7 +245,7 @@ namespace Core.Forms.Main.CardForm
                     using (var command = new SqlCommand(sqlUpdateItem, connection, transaction))
                     {
                         command.Parameters.AddWithValue(fieldId.Name, id);
-                        changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f]));
+                        changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f] ?? DBNull.Value));
                         command.ExecuteNonQuery();
                     }
                     break;
@@ -278,9 +278,12 @@ namespace Core.Forms.Main.CardForm
 
             return id;
         }
-
+        
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!modelCardView1.CheckRequired())
+                return;
+
             if (IsLinkedModel)
             {
                 DialogResult = DialogResult.OK;

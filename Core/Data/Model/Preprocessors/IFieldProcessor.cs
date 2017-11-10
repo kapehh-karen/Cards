@@ -25,6 +25,11 @@ namespace Core.Data.Model.Preprocessors
             Attach();
         }
         
+        public bool CheckRequired()
+        {
+            return !Field.Required || Value != null;
+        }
+
         /// <summary>
         /// Attach events
         /// </summary>

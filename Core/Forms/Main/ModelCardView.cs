@@ -92,6 +92,19 @@ namespace Core.Forms.Main
             UpdateElements();
         }
 
+        public bool CheckRequired()
+        {
+            foreach (var proc in fieldProcessors)
+            {
+                if (!proc.CheckRequired())
+                {
+                    MessageBox.Show($"Поле '{proc.Field.DisplayName}' не заполнено.", "Ошибка заполнения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void LoadFromData(FormData formData)
         {
             fieldControls.Clear();
