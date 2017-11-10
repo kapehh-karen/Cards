@@ -87,7 +87,7 @@ namespace Core.Forms.Main
 
         public bool AllowCache { get; set; } = true;
 
-        public void FillTable()
+        public void FillTable(bool forceUpdate = false)
         {
             if (Base == null || Table == null)
                 return;
@@ -101,7 +101,7 @@ namespace Core.Forms.Main
                 needUpdate = CurrentDataTable == null;
             }
 
-            if (needUpdate)
+            if (forceUpdate || needUpdate)
             {
                 // Make SQL request
                 using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))

@@ -68,5 +68,10 @@ namespace Core.Forms.Main.CardForm
         {
             DialogResult = DialogResult.OK;
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            tableDataGridView1.FillTable(true);
+        }
     }
 }
