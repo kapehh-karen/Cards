@@ -48,7 +48,27 @@ namespace Cards
 
         private static void NotificationMessage_ReceiveMessage(string message, string title, object[] param, NotificationLevel level)
         {
-            MessageBox.Show(message, title);
+            var msgBoxIcon = MessageBoxIcon.None;
+
+            switch (level)
+            {
+                case NotificationLevel.INFO:
+                case NotificationLevel.SYSTEM_INFO:
+                    msgBoxIcon = MessageBoxIcon.Information;
+                    break;
+
+                case NotificationLevel.WARNING:
+                case NotificationLevel.SYSTEM_WARNING:
+                    msgBoxIcon = MessageBoxIcon.Exclamation;
+                    break;
+
+                case NotificationLevel.ERROR:
+                case NotificationLevel.SYSTEM_ERROR:
+                    msgBoxIcon = MessageBoxIcon.Error;
+                    break;
+            }
+
+            MessageBox.Show(message, title, MessageBoxButtons.OK, msgBoxIcon);
         }
     }
 }

@@ -311,8 +311,7 @@ namespace Core.Forms.Main.CardForm
                     id = SaveModel(connection, transaction, Table, model);
                     
                     transaction.Commit();
-
-                    //model.ID.Value = id; // Присваиваю тут, убедившись что commit транзакции успешен, раньше присваивать нельзя
+                    
                     model.ResetStates();
                     IsNew = false;
 
@@ -343,7 +342,7 @@ namespace Core.Forms.Main.CardForm
 
         private void UpdateIDTextBox(object id)
         {
-            txtID.Text = id?.ToString(); //.PadLeft(6, '0'); // Просто для отображения, если запись добавлена
+            txtID.Text = id?.ToString();
         }
 
         private void FormCardView_KeyUp(object sender, KeyEventArgs e)

@@ -2,6 +2,8 @@
 using Core.Data.Base;
 using Core.Data.Table;
 using Core.Forms.Main.CardForm;
+using Core.Helper;
+using Core.Notification;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -113,8 +115,6 @@ namespace Core.Forms.Main
 
         private void PerformDelete()
         {
-            // TODO: УБрать отсюда нахрен SQL и сделать рекурсивное удалние записи!
-
             var selectedID = tableDataGridView1.SelectedID;
             if (selectedID == null)
                 return;
@@ -127,13 +127,21 @@ namespace Core.Forms.Main
             using (var dbc = new SQLServerConnection(Base))
             {
                 var connection = dbc.Connection;
-                var sqlDeleteItem = $"DELETE FROM [{table.Name}] WHERE [{table.IdentifierField.Name}] = @id;";
+                var transaction = connection.BeginTransaction();
 
-                using (var command = new SqlCommand(sqlDeleteItem, connection))
+                try
                 {
-                    command.Parameters.AddWithValue("id", selectedID);
-                    command.ExecuteNonQuery();
+                    SqlModelHelper.DeleteFull(connection, transaction, Table, selectedID);
+                    transaction.Commit();
+                    NotificationMessage.Info("Удалено!");
                 }
+                catch (SqlException ex)
+                {
+                    transaction.Rollback();
+                    NotificationMessage.Error($"Ошибка при удалении:\r\n\r\n{ex.Message}");
+                }
+
+                transaction.Dispose();
             }
 
             FillTable();

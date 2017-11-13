@@ -263,6 +263,7 @@
     <Compile Include="Helper\FieldHelper.cs" />
     <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\IterableHelper.cs" />
+    <Compile Include="Helper\SqlModelHelper.cs" />
     <Compile Include="Helper\TextHelper.cs" />
     <Compile Include="Helper\WaitDialog.cs" />
     <Compile Include="Network\CoreClient.cs" />
