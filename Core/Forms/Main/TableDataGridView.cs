@@ -233,7 +233,9 @@ namespace Core.Forms.Main
         protected override void OnCellClick(DataGridViewCellEventArgs e)
         {
             base.OnCellClick(e);
-            lastSelectedColumn = Columns[e.ColumnIndex];
+
+            if (e.ColumnIndex >= 0)
+                lastSelectedColumn = Columns[e.ColumnIndex];
         }
     }
 }
