@@ -345,5 +345,11 @@ namespace Core.Forms.Main.CardForm
         {
             txtID.Text = id?.ToString(); //.PadLeft(6, '0'); // Просто для отображения, если запись добавлена
         }
+
+        private void FormCardView_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                DialogResult = DialogResult.Cancel;
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace Core.Forms.Main
         public event KeyEventHandler PressedKey;
 
         private TableData tableData;
+        private DataGridViewColumn lastSelectedColumn;
         private object needSelectID;
         private bool firstAfterBind;
 
@@ -56,6 +57,8 @@ namespace Core.Forms.Main
 
         public DataTable CurrentDataTable { get; set; }
 
+        public DataView CurrentDataView { get; set; } = new DataView();
+
         public object SelectedID
         {
             get => CurrentRow == null ? null : Rows[CurrentRow.Index].Cells[FieldID.Name].Value;
@@ -70,12 +73,14 @@ namespace Core.Forms.Main
                     return null;
 
                 var model = CardModel.CreateFromTable(Table);
-
-                // TODO: Возможно лучше извлекать значения ячеек из DataTable а не DataGidView, для сохранения типа значения
+                
                 (from DataGridViewCell col in CurrentRow.Cells select col)
                     .ForEach(cell =>
                     {
-                        model[cell.OwningColumn.Tag as FieldData] = cell.Value;
+                        var field = cell.OwningColumn.Tag as FieldData;
+                        // Только простые типы присваиваем, за остальными пускай делают запрос к БД
+                        if (field.Type != FieldType.BIND)
+                            model[field] = cell.Value;
                     });
 
                 model.ResetStates();
@@ -126,7 +131,8 @@ namespace Core.Forms.Main
                         WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
                         CurrentDataTable = data.Tables[0];
                         firstAfterBind = true; // Перед биндингом
-                        this.DataSource = CurrentDataTable;
+                        CurrentDataView.Table = CurrentDataTable;
+                        this.DataSource = CurrentDataView;
                     }
                     else
                     {
@@ -148,7 +154,8 @@ namespace Core.Forms.Main
             else
             {
                 firstAfterBind = true; // Перед биндингом
-                this.DataSource = CurrentDataTable;
+                CurrentDataView.Table = CurrentDataTable;
+                this.DataSource = CurrentDataView;
             }
             
             // Renaming columns header
@@ -162,9 +169,24 @@ namespace Core.Forms.Main
             }
         }
 
+        private void TrySelectCell(DataGridViewRow row)
+        {
+            if (row == null)
+                return;
+
+            if (lastSelectedColumn != null)
+            {
+                CurrentCell = (from DataGridViewCell cell in row.Cells select cell).FirstOrDefault(cell => cell.OwningColumn.Equals(lastSelectedColumn));
+            }
+            else
+            {
+                CurrentCell = (from DataGridViewCell col in row.Cells select col).FirstOrDefault(col => col.Visible);
+            }
+        }
+
         private void TrySelectRow()
         {
-            if (firstAfterBind && needSelectID != null)
+            if (firstAfterBind && needSelectID != null) // Выделение нужной строки при первом открытии
             {
                 if (CurrentRow != null)
                     CurrentRow.Selected = false;
@@ -175,11 +197,15 @@ namespace Core.Forms.Main
                 if (findedRow != null)
                 {
                     findedRow.Selected = true;
-                    CurrentCell = (from DataGridViewCell col in findedRow.Cells select col).FirstOrDefault(col => col.Visible);
+                    TrySelectCell(findedRow);
                 }
 
                 firstAfterBind = false;
                 needSelectID = null;
+            }
+            else // Выделение нужного столбца, если значения ранее уже были в таблице
+            {
+                TrySelectCell(CurrentRow);
             }
         }
 
@@ -202,6 +228,12 @@ namespace Core.Forms.Main
         {
             base.OnDataBindingComplete(e);
             TrySelectRow();
+        }
+        
+        protected override void OnCellClick(DataGridViewCellEventArgs e)
+        {
+            base.OnCellClick(e);
+            lastSelectedColumn = Columns[e.ColumnIndex];
         }
     }
 }

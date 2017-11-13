@@ -113,6 +113,8 @@ namespace Core.Forms.Main
 
         private void PerformDelete()
         {
+            // TODO: УБрать отсюда нахрен SQL и сделать рекурсивное удалние записи!
+
             var selectedID = tableDataGridView1.SelectedID;
             if (selectedID == null)
                 return;

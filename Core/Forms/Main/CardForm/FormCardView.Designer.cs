@@ -90,11 +90,13 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.modelCardView1);
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(400, 80);
             this.Name = "FormCardView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Запись";
             this.Load += new System.EventHandler(this.FormCardView_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormCardView_KeyUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 

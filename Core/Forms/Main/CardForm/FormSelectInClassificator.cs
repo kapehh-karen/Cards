@@ -17,6 +17,7 @@ namespace Core.Forms.Main.CardForm
     {
         private TableData table;
         private DataBase mainBase;
+        private FieldData selectedField;
 
         public FormSelectInClassificator()
         {
@@ -72,6 +73,76 @@ namespace Core.Forms.Main.CardForm
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             tableDataGridView1.FillTable(true);
+        }
+
+        private void tableDataGridView1_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (tableDataGridView1.CurrentCell == null)
+                return;
+
+            selectedField = tableDataGridView1.CurrentCell.OwningColumn.Tag as FieldData;
+            lblSelectedCell.Text = $"по полю '{selectedField.DisplayName}'";
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (selectedField == null)
+                return;
+
+            var text = textBox1.Text;
+
+            if (string.IsNullOrEmpty(text))
+            {
+                tableDataGridView1.CurrentDataView.RowFilter = "";
+            }
+            else
+            {
+                tableDataGridView1.CurrentDataView.RowFilter = $"Convert([{selectedField.Name}], System.String) like '%{EscapeLikeValue(text)}%'";
+            }
+        }
+
+        private string EscapeLikeValue(string valueWithoutWildcards)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < valueWithoutWildcards.Length; i++)
+            {
+                char c = valueWithoutWildcards[i];
+                if (c == '*' || c == '%' || c == '[' || c == ']')
+                    sb.Append("[").Append(c).Append("]");
+                else if (c == '\'')
+                    sb.Append("''");
+                else
+                    sb.Append(c);
+            }
+            return sb.ToString();
+        }
+
+        private void tableDataGridView1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            textBox1.Focus();
+            SendKeys.Send(e.KeyChar.ToString());
+        }
+
+        private void FormSelectInClassificator_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                DialogResult = DialogResult.Cancel;
+        }
+
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Enter:
+                    DialogResult = DialogResult.OK;
+                    break;
+
+                case Keys.Up:
+                case Keys.Down:
+                    tableDataGridView1.Focus();
+                    SendKeys.Send($"{{{e.KeyCode}}}");
+                    break;
+            }
         }
     }
 }

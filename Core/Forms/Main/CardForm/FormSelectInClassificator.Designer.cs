@@ -30,6 +30,9 @@
         {
             this.tableDataGridView1 = new Core.Forms.Main.TableDataGridView();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.lblSelectedCell = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,31 +58,66 @@
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
             this.tableDataGridView1.PressedEnter += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
+            this.tableDataGridView1.CurrentCellChanged += new System.EventHandler(this.tableDataGridView1_CurrentCellChanged);
+            this.tableDataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tableDataGridView1_KeyPress);
             // 
             // btnRefresh
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.Location = new System.Drawing.Point(470, 9);
+            this.btnRefresh.Location = new System.Drawing.Point(548, 9);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(159, 23);
+            this.btnRefresh.Size = new System.Drawing.Size(81, 23);
             this.btnRefresh.TabIndex = 1;
-            this.btnRefresh.Text = "Обновить классификатор";
+            this.btnRefresh.Text = "Обновить";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // lblSelectedCell
+            // 
+            this.lblSelectedCell.AutoSize = true;
+            this.lblSelectedCell.Location = new System.Drawing.Point(289, 14);
+            this.lblSelectedCell.Name = "lblSelectedCell";
+            this.lblSelectedCell.Size = new System.Drawing.Size(10, 13);
+            this.lblSelectedCell.TabIndex = 2;
+            this.lblSelectedCell.Text = "-";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(57, 11);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(226, 20);
+            this.textBox1.TabIndex = 3;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 14);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(39, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Поиск";
             // 
             // FormSelectInClassificator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 551);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lblSelectedCell);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.tableDataGridView1);
+            this.KeyPreview = true;
             this.Name = "FormSelectInClassificator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор из классификатора";
             this.Load += new System.EventHandler(this.FormSelectInClassificator_Load);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormSelectInClassificator_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -87,5 +125,8 @@
 
         private TableDataGridView tableDataGridView1;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Label lblSelectedCell;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
