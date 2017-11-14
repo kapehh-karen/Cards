@@ -7,25 +7,25 @@ using System.Windows.Forms;
 
 namespace Core.Data.Design.Properties.ControlProperties
 {
-    public class TabIndexProperty : IControlProperty
+    public class MaxLengthProperty : IControlProperty
     {
-        public TabIndexProperty(Control control) : base(control) { }
+        public MaxLengthProperty(Control control) : base(control) { }
 
-        public override string Name => "TabIndex";
-
-        public override object Value { get => Control.TabIndex; set => Control.TabIndex = (int)value; }
+        public override string Name => "MaxLength";
 
         public override object DefaultValue => 0;
 
-        public override bool ChangeValue(object sender)
+        public override object Value { get => (Control as TextBox).MaxLength; set => (Control as TextBox).MaxLength = (int)value; }
+
+        public override bool ChangeValue(object sender = null)
         {
             using (var dialog = new FormEditNumber())
             {
-                dialog.EnteredNumber = Control.TabIndex;
+                dialog.EnteredNumber = (Control as TextBox).MaxLength;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    Control.TabIndex = (int)dialog.EnteredNumber;
+                    (Control as TextBox).MaxLength = (int)dialog.EnteredNumber;
                     return true;
                 }
                 return false;

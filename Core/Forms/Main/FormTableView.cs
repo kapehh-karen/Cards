@@ -50,6 +50,7 @@ namespace Core.Forms.Main
         public void FillTable()
         {
             tableDataGridView1.FillTable();
+            toolStripStatusLabelAmount.Text = $"Всего записей: {tableDataGridView1.CurrentDataView.Count}";
         }
 
         private void FormTableView_Load(object sender, EventArgs e)

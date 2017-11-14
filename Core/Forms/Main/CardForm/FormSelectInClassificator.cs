@@ -50,6 +50,7 @@ namespace Core.Forms.Main.CardForm
         public void FillTable()
         {
             tableDataGridView1.FillTable();
+            UpdateUiText();
         }
 
         public object SelectedID
@@ -73,6 +74,7 @@ namespace Core.Forms.Main.CardForm
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             tableDataGridView1.FillTable(true);
+            UpdateUiText();
         }
 
         private void tableDataGridView1_CurrentCellChanged(object sender, EventArgs e)
@@ -93,12 +95,14 @@ namespace Core.Forms.Main.CardForm
 
             if (string.IsNullOrEmpty(text))
             {
-                tableDataGridView1.CurrentDataView.RowFilter = "";
+                tableDataGridView1.CurrentDataView.RowFilter = string.Empty;
             }
             else
             {
                 tableDataGridView1.CurrentDataView.RowFilter = $"Convert([{selectedField.Name}], System.String) like '%{EscapeLikeValue(text)}%'";
             }
+
+            UpdateUiText();
         }
 
         private string EscapeLikeValue(string valueWithoutWildcards)
@@ -147,6 +151,11 @@ namespace Core.Forms.Main.CardForm
                     SendKeys.Send($"{{{e.KeyCode}}}");
                     break;
             }
+        }
+
+        private void UpdateUiText()
+        {
+            toolStripStatusLabelAmount.Text = $"Всего записей: {tableDataGridView1.CurrentDataView.Count}";
         }
     }
 }

@@ -22,7 +22,7 @@ namespace TestApp
         {
             NotificationMessage.ReceiveMessage += NotificationMessage_ReceiveMessage;
 
-            Application.EnableVisualStyles();
+            //Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new frmTestUserControls());
         }

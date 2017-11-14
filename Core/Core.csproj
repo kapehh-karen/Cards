@@ -72,6 +72,9 @@
     <Compile Include="Data\Design\Controls\FieldControl\BooleanControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Data\Design\Controls\FieldControl\MaskedTextControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\Design\Controls\FieldControl\TextControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -92,6 +95,7 @@
     <Compile Include="Data\Design\FormBrushes\CreateGroupBoxControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateLabelControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateLinkedTableControl.cs" />
+    <Compile Include="Data\Design\FormBrushes\CreateMaskedTextControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CreateTextControl.cs" />
     <Compile Include="Data\Design\FormBrushes\CursorBrush.cs" />
     <Compile Include="Data\Design\FormBrushes\IFormBrush.cs" />
@@ -104,6 +108,7 @@
     <Compile Include="Data\Design\Properties\ControlProperties\FontProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\LinkedTableProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\MaskProperty.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\MaxLengthProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\NameProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\PositionProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\SizeProperty.cs" />

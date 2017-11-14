@@ -30,6 +30,7 @@ namespace Core.Forms.Main
             DoubleBuffered = true;
             BackgroundColor = System.Drawing.Color.White;
             MultiSelect = false;
+            BorderStyle = BorderStyle.Fixed3D;
         }
 
         public List<FieldData> ColumnFields { get; } = new List<FieldData>();

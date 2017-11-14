@@ -175,7 +175,7 @@ namespace Core.Forms.Main.CardForm
                     if (model != null)
                     {
                         modelCardView1.Model = model;
-                        UpdateIDTextBox(id);
+                        UpdateUiText(id);
                     }
                 }
             }
@@ -190,7 +190,7 @@ namespace Core.Forms.Main.CardForm
             else
             {
                 modelCardView1.Model = model.Clone() as CardModel;
-                UpdateIDTextBox(model.ID.Value);
+                UpdateUiText(model.ID.Value);
             }
         }
 
@@ -317,16 +317,16 @@ namespace Core.Forms.Main.CardForm
 
                     NotificationMessage.Info("Сохранено!");
                 }
-                catch (SqlException ex)
+                catch (Exception ex)
                 {
                     transaction.Rollback();
-                    NotificationMessage.Error($"Ошибка при сохранении:\r\n\r\n{ex.Message}");
+                    NotificationMessage.Error($"Ошибка при сохранении:\r\n\r\n{ex.Message}\r\n\r\n{ex.StackTrace}");
                 }
 
                 transaction.Dispose();
             }
 
-            UpdateIDTextBox(id);
+            UpdateUiText(id);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -340,9 +340,10 @@ namespace Core.Forms.Main.CardForm
             this.Close();
         }
 
-        private void UpdateIDTextBox(object id)
+        private void UpdateUiText(object id)
         {
             txtID.Text = id?.ToString();
+            this.Text = IsNew ? "Новая запись" : "Изменение";
         }
 
         private void FormCardView_KeyUp(object sender, KeyEventArgs e)

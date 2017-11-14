@@ -33,7 +33,10 @@
             this.btnOpenForm = new System.Windows.Forms.Button();
             this.btnChange = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelAmount = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableDataGridView1
@@ -49,13 +52,13 @@
             this.tableDataGridView1.Base = null;
             this.tableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableDataGridView1.CurrentDataTable = null;
-            this.tableDataGridView1.Location = new System.Drawing.Point(12, 56);
+            this.tableDataGridView1.Location = new System.Drawing.Point(5, 56);
             this.tableDataGridView1.MultiSelect = false;
             this.tableDataGridView1.Name = "tableDataGridView1";
             this.tableDataGridView1.ReadOnly = true;
             this.tableDataGridView1.SelectedID = null;
             this.tableDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tableDataGridView1.Size = new System.Drawing.Size(751, 465);
+            this.tableDataGridView1.Size = new System.Drawing.Size(765, 450);
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
             this.tableDataGridView1.PressedKey += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedKey);
@@ -100,11 +103,28 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelAmount});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 511);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(775, 22);
+            this.statusStrip1.TabIndex = 5;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabelAmount
+            // 
+            this.toolStripStatusLabelAmount.Name = "toolStripStatusLabelAmount";
+            this.toolStripStatusLabelAmount.Size = new System.Drawing.Size(96, 17);
+            this.toolStripStatusLabelAmount.Text = "Всего записей: -";
+            // 
             // FormTableView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(775, 533);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnChange);
             this.Controls.Add(this.btnOpenForm);
@@ -115,7 +135,10 @@
             this.Text = "Таблица";
             this.Load += new System.EventHandler(this.FormTableView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -126,5 +149,7 @@
         private System.Windows.Forms.Button btnOpenForm;
         private System.Windows.Forms.Button btnChange;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelAmount;
     }
 }

@@ -64,6 +64,7 @@ namespace Core.Forms.Design
             listViewControls.Items.Add(new ListViewItem() { Text = "Надпись", Tag = new CreateLabelControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Группировка", Tag = new CreateGroupBoxControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Текстовое значение", Tag = new CreateTextControl() });
+            listViewControls.Items.Add(new ListViewItem() { Text = "Текстовое значение с шаблоном", Tag = new CreateMaskedTextControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Логическое значение", Tag = new CreateBooleanControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Связанное значение", Tag = new CreateBindControl() });
             listViewControls.Items.Add(new ListViewItem() { Text = "Таблица внешних данных", Tag = new CreateLinkedTableControl() });

@@ -51,7 +51,7 @@
             this.listViewControls.Location = new System.Drawing.Point(0, 24);
             this.listViewControls.MultiSelect = false;
             this.listViewControls.Name = "listViewControls";
-            this.listViewControls.Size = new System.Drawing.Size(150, 447);
+            this.listViewControls.Size = new System.Drawing.Size(269, 447);
             this.listViewControls.TabIndex = 1;
             this.listViewControls.UseCompatibleStateImageBehavior = false;
             this.listViewControls.View = System.Windows.Forms.View.List;
@@ -132,13 +132,13 @@
             // columnHeader2
             // 
             this.columnHeader2.Text = "Значение";
-            this.columnHeader2.Width = 116;
+            this.columnHeader2.Width = 187;
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(150, 449);
+            this.statusStrip1.Location = new System.Drawing.Point(269, 449);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(491, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(372, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 

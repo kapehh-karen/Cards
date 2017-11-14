@@ -11,7 +11,7 @@ namespace Core.Data.Model.Preprocessors
 {
     public class DateProcessor : IFieldProcessor
     {
-        private TextControl control;
+        private MaskedTextControl control;
 
         public override void Attach()
         {
@@ -37,7 +37,7 @@ namespace Core.Data.Model.Preprocessors
             set
             {
                 Detach();
-                control = value as TextControl;
+                control = value as MaskedTextControl;
                 Attach();
             }
         }

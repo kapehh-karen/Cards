@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Core.Data.Model.Preprocessors
 {
     public class NumberProcessor : IFieldProcessor
     {
-        private TextControl control;
+        private Control control;
 
         public override void Attach()
         {
@@ -31,7 +32,7 @@ namespace Core.Data.Model.Preprocessors
             set
             {
                 Detach();
-                control = value as TextControl;
+                control = value as Control;
                 Attach();
             }
         }

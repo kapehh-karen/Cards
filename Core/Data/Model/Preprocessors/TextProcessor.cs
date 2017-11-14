@@ -5,12 +5,13 @@ using System.Text;
 using Core.Data.Design.Controls;
 using Core.Data.Field;
 using Core.Data.Design.Controls.FieldControl;
+using System.Windows.Forms;
 
 namespace Core.Data.Model.Preprocessors
 {
     public class TextProcessor : IFieldProcessor
     {
-        private TextControl control;
+        private Control control;
 
         public override void Attach()
         {
@@ -32,7 +33,7 @@ namespace Core.Data.Model.Preprocessors
             set
             {
                 Detach();
-                control = value as TextControl;
+                control = value as Control;
                 Attach();
             }
         }
