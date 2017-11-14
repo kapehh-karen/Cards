@@ -11,6 +11,7 @@ namespace Core.Data.Design.FormBrushes
 {
     public abstract class CreateControlBrush : IFormBrush
     {
+        private const double MOD_POS = 5;
         private Cursor prevCurs;
         private Point startLocation;
         private Size size;
@@ -31,6 +32,8 @@ namespace Core.Data.Design.FormBrushes
         public override void MouseDown(CardTabPage sender, Control control, Point coord)
         {
             startLocation = coord;
+            startLocation.X = (int)(Math.Round(startLocation.X / MOD_POS) * MOD_POS);
+            startLocation.Y = (int)(Math.Round(startLocation.Y / MOD_POS) * MOD_POS);
             size = new Size(0, 0);
         }
 
