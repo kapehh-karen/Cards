@@ -21,7 +21,6 @@ namespace Core.Forms.Main
         public event KeyEventHandler PressedKey;
 
         private TableData tableData;
-        private DataGridViewColumn lastSelectedColumn;
         private object needSelectID;
         private bool firstAfterBind;
 
@@ -78,7 +77,7 @@ namespace Core.Forms.Main
                 (from DataGridViewCell col in CurrentRow.Cells select col)
                     .ForEach(cell =>
                     {
-                        var field = cell.OwningColumn.Tag as FieldData;
+                        var field = cell.OwningColumn.GetTag().Field;
                         // Только простые типы присваиваем, за остальными пускай делают запрос к БД
                         if (field.Type != FieldType.BIND)
                             model[field] = cell.Value;
@@ -88,6 +87,8 @@ namespace Core.Forms.Main
                 return model;
             }
         }
+
+        public DataGridViewColumn KeepSelectedColumn { get; set; }
 
         private TableStorageInformation TableClassificatorInformation { get; set; }
 
@@ -163,8 +164,9 @@ namespace Core.Forms.Main
             foreach (DataGridViewColumn column in this.Columns)
             {
                 var fieldData = ColumnFields.Single(f => f.Name.Equals(column.Name));
+                var tag = new TableColumnTag() { Field = fieldData };
                 column.HeaderText = fieldData.DisplayName;
-                column.Tag = fieldData;
+                column.Tag = tag;
                 column.Visible = fieldData.Visible;
                 column.SortMode = DataGridViewColumnSortMode.Automatic;
             }
@@ -175,9 +177,9 @@ namespace Core.Forms.Main
             if (row == null)
                 return;
 
-            if (lastSelectedColumn != null)
+            if (KeepSelectedColumn != null)
             {
-                CurrentCell = (from DataGridViewCell cell in row.Cells select cell).FirstOrDefault(cell => cell.OwningColumn.Equals(lastSelectedColumn));
+                CurrentCell = (from DataGridViewCell cell in row.Cells select cell).FirstOrDefault(cell => cell.OwningColumn.Equals(KeepSelectedColumn));
             }
             else
             {
@@ -229,14 +231,6 @@ namespace Core.Forms.Main
         {
             base.OnDataBindingComplete(e);
             TrySelectRow();
-        }
-        
-        protected override void OnCellClick(DataGridViewCellEventArgs e)
-        {
-            base.OnCellClick(e);
-
-            if (e.ColumnIndex >= 0)
-                lastSelectedColumn = Columns[e.ColumnIndex];
         }
     }
 }

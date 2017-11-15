@@ -1,0 +1,14 @@
+﻿using Core.Data.Field;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Core.Forms.Main
+{
+    public class TableColumnTag
+    {
+        public FieldData Field { get; set; } = null;
+    }
+}

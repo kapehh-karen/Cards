@@ -255,9 +255,11 @@
     <Compile Include="Forms\Main\ModelCardView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\Main\TableColumnTag.cs" />
     <Compile Include="Forms\Main\TableDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\Main\TableRowTag.cs" />
     <Compile Include="GUI\Control\Button.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -269,6 +271,7 @@
     <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\IterableHelper.cs" />
     <Compile Include="Helper\SqlModelHelper.cs" />
+    <Compile Include="Helper\TableTagHelper.cs" />
     <Compile Include="Helper\TextHelper.cs" />
     <Compile Include="Helper\WaitDialog.cs" />
     <Compile Include="Network\CoreClient.cs" />

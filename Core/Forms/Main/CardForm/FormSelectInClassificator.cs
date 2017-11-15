@@ -2,6 +2,7 @@
 using Core.Data.Field;
 using Core.Data.Model;
 using Core.Data.Table;
+using Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -82,7 +83,7 @@ namespace Core.Forms.Main.CardForm
             if (tableDataGridView1.CurrentCell == null)
                 return;
 
-            selectedField = tableDataGridView1.CurrentCell.OwningColumn.Tag as FieldData;
+            selectedField = tableDataGridView1.CurrentCell.OwningColumn.GetTag().Field;
             lblSelectedCell.Text = $"по полю '{selectedField.DisplayName}'";
         }
 
@@ -92,6 +93,11 @@ namespace Core.Forms.Main.CardForm
                 return;
 
             var text = textBox1.Text;
+
+            if (tableDataGridView1.CurrentCell != null)
+            {
+                tableDataGridView1.KeepSelectedColumn = tableDataGridView1.CurrentCell.OwningColumn;
+            }
 
             if (string.IsNullOrEmpty(text))
             {

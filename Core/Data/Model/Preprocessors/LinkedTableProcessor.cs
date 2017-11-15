@@ -9,6 +9,7 @@ using Core.Helper;
 using System.Windows.Forms;
 using Core.Forms.Main.CardForm;
 using Core.Data.Field;
+using Core.Forms.Main;
 
 namespace Core.Data.Model.Preprocessors
 {
@@ -66,8 +67,9 @@ namespace Core.Data.Model.Preprocessors
             {
                 // Renaming columns header
                 var column = control.Columns[field.Name];
+                var tag = new TableColumnTag() { Field = field };
                 column.HeaderText = field.DisplayName;
-                column.Tag = field;
+                column.Tag = tag;
                 column.Visible = field.Visible;
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             });
