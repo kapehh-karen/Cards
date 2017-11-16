@@ -33,6 +33,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             ReadOnly = true;
             StandardTab = true;
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            BorderStyle = BorderStyle.Fixed3D;
         }
 
         // Override for red color in FormDesigner

@@ -191,18 +191,17 @@ namespace Core.Forms.Main
         {
             if (firstAfterBind && needSelectID != null) // Выделение нужной строки при первом открытии
             {
-                if (CurrentRow != null)
-                    CurrentRow.Selected = false;
-
                 var findedRow = WaitDialog.Run("Подождите...", () =>
                     (from DataGridViewRow row in Rows select row).FirstOrDefault(row => row.Cells[FieldID.Name].Value.Equals(needSelectID)));
 
-                if (findedRow != null)
+                if (CurrentRow != findedRow)
                 {
-                    findedRow.Selected = true;
+                    if (CurrentRow != null)
+                        CurrentRow.Selected = false;
+
                     TrySelectCell(findedRow);
                 }
-
+                
                 firstAfterBind = false;
                 needSelectID = null;
             }

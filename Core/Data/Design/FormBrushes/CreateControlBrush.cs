@@ -50,7 +50,7 @@ namespace Core.Data.Design.FormBrushes
 
             dc.ParentControl = control is IDesignControl ? control as IDesignControl : sender;
             c.Location = new Point(Math.Min(startLocation.X, coord.X), Math.Min(startLocation.Y, coord.Y));
-            c.Size = new Size(Math.Max(size.Width, 26), Math.Max(size.Height, 13));
+            c.Size = new Size(Math.Max(size.Width, 100), Math.Max(size.Height, 20));
 
             IDesignControl container = null;
             if (control != null && control is IDesignControl pc && pc.ControlType == DesignControlType.CONTAINER)
