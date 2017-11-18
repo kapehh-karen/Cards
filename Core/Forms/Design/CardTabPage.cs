@@ -27,6 +27,7 @@ namespace Core.Forms.Design
                 c.MouseDown += Form.FormEmpty_MouseDown;
                 c.MouseMove += Form.FormEmpty_MouseMove;
                 c.MouseUp += Form.FormEmpty_MouseUp;
+                c.KeyDown += Form.FormEmpty_KeyDown;
             }
 
             if (container == null)

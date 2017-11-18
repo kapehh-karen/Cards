@@ -23,7 +23,6 @@ namespace Core.Data.Design.Controls.FieldControl
 
             BackColor = Color.White;
             ForeColor = Color.Black;
-            FlatStyle = FlatStyle.Flat;
             Cursor = Cursors.Hand;
             DefaultColor = BackColor;
             TextAlign = ContentAlignment.MiddleLeft;
@@ -38,5 +37,22 @@ namespace Core.Data.Design.Controls.FieldControl
         public IDesignControl ParentControl { get; set; }
 
         public Color DefaultColor { get; set; }
+
+        protected override bool IsInputKey(Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Right:
+                case Keys.Left:
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Shift | Keys.Right:
+                case Keys.Shift | Keys.Left:
+                case Keys.Shift | Keys.Up:
+                case Keys.Shift | Keys.Down:
+                    return true;
+            }
+            return base.IsInputKey(keyData);
+        }
     }
 }

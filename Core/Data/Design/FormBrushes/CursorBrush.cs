@@ -52,5 +52,30 @@ namespace Core.Data.Design.FormBrushes
                 control.Top = Math.Max((int)(Math.Round(y / MOD_POS) * MOD_POS), 0);
             }
         }
+
+        public override void KeyPress(CardTabPage sender, Control control, Keys key)
+        {
+            if (control != null)
+            {
+                switch (key)
+                {
+                    case Keys.Up:
+                        control.Top -= (int)MOD_POS;
+                        break;
+
+                    case Keys.Down:
+                        control.Top += (int)MOD_POS;
+                        break;
+
+                    case Keys.Left:
+                        control.Left -= (int)MOD_POS;
+                        break;
+
+                    case Keys.Right:
+                        control.Left += (int)MOD_POS;
+                        break;
+                }
+            }
+        }
     }
 }

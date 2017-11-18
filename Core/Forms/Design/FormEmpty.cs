@@ -212,11 +212,21 @@ namespace Core.Forms.Design
             SelectTabPage(e.TabPage);
         }
 
-        private void FormEmpty_KeyDown(object sender, KeyEventArgs e)
+        public void FormEmpty_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete && SelectedControl != null)
+            if (SelectedControl != null)
             {
-                DeleteControl();
+                switch (e.KeyCode)
+                {
+                    case Keys.Delete:
+                        DeleteControl();
+                        break;
+
+                    default:
+                        var c = sender is IDesignControl && !(sender is CardTabPage) ? sender as Control : null;
+                        FormBrush?.KeyPress(SelectedTabPage, c, e.KeyCode);
+                        break;
+                }
             }
         }
 
