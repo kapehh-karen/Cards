@@ -12,8 +12,8 @@ namespace Core.Data.Model
     {
         public static CardModel CreateFromTable(TableData table)
         {
-            var model = new CardModel() { ID = new ModelFieldValue() { Field = table.IdentifierField } };
-            model.FieldValues.AddRange(table.Fields.Where(f => !f.IsIdentifier).Select(f => new ModelFieldValue() { Field = f }));
+            var model = new CardModel();
+            model.FieldValues.AddRange(table.Fields.Select(f => new ModelFieldValue() { Field = f }));
             model.LinkedValues.AddRange(table.LinkedTables.Select(l => new ModelLinkedValue() { Table = l }));
             return model;
         }
@@ -22,7 +22,7 @@ namespace Core.Data.Model
 
         private ModelLinkedItemState linkedState = ModelLinkedItemState.UNKNOWN;
 
-        public ModelFieldValue ID { get; set; } = null;
+        public ModelFieldValue ID => FieldValues.FirstOrDefault(fv => fv.Field.IsIdentifier);
 
         public ModelValueState State =>
             FieldValues.Any(field => field.State != ModelValueState.UNCHANGED) ||
@@ -51,10 +51,10 @@ namespace Core.Data.Model
 
         public object this[string field]
         {
-            get => ID.Field.Name.Equals(field) ? ID.Value : FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field))?.Value;
+            get => FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field))?.Value;
             set
             {
-                var fieldValue = ID.Field.Name.Equals(field) ? ID : FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field));
+                var fieldValue = FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field));
                 if (fieldValue != null)
                     fieldValue.Value = value;
             }
@@ -62,10 +62,10 @@ namespace Core.Data.Model
 
         public object this[FieldData field]
         {
-            get => ID.Field.Equals(field) ? ID.Value : FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field))?.Value;
+            get => FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field))?.Value;
             set
             {
-                var fieldValue = ID.Field.Equals(field) ? ID : FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field));
+                var fieldValue = FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field));
                 if (fieldValue != null)
                     fieldValue.Value = value;
             }
@@ -78,8 +78,6 @@ namespace Core.Data.Model
         /// </summary>
         public void ResetStates()
         {
-            if (ID != null) ID.OldValue = ID.Value;
-
             FieldValues.ForEach(fieldValue => {
                 fieldValue.OldValue = fieldValue.Value;
             });
@@ -109,9 +107,7 @@ namespace Core.Data.Model
             {
                 // private
                 linkedState = linkedState,
-
                 // public
-                ID = ID.Clone() as ModelFieldValue,
                 IsEmpty = IsEmpty
             };
 

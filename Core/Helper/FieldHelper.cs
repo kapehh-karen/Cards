@@ -16,7 +16,7 @@ namespace Core.Helper
             switch (field.Type)
             {
                 case FieldType.BIND:
-                    return value is int ? value : Convert.ToInt32(value);
+                    return CastValue(field.BindData.Table.IdentifierField, value);
                 case FieldType.BOOLEAN:
                     return value is bool ? value : Convert.ToBoolean(value);
                 case FieldType.DATE:
@@ -30,12 +30,12 @@ namespace Core.Helper
             }
         }
 
-        public static Type GetTypeFromField(FieldData field, bool inDepth = true)
+        public static Type GetTypeFromField(FieldData field)
         {
             switch (field.Type)
             {
                 case FieldType.BIND:
-                    return inDepth ? GetTypeFromField(field.BindData.Field, false) : typeof(Int32);
+                    return GetTypeFromField(field.BindData.Field);
                 case FieldType.BOOLEAN:
                     return typeof(Boolean);
                 case FieldType.DATE:

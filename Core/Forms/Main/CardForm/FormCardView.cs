@@ -209,7 +209,7 @@ namespace Core.Forms.Main.CardForm
             if (model.LinkedState == ModelLinkedItemState.UNCHANGED)
                 return null;
 
-            object id = model.ID.Value;
+            object id = model.ID.OldValue; // Т.к. идентификатор меняемое значение, то берем "старое" значение
             var fieldId = table.IdentifierField;
             var changedFields = model.FieldValues.Where(fv => fv.State == ModelValueState.CHANGED).Select(fv => fv.Field).ToArray();
             
@@ -239,13 +239,13 @@ namespace Core.Forms.Main.CardForm
                     if (changedFields.Length == 0)
                         break;
 
-                    var sqlSet = string.Join(", ", changedFields.Select(f => $"[{f.Name}] = @{f.Name}").ToArray());
-                    var sqlUpdateItem = $"UPDATE [{table.Name}] SET {sqlSet} WHERE [{fieldId.Name}] = @{fieldId.Name};";
+                    var sqlSet = string.Join(", ", changedFields.Select(f => $"[{f.Name}] = @value_{f.Name}").ToArray());
+                    var sqlUpdateItem = $"UPDATE [{table.Name}] SET {sqlSet} WHERE [{fieldId.Name}] = @id_{fieldId.Name};";
 
                     using (var command = new SqlCommand(sqlUpdateItem, connection, transaction))
                     {
-                        command.Parameters.AddWithValue(fieldId.Name, id);
-                        changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f] ?? DBNull.Value));
+                        command.Parameters.AddWithValue($"@id_{fieldId.Name}", id);
+                        changedFields.ForEach(f => command.Parameters.AddWithValue($"@value_{f.Name}", model[f] ?? DBNull.Value));
                         command.ExecuteNonQuery();
                     }
                     break;
@@ -264,9 +264,7 @@ namespace Core.Forms.Main.CardForm
                     }
                     break;
             }
-
-            model.ID.Value = id;
-
+            
             model.LinkedValues.Where(lv => lv.State != ModelValueState.UNCHANGED).ForEach(lv =>
             {
                 lv.Items.Where(item => item.LinkedState != ModelLinkedItemState.UNCHANGED).ForEach(item =>
@@ -276,7 +274,7 @@ namespace Core.Forms.Main.CardForm
                 });
             });
 
-            return id;
+            return model.ID.Value;
         }
         
         private void btnSave_Click(object sender, EventArgs e)
@@ -342,7 +340,9 @@ namespace Core.Forms.Main.CardForm
 
         private void UpdateUiText(object id)
         {
-            txtID.Text = id?.ToString();
+            if (id != null)
+                txtID.Text = id.ToString();
+
             this.Text = IsNew ? "Новая запись" : "Изменение";
         }
 
