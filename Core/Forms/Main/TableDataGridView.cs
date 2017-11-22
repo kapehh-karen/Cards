@@ -104,8 +104,9 @@ namespace Core.Forms.Main
             if (Table.IsClassifier && CurrentDataTable == null && AllowCache)
             {
                 TableClassificatorInformation = TableStorage.Get(Table);
-                CurrentDataTable = TableClassificatorInformation?.Data;
-                needUpdate = CurrentDataTable == null;
+                CurrentDataTable = TableClassificatorInformation.Data;
+                CurrentDataView = TableClassificatorInformation.View ?? CurrentDataView;
+                needUpdate = TableClassificatorInformation.IsEmpty;
             }
 
             if (forceUpdate || needUpdate)
@@ -150,7 +151,8 @@ namespace Core.Forms.Main
 
                 if (Table.IsClassifier && CurrentDataTable != null)
                 {
-                    TableClassificatorInformation = TableStorage.Set(Table, CurrentDataTable);
+                    TableClassificatorInformation.Data = CurrentDataTable;
+                    TableClassificatorInformation.View = CurrentDataView;
                 }
             }
             else

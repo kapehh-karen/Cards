@@ -16,23 +16,37 @@ namespace Core.Storage
         {
             lock (lockObject)
             {
-                return cachedTables.ContainsKey(table) ? cachedTables[table] : null;
+                if (cachedTables.ContainsKey(table))
+                {
+                    return cachedTables[table];
+                }
+                else
+                {
+                    var item = new TableStorageInformation();
+                    cachedTables.Add(table, item);
+                    return item;
+                }
             }
         }
 
-        public static TableStorageInformation Set(TableData table, DataTable dataTable)
+        public static TableStorageInformation Set(TableData table, TableStorageInformation tableInfo)
         {
             lock (lockObject)
             {
                 if (cachedTables.ContainsKey(table))
                 {
                     var itemExists = cachedTables[table];
-                    itemExists.Data = dataTable;
+                    itemExists.Data = tableInfo.Data;
+                    itemExists.View = tableInfo.View;
                     return itemExists;
                 }
                 else
                 {
-                    var itemNew = new TableStorageInformation() { Data = dataTable };
+                    var itemNew = new TableStorageInformation()
+                    {
+                        Data = tableInfo.Data,
+                        View = tableInfo.View
+                    };
                     cachedTables[table] = itemNew;
                     return itemNew;
                 }

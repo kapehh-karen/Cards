@@ -18,6 +18,7 @@ namespace Core.Data.Design.Controls.FieldControl
             Properties.Add(new TextProperty(this));
             Properties.Add(new MaskProperty(this));
             Properties.Add(new SizeProperty(this));
+            Properties.Add(new FontProperty(this));
             Properties.Add(new PositionProperty(this));
             Properties.Add(new FieldProperty(this) { AccessTypes = new FieldType[] { FieldType.TEXT, FieldType.NUMBER, FieldType.DATE } });
             Properties.Add(new TabIndexProperty(this));

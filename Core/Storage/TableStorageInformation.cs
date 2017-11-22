@@ -9,5 +9,9 @@ namespace Core.Storage
     public class TableStorageInformation
     {
         public DataTable Data { get; set; } = null;
+
+        public DataView View { get; set; } = null;
+
+        public bool IsEmpty => Data == null;
     }
 }
