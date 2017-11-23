@@ -34,6 +34,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             StandardTab = true;
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             BorderStyle = BorderStyle.Fixed3D;
+            ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         }
 
         // Override for red color in FormDesigner
