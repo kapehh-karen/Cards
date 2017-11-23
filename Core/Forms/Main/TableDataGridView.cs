@@ -163,7 +163,6 @@ namespace Core.Forms.Main
             else
             {
                 firstAfterBind = true; // Перед биндингом
-                CurrentDataView.Table = CurrentDataTable;
                 this.DataSource = CurrentDataView;
             }
             
