@@ -209,7 +209,8 @@ namespace Core.Forms.Main.CardForm
             if (model.LinkedState == ModelLinkedItemState.UNCHANGED)
                 return null;
 
-            object id = model.ID.OldValue; // Т.к. идентификатор меняемое значение, то берем "старое" значение
+            var modelId = model.ID;
+            object id = modelId.OldValue; // Т.к. идентификатор меняемое значение, то берем "старое" значение
             var fieldId = table.IdentifierField;
             var changedFields = model.FieldValues.Where(fv => fv.State == ModelValueState.CHANGED).Select(fv => fv.Field).ToArray();
             
@@ -231,6 +232,9 @@ namespace Core.Forms.Main.CardForm
                     {
                         changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f] ?? DBNull.Value));
                         id = command.ExecuteScalar();
+                        // Если небыло возвращено идентификатора, то он должен быть уже в modelId.Value
+                        if (id != DBNull.Value)
+                            modelId.Value = id;
                     }
                     break;
 
@@ -265,16 +269,16 @@ namespace Core.Forms.Main.CardForm
                     break;
             }
             
-            model.LinkedValues.Where(lv => lv.State != ModelValueState.UNCHANGED).ForEach(lv =>
+            model.LinkedValues.ForEach(linkedValue =>
             {
-                lv.Items.Where(item => item.LinkedState != ModelLinkedItemState.UNCHANGED).ForEach(item =>
+                linkedValue.Items.ForEach(item =>
                 {
-                    item[lv.Table.Field] = id;
-                    SaveModel(connection, transaction, lv.Table.Table, item);
+                    item[linkedValue.Table.Field] = modelId.Value;
+                    SaveModel(connection, transaction, linkedValue.Table.Table, item);
                 });
             });
 
-            return model.ID.Value;
+            return modelId.Value;
         }
         
         private void btnSave_Click(object sender, EventArgs e)

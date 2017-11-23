@@ -134,6 +134,8 @@
             this.Controls.Add(this.tableDataGridView1);
             this.KeyPreview = true;
             this.Name = "FormSelectInClassificator";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор из классификатора";
             this.Load += new System.EventHandler(this.FormSelectInClassificator_Load);
