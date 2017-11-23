@@ -13,5 +13,11 @@ namespace Core.Storage
         public DataView View { get; set; } = null;
 
         public bool IsEmpty => Data == null;
+
+        public void Reset()
+        {
+            if (View != null)
+                View.RowFilter = string.Empty;
+        }
     }
 }

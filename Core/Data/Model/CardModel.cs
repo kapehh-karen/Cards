@@ -80,6 +80,13 @@ namespace Core.Data.Model
         {
             FieldValues.ForEach(fieldValue => {
                 fieldValue.OldValue = fieldValue.Value;
+
+                // Если не существует связанного значения, то нету и идентификатора
+                if ((fieldValue.Field.Type == FieldType.BIND) && (fieldValue.BindData == null))
+                {
+                    // Текущее значение - NULL, а OldValue предыдущее значение Value
+                    fieldValue.Value = null;
+                }
             });
 
             LinkedValues.ForEach(linkedValue => {

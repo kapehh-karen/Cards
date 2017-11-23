@@ -49,6 +49,10 @@ namespace Core.Forms.Main
                     ColumnFields.AddRange(tableData.Fields);
                     // TODO: Добавлять поле идентификатора автоматически, если оно не добавлено
                     FieldID = tableData.IdentifierField;
+
+                    // Получаем настройки таблицы
+                    TableStorageInformation = TableStorage.Get(Table);
+                    TableStorageInformation.Reset();
                 }
             }
         }
@@ -90,7 +94,7 @@ namespace Core.Forms.Main
 
         public DataGridViewColumn KeepSelectedColumn { get; set; }
 
-        private TableStorageInformation TableClassificatorInformation { get; set; }
+        private TableStorageInformation TableStorageInformation { get; set; }
 
         public bool AllowCache { get; set; } = true;
 
@@ -101,12 +105,12 @@ namespace Core.Forms.Main
 
             var needUpdate = true;
 
-            if (Table.IsClassifier && CurrentDataTable == null && AllowCache)
+            // При загрузке данных в компонент используется флаг AllowCache
+            if (Table.IsClassifier && AllowCache && CurrentDataTable == null)
             {
-                TableClassificatorInformation = TableStorage.Get(Table);
-                CurrentDataTable = TableClassificatorInformation.Data;
-                CurrentDataView = TableClassificatorInformation.View ?? CurrentDataView;
-                needUpdate = TableClassificatorInformation.IsEmpty;
+                CurrentDataTable = TableStorageInformation.Data;
+                CurrentDataView = TableStorageInformation.View ?? CurrentDataView;
+                needUpdate = TableStorageInformation.IsEmpty;
             }
 
             if (forceUpdate || needUpdate)
@@ -149,10 +153,11 @@ namespace Core.Forms.Main
                     adapter.Dispose();
                 }
 
+                // Не важно значение флага AllowCache, всегда сохраняем данные классификатора в память
                 if (Table.IsClassifier && CurrentDataTable != null)
                 {
-                    TableClassificatorInformation.Data = CurrentDataTable;
-                    TableClassificatorInformation.View = CurrentDataView;
+                    TableStorageInformation.Data = CurrentDataTable;
+                    TableStorageInformation.View = CurrentDataView;
                 }
             }
             else

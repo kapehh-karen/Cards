@@ -224,7 +224,7 @@ namespace Core.Forms.Design
 
                     default:
                         var c = sender is IDesignControl && !(sender is CardTabPage) ? sender as Control : null;
-                        FormBrush?.KeyPress(SelectedTabPage, c, e.KeyCode);
+                        FormBrush?.KeyPress(SelectedTabPage, c, e);
                         break;
                 }
             }

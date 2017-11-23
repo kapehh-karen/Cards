@@ -53,26 +53,74 @@ namespace Core.Data.Design.FormBrushes
             }
         }
 
-        public override void KeyPress(CardTabPage sender, Control control, Keys key)
+        public override void KeyPress(CardTabPage sender, Control control, KeyEventArgs e)
         {
             if (control != null)
             {
-                switch (key)
+                switch (e.KeyCode)
                 {
                     case Keys.Up:
-                        control.Top -= (int)MOD_POS;
+                        if ((e.Modifiers & Keys.Shift) != 0) // Расширение
+                        {
+                            control.Height += 1;
+                            control.Top -= 1;
+                        }
+                        else if ((e.Modifiers & Keys.Control) != 0) // Сужение
+                        {
+                            control.Height -= 1;
+                        }
+                        else // Перемещение
+                        {
+                            control.Top -= 1;
+                        }
                         break;
 
                     case Keys.Down:
-                        control.Top += (int)MOD_POS;
+                        if ((e.Modifiers & Keys.Shift) != 0) // Расширение
+                        {
+                            control.Height += 1;
+                        }
+                        else if ((e.Modifiers & Keys.Control) != 0) // Сужение
+                        {
+                            control.Top += 1;
+                            control.Height -= 1;
+                        }
+                        else // Перемещение
+                        {
+                            control.Top += 1;
+                        }
                         break;
 
                     case Keys.Left:
-                        control.Left -= (int)MOD_POS;
+                        if ((e.Modifiers & Keys.Shift) != 0) // Расширение
+                        {
+                            control.Left -= 1;
+                            control.Width += 1;
+                        }
+                        else if ((e.Modifiers & Keys.Control) != 0) // Сужение
+                        {
+                            control.Width -= 1;
+                        }
+                        else // Перемещение
+                        {
+                            control.Left -= 1;
+                        }
                         break;
 
                     case Keys.Right:
-                        control.Left += (int)MOD_POS;
+                        if ((e.Modifiers & Keys.Shift) != 0) // Расширение
+                        {
+                            control.Width += 1;
+                        }
+                        else if ((e.Modifiers & Keys.Control) != 0) // Сужение
+                        {
+                            control.Left += 1;
+                            control.Width -= 1;
+                        }
+                        else // Перемещение
+                        {
+                            control.Left += 1;
+                        }
                         break;
                 }
             }

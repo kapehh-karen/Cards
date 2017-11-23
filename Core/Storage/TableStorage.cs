@@ -28,29 +28,5 @@ namespace Core.Storage
                 }
             }
         }
-
-        public static TableStorageInformation Set(TableData table, TableStorageInformation tableInfo)
-        {
-            lock (lockObject)
-            {
-                if (cachedTables.ContainsKey(table))
-                {
-                    var itemExists = cachedTables[table];
-                    itemExists.Data = tableInfo.Data;
-                    itemExists.View = tableInfo.View;
-                    return itemExists;
-                }
-                else
-                {
-                    var itemNew = new TableStorageInformation()
-                    {
-                        Data = tableInfo.Data,
-                        View = tableInfo.View
-                    };
-                    cachedTables[table] = itemNew;
-                    return itemNew;
-                }
-            }
-        }
     }
 }

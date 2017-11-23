@@ -22,6 +22,6 @@ namespace Core.Data.Design.FormBrushes
 
         public virtual void MouseUp(CardTabPage sender, Control control, Point coord) { }
 
-        public virtual void KeyPress(CardTabPage sender, Control control, Keys key) { }
+        public virtual void KeyPress(CardTabPage sender, Control control, KeyEventArgs e) { }
     }
 }
