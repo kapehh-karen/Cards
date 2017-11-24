@@ -120,15 +120,15 @@ namespace Core.Forms.Main
                 {
                     // main part query
                     var columns = string.Join(", ", ColumnFields.Where(f => f.Visible || f.IsIdentifier)
-                        .Select(f => f.Type != FieldType.BIND ? $"[{Table.Name}].[{f.Name}]" : $"[{f.BindData.Table.Name}].[{f.BindData.Field.Name}] AS [{f.Name}]")
+                        .Select(f => f.Type != FieldType.BIND ? $"[{Table.Name}].[{f.Name}]" : $"[{f.Name}__{f.BindData.Table.Name}].[{f.BindData.Field.Name}] AS [{f.Name}]")
                         .ToArray());
 
                     // joins part query
                     var joins = string.Join("\r\n", ColumnFields.Where(f => f.Visible || f.IsIdentifier).Where(f => f.Type == FieldType.BIND)
-                        .Select(f => $"LEFT JOIN [{f.BindData.Table.Name}] ON [{f.BindData.Table.Name}].[{f.BindData.Table.IdentifierField.Name}] = [{Table.Name}].[{f.Name}]")
+                        .Select(f => $"LEFT JOIN [{f.BindData.Table.Name}] AS [{f.Name}__{f.BindData.Table.Name}] ON [{f.Name}__{f.BindData.Table.Name}].[{f.BindData.Table.IdentifierField.Name}] = [{Table.Name}].[{f.Name}]")
                         .ToArray());
 
-                    var query = $"SELECT {columns} FROM {Table.Name}\r\n{joins}";
+                    var query = $"SELECT {columns} FROM [{Table.Name}]\r\n{joins}";
                     var connection = dbc.Connection;
                     var adapter = new SqlDataAdapter(query, connection);
 
