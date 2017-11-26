@@ -71,13 +71,7 @@ namespace Core.Forms.Main.CardForm
         {
             DialogResult = DialogResult.OK;
         }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            tableDataGridView1.FillTable(true);
-            UpdateUiText();
-        }
-
+        
         private void tableDataGridView1_CurrentCellChanged(object sender, EventArgs e)
         {
             if (tableDataGridView1.CurrentCell == null)
@@ -162,6 +156,17 @@ namespace Core.Forms.Main.CardForm
         private void UpdateUiText()
         {
             toolStripStatusLabelAmount.Text = $"Всего записей: {tableDataGridView1.CurrentDataView.Count}";
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tableDataGridView1.FillTable(true);
+            UpdateUiText();
+        }
+
+        private void useNullToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Ignore;
         }
     }
 }

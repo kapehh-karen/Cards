@@ -60,10 +60,18 @@ namespace Core.Data.Model.Preprocessors
                 dialog.FillTable();
                 dialog.SelectedID = Value;
 
-                if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                var result = dialog.ShowDialog();
+                switch (result)
                 {
-                    ModelField.BindData = dialog.Model;
-                    Value = dialog.SelectedID;
+                    case System.Windows.Forms.DialogResult.OK:
+                        ModelField.BindData = dialog.Model;
+                        Value = dialog.SelectedID;
+                        break;
+
+                    case System.Windows.Forms.DialogResult.Ignore:
+                        ModelField.BindData = null;
+                        Value = null;
+                        break;
                 }
             }
         }

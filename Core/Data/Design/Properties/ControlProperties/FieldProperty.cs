@@ -29,9 +29,16 @@ namespace Core.Data.Design.Properties.ControlProperties
                     SelectedField = Value as FieldData
                 })
                 {
-                    if (dialog.ShowDialog() == DialogResult.OK)
+                    var res = dialog.ShowDialog();
+
+                    if (res == DialogResult.OK)
                     {
                         Value = dialog.SelectedField;
+                        return true;
+                    }
+                    else if (res == DialogResult.Ignore)
+                    {
+                        Value = null;
                         return true;
                     }
                 }

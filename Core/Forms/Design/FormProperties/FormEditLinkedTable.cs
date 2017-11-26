@@ -44,5 +44,10 @@ namespace Core.Forms.Design.FormProperties
         }
 
         public LinkedTable SelectedLinkedTable { get => cmbLinkedTables.SelectedItem as LinkedTable; set => cmbLinkedTables.SelectedItem = value; }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Ignore;
+        }
     }
 }

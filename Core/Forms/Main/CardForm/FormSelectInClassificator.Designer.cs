@@ -29,14 +29,17 @@
         private void InitializeComponent()
         {
             this.tableDataGridView1 = new Core.Forms.Main.TableDataGridView();
-            this.btnRefresh = new System.Windows.Forms.Button();
             this.lblSelectedCell = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelAmount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.useNullToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableDataGridView1
@@ -55,33 +58,22 @@
             this.tableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableDataGridView1.CurrentDataTable = null;
             this.tableDataGridView1.KeepSelectedColumn = null;
-            this.tableDataGridView1.Location = new System.Drawing.Point(5, 38);
+            this.tableDataGridView1.Location = new System.Drawing.Point(5, 56);
             this.tableDataGridView1.MultiSelect = false;
             this.tableDataGridView1.Name = "tableDataGridView1";
             this.tableDataGridView1.ReadOnly = true;
             this.tableDataGridView1.SelectedID = null;
-            this.tableDataGridView1.Size = new System.Drawing.Size(630, 485);
+            this.tableDataGridView1.Size = new System.Drawing.Size(630, 467);
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
             this.tableDataGridView1.PressedEnter += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
             this.tableDataGridView1.CurrentCellChanged += new System.EventHandler(this.tableDataGridView1_CurrentCellChanged);
             this.tableDataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tableDataGridView1_KeyPress);
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.Location = new System.Drawing.Point(548, 9);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(81, 23);
-            this.btnRefresh.TabIndex = 1;
-            this.btnRefresh.Text = "Обновить";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // lblSelectedCell
             // 
             this.lblSelectedCell.AutoSize = true;
-            this.lblSelectedCell.Location = new System.Drawing.Point(289, 14);
+            this.lblSelectedCell.Location = new System.Drawing.Point(286, 32);
             this.lblSelectedCell.Name = "lblSelectedCell";
             this.lblSelectedCell.Size = new System.Drawing.Size(10, 13);
             this.lblSelectedCell.TabIndex = 2;
@@ -89,7 +81,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(57, 11);
+            this.textBox1.Location = new System.Drawing.Point(54, 30);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(226, 20);
             this.textBox1.TabIndex = 3;
@@ -99,7 +91,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 14);
+            this.label1.Location = new System.Drawing.Point(12, 33);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(39, 13);
             this.label1.TabIndex = 4;
@@ -121,16 +113,41 @@
             this.toolStripStatusLabelAmount.Size = new System.Drawing.Size(96, 17);
             this.toolStripStatusLabelAmount.Text = "Всего записей: -";
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.useNullToolStripMenuItem,
+            this.refreshToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(641, 24);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // useNullToolStripMenuItem
+            // 
+            this.useNullToolStripMenuItem.Name = "useNullToolStripMenuItem";
+            this.useNullToolStripMenuItem.Size = new System.Drawing.Size(190, 20);
+            this.useNullToolStripMenuItem.Text = "Использовать пустое значение";
+            this.useNullToolStripMenuItem.Click += new System.EventHandler(this.useNullToolStripMenuItem_Click);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.refreshToolStripMenuItem.Text = "Обновить";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
             // FormSelectInClassificator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 551);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lblSelectedCell);
-            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.tableDataGridView1);
             this.KeyPreview = true;
             this.Name = "FormSelectInClassificator";
@@ -143,6 +160,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,11 +170,13 @@
         #endregion
 
         private TableDataGridView tableDataGridView1;
-        private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Label lblSelectedCell;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelAmount;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem useNullToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
     }
 }

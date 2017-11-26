@@ -32,6 +32,7 @@
             this.cmbBasesList = new System.Windows.Forms.ComboBox();
             this.gbDateBase = new System.Windows.Forms.GroupBox();
             this.gbDateTable = new System.Windows.Forms.GroupBox();
+            this.btnFormRemove = new System.Windows.Forms.Button();
             this.checkVisible = new System.Windows.Forms.CheckBox();
             this.txtTableDisplayName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -57,7 +58,6 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
             this.btnAddDB = new System.Windows.Forms.Button();
-            this.btnFormRemove = new System.Windows.Forms.Button();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             this.SuspendLayout();
@@ -114,6 +114,16 @@
             this.gbDateTable.Size = new System.Drawing.Size(481, 455);
             this.gbDateTable.TabIndex = 2;
             this.gbDateTable.TabStop = false;
+            // 
+            // btnFormRemove
+            // 
+            this.btnFormRemove.Location = new System.Drawing.Point(441, 19);
+            this.btnFormRemove.Name = "btnFormRemove";
+            this.btnFormRemove.Size = new System.Drawing.Size(25, 23);
+            this.btnFormRemove.TabIndex = 12;
+            this.btnFormRemove.Text = "X";
+            this.btnFormRemove.UseVisualStyleBackColor = true;
+            this.btnFormRemove.Click += new System.EventHandler(this.btnFormRemove_Click);
             // 
             // checkVisible
             // 
@@ -342,16 +352,6 @@
             this.btnAddDB.UseVisualStyleBackColor = true;
             this.btnAddDB.Click += new System.EventHandler(this.btnAddDB_Click);
             // 
-            // btnFormRemove
-            // 
-            this.btnFormRemove.Location = new System.Drawing.Point(441, 19);
-            this.btnFormRemove.Name = "btnFormRemove";
-            this.btnFormRemove.Size = new System.Drawing.Size(25, 23);
-            this.btnFormRemove.TabIndex = 12;
-            this.btnFormRemove.Text = "X";
-            this.btnFormRemove.UseVisualStyleBackColor = true;
-            this.btnFormRemove.Click += new System.EventHandler(this.btnFormRemove_Click);
-            // 
             // FormBindSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -366,7 +366,6 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FormBindSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "БД: Поля и связи";

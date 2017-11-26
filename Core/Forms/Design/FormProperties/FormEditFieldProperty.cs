@@ -43,11 +43,16 @@ namespace Core.Forms.Design.FormProperties
             DialogResult = DialogResult.Cancel;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public FieldData SelectedField { get => cmbFields.SelectedItem as FieldData; set => cmbFields.SelectedItem = value; }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Ignore;
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
         }
-
-        public FieldData SelectedField { get => cmbFields.SelectedItem as FieldData; set => cmbFields.SelectedItem = value; }
     }
 }
