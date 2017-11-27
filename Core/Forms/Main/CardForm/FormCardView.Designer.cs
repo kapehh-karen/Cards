@@ -46,7 +46,7 @@
             this.modelCardView1.Model = null;
             this.modelCardView1.Name = "modelCardView1";
             this.modelCardView1.SelectedIndex = 0;
-            this.modelCardView1.Size = new System.Drawing.Size(303, 146);
+            this.modelCardView1.Size = new System.Drawing.Size(324, 170);
             this.modelCardView1.TabIndex = 0;
             this.modelCardView1.Table = null;
             // 

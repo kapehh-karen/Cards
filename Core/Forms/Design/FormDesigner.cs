@@ -187,15 +187,24 @@ namespace Core.Forms.Design
                 return;
             }
 
-            if (MessageBox.Show("Сохранить все изменения?", "Редактор форм",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            if (e.CloseReason == CloseReason.UserClosing)
             {
-                this.FormData = GetFormData();
-                DialogResult = DialogResult.OK;
-            }
-            else
-            {
-                DialogResult = DialogResult.Cancel;
+                var res = MessageBox.Show("Сохранить все изменения?", "Редактор форм", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+                switch (res)
+                {
+                    case DialogResult.Yes:
+                        this.FormData = GetFormData();
+                        DialogResult = DialogResult.OK;
+                        break;
+
+                    case DialogResult.No:
+                        DialogResult = DialogResult.Cancel;
+                        break;
+
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
             }
         }
     }

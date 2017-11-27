@@ -22,6 +22,11 @@ namespace Core.Forms.Main
         private List<ILinkedTableProcessor> linkedTableProcessors = new List<ILinkedTableProcessor>();
         private FormData form;
         private CardModel model;
+        
+        public ModelCardView()
+        {
+            Padding = new System.Drawing.Point(5, 5);
+        }
 
         public TableData Table { get; set; }
 

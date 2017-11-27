@@ -21,7 +21,6 @@ namespace Core.Forms.DateBase
         private DataBaseConfigLoader dataBaseConfigLoader;
         private DataBase _dataBase;
         private TableData _tableData;
-        private bool hasChanged = false;
         private bool initializeChanges = false;
 
         public FormBindSetting()
@@ -86,8 +85,8 @@ namespace Core.Forms.DateBase
             foreach (var linkedTable in tableData.LinkedTables)
             {
                 var lvi = new ListViewItem();
-                lvi.Text = linkedTable.Table.Name;
-                lvi.SubItems.Add(linkedTable.Field.Name);
+                lvi.Text = linkedTable.Table != null ? linkedTable.Table.Name : " - Пусто - ";
+                lvi.SubItems.Add(linkedTable.Field != null ? linkedTable.Field.Name : " - Пусто - ");
                 lvi.Tag = linkedTable;
 
                 lvDataList.Items.Add(lvi);
@@ -164,7 +163,7 @@ namespace Core.Forms.DateBase
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            DoCancel();
+            this.Close();
         }
 
         private void btnSaveApply_Click(object sender, EventArgs e)
@@ -182,7 +181,6 @@ namespace Core.Forms.DateBase
 
             var fieldData = cmbIDField.SelectedItem as FieldData;
             _tableData.Fields.ForEach(fd => fd.IsIdentifier = fd == fieldData);
-            hasChanged = true;
 
             RedrawFields(_tableData);
         }
@@ -193,7 +191,6 @@ namespace Core.Forms.DateBase
                 return;
 
             _tableData.IsClassifier = checkClassif.Checked;
-            hasChanged = true;
         }
 
         private void lvFields_KeyUp(object sender, KeyEventArgs e)
@@ -213,7 +210,6 @@ namespace Core.Forms.DateBase
                     field.Required = frmDialog.SelectedRequire;
                     field.BindData = frmDialog.SelectedBindField;
                     field.DisplayName = frmDialog.SelectedDisplayName;
-                    hasChanged = true;
 
                     RedrawFields(_tableData);
                 }
@@ -222,28 +218,16 @@ namespace Core.Forms.DateBase
 
         private void frmBindSetting_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing && hasChanged)
-            {
-                e.Cancel = DoCancel();
-            }
-        }
-
-        private bool DoCancel()
-        {
-            if (hasChanged)
+            if (e.CloseReason == CloseReason.UserClosing)
             {
                 if (MessageBox.Show("Вы уверены? Все несохраненные изменения будут утеряны.",
-                        "Предупреждение",
-                        MessageBoxButtons.OKCancel,
-                        MessageBoxIcon.Warning) == DialogResult.Cancel)
+                    "Предупреждение",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning) == DialogResult.No)
                 {
-                    return true;
+                    e.Cancel = true;
                 }
             }
-
-            hasChanged = false;
-            this.Close();
-            return false;
         }
 
         private void DoSave()
@@ -287,16 +271,13 @@ namespace Core.Forms.DateBase
                 }
             }
 
-            // SUCCESSFUL!!! Save it to *.conf file
+            // SUCCESSFUL!!! Save it to conf file
 
             if (dataBaseConfigLoader != null)
             {
                 dataBaseConfigLoader.Save(_dataBase);
                 MessageBox.Show("Конфигурация успешно сохранена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            hasChanged = false;
-            //this.Close();
         }
 
         private void lvDataList_KeyUp(object sender, KeyEventArgs e)
@@ -317,7 +298,6 @@ namespace Core.Forms.DateBase
                         {
                             linkedTable.Table = formDialogChange.SelectedTable;
                             linkedTable.Field = formDialogChange.SelectedField;
-                            hasChanged = true;
                         }
                     }
                     break;
@@ -332,7 +312,6 @@ namespace Core.Forms.DateBase
                                             MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                         {
                             _tableData.LinkedTables.Remove(linkedTable);
-                            hasChanged = true;
                         }
                     }
                     break;
@@ -347,7 +326,6 @@ namespace Core.Forms.DateBase
                         linkedTable.Field = formDialogNew.SelectedField;
 
                         _tableData.LinkedTables.Add(linkedTable);
-                        hasChanged = true;
                     }
                     break;
             }
@@ -362,7 +340,6 @@ namespace Core.Forms.DateBase
                 if (formDesign.ShowDialog() == DialogResult.OK)
                 {
                     _tableData.Form = formDesign.FormData;
-                    hasChanged = true;
                 }
             }
         }
@@ -408,9 +385,7 @@ namespace Core.Forms.DateBase
                     _dataBase.UserName = dialog.UserName;
                     _dataBase.Password = dialog.Password;
                     _dataBase.BaseName = dialog.BaseName;
-
-                    hasChanged = true;
-
+                    
                     LoadDBInfo();
                 }
             }
@@ -422,7 +397,6 @@ namespace Core.Forms.DateBase
                 return;
 
             _tableData.DisplayName = txtTableDisplayName.Text;
-            hasChanged = true;
         }
 
         private void checkVisible_CheckedChanged(object sender, EventArgs e)
@@ -431,7 +405,6 @@ namespace Core.Forms.DateBase
                 return;
 
             _tableData.Visible = checkVisible.Checked;
-            hasChanged = true;
         }
 
         private void btnFormRemove_Click(object sender, EventArgs e)
@@ -439,7 +412,6 @@ namespace Core.Forms.DateBase
             if (MessageBox.Show($"Удалить форму в таблице \"{_tableData.Name}\"?", "Подтверждение действия", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
             {
                 _tableData.Form = null;
-                hasChanged = true;
             }
         }
     }

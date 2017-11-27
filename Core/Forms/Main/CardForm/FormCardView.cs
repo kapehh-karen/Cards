@@ -34,9 +34,24 @@ namespace Core.Forms.Main.CardForm
 
                 if (table?.Form != null)
                 {
-                    this.Size = new Size(table.Form.Size.Width, table.Form.Size.Height);
-                    var clientSize = this.ClientSize;
-                    this.Height += 40;
+                    var screen = Screen.FromControl(this);
+                    var screenRect = screen.WorkingArea;
+                    var tableFormSize = table.Form.Size;
+                    Size clientSize;
+                    
+                    if (screenRect.Width < tableFormSize.Width || screenRect.Height < tableFormSize.Height)
+                    {
+                        this.WindowState = FormWindowState.Maximized;
+                        clientSize = this.ClientSize;
+                        clientSize.Height -= 40;
+                    }
+                    else
+                    {
+                        this.Size = new Size(tableFormSize.Width, tableFormSize.Height);
+                        clientSize = this.ClientSize;
+                        this.Height += 40;
+                    }
+
                     modelCardView1.Size = clientSize;
                     modelCardView1.Form = table.Form;
                 }
@@ -333,13 +348,7 @@ namespace Core.Forms.Main.CardForm
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (IsLinkedModel)
-            {
-                DialogResult = DialogResult.Cancel;
-                return;
-            }
-
-            this.Close();
+            DialogResult = DialogResult.Cancel;
         }
 
         private void UpdateUiText(object id)
@@ -354,6 +363,14 @@ namespace Core.Forms.Main.CardForm
         {
             if (e.KeyCode == Keys.Escape)
                 DialogResult = DialogResult.Cancel;
+        }
+
+        public new DialogResult ShowDialog()
+        {
+            if (modelCardView1.Form == null)
+                return DialogResult.Abort;
+
+            return base.ShowDialog();
         }
     }
 }

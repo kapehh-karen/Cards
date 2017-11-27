@@ -14,6 +14,7 @@ namespace Core.Forms.Design
         public CardTabPage()
         {
             AutoScroll = true;
+            AutoScrollMargin = new Size(5, 5);
         }
 
         public FormEmpty Form { get; set; }
