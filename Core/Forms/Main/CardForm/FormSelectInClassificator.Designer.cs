@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSelectInClassificator));
             this.tableDataGridView1 = new Core.Forms.Main.TableDataGridView();
             this.lblSelectedCell = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -120,21 +121,24 @@
             this.refreshToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.Size = new System.Drawing.Size(641, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // useNullToolStripMenuItem
             // 
+            this.useNullToolStripMenuItem.Image = global::Core.Properties.Resources.empty_set;
             this.useNullToolStripMenuItem.Name = "useNullToolStripMenuItem";
-            this.useNullToolStripMenuItem.Size = new System.Drawing.Size(190, 20);
+            this.useNullToolStripMenuItem.Size = new System.Drawing.Size(206, 20);
             this.useNullToolStripMenuItem.Text = "Использовать пустое значение";
             this.useNullToolStripMenuItem.Click += new System.EventHandler(this.useNullToolStripMenuItem_Click);
             // 
             // refreshToolStripMenuItem
             // 
+            this.refreshToolStripMenuItem.Image = global::Core.Properties.Resources.refresh;
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
             this.refreshToolStripMenuItem.Text = "Обновить";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -149,9 +153,9 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lblSelectedCell);
             this.Controls.Add(this.tableDataGridView1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "FormSelectInClassificator";
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор из классификатора";

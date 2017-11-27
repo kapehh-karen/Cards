@@ -58,16 +58,6 @@ namespace Core.Forms.Main
 
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            FillTable();
-        }
-
-        private void btnOpenForm_Click(object sender, EventArgs e)
-        {
-            PerformNew();
-        }
-
         private void tableDataGridView1_PressedKey(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -147,13 +137,23 @@ namespace Core.Forms.Main
 
             FillTable();
         }
+        
+        private void toolStripButtonRefresh_Click(object sender, EventArgs e)
+        {
+            FillTable();
+        }
 
-        private void btnChange_Click(object sender, EventArgs e)
+        private void toolStripButtonCreate_Click(object sender, EventArgs e)
+        {
+            PerformNew();
+        }
+
+        private void toolStripButtonChange_Click(object sender, EventArgs e)
         {
             PerformChange();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private void toolStripButtonDelete_Click(object sender, EventArgs e)
         {
             PerformDelete();
         }

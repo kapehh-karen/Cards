@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBindSetting));
             this.label1 = new System.Windows.Forms.Label();
             this.cmbBasesList = new System.Windows.Forms.ComboBox();
             this.gbDateBase = new System.Windows.Forms.GroupBox();
@@ -365,6 +366,7 @@
             this.Controls.Add(this.cmbBasesList);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormBindSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -82,9 +82,10 @@ namespace Core.Forms.Main
                     .ForEach(cell =>
                     {
                         var field = cell.OwningColumn.GetTag().Field;
-                        // Только простые типы присваиваем, за остальными пускай делают запрос к БД
                         if (field.Type != FieldType.BIND)
+                        {
                             model[field] = cell.Value;
+                        }
                     });
 
                 model.ResetStates();
