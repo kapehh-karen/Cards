@@ -26,6 +26,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             Properties.Add(new LinkedTableProperty(this));
             Properties.Add(new TabIndexProperty(this));
 
+            BorderStyle = BorderStyle.FixedSingle;
             BackgroundColor = Color.White;
             DefaultColor = BackgroundColor;
             MultiSelect = false;
@@ -34,7 +35,6 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             ReadOnly = true;
             StandardTab = true;
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            BorderStyle = BorderStyle.Fixed3D;
             ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         }
 

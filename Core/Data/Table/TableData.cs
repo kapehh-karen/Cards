@@ -67,6 +67,8 @@ namespace Core.Data.Table
         /// </summary>
         public DateTime LastUpdate { get; set; } = DateTime.MinValue;
 
+        public string FullDisplayName => $"{(IsClassifier ? "Классификатор" : "Таблица")} - {DisplayName}";
+
         public override string ToString()
         {
             return Name;

@@ -24,6 +24,7 @@ namespace Core.Data.Design.Controls.FieldControl
             Properties.Add(new TabIndexProperty(this));
 
             DefaultColor = BackColor;
+            BorderStyle = BorderStyle.FixedSingle;
         }
         
         public DesignControlType ControlType => DesignControlType.FIELD;

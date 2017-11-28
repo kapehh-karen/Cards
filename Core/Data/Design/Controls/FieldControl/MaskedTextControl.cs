@@ -25,6 +25,7 @@ namespace Core.Data.Design.Controls.FieldControl
 
             DefaultColor = BackColor;
             InsertKeyMode = InsertKeyMode.Overwrite;
+            BorderStyle = BorderStyle.FixedSingle;
         }
 
         public DesignControlType ControlType => DesignControlType.FIELD;

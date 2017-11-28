@@ -33,7 +33,7 @@ namespace Core.Forms.Main
             {
                 table = value;
                 tableDataGridView1.Table = table;
-                Text = $"Таблица - {table?.DisplayName}";
+                Text = table?.FullDisplayName;
             }
         }
 

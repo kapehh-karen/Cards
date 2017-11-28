@@ -356,7 +356,7 @@ namespace Core.Forms.Main.CardForm
             if (id != null)
                 txtID.Text = id.ToString();
 
-            this.Text = IsNew ? "Новая запись" : "Изменение";
+            this.Text = IsNew ? "Новая запись" : "Изменение записи";
         }
 
         private void FormCardView_KeyUp(object sender, KeyEventArgs e)

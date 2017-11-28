@@ -22,6 +22,7 @@ namespace Core.Data.Design.Controls.FieldControl
             Properties.Add(new FieldProperty(this) { AccessTypes = new FieldType[] { FieldType.BIND } });
             Properties.Add(new TabIndexProperty(this));
 
+            FlatStyle = FlatStyle.Popup;
             BackColor = Color.White;
             ForeColor = Color.Black;
             Cursor = Cursors.Hand;

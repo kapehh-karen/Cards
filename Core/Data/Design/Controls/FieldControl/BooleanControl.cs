@@ -22,6 +22,7 @@ namespace Core.Data.Design.Controls.FieldControl
             Properties.Add(new FieldProperty(this) { AccessTypes = new FieldType[] { FieldType.BOOLEAN } });
             Properties.Add(new TabIndexProperty(this));
 
+            FlatStyle = FlatStyle.Flat;
             AutoSize = true;
             DefaultColor = BackColor;
             CheckAlign = ContentAlignment.MiddleRight;

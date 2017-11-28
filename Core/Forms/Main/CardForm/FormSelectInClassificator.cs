@@ -18,6 +18,7 @@ namespace Core.Forms.Main.CardForm
     {
         private TableData table;
         private DataBase mainBase;
+        private FieldData parentField;
         private FieldData selectedField;
 
         public FormSelectInClassificator()
@@ -25,7 +26,15 @@ namespace Core.Forms.Main.CardForm
             InitializeComponent();
         }
 
-        public FieldData Field { get; set; }
+        public FieldData Field
+        {
+            get => parentField;
+            set
+            {
+                parentField = value;
+                tableDataGridView1.ParentField = parentField;
+            }
+        }
 
         public TableData Table
         {
@@ -34,7 +43,7 @@ namespace Core.Forms.Main.CardForm
             {
                 table = value;
                 tableDataGridView1.Table = table;
-                Text = $"Классификатор - {table?.DisplayName}";
+                Text = table?.FullDisplayName;
             }
         }
 
