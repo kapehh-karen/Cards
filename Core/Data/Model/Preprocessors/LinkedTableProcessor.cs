@@ -15,9 +15,9 @@ namespace Core.Data.Model.Preprocessors
 {
     public class LinkedTableProcessor : ILinkedTableProcessor
     {
+        private List<CardModel> displayedItems;
         private LinkedTableControl control;
         private DataTable data;
-        private FieldData fieldId;
 
         public override IDesignControl Control { get => control; set => control = value as LinkedTableControl; }
 
@@ -51,7 +51,8 @@ namespace Core.Data.Model.Preprocessors
                 data.Clear();
             }
 
-            ModelLinkedTable.Items.Where(item => item.LinkedState != ModelLinkedItemState.DELETED).ForEach(item =>
+            displayedItems = ModelLinkedTable.Items.Where(item => item.LinkedState != ModelLinkedItemState.DELETED).ToList();
+            displayedItems.ForEach(item =>
             {
                 var row = data.NewRow();
                 row[item.ID.Field.Name] = item.ID.Value ?? DBNull.Value;
@@ -86,7 +87,7 @@ namespace Core.Data.Model.Preprocessors
                 if (selectedIndex < 0)
                     return;
 
-                var model = ModelLinkedTable.Items[selectedIndex];
+                var model = displayedItems[selectedIndex];
                 if (model == null)
                     return;
 

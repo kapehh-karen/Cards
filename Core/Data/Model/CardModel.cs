@@ -22,18 +22,20 @@ namespace Core.Data.Model
 
         private ModelLinkedItemState linkedState = ModelLinkedItemState.UNKNOWN;
 
+        /// <summary>
+        /// Используется для записи-загрушки, записи без внешних данных
+        /// </summary>
+        public bool IsEmpty { get; set; } = true;
+
         public ModelFieldValue ID => FieldValues.FirstOrDefault(fv => fv.Field.IsIdentifier);
 
         public ModelValueState State =>
             FieldValues.Any(field => field.State != ModelValueState.UNCHANGED) ||
             LinkedValues.Any(link => link.State != ModelValueState.UNCHANGED)
             ? ModelValueState.CHANGED : ModelValueState.UNCHANGED;
-
-        /// <summary>
-        /// Используется для записи-загрушки, записи без внешних данных
-        /// </summary>
-        public bool IsEmpty { get; set; } = true;
-
+        
+        public bool IsNew => ID?.Value == null;
+        
         /// <summary>
         /// Используется когда CardModel является частью ModelLinkedValue, а не root-ом
         /// </summary>

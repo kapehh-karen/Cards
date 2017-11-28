@@ -71,9 +71,7 @@ namespace Core.Forms.Main.CardForm
                 modelCardView1.Base = mainBase;
             }
         }
-
-        public bool IsNew { get; private set; }
-
+        
         public bool IsLinkedModel
         {
             get => isLinkedModel;
@@ -85,97 +83,10 @@ namespace Core.Forms.Main.CardForm
         }
 
         public CardModel Model => modelCardView1.Model;
-
-        private void ModelFieldsFill(CardModel model, TableData tableModel, SqlDataReader reader)
-        {
-            tableModel.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValue(f, reader[f.Name]));
-        }
-
-        private void ModelBindDataFill(SqlConnection connection, CardModel model, TableData tableModel)
-        {
-            tableModel.Fields.Where(f => f.Type == FieldType.BIND).ForEach(f =>
-            {
-                var modelFieldValue = model.GetModelField(f);
-
-                if (modelFieldValue.Value != null)
-                {
-                    modelFieldValue.BindData = GetModelById(connection, modelFieldValue.Field.BindData.Table, modelFieldValue.Value, false, false);
-                }
-            });
-        }
         
-        private CardModel GetModelById(SqlConnection connection, TableData tableModel, object id, bool includeBindData = true, bool includeLinkedData = true)
-        {
-            if (id == null)
-                return null;
-
-            var model = CardModel.CreateFromTable(tableModel);
-            var fieldId = tableModel.IdentifierField;
-            var query = $"SELECT * FROM [{tableModel.Name}] WHERE [{fieldId.Name}] = @{fieldId.Name}";
-
-            using (var command = new SqlCommand(query, connection))
-            {
-                command.Parameters.Add(new SqlParameter(fieldId.Name, id));
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        ModelFieldsFill(model, tableModel, reader);
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Запись с идентификатором {id} в таблице {tableModel.Name} ({tableModel.DisplayName}) не найдена", "Ошибка результата");
-                        return null;
-                    }
-                }
-            }
-
-            // Получаем связанные значения
-            if (includeBindData)
-            {
-                ModelBindDataFill(connection, model, tableModel);
-            }
-
-            // Получаем внешние данные
-            if (includeLinkedData)
-            {
-                tableModel.LinkedTables.ForEach(lt =>
-                {
-                    var linkedItem = model.LinkedValues.Find(lv => lv.Table.Equals(lt));
-                    var queryLinkedItem = $"SELECT * FROM [{lt.Table.Name}] WHERE [{lt.Field.Name}] = @{lt.Field.Name}";
-
-                    using (var command = new SqlCommand(queryLinkedItem, connection))
-                    {
-                        command.Parameters.Add(new SqlParameter(lt.Field.Name, id));
-                        using (var reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                var innerModel = CardModel.CreateFromTable(lt.Table);
-                                
-                                ModelFieldsFill(innerModel, lt.Table, reader);
-
-                                linkedItem.Items.Add(innerModel);
-                            }
-                        }
-                    }
-
-                    linkedItem.Items.ForEach(innerModel => ModelBindDataFill(connection, innerModel, lt.Table));
-                });
-
-                // Так как получены внешние данные, то эта запись не заглушка
-                model.IsEmpty = false;
-            }
-
-            model.ResetStates();
-            return model;
-        }
-
         public void InitializeModel(object id = null)
         {
-            IsNew = id == null;
-
-            if (IsNew)
+            if (id == null)
             {
                 var model = CardModel.CreateFromTable(Table);
                 model.IsEmpty = false; // Для новой записи будем считать что она "Полная" а не "Пустая"
@@ -183,15 +94,10 @@ namespace Core.Forms.Main.CardForm
             }
             else
             {
-                using (var dbc = new SQLServerConnection(Base))
+                if (ModelHelper.Get(Base, Table, id, out var model))
                 {
-                    var model = GetModelById(dbc.Connection, Table, id);
-
-                    if (model != null)
-                    {
-                        modelCardView1.Model = model;
-                        UpdateUiText(id);
-                    }
+                    modelCardView1.Model = model;
+                    UpdateUiText(id);
                 }
             }
         }
@@ -218,83 +124,6 @@ namespace Core.Forms.Main.CardForm
         {
 
         }
-
-        private object SaveModel(SqlConnection connection, SqlTransaction transaction, TableData table, CardModel model)
-        {
-            if (model.LinkedState == ModelLinkedItemState.UNCHANGED)
-                return null;
-
-            var modelId = model.ID;
-            object id = modelId.OldValue; // Т.к. идентификатор меняемое значение, то берем "старое" значение
-            var fieldId = table.IdentifierField;
-            var changedFields = model.FieldValues.Where(fv => fv.State == ModelValueState.CHANGED).Select(fv => fv.Field).ToArray();
-            
-            switch (model.LinkedState)
-            {
-                case ModelLinkedItemState.ADDED:
-                    // Нельзя добавить совсем пустую запись
-                    if (changedFields.Length == 0)
-                    {
-                        NotificationMessage.SystemError("Нельзя добавить запись с пустыми полями.");
-                        return id;
-                    }
-
-                    var sqlFields = string.Join(", ", changedFields.Select(f => $"[{f.Name}]").ToArray());
-                    var sqlValues = string.Join(", ", changedFields.Select(f => $"@{f.Name}").ToArray());
-                    var sqlNewItem = $"INSERT INTO [{table.Name}]({sqlFields}) VALUES({sqlValues}); SELECT SCOPE_IDENTITY();";
-
-                    using (var command = new SqlCommand(sqlNewItem, connection, transaction))
-                    {
-                        changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f] ?? DBNull.Value));
-                        id = command.ExecuteScalar();
-                        // Если небыло возвращено идентификатора, то он должен быть уже в modelId.Value
-                        if (id != DBNull.Value)
-                            modelId.Value = id;
-                    }
-                    break;
-
-                case ModelLinkedItemState.CHANGED:
-                    // Если нечего изменять - пропускаем
-                    if (changedFields.Length == 0)
-                        break;
-
-                    var sqlSet = string.Join(", ", changedFields.Select(f => $"[{f.Name}] = @value_{f.Name}").ToArray());
-                    var sqlUpdateItem = $"UPDATE [{table.Name}] SET {sqlSet} WHERE [{fieldId.Name}] = @id_{fieldId.Name};";
-
-                    using (var command = new SqlCommand(sqlUpdateItem, connection, transaction))
-                    {
-                        command.Parameters.AddWithValue($"@id_{fieldId.Name}", id);
-                        changedFields.ForEach(f => command.Parameters.AddWithValue($"@value_{f.Name}", model[f] ?? DBNull.Value));
-                        command.ExecuteNonQuery();
-                    }
-                    break;
-
-                case ModelLinkedItemState.DELETED:
-                    // Если запись не создана, то её нет смысла удалять
-                    if (id == null)
-                        break;
-
-                    var sqlDeleteItem = $"DELETE FROM [{table.Name}] WHERE [{fieldId.Name}] = @{fieldId.Name};";
-
-                    using (var command = new SqlCommand(sqlDeleteItem, connection, transaction))
-                    {
-                        command.Parameters.AddWithValue(fieldId.Name, id);
-                        command.ExecuteNonQuery();
-                    }
-                    break;
-            }
-            
-            model.LinkedValues.ForEach(linkedValue =>
-            {
-                linkedValue.Items.ForEach(item =>
-                {
-                    item[linkedValue.Table.Field] = modelId.Value;
-                    SaveModel(connection, transaction, linkedValue.Table.Table, item);
-                });
-            });
-
-            return modelId.Value;
-        }
         
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -306,44 +135,17 @@ namespace Core.Forms.Main.CardForm
                 DialogResult = DialogResult.OK;
                 return;
             }
-
-            var model = modelCardView1.Model;
-            if (model.LinkedState == ModelLinkedItemState.UNCHANGED)
+            
+            if (Model.LinkedState == ModelLinkedItemState.UNCHANGED)
             {
                 NotificationMessage.Info("Изменений нет. Сохранение не требуется.");
                 return;
             }
-            
-            object id = null;
-            
-            // Make SQL request
-            using (var dbc = new SQLServerConnection(Base))
+
+            if (ModelHelper.Save(Base, Table, Model))
             {
-                var connection = dbc.Connection;
-                var transaction = connection.BeginTransaction();
-
-                try
-                {
-                    model.LinkedState = IsNew ? ModelLinkedItemState.ADDED : ModelLinkedItemState.CHANGED;
-                    id = SaveModel(connection, transaction, Table, model);
-                    
-                    transaction.Commit();
-                    
-                    model.ResetStates();
-                    IsNew = false;
-
-                    NotificationMessage.Info("Сохранено!");
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    NotificationMessage.Error($"Ошибка при сохранении:\r\n\r\n{ex.Message}\r\n\r\n{ex.StackTrace}");
-                }
-
-                transaction.Dispose();
+                UpdateUiText(Model.ID.Value);
             }
-
-            UpdateUiText(id);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -356,7 +158,7 @@ namespace Core.Forms.Main.CardForm
             if (id != null)
                 txtID.Text = id.ToString();
 
-            this.Text = IsNew ? "Новая запись" : "Изменение записи";
+            this.Text = Model.IsNew ? "Новая запись" : "Изменение записи";
         }
 
         private void FormCardView_KeyUp(object sender, KeyEventArgs e)
