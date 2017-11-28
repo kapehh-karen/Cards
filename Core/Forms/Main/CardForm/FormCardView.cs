@@ -95,7 +95,7 @@ namespace Core.Forms.Main.CardForm
         {
             tableModel.Fields.Where(f => f.Type == FieldType.BIND).ForEach(f =>
             {
-                var modelFieldValue = model.FieldValues.First(fv => fv.Field.Equals(f));
+                var modelFieldValue = model.GetModelField(f);
 
                 if (modelFieldValue.Value != null)
                 {

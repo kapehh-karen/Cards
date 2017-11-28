@@ -102,6 +102,9 @@ namespace Core.Data.Model
             LinkedState = ModelLinkedItemState.UNKNOWN;
         }
 
+        /// <summary>
+        /// Рекурсивно помечает запись (и её внешние данные, если имеются) как DELETED
+        /// </summary>
         public void CheckDeleteFull()
         {
             LinkedState = ModelLinkedItemState.DELETED;

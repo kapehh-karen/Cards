@@ -76,7 +76,7 @@ namespace Core.Forms.Main
                 if (proc != null)
                 {
                     proc.Base = Base;
-                    proc.ModelField = Model.FieldValues.FirstOrDefault(fv => fv.Field == proc.Field);
+                    proc.ModelField = Model.GetModelField(proc.Field);
                     fieldProcessors.Add(proc);
                 }
             });

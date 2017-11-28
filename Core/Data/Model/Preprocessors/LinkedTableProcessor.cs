@@ -39,9 +39,7 @@ namespace Core.Data.Model.Preprocessors
         {
             if (ModelLinkedTable == null)
                 return;
-
-            fieldId = ModelLinkedTable.Table.Table.IdentifierField;
-
+            
             if (data == null)
             {
                 data = new DataTable();
@@ -130,7 +128,6 @@ namespace Core.Data.Model.Preprocessors
                         var newModel = dialog.Model;
                         ModelLinkedTable.Items.Add(newModel);
                         newModel.LinkedState = ModelLinkedItemState.ADDED;
-                        //newModel[ModelLinkedTable.Table.Field] = ParentModel.ID.Value;
                         Load();
                     }
                 }
