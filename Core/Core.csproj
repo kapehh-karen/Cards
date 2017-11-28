@@ -270,6 +270,7 @@
     <Compile Include="Helper\FieldHelper.cs" />
     <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\IterableHelper.cs" />
+    <Compile Include="Helper\ModelHelper.cs" />
     <Compile Include="Helper\SqlModelHelper.cs" />
     <Compile Include="Helper\TableTagHelper.cs" />
     <Compile Include="Helper\TextHelper.cs" />

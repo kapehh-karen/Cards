@@ -120,28 +120,10 @@ namespace Core.Forms.Main
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                 return;
 
-            // Make SQL request
-            using (var dbc = new SQLServerConnection(Base))
+            if (ModelHelper.Delete(Base, Table, selectedID))
             {
-                var connection = dbc.Connection;
-                var transaction = connection.BeginTransaction();
-
-                try
-                {
-                    SqlModelHelper.DeleteFull(connection, transaction, Table, selectedID);
-                    transaction.Commit();
-                    NotificationMessage.Info("Удалено!");
-                }
-                catch (SqlException ex)
-                {
-                    transaction.Rollback();
-                    NotificationMessage.Error($"Ошибка при удалении:\r\n\r\n{ex.Message}");
-                }
-
-                transaction.Dispose();
+                FillTable();
             }
-
-            FillTable();
         }
         
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)

@@ -104,18 +104,25 @@ namespace Core.Forms.Main
             if (TableStorageInformation.HasFields)
                 return;
 
-            TableStorageInformation.Fields.Add(FieldID); // ID
+            // Обязательно добавляем ID, т.к. он может быть скрыт, но нам он нужен
+            TableStorageInformation.Fields.Add(FieldID);
 
             if (ParentField?.Type == FieldType.BIND)
             {
-                // Только отображаемое поле
-                TableStorageInformation.Fields.Add(ParentField.BindData.Field);
+                var displayField = ParentField.BindData?.Field; // Отображаемое поле
+
+                // Если отображаемое поле и есть ID, то надо показать что-то ещё
+                // А что именно - хз, по этому идем по альтернативному пути
+                if (displayField != null && displayField != FieldID)
+                {
+                    // Только отображаемое поле
+                    TableStorageInformation.Fields.Add(ParentField.BindData.Field);
+                    return;
+                }
             }
-            else
-            {
-                // Все видимые поля (кроме ID, его добавили уже)
-                Table.Fields.Where(f => f.Visible && !f.IsIdentifier).ForEach(TableStorageInformation.Fields.Add);
-            }
+
+            // Все видимые поля (кроме ID, его добавили уже)
+            Table.Fields.Where(f => f.Visible && !f.IsIdentifier).Take(5).ForEach(TableStorageInformation.Fields.Add);
         }
 
         public void FillTable(bool forceUpdate = false)
