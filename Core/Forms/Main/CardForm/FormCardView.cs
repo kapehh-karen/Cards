@@ -41,9 +41,16 @@ namespace Core.Forms.Main.CardForm
                     
                     if (screenRect.Width < tableFormSize.Width || screenRect.Height < tableFormSize.Height)
                     {
-                        this.WindowState = FormWindowState.Maximized;
+                        var minWidth = Math.Min(screenRect.Width, tableFormSize.Width);
+                        var minHeight = Math.Min(screenRect.Height, tableFormSize.Height);
+                        
+                        this.Size = new Size(minWidth, minHeight);
                         clientSize = this.ClientSize;
-                        clientSize.Height -= 40;
+
+                        if (minHeight + 40 > screenRect.Height)
+                            clientSize.Height -= 40;
+                        else
+                            this.Height += 40;
                     }
                     else
                     {

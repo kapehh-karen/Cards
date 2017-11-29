@@ -36,6 +36,17 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             StandardTab = true;
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            // STYLE
+
+            // Set the selection background color for all the cells.
+            this.DefaultCellStyle.SelectionBackColor = Color.DarkGray;
+            this.DefaultCellStyle.SelectionForeColor = Color.White;
+
+            // Set the background color for all rows and for alternating rows. 
+            // The value for alternating rows overrides the value for all rows. 
+            this.RowsDefaultCellStyle.BackColor = Color.White;
+            this.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
         }
 
         // Override for red color in FormDesigner

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -30,6 +31,17 @@ namespace Core.Forms.Main
             BackgroundColor = System.Drawing.Color.White;
             MultiSelect = false;
             BorderStyle = BorderStyle.Fixed3D;
+
+            // STYLE
+
+            // Set the selection background color for all the cells.
+            this.DefaultCellStyle.SelectionBackColor = Color.DarkGray;
+            this.DefaultCellStyle.SelectionForeColor = Color.White;
+            
+            // Set the background color for all rows and for alternating rows. 
+            // The value for alternating rows overrides the value for all rows. 
+            this.RowsDefaultCellStyle.BackColor = Color.White;
+            this.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
         }
         
         public FieldData ParentField { get; set; }

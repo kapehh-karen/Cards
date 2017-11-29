@@ -26,13 +26,20 @@ namespace Core.Data.Model.Preprocessors
             base.Attach();
 
             if (control != null)
+            {
                 control.PressedKey += Control_KeyDown;
+                control.DataBindingComplete += Control_DataBindingComplete;
+            }
         }
+
 
         public override void Detach()
         {
             if (control != null)
+            {
                 control.PressedKey -= Control_KeyDown;
+                control.DataBindingComplete -= Control_DataBindingComplete;
+            }
         }
 
         public override void Load()
@@ -133,6 +140,11 @@ namespace Core.Data.Model.Preprocessors
                     }
                 }
             }
+        }
+        
+        private void Control_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            control.ClearSelection();
         }
     }
 }
