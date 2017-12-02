@@ -8,11 +8,12 @@ using Core.Data.Table;
 using Core.Forms.Design;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Core.Forms.Main
+namespace Core.Forms.Main.CardForm
 {
     public class ModelCardView : TabControl
     {
@@ -112,15 +113,15 @@ namespace Core.Forms.Main
 
             var pages = formData.Pages.Select(page =>
             {
-                var cardTabPage = new CardTabPage() { Text = page.Title };
-                cardTabPage.DesignControls = page.Controls.Select(cdata => MapDataToDesignControl(cdata, cardTabPage)).ToList();
-                return cardTabPage;
+                var tabPage = new ModelTabPage() { Text = page.Title };
+                tabPage.DesignControls = page.Controls.Select(cdata => CreateDesignControl(cdata, tabPage)).ToList();
+                return tabPage;
             }).ToArray();
 
             this.TabPages.AddRange(pages);
         }
 
-        private IDesignControl MapDataToDesignControl(ControlData control, Control parent)
+        private IDesignControl CreateDesignControl(ControlData control, Control parent)
         {
             var type = Type.GetType(control.FullClassName);
             var element = Activator.CreateInstance(type) as IDesignControl;
@@ -133,7 +134,7 @@ namespace Core.Forms.Main
                 if (p != null)
                     property.Value = p.Value;
             });
-            element.DesignControls = control.Chields.Select(cdata => MapDataToDesignControl(cdata, element as Control)).ToList();
+            element.DesignControls = control.Chields.Select(cdata => CreateDesignControl(cdata, element as Control)).ToList();
             
             switch (element.ControlType)
             {

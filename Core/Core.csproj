@@ -252,7 +252,10 @@
     <Compile Include="Forms\Main\FormTableView.Designer.cs">
       <DependentUpon>FormTableView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Main\ModelCardView.cs">
+    <Compile Include="Forms\Main\CardForm\ModelCardView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\CardForm\ModelTabPage.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\Main\TableColumnTag.cs" />

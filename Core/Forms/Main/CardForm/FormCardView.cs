@@ -157,6 +157,17 @@ namespace Core.Forms.Main.CardForm
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            if (Model.LinkedState != ModelLinkedItemState.UNCHANGED)
+            {
+                if (MessageBox.Show("Вы уверены? Все несохраненные изменения будут утеряны.",
+                    "Предупреждение",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+
             DialogResult = DialogResult.Cancel;
         }
 
