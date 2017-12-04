@@ -47,5 +47,28 @@ namespace Core.Helper
             }
             return null;
         }
+
+        public static string GetTextFieldType(this FieldType fieldType)
+        {
+            switch (fieldType)
+            {
+                case FieldType.BIND:
+                    return "Связанное";
+                case FieldType.BOOLEAN:
+                    return "Логическое";
+                case FieldType.DATE:
+                    return "Дата";
+                case FieldType.NUMBER:
+                    return "Числовое";
+                case FieldType.TEXT:
+                    return "Текстовое";
+            }
+            return fieldType.ToString();
+        }
+
+        public static IEnumerable<FieldType> GetFieldTypes()
+        {
+            return EnumHelper.GetValues<FieldType>();
+        }
     }
 }

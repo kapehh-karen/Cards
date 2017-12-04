@@ -13,7 +13,7 @@ namespace Core.Data.Model
             ? ModelValueState.CHANGED
             : ModelValueState.UNCHANGED;
 
-        public LinkedTable Table { get; set; } = null;
+        public LinkedTable LinkedTable { get; set; } = null;
 
         public List<CardModel> Items { get; set; } = new List<CardModel>();
 
@@ -21,7 +21,7 @@ namespace Core.Data.Model
         {
             var value = new ModelLinkedValue()
             {
-                Table = Table
+                LinkedTable = LinkedTable
             };
 
             Items.ForEach(value.Items.Add);

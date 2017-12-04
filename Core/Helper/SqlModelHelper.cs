@@ -120,8 +120,8 @@ namespace Core.Helper
                 linkedValue.Items.ForEach(item =>
                 {
                     // В Foreign Key записываем значение ID (если менялось, тоже учитывается, в Value будет новый ID)
-                    item[linkedValue.Table.Field] = modelId.Value;
-                    Save(connection, transaction, linkedValue.Table.Table, item);
+                    item[linkedValue.LinkedTable.Field] = modelId.Value;
+                    Save(connection, transaction, linkedValue.LinkedTable.Table, item);
                 });
             });
 
@@ -186,7 +186,7 @@ namespace Core.Helper
             {
                 tableModel.LinkedTables.ForEach(lt =>
                 {
-                    var linkedItem = model.LinkedValues.Find(lv => lv.Table.Equals(lt));
+                    var linkedItem = model.LinkedValues.Find(lv => lv.LinkedTable.Equals(lt));
                     var queryLinkedItem = $"SELECT * FROM [{lt.Table.Name}] WHERE [{lt.Field.Name}] = @{lt.Field.Name}";
 
                     using (var command = new SqlCommand(queryLinkedItem, connection))

@@ -50,7 +50,7 @@ namespace Core.Data.Model.Preprocessors
             if (data == null)
             {
                 data = new DataTable();
-                ModelLinkedTable.Table.Table.Fields.ForEach(f => data.Columns.Add(f.Name, FieldHelper.GetTypeFromField(f)));
+                ModelLinkedTable.LinkedTable.Table.Fields.ForEach(f => data.Columns.Add(f.Name, FieldHelper.GetTypeFromField(f)));
                 control.DataSource = data;
             }
             else
@@ -69,7 +69,7 @@ namespace Core.Data.Model.Preprocessors
 
             data.AcceptChanges();
 
-            ModelLinkedTable.Table.Table.Fields.ForEach(field =>
+            ModelLinkedTable.LinkedTable.Table.Fields.ForEach(field =>
             {
                 // Renaming columns header
                 var column = control.Columns[field.Name];
@@ -101,7 +101,7 @@ namespace Core.Data.Model.Preprocessors
                 switch (e.KeyCode)
                 {
                     case Keys.Enter:
-                        using (var dialog = new FormCardView() { Table = ModelLinkedTable.Table.Table, Base = Base, IsLinkedModel = true })
+                        using (var dialog = new FormCardView() { Table = ModelLinkedTable.LinkedTable.Table, Base = Base, IsLinkedModel = true })
                         {
                             dialog.InitializeModel(model);
 
@@ -127,7 +127,7 @@ namespace Core.Data.Model.Preprocessors
             }
             else if (e.KeyCode == Keys.Insert)
             {
-                using (var dialog = new FormCardView() { Table = ModelLinkedTable.Table.Table, Base = Base, IsLinkedModel = true })
+                using (var dialog = new FormCardView() { Table = ModelLinkedTable.LinkedTable.Table, Base = Base, IsLinkedModel = true })
                 {
                     dialog.InitializeModel();
 

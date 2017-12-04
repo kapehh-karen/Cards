@@ -83,7 +83,7 @@ namespace Core.Forms.Main.CardForm
                 if (proc != null)
                 {
                     proc.Base = Base;
-                    proc.ModelLinkedTable = Model.LinkedValues.FirstOrDefault(lv => lv.Table == proc.Table);
+                    proc.ModelLinkedTable = Model.LinkedValues.FirstOrDefault(lv => lv.LinkedTable == proc.LinkedTable);
                     proc.ParentModel = model;
                     proc.Attach();
                     linkedTableProcessors.Add(proc);

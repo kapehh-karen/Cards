@@ -55,7 +55,7 @@ namespace Core.Data.Model.Preprocessors
             if (linkedTable is null)
                 return null;
 
-            return new LinkedTableProcessor() { Table = linkedTable, Control = control };
+            return new LinkedTableProcessor() { LinkedTable = linkedTable, Control = control };
         }
     }
 }

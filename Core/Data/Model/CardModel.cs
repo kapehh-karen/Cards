@@ -14,7 +14,7 @@ namespace Core.Data.Model
         {
             var model = new CardModel();
             model.FieldValues.AddRange(table.Fields.Select(f => new ModelFieldValue() { Field = f }));
-            model.LinkedValues.AddRange(table.LinkedTables.Select(l => new ModelLinkedValue() { Table = l }));
+            model.LinkedValues.AddRange(table.LinkedTables.Select(l => new ModelLinkedValue() { LinkedTable = l }));
             return model;
         }
 

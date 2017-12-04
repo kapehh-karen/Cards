@@ -95,13 +95,9 @@ namespace Core.Forms.DateBase
             chkRequire.Checked = Field.Required;
             txtDisplayName.Text = Field.DisplayName;
 
-            ComboBoxItem[] types = new ComboBoxItem[] {
-                new ComboBoxItem() { ItemType = FieldType.TEXT, ItemText = FieldType.TEXT.GetTextFieldType() },
-                new ComboBoxItem() { ItemType = FieldType.NUMBER, ItemText = FieldType.NUMBER.GetTextFieldType() },
-                new ComboBoxItem() { ItemType = FieldType.BOOLEAN, ItemText = FieldType.BOOLEAN.GetTextFieldType() },
-                new ComboBoxItem() { ItemType = FieldType.DATE, ItemText = FieldType.DATE.GetTextFieldType() },
-                new ComboBoxItem() { ItemType = FieldType.BIND, ItemText = FieldType.BIND.GetTextFieldType() }
-            };
+            ComboBoxItem[] types = FieldHelper.GetFieldTypes()
+                .Select(t => new ComboBoxItem() { ItemType = t, ItemText = t.GetTextFieldType() })
+                .ToArray();
             cmbFieldType.Items.AddRange(types);
             cmbFieldType.SelectedItem = types.FirstOrDefault(t => t.ItemType == Field.Type);
 

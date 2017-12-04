@@ -12,7 +12,7 @@ namespace Core.Data.Model.Preprocessors
     {
         public DataBase Base { get; set; }
 
-        public LinkedTable Table { get; set; }
+        public LinkedTable LinkedTable { get; set; }
 
         public CardModel ParentModel { get; set; }
 

@@ -134,6 +134,10 @@
     <Compile Include="Data\Model\Preprocessors\TextProcessor.cs" />
     <Compile Include="Data\Table\LinkedTable.cs" />
     <Compile Include="Data\Table\TableData.cs" />
+    <Compile Include="Filter\ConfigData\FilterTableData.cs" />
+    <Compile Include="Filter\Data\IFilterOperand.cs" />
+    <Compile Include="Filter\Data\FilterOperator.cs" />
+    <Compile Include="Filter\Data\FilterTable.cs" />
     <Compile Include="Forms\DateBase\FormBindSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -270,13 +274,13 @@
       <DependentUpon>Button.cs</DependentUpon>
     </Compile>
     <Compile Include="Helper\DesignControlHelper.cs" />
+    <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\FieldHelper.cs" />
     <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\IterableHelper.cs" />
     <Compile Include="Helper\ModelHelper.cs" />
     <Compile Include="Helper\SqlModelHelper.cs" />
     <Compile Include="Helper\TableTagHelper.cs" />
-    <Compile Include="Helper\TextHelper.cs" />
     <Compile Include="Helper\WaitDialog.cs" />
     <Compile Include="Network\CoreClient.cs" />
     <Compile Include="Network\CoreServer.cs" />
@@ -378,5 +382,6 @@
   <ItemGroup>
     <None Include="Resources\office-material.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
