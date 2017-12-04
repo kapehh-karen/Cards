@@ -135,9 +135,13 @@
     <Compile Include="Data\Table\LinkedTable.cs" />
     <Compile Include="Data\Table\TableData.cs" />
     <Compile Include="Filter\ConfigData\FilterTableData.cs" />
-    <Compile Include="Filter\Data\IFilterOperand.cs" />
-    <Compile Include="Filter\Data\FilterOperator.cs" />
+    <Compile Include="Filter\Data\Operand\FieldOperand.cs" />
+    <Compile Include="Filter\Data\Operand\IFilterOperand.cs" />
+    <Compile Include="Filter\Data\Operator\IFilterOperator.cs" />
     <Compile Include="Filter\Data\FilterTable.cs" />
+    <Compile Include="Filter\Data\Operand\OperandType.cs" />
+    <Compile Include="Filter\Data\Operand\ValueOperand.cs" />
+    <Compile Include="Filter\Data\Operator\OperatorType.cs" />
     <Compile Include="Forms\DateBase\FormBindSetting.cs">
       <SubType>Form</SubType>
     </Compile>

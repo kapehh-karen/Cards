@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Core.Filter.Data
+namespace Core.Filter.Data.Operand
 {
     public abstract class IFilterOperand
     {
-
+        public abstract OperandType Type { get; }
     }
 }

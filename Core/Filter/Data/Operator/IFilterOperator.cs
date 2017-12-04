@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Core.Filter.Data
+namespace Core.Filter.Data.Operator
 {
-    public class FilterOperator
+    public abstract class IFilterOperator
     {
+
     }
 }
