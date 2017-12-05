@@ -34,7 +34,8 @@ namespace Core.Data.Model
             LinkedValues.Any(link => link.State != ModelValueState.UNCHANGED)
             ? ModelValueState.CHANGED : ModelValueState.UNCHANGED;
         
-        public bool IsNew => ID?.Value == null;
+        // Если предыдущее значение ID равно NULL
+        public bool IsNew => ID?.OldValue == null;
         
         /// <summary>
         /// Используется когда CardModel является частью ModelLinkedValue, а не root-ом
