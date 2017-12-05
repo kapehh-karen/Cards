@@ -18,6 +18,6 @@ namespace Core.Filter.Data.Operand
         /// <summary>
         /// Поле
         /// </summary>
-        public FieldData Field { get; set; }
+        public FilterField FilterField { get; set; }
     }
 }

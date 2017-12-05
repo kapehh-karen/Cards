@@ -134,7 +134,14 @@
     <Compile Include="Data\Model\Preprocessors\TextProcessor.cs" />
     <Compile Include="Data\Table\LinkedTable.cs" />
     <Compile Include="Data\Table\TableData.cs" />
-    <Compile Include="Filter\ConfigData\FilterTableData.cs" />
+    <Compile Include="Filter\Config\FieldDataSurrogate.cs" />
+    <Compile Include="Filter\Config\FilterSurrogate.cs" />
+    <Compile Include="Filter\Config\TableDataSurrogate.cs" />
+    <Compile Include="Filter\Data\Condition\ConditionOperator.cs" />
+    <Compile Include="Filter\Data\Condition\ContainerCondition.cs" />
+    <Compile Include="Filter\Data\Condition\ICondition.cs" />
+    <Compile Include="Filter\Data\Condition\ItemCondition.cs" />
+    <Compile Include="Filter\Data\FilterField.cs" />
     <Compile Include="Filter\Data\Operand\FieldOperand.cs" />
     <Compile Include="Filter\Data\Operand\IFilterOperand.cs" />
     <Compile Include="Filter\Data\Operator\IFilterOperator.cs" />

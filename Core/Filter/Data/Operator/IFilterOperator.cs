@@ -7,6 +7,6 @@ namespace Core.Filter.Data.Operator
 {
     public abstract class IFilterOperator
     {
-
+        public abstract OperatorType Type { get; }
     }
 }

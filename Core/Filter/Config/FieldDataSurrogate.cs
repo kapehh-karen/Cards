@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Core.Filter.ConfigData
+namespace Core.Filter.Config
 {
-    public class FilterTableData
+    public class FieldDataSurrogate
     {
+        public string FieldName { get; set; }
+
         public string TableName { get; set; }
-        
-        public string TableAliasName { get; set; }
     }
 }

@@ -8,6 +8,10 @@ using System.Text;
 using System.Windows.Forms;
 using System.Runtime.Serialization;
 using System.IO;
+using Core.Data.Field;
+using Core.Data.Table;
+using Core.Config;
+using Core.Filter.Config;
 
 namespace TestApp
 {
@@ -18,54 +22,31 @@ namespace TestApp
             InitializeComponent();
         }
 
-        public enum Genre
-        {
-            Male,
-            Female
-        }
-
-        [DataContract(IsReference = true)]
-        public class PERSON
+        [DataContract]
+        public class Testik
         {
             [DataMember]
-            public string Name { get; set; }
+            public FieldData Field { get; set; }
+
             [DataMember]
-            public Genre Genre { get; set; }
-
-            public List<PERSON> Parents { get; set; }
-            public List<PERSON> Children { get; set; }
-
-            public PERSON(string name, Genre genre)
-            {
-                this.Name = name;
-                this.Genre = genre;
-                Parents = new List<PERSON>();
-                Children = new List<PERSON>();
-            }
+            public TableData Table { get; set; }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var myFamily = new List<PERSON>();
-            var k = new PERSON("Obshee", Genre.Female);
-            var a = new PERSON("Femma", Genre.Female);
-            var b = new PERSON("Malli", Genre.Male);
-            a.Children.Add(b);
-            b.Children.Add(k);
-            k.Children.Add(a);
-            myFamily.Add(a);
-
-            var serializer = new DataContractSerializer(myFamily.GetType());
-
-            using (FileStream stream = File.Create(@"test.xml"))
+            var t = new Testik()
             {
-                serializer.WriteObject(stream, myFamily);
-            }
+                Field = new FieldData() { Name = "xex" },
+                Table = new TableData() { Name = "kek" }
+            };
+            var config = new Configuration<Testik>(new FilterSurrogate());
+            config.WriteToFile(t, "testik.xml");
+        }
 
-            using (FileStream stream = File.OpenRead(@"test.xml"))
-            {
-                List<PERSON> data = (List<PERSON>)serializer.ReadObject(stream);
-            }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var config = new Configuration<Testik>(new FilterSurrogate());
+            var t = config.ReadFromFile("testik.xml");
         }
     }
 }

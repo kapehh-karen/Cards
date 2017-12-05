@@ -8,7 +8,7 @@ namespace Core.Filter.Data.Operand
 {
     public class ValueOperand : IFilterOperand
     {
-        public override OperandType Type => OperandType.FIELD;
+        public override OperandType Type => OperandType.VALUE;
 
         /// <summary>
         /// Тип значения, используется в окне изменения значения в фильтрах

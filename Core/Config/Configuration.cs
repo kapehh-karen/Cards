@@ -11,8 +11,18 @@ namespace Core.Config
 {
     public class Configuration<T>
     {
-        private DataContractSerializer serializer = new DataContractSerializer(typeof(T));
+        private DataContractSerializer serializer;
         private XmlWriterSettings settings = new XmlWriterSettings { Indent = true };
+
+        public Configuration()
+        {
+            serializer = new DataContractSerializer(typeof(T));
+        }
+
+        public Configuration(IDataContractSurrogate surrogate)
+        {
+            serializer = new DataContractSerializer(typeof(T), new List<Type>(), int.MaxValue, false, true, surrogate);
+        }
 
         public void WriteToFile(T obj, string filename)
         {
@@ -32,7 +42,7 @@ namespace Core.Config
                 }
                 catch (Exception e)
                 {
-                    NotificationMessage.Error($"Произошла ошибка при считывании конфигурации {typeof(T).Name}: {e.Message}", e);
+                    NotificationMessage.Error($"Произошла ошибка при считывании {typeof(T).Name}: {e.Message}", e);
                 }
                 return default(T);
             }
