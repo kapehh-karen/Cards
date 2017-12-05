@@ -187,7 +187,7 @@ namespace Core.Forms.Main.CardForm
 
         public new DialogResult ShowDialog()
         {
-            if (modelCardView1.Form == null)
+            if (modelCardView1.Form == null || Model == null)
                 return DialogResult.Abort;
 
             return base.ShowDialog();

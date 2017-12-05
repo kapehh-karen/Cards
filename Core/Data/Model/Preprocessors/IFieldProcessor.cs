@@ -27,7 +27,8 @@ namespace Core.Data.Model.Preprocessors
         
         public bool CheckRequired()
         {
-            return !Field.Required || Value != null;
+            // Если поле идентификатор, или обязательное, тогда оно должно быть обязательно заполнено
+            return (!Field.IsIdentifier && !Field.Required) || Value != null;
         }
 
         /// <summary>

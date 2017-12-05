@@ -169,7 +169,7 @@ namespace Core.Helper
                     }
                     else
                     {
-                        NotificationMessage.SystemError($"Запись с идентификатором {id} в таблице {tableModel.Name} ({tableModel.DisplayName}) не найдена", "Ошибка результата");
+                        NotificationMessage.SystemError($"Запись с идентификатором \"{id}\" в таблице \"{tableModel.Name}\" ({tableModel.DisplayName}) не найдена", "Ошибка результата");
                         return null;
                     }
                 }
