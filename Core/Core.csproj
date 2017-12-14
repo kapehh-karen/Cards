@@ -142,12 +142,12 @@
     <Compile Include="Filter\Data\Condition\ICondition.cs" />
     <Compile Include="Filter\Data\Condition\ItemCondition.cs" />
     <Compile Include="Filter\Data\FilterField.cs" />
-    <Compile Include="Filter\Data\Operand\FieldOperand.cs" />
+    <Compile Include="Filter\Data\Operand\Impl\FieldOperand.cs" />
     <Compile Include="Filter\Data\Operand\IFilterOperand.cs" />
     <Compile Include="Filter\Data\Operator\IFilterOperator.cs" />
     <Compile Include="Filter\Data\FilterTable.cs" />
     <Compile Include="Filter\Data\Operand\OperandType.cs" />
-    <Compile Include="Filter\Data\Operand\ValueOperand.cs" />
+    <Compile Include="Filter\Data\Operand\Impl\ValueOperand.cs" />
     <Compile Include="Filter\Data\Operator\OperatorType.cs" />
     <Compile Include="Forms\DateBase\FormBindSetting.cs">
       <SubType>Form</SubType>
@@ -278,12 +278,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\Main\TableRowTag.cs" />
-    <Compile Include="GUI\Control\Button.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GUI\Control\Button.Designer.cs">
-      <DependentUpon>Button.cs</DependentUpon>
-    </Compile>
     <Compile Include="Helper\DesignControlHelper.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\FieldHelper.cs" />
@@ -366,9 +360,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main\FormTableView.resx">
       <DependentUpon>FormTableView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GUI\Control\Button.resx">
-      <DependentUpon>Button.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

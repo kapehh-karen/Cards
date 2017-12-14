@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Core.Filter.Data.Operand
+namespace Core.Filter.Data.Operand.Impl
 {
     public class FieldOperand : IFilterOperand
     {
