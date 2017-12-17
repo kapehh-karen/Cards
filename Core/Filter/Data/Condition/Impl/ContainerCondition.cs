@@ -7,6 +7,8 @@ namespace Core.Filter.Data.Condition.Impl
 {
     public class ContainerCondition : ICondition
     {
+        // TODO: Обрамлять скобками () только когда кондишионов более одного
+
         /// <summary>
         /// Отрицание всего выражения
         /// </summary>

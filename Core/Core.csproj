@@ -138,9 +138,10 @@
     <Compile Include="Filter\Config\FilterSurrogate.cs" />
     <Compile Include="Filter\Config\TableDataSurrogate.cs" />
     <Compile Include="Filter\Data\Condition\ConditionOperator.cs" />
-    <Compile Include="Filter\Data\Condition\ContainerCondition.cs" />
+    <Compile Include="Filter\Data\Condition\Impl\ContainerCondition.cs" />
     <Compile Include="Filter\Data\Condition\ICondition.cs" />
-    <Compile Include="Filter\Data\Condition\ItemCondition.cs" />
+    <Compile Include="Filter\Data\Condition\Impl\ItemCondition.cs" />
+    <Compile Include="Filter\Data\FilterData.cs" />
     <Compile Include="Filter\Data\FilterField.cs" />
     <Compile Include="Filter\Data\Operand\Impl\FieldOperand.cs" />
     <Compile Include="Filter\Data\Operand\IFilterOperand.cs" />
@@ -301,6 +302,7 @@
     </Compile>
     <Compile Include="Storage\TableStorage.cs" />
     <Compile Include="Storage\TableStorageInformation.cs" />
+    <Compile Include="Utils\FileAssociation.cs" />
     <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>

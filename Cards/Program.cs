@@ -1,9 +1,12 @@
-﻿using Core.Data.Base;
+﻿using Core;
+using Core.Data.Base;
 using Core.Data.Table;
 using Core.Forms.Main;
 using Core.Notification;
+using Core.Utils;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -45,7 +48,7 @@ namespace Cards
                 Application.Run(dialog);
             }
         }
-
+        
         private static void NotificationMessage_ReceiveMessage(string message, string title, object[] param, NotificationLevel level)
         {
             var msgBoxIcon = MessageBoxIcon.None;
