@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Config;
 using Core.Data.Base;
 using Core.Data.Table;
 using Core.Forms.Main;
@@ -18,21 +19,34 @@ namespace Cards
         /// Главная точка входа для приложения.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             NotificationMessage.ReceiveMessage += NotificationMessage_ReceiveMessage;
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            CardsFileLoader cardsLoader = null;
             DataBase selectedBase = null;
+            if (args.Length > 0)
+            {
+                cardsLoader = new CardsFileLoader(args[0]);
+                if (!cardsLoader.Load())
+                {
+                    return;
+                }
+                selectedBase = cardsLoader.Base;
+            }
+            
             TableData selectedTable = null;
-
-            using (var dialogSelectTable = new FormSelectTable())
+            using (var dialogSelectTable = new FormSelectTable()
+            {
+                SelectedDataBase = selectedBase,
+                FileName = cardsLoader.ShortFileName
+            })
             {
                 if (dialogSelectTable.ShowDialog() == DialogResult.OK)
                 {
-                    selectedBase = dialogSelectTable.SelectedDataBase;
                     selectedTable = dialogSelectTable.SelectedTableData;
                 }
             }

@@ -33,24 +33,19 @@ namespace Core.Forms.Main
             InitializeComponent();
         }
 
+        public string FileName { get; set; }
+
         public DataBase SelectedDataBase { get; set; }
 
         public TableData SelectedTableData { get; set; }
 
         private void FormSelectTable_Load(object sender, EventArgs e)
         {
-            cmbConfigs.Items.AddRange(FileSystemHelper.GetFilesFromFolder(Consts.DirectoryBase, Consts.ConfigBaseExtension).ToArray());
-        }
+            this.Text = $".:: CARDS ::. - {FileName}";
 
-        private void cmbConfigs_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (sender is ComboBox combo && combo.SelectedItem != null)
-            {
-                SelectedDataBase = new Configuration<DataBase>().ReadFromFile(combo.SelectedItem.ToString());
-
-                lbTables.Items.Clear();
-                SelectedDataBase?.Tables.Where(t => t.Visible).ForEach(t => lbTables.Items.Add(new ComboBoxTableItem() { Table = t, Text = t.DisplayName }));
-            }
+            SelectedDataBase?.Tables
+                .Where(t => t.Visible)
+                .ForEach(t => lbTables.Items.Add(new ComboBoxTableItem() { Table = t, Text = t.DisplayName }));
         }
 
         private void btnSelectTable_Click(object sender, EventArgs e)

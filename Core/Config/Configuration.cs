@@ -36,16 +36,21 @@ namespace Core.Config
         {
             using (FileStream stream = File.OpenRead(filename))
             {
-                try
-                {
-                    return (T)serializer.ReadObject(stream);
-                }
-                catch (Exception e)
-                {
-                    NotificationMessage.Error($"Произошла ошибка при считывании {typeof(T).Name}: {e.Message}", e);
-                }
-                return default(T);
+                return ReadFromFile(stream);
             }
+        }
+
+        public T ReadFromFile(Stream inStream)
+        {
+            try
+            {
+                return (T)serializer.ReadObject(inStream);
+            }
+            catch (Exception e)
+            {
+                NotificationMessage.Error($"Произошла ошибка при считывании {typeof(T).Name}: {e.Message}", e);
+            }
+            return default(T);
         }
     }
 }

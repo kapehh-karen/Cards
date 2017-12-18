@@ -19,7 +19,7 @@ namespace Registration
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            // Проверка регистрации программы
+            // Регистрации программы
             CheckFileAssoc();
 
             MessageBox.Show("Программа успешно зарегистрирована в системе!", "Registration", MessageBoxButtons.OK, MessageBoxIcon.Information);
