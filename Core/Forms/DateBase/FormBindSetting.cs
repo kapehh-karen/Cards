@@ -18,7 +18,6 @@ namespace Core.Forms.DateBase
 {
     public partial class FormBindSetting : Form
     {
-        private DataBaseConfigLoader dataBaseConfigLoader;
         private DataBase _dataBase;
         private TableData _tableData;
         private bool initializeChanges = false;
@@ -28,16 +27,11 @@ namespace Core.Forms.DateBase
             InitializeComponent();
         }
 
-        private void SelectDB(string fileName)
-        {
-            _dataBase = null;
-            dataBaseConfigLoader = new DataBaseConfigLoader(fileName);
-            LoadDBInfo();
-        }
-
+        public CardsFileLoader CardsLoader { get; set; }
+        
         private void LoadDBInfo()
         {
-            _dataBase = dataBaseConfigLoader.Load(_dataBase);
+            _dataBase = new DataBaseLoader(CardsLoader.Base).RuntimeBase;
 
             gbDateBase.Enabled = _dataBase.IsConnected;
             gbDateBase.Text = $"База: Server={_dataBase.Sever ?? "***"}, Port={_dataBase.Port}, User={_dataBase.UserName ?? "***"}, Password={_dataBase.Password ?? "***"}, Basename={_dataBase.BaseName ?? "***"}";
@@ -133,21 +127,8 @@ namespace Core.Forms.DateBase
 
         private void frmBindSetting_Load(object sender, EventArgs e)
         {
-            FillDBList();
-        }
-
-        private void FillDBList()
-        {
-            cmbBasesList.Items.Clear();
-            cmbBasesList.Items.AddRange(FileSystemHelper.GetFilesFromFolder(Consts.DirectoryBase, Consts.ConfigBaseExtension).ToArray());
-        }
-
-        private void cmbBasesList_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (cmbBasesList.SelectedItem == null)
-                return;
-
-            SelectDB(cmbBasesList.SelectedItem.ToString());
+            this.Text = $"Настройки БД - {CardsLoader.ShortFileName}";
+            LoadDBInfo();
         }
 
         private void cmbTables_SelectedValueChanged(object sender, EventArgs e)
@@ -271,13 +252,9 @@ namespace Core.Forms.DateBase
                 }
             }
 
-            // SUCCESSFUL!!! Save it to conf file
-
-            if (dataBaseConfigLoader != null)
-            {
-                dataBaseConfigLoader.Save(_dataBase);
-                MessageBox.Show("Конфигурация успешно сохранена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            // TODO
+            CardsLoader.Save();
+            MessageBox.Show("Конфигурация успешно сохранена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void lvDataList_KeyUp(object sender, KeyEventArgs e)
@@ -346,22 +323,7 @@ namespace Core.Forms.DateBase
 
         private void btnAddDB_Click(object sender, EventArgs e)
         {
-            using (var dialogFile = new SaveFileDialog()
-            {
-                Filter = "CARDS Config|*.cards",
-                InitialDirectory = Path.Combine(Directory.GetCurrentDirectory(), Consts.DirectoryBase)
-            })
-            {
-                if (dialogFile.ShowDialog() != DialogResult.OK)
-                    return;
 
-                if (!File.Exists(dialogFile.FileName))
-                {
-                    File.Create(dialogFile.FileName);
-
-                    FillDBList();
-                }
-            }
         }
 
         private void btnEditDB_Click(object sender, EventArgs e)
@@ -385,7 +347,8 @@ namespace Core.Forms.DateBase
                     _dataBase.UserName = dialog.UserName;
                     _dataBase.Password = dialog.Password;
                     _dataBase.BaseName = dialog.BaseName;
-                    
+
+                    CardsLoader.Base = _dataBase;
                     LoadDBInfo();
                 }
             }

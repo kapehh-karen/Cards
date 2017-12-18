@@ -42,7 +42,7 @@ namespace Cards
             using (var dialogSelectTable = new FormSelectTable()
             {
                 SelectedDataBase = selectedBase,
-                FileName = cardsLoader.ShortFileName
+                FileName = cardsLoader?.ShortFileName
             })
             {
                 if (dialogSelectTable.ShowDialog() == DialogResult.OK)

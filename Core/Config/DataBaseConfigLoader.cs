@@ -19,50 +19,14 @@ using System.Text;
 
 namespace Core.Config
 {
-    public class DataBaseConfigLoader
+    public class DataBaseLoader
     {
-        //private string configFileName;
-        private string fileBaseName;
-        private Configuration<DataBase> config;
-
-        public DataBaseConfigLoader(string fileBaseName)
+        public DataBaseLoader(DataBase dataBase)
         {
-            //this.configFileName = $"{Path.GetDirectoryName(fileBaseName)}\\{Path.GetFileNameWithoutExtension(fileBaseName)}.conf";
-            this.fileBaseName = fileBaseName;
-            this.config = new Configuration<DataBase>();
+            RuntimeBase = LoadFromBase(dataBase);
         }
 
-        public DataBase Load(DataBase fromDataBaseConfig = null)
-        {
-            DataBase dbConfig = fromDataBaseConfig;
-
-            if (fromDataBaseConfig == null)
-            {
-                // load configuration if exists
-                if (File.Exists(this.fileBaseName))
-                {
-                    dbConfig = this.LoadFromConfig();
-                    NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" успешно загружена");
-                }
-                else
-                {
-                    NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" не найдена");
-                }
-            }
-
-            return this.LoadFromBase(dbConfig);
-        }
-
-        public void Save(DataBase dbc)
-        {
-            this.config.WriteToFile(dbc, this.fileBaseName);
-            NotificationMessage.SystemInfo($"Конфигурация базы \"{fileBaseName}\" успешно сохранена");
-        }
-
-        private DataBase LoadFromConfig()
-        {
-            return this.config.ReadFromFile(this.fileBaseName);
-        }
+        public DataBase RuntimeBase { get; set; }
 
         private DataBase LoadFromBase(DataBase dataBaseConfig)
         {

@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBindSetting));
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbBasesList = new System.Windows.Forms.ComboBox();
             this.gbDateBase = new System.Windows.Forms.GroupBox();
             this.gbDateTable = new System.Windows.Forms.GroupBox();
             this.btnFormRemove = new System.Windows.Forms.Button();
@@ -58,30 +56,9 @@
             this.btnSaveApply = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
-            this.btnAddDB = new System.Windows.Forms.Button();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Конфигурация базы";
-            // 
-            // cmbBasesList
-            // 
-            this.cmbBasesList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBasesList.FormattingEnabled = true;
-            this.cmbBasesList.Location = new System.Drawing.Point(15, 25);
-            this.cmbBasesList.Name = "cmbBasesList";
-            this.cmbBasesList.Size = new System.Drawing.Size(185, 21);
-            this.cmbBasesList.TabIndex = 1;
-            this.cmbBasesList.SelectedValueChanged += new System.EventHandler(this.cmbBasesList_SelectedValueChanged);
             // 
             // gbDateBase
             // 
@@ -89,7 +66,7 @@
             this.gbDateBase.Controls.Add(this.cmbTables);
             this.gbDateBase.Controls.Add(this.label2);
             this.gbDateBase.Enabled = false;
-            this.gbDateBase.Location = new System.Drawing.Point(15, 52);
+            this.gbDateBase.Location = new System.Drawing.Point(12, 12);
             this.gbDateBase.Name = "gbDateBase";
             this.gbDateBase.Size = new System.Drawing.Size(511, 530);
             this.gbDateBase.TabIndex = 2;
@@ -315,7 +292,7 @@
             // 
             // btnSaveApply
             // 
-            this.btnSaveApply.Location = new System.Drawing.Point(363, 588);
+            this.btnSaveApply.Location = new System.Drawing.Point(360, 548);
             this.btnSaveApply.Name = "btnSaveApply";
             this.btnSaveApply.Size = new System.Drawing.Size(163, 23);
             this.btnSaveApply.TabIndex = 3;
@@ -325,7 +302,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(282, 588);
+            this.btnCancel.Location = new System.Drawing.Point(279, 548);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -335,7 +312,7 @@
             // 
             // btnEditDB
             // 
-            this.btnEditDB.Location = new System.Drawing.Point(337, 24);
+            this.btnEditDB.Location = new System.Drawing.Point(12, 550);
             this.btnEditDB.Name = "btnEditDB";
             this.btnEditDB.Size = new System.Drawing.Size(189, 21);
             this.btnEditDB.TabIndex = 5;
@@ -343,34 +320,21 @@
             this.btnEditDB.UseVisualStyleBackColor = true;
             this.btnEditDB.Click += new System.EventHandler(this.btnEditDB_Click);
             // 
-            // btnAddDB
-            // 
-            this.btnAddDB.Location = new System.Drawing.Point(206, 24);
-            this.btnAddDB.Name = "btnAddDB";
-            this.btnAddDB.Size = new System.Drawing.Size(25, 22);
-            this.btnAddDB.TabIndex = 6;
-            this.btnAddDB.Text = "+";
-            this.btnAddDB.UseVisualStyleBackColor = true;
-            this.btnAddDB.Click += new System.EventHandler(this.btnAddDB_Click);
-            // 
             // FormBindSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 623);
-            this.Controls.Add(this.btnAddDB);
+            this.ClientSize = new System.Drawing.Size(534, 578);
             this.Controls.Add(this.btnEditDB);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveApply);
             this.Controls.Add(this.gbDateBase);
-            this.Controls.Add(this.cmbBasesList);
-            this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormBindSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "БД: Поля и связи";
+            this.Text = "Настройки БД";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmBindSetting_FormClosing);
             this.Load += new System.EventHandler(this.frmBindSetting_Load);
             this.gbDateBase.ResumeLayout(false);
@@ -378,14 +342,10 @@
             this.gbDateTable.ResumeLayout(false);
             this.gbDateTable.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmbBasesList;
         private System.Windows.Forms.GroupBox gbDateBase;
         private System.Windows.Forms.ComboBox cmbTables;
         private System.Windows.Forms.Label label2;
@@ -408,7 +368,6 @@
         private System.Windows.Forms.Button btnSaveApply;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnEditDB;
-        private System.Windows.Forms.Button btnAddDB;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.TextBox txtTableDisplayName;
         private System.Windows.Forms.Label label6;

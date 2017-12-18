@@ -41,7 +41,7 @@ namespace Core.Utils
             // Пункт для "Создать"
             var ShellNew = BaseKey.CreateSubKey("ShellNew");
             ShellNew.SetValue(string.Empty, KeyName);
-            ShellNew.SetValue("NullFile", string.Empty);
+            ShellNew.SetValue("NullFile", string.Empty); // Файл создаваться будет пустым
 
             var OpenMethod = Registry.ClassesRoot.CreateSubKey(KeyName);
             OpenMethod.SetValue(string.Empty, FileDescription);

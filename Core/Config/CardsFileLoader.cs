@@ -12,6 +12,8 @@ namespace Core.Config
 {
     public class CardsFileLoader
     {
+        private readonly string InternalConfigName = "config.xml";
+
         public CardsFileLoader(string fileName)
         {
             this.FileName = fileName;
@@ -22,14 +24,33 @@ namespace Core.Config
 
         public string ShortFileName { get; private set; }
 
+        public DataBase Base { get; set; }
+
+        public bool Loaded { get; private set; }
+
+        /// <summary>
+        /// Помещает в свойство Base объект конфига
+        /// </summary>
+        /// <returns>true - если всё ок, иначе - false</returns>
         public bool Load()
         {
-            ZipFile zip = new ZipFile(FileName);
+            Loaded = false;
+            Base = new DataBase();
 
-            var configFile = zip["config.xml"];
+            ZipFile zip = null;
+            try
+            {
+                zip = new ZipFile(FileName);
+            }
+            catch (ZipException)
+            {
+                NotificationMessage.SystemError("Файл поврежден или имеет неверный формат!");
+                return false;
+            }
+
+            var configFile = zip[InternalConfigName];
             if (configFile == null)
             {
-                // Конфиг не найден
                 NotificationMessage.SystemError("Не найден файл конфигурации!");
                 return false;
             }
@@ -47,9 +68,24 @@ namespace Core.Config
                 //MessageBox.Show(entry.FileName);
             }
 
+            Loaded = true;
             return true;
         }
 
-        public DataBase Base { get; set; }
+        public void Save()
+        {
+            ZipFile zip = Loaded ? new ZipFile(FileName) : new ZipFile();
+
+            // Сериализация в памяти
+            var memStream = new MemoryStream();
+            new Configuration<DataBase>().WriteToStream(Base, memStream);
+            memStream.Seek(0, SeekOrigin.Begin);
+
+            // Замена конфига в архиве
+            if (zip.ContainsEntry(InternalConfigName)) zip.RemoveEntry(InternalConfigName);
+            zip.AddEntry(InternalConfigName, memStream);
+
+            zip.Save(FileName);
+        }
     }
 }

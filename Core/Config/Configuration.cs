@@ -32,6 +32,14 @@ namespace Core.Config
             }
         }
 
+        public void WriteToStream(T obj, Stream stream)
+        {
+            using (var writer = XmlWriter.Create(stream, settings))
+            {
+                serializer.WriteObject(writer, obj);
+            }
+        }
+
         public T ReadFromFile(string filename)
         {
             using (FileStream stream = File.OpenRead(filename))
