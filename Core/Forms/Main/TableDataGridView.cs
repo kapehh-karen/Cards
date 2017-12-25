@@ -28,7 +28,7 @@ namespace Core.Forms.Main
         public TableDataGridView()
         {
             DoubleBuffered = true;
-            BackgroundColor = System.Drawing.Color.White;
+            BackgroundColor = Color.White;
             MultiSelect = false;
             BorderStyle = BorderStyle.Fixed3D;
 
@@ -44,6 +44,9 @@ namespace Core.Forms.Main
             this.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
         }
         
+        /// <summary>
+        /// Используется в режиме классификатора. Содержит ссылку на поле для которого используется классификатор.
+        /// </summary>
         public FieldData ParentField { get; set; }
 
         public FieldData FieldID { get; private set; }
@@ -123,12 +126,12 @@ namespace Core.Forms.Main
             {
                 var displayField = ParentField.BindData?.Field; // Отображаемое поле
 
-                // Если отображаемое поле и есть ID, то надо показать что-то ещё
-                // А что именно - хз, по этому идем по альтернативному пути
+                // Добавляем в список отображаемых полей только тогда, когда displayField не ID
+                // NOTE: Если отображаемое поле = ID, то надо показать что-то ещё, а что именно - хз
                 if (displayField != null && displayField != FieldID)
                 {
                     // Только отображаемое поле
-                    TableStorageInformation.Fields.Add(ParentField.BindData.Field);
+                    TableStorageInformation.Fields.Add(displayField);
                     return;
                 }
             }

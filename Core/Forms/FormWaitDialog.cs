@@ -22,6 +22,7 @@ namespace Core.Forms
             {
                 lblMessage.Text = value;
 
+                // Изменяем размер формы под ширину текста. Чем больше текста тем шире форма
                 var g = this.CreateGraphics();
                 var rect = g.MeasureString(value, this.Font);
                 Width = (int)rect.Width + 50;

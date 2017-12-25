@@ -127,15 +127,15 @@
     <Compile Include="Data\Model\ModelLinkedItemState.cs" />
     <Compile Include="Data\Model\ModelLinkedValue.cs" />
     <Compile Include="Data\Model\ModelValueState.cs" />
-    <Compile Include="Data\Model\Preprocessors\BindProcessor.cs" />
-    <Compile Include="Data\Model\Preprocessors\BooleanProcessor.cs" />
-    <Compile Include="Data\Model\Preprocessors\DateProcessor.cs" />
+    <Compile Include="Data\Model\Preprocessors\Impl\BindProcessor.cs" />
+    <Compile Include="Data\Model\Preprocessors\Impl\BooleanProcessor.cs" />
+    <Compile Include="Data\Model\Preprocessors\Impl\DateProcessor.cs" />
     <Compile Include="Data\Model\Preprocessors\IFieldProcessor.cs" />
     <Compile Include="Data\Model\Preprocessors\ILinkedTableProcessor.cs" />
-    <Compile Include="Data\Model\Preprocessors\LinkedTableProcessor.cs" />
-    <Compile Include="Data\Model\Preprocessors\NumberProcessor.cs" />
+    <Compile Include="Data\Model\Preprocessors\Impl\LinkedTableProcessor.cs" />
+    <Compile Include="Data\Model\Preprocessors\Impl\NumberProcessor.cs" />
     <Compile Include="Data\Model\Preprocessors\Processors.cs" />
-    <Compile Include="Data\Model\Preprocessors\TextProcessor.cs" />
+    <Compile Include="Data\Model\Preprocessors\Impl\TextProcessor.cs" />
     <Compile Include="Data\Table\LinkedTable.cs" />
     <Compile Include="Data\Table\TableData.cs" />
     <Compile Include="Filter\Config\FieldDataSurrogate.cs" />
@@ -283,6 +283,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\Main\TableRowTag.cs" />
+    <Compile Include="Forms\Main\TableSetting\TableColumnSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Main\TableSetting\TableColumnSettingForm.Designer.cs">
+      <DependentUpon>TableColumnSettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper\DesignControlHelper.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\FieldHelper.cs" />
@@ -366,6 +372,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main\FormTableView.resx">
       <DependentUpon>FormTableView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Main\TableSetting\TableColumnSettingForm.resx">
+      <DependentUpon>TableColumnSettingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSelectInClassificator));
             this.tableDataGridView1 = new Core.Forms.Main.TableDataGridView();
             this.lblSelectedCell = new System.Windows.Forms.Label();
@@ -49,20 +52,32 @@
             this.tableDataGridView1.AllowUserToAddRows = false;
             this.tableDataGridView1.AllowUserToDeleteRows = false;
             this.tableDataGridView1.AllowUserToOrderColumns = true;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.tableDataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.tableDataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableDataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.tableDataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.tableDataGridView1.Base = null;
             this.tableDataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableDataGridView1.CurrentDataTable = null;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tableDataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.tableDataGridView1.KeepSelectedColumn = null;
             this.tableDataGridView1.Location = new System.Drawing.Point(5, 56);
             this.tableDataGridView1.MultiSelect = false;
             this.tableDataGridView1.Name = "tableDataGridView1";
+            this.tableDataGridView1.ParentField = null;
             this.tableDataGridView1.ReadOnly = true;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            this.tableDataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.tableDataGridView1.SelectedID = null;
             this.tableDataGridView1.Size = new System.Drawing.Size(630, 467);
             this.tableDataGridView1.TabIndex = 0;

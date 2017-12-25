@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Core.Data.Model.Preprocessors
+namespace Core.Data.Model.Preprocessors.Impl
 {
     public class DateProcessor : IFieldProcessor
     {

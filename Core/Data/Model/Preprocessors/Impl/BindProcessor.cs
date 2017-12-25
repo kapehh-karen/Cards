@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Core.Data.Model.Preprocessors
+namespace Core.Data.Model.Preprocessors.Impl
 {
     public class BindProcessor : IFieldProcessor
     {

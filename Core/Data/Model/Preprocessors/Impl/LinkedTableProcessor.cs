@@ -11,7 +11,7 @@ using Core.Forms.Main.CardForm;
 using Core.Data.Field;
 using Core.Forms.Main;
 
-namespace Core.Data.Model.Preprocessors
+namespace Core.Data.Model.Preprocessors.Impl
 {
     public class LinkedTableProcessor : ILinkedTableProcessor
     {
@@ -23,7 +23,7 @@ namespace Core.Data.Model.Preprocessors
 
         public override void Attach()
         {
-            base.Attach();
+            //base.Attach();
 
             if (control != null)
             {

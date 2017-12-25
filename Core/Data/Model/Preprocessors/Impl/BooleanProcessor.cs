@@ -4,26 +4,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 
-namespace Core.Data.Model.Preprocessors
+namespace Core.Data.Model.Preprocessors.Impl
 {
-    public class NumberProcessor : IFieldProcessor
+    public class BooleanProcessor : IFieldProcessor
     {
-        private Control control;
+        private BooleanControl control;
 
         public override void Attach()
         {
             base.Attach();
 
             if (control != null)
-                control.TextChanged += Control_TextChanged;
+                control.CheckedChanged += Control_CheckedChanged;
         }
 
         public override void Detach()
         {
             if (control != null)
-                control.TextChanged -= Control_TextChanged;
+                control.CheckedChanged -= Control_CheckedChanged;
         }
 
         public override IDesignControl Control
@@ -32,18 +31,14 @@ namespace Core.Data.Model.Preprocessors
             set
             {
                 Detach();
-                control = value as Control;
+                control = value as BooleanControl;
                 Attach();
             }
         }
 
-        public override object Value
-        {
-            get => int.TryParse(control.Text, out int x) ? (int?)x : null;
-            set => control.Text = value?.ToString();
-        }
+        public override object Value { get => control.Checked; set => control.Checked = (bool)(value ?? false); }
 
-        private void Control_TextChanged(object sender, EventArgs e)
+        private void Control_CheckedChanged(object sender, EventArgs e)
         {
             this.Save();
         }

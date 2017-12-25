@@ -7,7 +7,7 @@ using Core.Data.Field;
 using Core.Data.Design.Controls.FieldControl;
 using System.Windows.Forms;
 
-namespace Core.Data.Model.Preprocessors
+namespace Core.Data.Model.Preprocessors.Impl
 {
     public class TextProcessor : IFieldProcessor
     {

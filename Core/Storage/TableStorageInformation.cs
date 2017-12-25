@@ -3,12 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Core.Storage
 {
+    [DataContract]
     public class TableStorageInformation
     {
+        [DataMember]
         public List<FieldData> Fields { get; set; } = new List<FieldData>();
 
         public DataTable Data { get; set; } = null;
