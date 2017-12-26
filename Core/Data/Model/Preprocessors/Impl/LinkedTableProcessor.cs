@@ -23,11 +23,10 @@ namespace Core.Data.Model.Preprocessors.Impl
 
         public override void Attach()
         {
-            //base.Attach();
-
             if (control != null)
             {
                 control.PressedKey += Control_KeyDown;
+                control.PressedEnter += Control_KeyDown;
                 control.DataBindingComplete += Control_DataBindingComplete;
             }
         }
@@ -38,6 +37,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             if (control != null)
             {
                 control.PressedKey -= Control_KeyDown;
+                control.PressedEnter -= Control_KeyDown;
                 control.DataBindingComplete -= Control_DataBindingComplete;
             }
         }

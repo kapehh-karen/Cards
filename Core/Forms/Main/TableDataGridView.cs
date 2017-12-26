@@ -1,4 +1,5 @@
-﻿using Core.Connection;
+﻿using Core.Common;
+using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Field;
 using Core.Data.Model;
@@ -16,11 +17,8 @@ using System.Windows.Forms;
 
 namespace Core.Forms.Main
 {
-    public class TableDataGridView : DataGridView
+    public class TableDataGridView : BaseDataGridView
     {
-        public event KeyEventHandler PressedEnter;
-        public event KeyEventHandler PressedKey;
-
         private TableData tableData;
         private object needSelectID;
         private bool firstAfterBind;
@@ -259,21 +257,6 @@ namespace Core.Forms.Main
             {
                 TrySelectCell(CurrentRow);
             }
-        }
-
-        protected override void OnKeyDown(KeyEventArgs e)
-        {
-            if ((e.KeyData & Keys.KeyCode) == Keys.Enter)
-            {
-                if (CurrentRow != null)
-                {
-                    PressedEnter?.Invoke(this, e);
-                }
-            }
-            else
-                base.OnKeyDown(e);
-
-            PressedKey?.Invoke(this, e);
         }
 
         protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)

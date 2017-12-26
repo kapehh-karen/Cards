@@ -25,11 +25,7 @@ namespace Core.Data.Model.Preprocessors
         /// <summary>
         /// Attach events
         /// </summary>
-        public virtual void Attach()
-        {
-            //Detach();
-            //Load();
-        }
+        public virtual void Attach() { }
 
         /// <summary>
         /// Detach events
