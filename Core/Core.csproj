@@ -315,6 +315,7 @@
     </Compile>
     <Compile Include="Storage\TableStorage.cs" />
     <Compile Include="Storage\TableStorageInformation.cs" />
+    <Compile Include="Storage\TableStorageData\TableStorageColumnData.cs" />
     <Compile Include="Utils\FileAssociation.cs" />
     <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>

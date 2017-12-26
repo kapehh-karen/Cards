@@ -20,8 +20,6 @@ namespace Core.Forms.Main
     public class TableDataGridView : BaseDataGridView
     {
         private TableData tableData;
-        private object needSelectID;
-        private bool firstAfterBind;
 
         public TableDataGridView()
         {
@@ -41,12 +39,20 @@ namespace Core.Forms.Main
             this.RowsDefaultCellStyle.BackColor = Color.White;
             this.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
         }
-        
+
         /// <summary>
         /// Используется в режиме классификатора. Содержит ссылку на поле для которого используется классификатор.
         /// </summary>
-        public FieldData ParentField { get; set; }
+        public FieldData ParentField { get; set; } = null;
 
+        /// <summary>
+        /// Указывает, открыта таблица в классификаторе или нет
+        /// </summary>
+        public bool IsInClassificator => ParentField == null;
+
+        /// <summary>
+        /// Поле идентификатора
+        /// </summary>
         public FieldData FieldID { get; private set; }
 
         public TableData Table
@@ -102,12 +108,10 @@ namespace Core.Forms.Main
                 return model;
             }
         }
-
-        public DataGridViewColumn KeepSelectedColumn { get; set; }
-
-        private TableStorageInformation TableStorageInformation { get; set; }
-
+        
         public bool AllowCache { get; set; } = true;
+
+        public bool IsInitialization { get; private set; } = true;
 
         /// <summary>
         /// Распределение полей по дефолту. Если в настройках не указано какие поля отображать
@@ -115,11 +119,11 @@ namespace Core.Forms.Main
         /// <returns>false - если инициализации небыло, true - если была</returns>
         private bool InitializeFields()
         {
-            if (TableStorageInformation.HasFields)
+            if (TableStorageInformation.HasColumns)
                 return false;
 
             // Обязательно добавляем ID, т.к. он может быть скрыт, но нам он нужен
-            TableStorageInformation.Fields.Add(FieldID);
+            TableStorageInformation.AddColumn(FieldID);
 
             if (ParentField?.Type == FieldType.BIND)
             {
@@ -130,13 +134,13 @@ namespace Core.Forms.Main
                 if (displayField != null && displayField != FieldID)
                 {
                     // Только отображаемое поле
-                    TableStorageInformation.Fields.Add(displayField);
+                    TableStorageInformation.AddColumn(displayField);
                     return true;
                 }
             }
 
             // Все видимые поля (кроме ID, его добавили уже)
-            Table.Fields.Where(f => f.Visible && !f.IsIdentifier).Take(5).ForEach(TableStorageInformation.Fields.Add);
+            Table.Fields.Where(f => f.Visible && !f.IsIdentifier).Take(5).ForEach(TableStorageInformation.AddColumn);
             return true;
         }
 
@@ -145,10 +149,10 @@ namespace Core.Forms.Main
             if (Base == null || Table == null)
                 return;
 
-            if (InitializeFields())
-                TableStorage.Instance.Save(Table);
+            InitializeFields();
 
             var needUpdate = true;
+            var fields = TableStorageInformation.Columns.Select(item => item.Field).ToArray();
 
             // При загрузке данных в компонент используется флаг AllowCache
             if (Table.IsClassifier && AllowCache && CurrentDataTable == null)
@@ -164,12 +168,12 @@ namespace Core.Forms.Main
                 using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
                 {
                     // main part query
-                    var columns = string.Join(", ", TableStorageInformation.Fields
+                    var columns = string.Join(", ", fields
                         .Select(f => f.Type != FieldType.BIND ? $"[{Table.Name}].[{f.Name}]" : $"[{f.Name}__{f.BindData.Table.Name}].[{f.BindData.Field.Name}] AS [{f.Name}]")
                         .ToArray());
 
                     // joins part query
-                    var joins = string.Join("\r\n", TableStorageInformation.Fields.Where(f => f.Type == FieldType.BIND)
+                    var joins = string.Join("\r\n", fields.Where(f => f.Type == FieldType.BIND)
                         .Select(f => $"LEFT JOIN [{f.BindData.Table.Name}] AS [{f.Name}__{f.BindData.Table.Name}] ON [{f.Name}__{f.BindData.Table.Name}].[{f.BindData.Table.IdentifierField.Name}] = [{Table.Name}].[{f.Name}]")
                         .ToArray());
 
@@ -210,11 +214,23 @@ namespace Core.Forms.Main
                 firstAfterBind = true; // Перед биндингом
                 this.DataSource = CurrentDataView;
             }
-            
+        }
+
+        #region Post-processing for data bindings
+
+        private object needSelectID;
+        private bool firstAfterBind;
+
+        public DataGridViewColumn KeepSelectedColumn { get; set; }
+
+        private void BindingColumns()
+        {
+            var fields = TableStorageInformation.Columns.Select(item => item.Field);
+
             // Renaming columns header
             foreach (DataGridViewColumn column in this.Columns)
             {
-                var fieldData = TableStorageInformation.Fields.Single(f => f.Name.Equals(column.Name));
+                var fieldData = fields.Single(f => f.Name.Equals(column.Name));
                 var tag = new TableColumnTag() { Field = fieldData };
                 column.HeaderText = fieldData.DisplayName;
                 column.Tag = tag;
@@ -265,7 +281,73 @@ namespace Core.Forms.Main
         protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
         {
             base.OnDataBindingComplete(e);
+
+            // Привязываем к колонкам тег и переименовываем их
+            BindingColumns();
+
+            if (TableStorageInformation.IsNew)
+            {
+                TableStorageInformationSave();
+            }
+            else
+            {
+                // Применить все настройки ширины столбцов и т.п.
+                TableStorageInformationApply();
+            }
+
+            // Выделить строку
             TrySelectRow();
+
+            IsInitialization = false;
         }
+
+        #endregion
+
+        #region TableStorageInformation
+
+        private TableStorageInformation TableStorageInformation { get; set; }
+
+        private void TableStorageInformationSave()
+        {
+            // Сохраняем ширину всех колонок
+            TableStorageInformation.Columns.ForEach(col =>
+            {
+                foreach (DataGridViewColumn column in Columns)
+                    if (column.GetTag().Field.Equals(col.Field))
+                    {
+                        col.Width = column.Width;
+                        col.Order = column.DisplayIndex;
+                        break;
+                    }
+            });
+            TableStorage.Instance.Save(TableStorageInformation);
+        }
+
+        private void TableStorageInformationApply()
+        {
+            // Восстанавливаем ширину всех колонок
+            TableStorageInformation.Columns.ForEach(col =>
+            {
+                foreach (DataGridViewColumn column in Columns)
+                    if (column.GetTag().Field.Equals(col.Field))
+                    {
+                        column.Width = col.Width;
+                        column.DisplayIndex = col.Order;
+                        break;
+                    }
+            });
+        }
+
+        protected override void OnColumnWidthChanged(DataGridViewColumnEventArgs e)
+        {
+            base.OnColumnWidthChanged(e);
+
+            // Если возникло событие не при инициализации
+            if (!IsInitialization)
+                TableStorageInformationSave();
+        }
+        
+
+        #endregion
     }
 }

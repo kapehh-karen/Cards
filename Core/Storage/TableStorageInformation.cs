@@ -1,4 +1,6 @@
 ﻿using Core.Data.Field;
+using Core.Data.Table;
+using Core.Storage.TableStorageData;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,7 +14,14 @@ namespace Core.Storage
     public class TableStorageInformation
     {
         [DataMember]
-        public List<FieldData> Fields { get; set; } = new List<FieldData>();
+        public List<TableStorageColumnData> Columns { get; set; } = new List<TableStorageColumnData>();
+
+        public TableData Table { get; set; } = null;
+
+        /// <summary>
+        /// Полностью новая информация, не сохранена на диске
+        /// </summary>
+        public bool IsNew { get; set; } = true;
 
         public DataTable Data { get; set; } = null;
 
@@ -20,7 +29,12 @@ namespace Core.Storage
 
         public bool IsEmpty => Data == null;
 
-        public bool HasFields => Fields.Count > 0;
+        public bool HasColumns => Columns.Count > 0;
+
+        public void AddColumn(FieldData field)
+        {
+            Columns.Add(new TableStorageColumnData() { Field = field });
+        }
 
         public void Reset()
         {

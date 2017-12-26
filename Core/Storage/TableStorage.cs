@@ -30,7 +30,9 @@ namespace Core.Storage
             // Если существует конфигурация для таблицы
             if (File.Exists(tableFileConfig))
             {
-                return cfg.ReadFromFile(tableFileConfig);
+                var item = cfg.ReadFromFile(tableFileConfig);
+                item.IsNew = false;
+                return item;
             }
             return null;
         }
@@ -46,18 +48,20 @@ namespace Core.Storage
                 else
                 {
                     var item = Load(table) ?? new TableStorageInformation();
+                    item.Table = table;
                     cachedTables.Add(table, item);
                     return item;
                 }
             }
         }
 
-        public void Save(TableData table)
+        public void Save(TableStorageInformation tableInformation)
         {
-            var cfg = new Configuration<TableStorageInformation>(new InternalDataSurrogate(table.ParentBase));
-            var tableFileConfig = FilePathFromTable(table);
+            var cfg = new Configuration<TableStorageInformation>(new InternalDataSurrogate(tableInformation.Table.ParentBase));
+            var tableFileConfig = FilePathFromTable(tableInformation.Table);
 
-            cfg.WriteToFile(Get(table), tableFileConfig);
+            cfg.WriteToFile(tableInformation, tableFileConfig);
+            tableInformation.IsNew = false;
         }
     }
 }
