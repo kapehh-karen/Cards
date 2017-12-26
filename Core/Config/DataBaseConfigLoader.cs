@@ -114,6 +114,13 @@ namespace Core.Config
             // Close connection
             dbc.Dispose();
 
+            BaseCleanupProperties(dataBase);
+
+            return dataBase;
+        }
+
+        private void BaseCleanupProperties(DataBase dataBase)
+        {
             // cleanup removed tables and fields in BindData, LinkedTable, FormData
             dataBase.Tables.ForEach(td =>
             {
@@ -129,7 +136,7 @@ namespace Core.Config
                         fd.BindData.Field = null;
                     }
                 }
-                
+
                 foreach (var lt in td.LinkedTables)
                 {
                     if (!dataBase.Tables.Contains(lt.Table))
@@ -142,11 +149,9 @@ namespace Core.Config
                         lt.Field = null;
                     }
                 }
-                
+
                 td.Form?.Pages.ForEach(page => CleanupProperties(td, page.Controls));
             });
-
-            return dataBase;
         }
 
         private void CleanupProperties(TableData tableData, List<ControlData> Controls)

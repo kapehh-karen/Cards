@@ -61,7 +61,7 @@ namespace Core.Forms.Main
                     FieldID = tableData.IdentifierField;
                     
                     // Получаем настройки таблицы
-                    TableStorageInformation = TableStorage.Get(tableData);
+                    TableStorageInformation = TableStorage.Instance.Get(tableData);
                     TableStorageInformation.Reset();
                 }
             }
@@ -112,10 +112,11 @@ namespace Core.Forms.Main
         /// <summary>
         /// Распределение полей по дефолту. Если в настройках не указано какие поля отображать
         /// </summary>
-        private void InitializeFields()
+        /// <returns>false - если инициализации небыло, true - если была</returns>
+        private bool InitializeFields()
         {
             if (TableStorageInformation.HasFields)
-                return;
+                return false;
 
             // Обязательно добавляем ID, т.к. он может быть скрыт, но нам он нужен
             TableStorageInformation.Fields.Add(FieldID);
@@ -130,12 +131,13 @@ namespace Core.Forms.Main
                 {
                     // Только отображаемое поле
                     TableStorageInformation.Fields.Add(displayField);
-                    return;
+                    return true;
                 }
             }
 
             // Все видимые поля (кроме ID, его добавили уже)
             Table.Fields.Where(f => f.Visible && !f.IsIdentifier).Take(5).ForEach(TableStorageInformation.Fields.Add);
+            return true;
         }
 
         public void FillTable(bool forceUpdate = false)
@@ -143,7 +145,8 @@ namespace Core.Forms.Main
             if (Base == null || Table == null)
                 return;
 
-            InitializeFields();
+            if (InitializeFields())
+                TableStorage.Instance.Save(Table);
 
             var needUpdate = true;
 

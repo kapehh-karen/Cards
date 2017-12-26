@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Data.Table;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -59,6 +60,11 @@ namespace Core.Data.Field
         /// </summary>
         [DataMember]
         public BindField BindData { get; set; } = null;
+
+        /// <summary>
+        /// Таблица в которой находится текущее поле
+        /// </summary>
+        public TableData ParentTable { get; set; } = null;
 
         public override string ToString()
         {

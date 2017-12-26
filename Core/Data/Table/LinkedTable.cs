@@ -22,6 +22,11 @@ namespace Core.Data.Table
         [DataMember]
         public FieldData Field { get; set; }
 
+        /// <summary>
+        /// Таблица в которой находится текущая связь
+        /// </summary>
+        public TableData ParentTable { get; set; } = null;
+
         public string Name => $"LinkedTable__{Table?.Name}_{Field?.Name}";
 
         public override string ToString()

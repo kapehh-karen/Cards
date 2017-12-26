@@ -141,9 +141,9 @@
     <Compile Include="Data\Model\Preprocessors\Impl\TextProcessor.cs" />
     <Compile Include="Data\Table\LinkedTable.cs" />
     <Compile Include="Data\Table\TableData.cs" />
-    <Compile Include="Filter\Config\FieldDataSurrogate.cs" />
-    <Compile Include="Filter\Config\FilterSurrogate.cs" />
-    <Compile Include="Filter\Config\TableDataSurrogate.cs" />
+    <Compile Include="Config\Surrogate\Data\FieldDataSurrogate.cs" />
+    <Compile Include="Config\Surrogate\InternalDataSurrogate.cs" />
+    <Compile Include="Config\Surrogate\Data\TableDataSurrogate.cs" />
     <Compile Include="Filter\Data\Condition\ConditionOperator.cs" />
     <Compile Include="Filter\Data\Condition\Impl\ContainerCondition.cs" />
     <Compile Include="Filter\Data\Condition\ICondition.cs" />

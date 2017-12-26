@@ -1,4 +1,5 @@
 ﻿using Core.Config;
+using Core.Config.Surrogate;
 using Core.Data.Base;
 using Core.Data.Table;
 using System;
@@ -12,14 +13,19 @@ namespace Core.Storage
 {
     public class TableStorage
     {
-        private static object lockObject = new object();
-        private static Dictionary<TableData, TableStorageInformation> cachedTables
+        public static readonly TableStorage Instance = new TableStorage();
+
+        private object lockObject = new object();
+        private Dictionary<TableData, TableStorageInformation> cachedTables
             = new Dictionary<TableData, TableStorageInformation>();
 
-        public static TableStorageInformation Load(TableData table)
+        private string FilePathFromTable(TableData table)
+            => Path.Combine(Consts.TableStorageFolder, $"{table.ParentBase.BaseName}_{table.Name}.xml");
+
+        public TableStorageInformation Load(TableData table)
         {
-            var cfg = new Configuration<TableStorageInformation>();
-            var tableFileConfig = Path.Combine(Consts.TableStorageFolder, table.Name);
+            var cfg = new Configuration<TableStorageInformation>(new InternalDataSurrogate(table.ParentBase));
+            var tableFileConfig = FilePathFromTable(table);
 
             // Если существует конфигурация для таблицы
             if (File.Exists(tableFileConfig))
@@ -29,7 +35,7 @@ namespace Core.Storage
             return null;
         }
 
-        public static TableStorageInformation Get(TableData table)
+        public TableStorageInformation Get(TableData table)
         {
             lock (lockObject)
             {
@@ -46,10 +52,10 @@ namespace Core.Storage
             }
         }
 
-        public static void Save(TableData table)
+        public void Save(TableData table)
         {
-            var cfg = new Configuration<TableStorageInformation>();
-            var tableFileConfig = Path.Combine(Consts.TableStorageFolder, table.Name);
+            var cfg = new Configuration<TableStorageInformation>(new InternalDataSurrogate(table.ParentBase));
+            var tableFileConfig = FilePathFromTable(table);
 
             cfg.WriteToFile(Get(table), tableFileConfig);
         }

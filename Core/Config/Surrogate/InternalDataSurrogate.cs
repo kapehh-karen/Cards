@@ -1,4 +1,6 @@
-﻿using Core.Data.Field;
+﻿using Core.Config.Surrogate.Data;
+using Core.Data.Base;
+using Core.Data.Field;
 using Core.Data.Table;
 using System;
 using System.CodeDom;
@@ -9,10 +11,17 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Core.Filter.Config
+namespace Core.Config.Surrogate
 {
-    public class FilterSurrogate : IDataContractSurrogate
+    public class InternalDataSurrogate : IDataContractSurrogate
     {
+        public InternalDataSurrogate(DataBase runtimeDataBase)
+        {
+            Base = runtimeDataBase;
+        }
+
+        public DataBase Base { get; private set; }
+
         public Type GetDataContractType(Type type)
         {
             if (typeof(FieldData).IsAssignableFrom(type))
@@ -26,24 +35,17 @@ namespace Core.Filter.Config
 
         public object GetDeserializedObject(object obj, Type targetType)
         {
-            // TODO: Сделать привязку к DataBase
-
             if (obj is FieldDataSurrogate fieldData)
             {
-                var field = new FieldData()
-                {
-                    Name = fieldData.FieldName
-                };
-                return field;
+                return Base.Tables
+                    .FirstOrDefault(t => t.Name.Equals(fieldData.TableName))
+                    ?.Fields.FirstOrDefault(f => f.Name.Equals(fieldData.FieldName));
             }
 
             if (obj is TableDataSurrogate tableData)
             {
-                var table = new TableData()
-                {
-                    Name = tableData.TableName
-                };
-                return table;
+                return Base.Tables
+                    .FirstOrDefault(t => t.Name.Equals(tableData.TableName));
             }
 
             return obj;
@@ -51,13 +53,12 @@ namespace Core.Filter.Config
 
         public object GetObjectToSerialize(object obj, Type targetType)
         {
-            // TODO: Сделать привязку к DataBase
-
             if (obj is FieldData fieldData)
             {
                 var field = new FieldDataSurrogate()
                 {
-                    FieldName = fieldData.Name
+                    FieldName = fieldData.Name,
+                    TableName = fieldData.ParentTable.Name
                 };
                 return field;
             }

@@ -6,6 +6,7 @@ using Core.Data.Field;
 using Core.Data.Design;
 using System.Runtime.Serialization;
 using Core.Data.Design.InternalData;
+using Core.Data.Base;
 
 namespace Core.Data.Table
 {
@@ -66,6 +67,11 @@ namespace Core.Data.Table
         /// Последнее изменение таблицы (для классификаторов)
         /// </summary>
         public DateTime LastUpdate { get; set; } = DateTime.MinValue;
+
+        /// <summary>
+        /// База в которой находится текущая таблица
+        /// </summary>
+        public DataBase ParentBase { get; set; } = null;
 
         public string FullDisplayName => $"{(IsClassifier ? "Классификатор" : "Таблица")} - {DisplayName}";
 

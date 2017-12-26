@@ -20,12 +20,21 @@ namespace Core.Config
             this.ShortFileName = Path.GetFileName(fileName);
         }
 
+        /// <summary>
+        /// Полное имя файла
+        /// </summary>
         public string FileName { get; private set; }
 
+        /// <summary>
+        /// Имя файла без пути
+        /// </summary>
         public string ShortFileName { get; private set; }
-
+        
         public DataBase Base { get; set; }
 
+        /// <summary>
+        /// Указывает, загружена база или нет
+        /// </summary>
         public bool Loaded { get; private set; }
 
         /// <summary>
@@ -61,6 +70,14 @@ namespace Core.Config
                 // База не загружена
                 return false;
             }
+
+            // fill parent-property
+            Base.Tables.ForEach(t =>
+            {
+                t.ParentBase = Base;
+                t.Fields.ForEach(f => f.ParentTable = t);
+                t.LinkedTables.ForEach(lt => lt.ParentTable = t);
+            });
 
             // Получаем список всех плагинов
             foreach (var entry in zip.Entries.Where(item => item.FileName.StartsWith("plugins/") && item.FileName.EndsWith(".dll")))

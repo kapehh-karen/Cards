@@ -19,13 +19,20 @@ namespace Core.Config
             serializer = new DataContractSerializer(typeof(T));
         }
 
-        public Configuration(IDataContractSurrogate surrogate)
+        public Configuration(IDataContractSurrogate surrogate, bool isReferences = false)
         {
-            serializer = new DataContractSerializer(typeof(T), new List<Type>(), int.MaxValue, false, true, surrogate);
+            serializer = new DataContractSerializer(typeof(T), new List<Type>(), int.MaxValue, false, isReferences, surrogate);
         }
 
         public void WriteToFile(T obj, string filename)
         {
+            var dirName = Path.GetDirectoryName(filename);
+
+            if (!Directory.Exists(dirName))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(filename));
+            }
+
             using (var writer = XmlWriter.Create(filename, settings))
             {
                 serializer.WriteObject(writer, obj);
@@ -42,6 +49,11 @@ namespace Core.Config
 
         public T ReadFromFile(string filename)
         {
+            if (!File.Exists(filename))
+            {
+                return default(T);
+            }
+
             using (FileStream stream = File.OpenRead(filename))
             {
                 return ReadFromFile(stream);
