@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Core.Storage.TableStorageData
+namespace Core.Storage.Tables.TableStorageData
 {
     public class TableStorageColumnData
     {

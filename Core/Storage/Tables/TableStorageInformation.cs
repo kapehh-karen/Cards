@@ -1,6 +1,6 @@
 ﻿using Core.Data.Field;
 using Core.Data.Table;
-using Core.Storage.TableStorageData;
+using Core.Storage.Tables.TableStorageData;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace Core.Storage
+namespace Core.Storage.Tables
 {
     [DataContract]
     public class TableStorageInformation
@@ -21,13 +21,13 @@ namespace Core.Storage
         /// <summary>
         /// Полностью новая информация, не сохранена на диске
         /// </summary>
-        public bool IsNew { get; set; } = true;
+        public bool IsNew { get; set; } = false;
 
         public DataTable Data { get; set; } = null;
 
         public DataView View { get; set; } = null;
 
-        public bool IsEmpty => Data == null;
+        public bool HasData => Data != null;
 
         public bool HasColumns => Columns.Count > 0;
 

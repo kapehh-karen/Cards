@@ -5,7 +5,7 @@ using Core.Data.Field;
 using Core.Data.Model;
 using Core.Data.Table;
 using Core.Helper;
-using Core.Storage;
+using Core.Storage.Tables;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -46,10 +46,10 @@ namespace Core.Forms.Main
         public FieldData ParentField { get; set; } = null;
 
         /// <summary>
-        /// Указывает, открыта таблица в классификаторе или нет
+        /// Была ли инициализация ранее
         /// </summary>
-        public bool IsInClassificator => ParentField == null;
-
+        public bool IsInitialized { get; private set; } = false;
+        
         /// <summary>
         /// Поле идентификатора
         /// </summary>
@@ -67,7 +67,7 @@ namespace Core.Forms.Main
                     FieldID = tableData.IdentifierField;
                     
                     // Получаем настройки таблицы
-                    TableStorageInformation = TableStorage.Instance.Get(tableData);
+                    TableStorageInformation = TableStorage.Instance.Get(tableData, TableStorageType);
                     TableStorageInformation.Reset();
                 }
             }
@@ -109,9 +109,10 @@ namespace Core.Forms.Main
             }
         }
         
+        /// <summary>
+        /// Используется когда требуется поддержка кеша, и наоборот
+        /// </summary>
         public bool AllowCache { get; set; } = true;
-
-        public bool IsInitialization { get; private set; } = true;
 
         /// <summary>
         /// Распределение полей по дефолту. Если в настройках не указано какие поля отображать
@@ -149,6 +150,8 @@ namespace Core.Forms.Main
             if (Base == null || Table == null)
                 return;
 
+            IsInitialized = false;
+
             InitializeFields();
 
             var needUpdate = true;
@@ -159,7 +162,7 @@ namespace Core.Forms.Main
             {
                 CurrentDataTable = TableStorageInformation.Data;
                 CurrentDataView = TableStorageInformation.View ?? CurrentDataView;
-                needUpdate = TableStorageInformation.IsEmpty;
+                needUpdate = !TableStorageInformation.HasData;
             }
 
             if (forceUpdate || needUpdate)
@@ -214,6 +217,8 @@ namespace Core.Forms.Main
                 firstAfterBind = true; // Перед биндингом
                 this.DataSource = CurrentDataView;
             }
+
+            IsInitialized = true;
         }
 
         #region Post-processing for data bindings
@@ -282,34 +287,37 @@ namespace Core.Forms.Main
         {
             base.OnDataBindingComplete(e);
 
-            // Привязываем к колонкам тег и переименовываем их
-            BindingColumns();
+            if (!IsInitialized)
+            {
+                // Привязываем к колонкам тег и переименовываем их
+                BindingColumns();
 
-            if (TableStorageInformation.IsNew)
-            {
-                TableStorageInformationSave();
-            }
-            else
-            {
-                // Применить все настройки ширины столбцов и т.п.
-                TableStorageInformationApply();
+                if (TableStorageInformation.IsNew)
+                {
+                    TableStorageInformationSave();
+                }
+                else
+                {
+                    // Применить все настройки ширины столбцов и т.п.
+                    TableStorageInformationApply();
+                }
             }
 
             // Выделить строку
             TrySelectRow();
-
-            IsInitialization = false;
         }
 
         #endregion
 
         #region TableStorageInformation
 
+        public TableStorageType TableStorageType { get; set; }
+
         private TableStorageInformation TableStorageInformation { get; set; }
 
         private void TableStorageInformationSave()
         {
-            // Сохраняем ширину всех колонок
+            // Сохраняем инфу всех колонок
             TableStorageInformation.Columns.ForEach(col =>
             {
                 foreach (DataGridViewColumn column in Columns)
@@ -320,12 +328,12 @@ namespace Core.Forms.Main
                         break;
                     }
             });
-            TableStorage.Instance.Save(TableStorageInformation);
+            TableStorage.Instance.Save(TableStorageInformation, TableStorageType);
         }
 
         private void TableStorageInformationApply()
         {
-            // Восстанавливаем ширину всех колонок
+            // Восстанавливаем инфу всех колонок
             TableStorageInformation.Columns.ForEach(col =>
             {
                 foreach (DataGridViewColumn column in Columns)
@@ -337,16 +345,18 @@ namespace Core.Forms.Main
                     }
             });
         }
-
-        protected override void OnColumnWidthChanged(DataGridViewColumnEventArgs e)
-        {
-            base.OnColumnWidthChanged(e);
-
-            // Если возникло событие не при инициализации
-            if (!IsInitialization)
-                TableStorageInformationSave();
-        }
         
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Сохраняем перед вызовом базового метода Dispose
+                // (base.Dispose удалит колонки и хрен мы что сохраним)
+                TableStorageInformationSave();
+            }
+
+            base.Dispose(disposing);
+        }
 
         #endregion
     }

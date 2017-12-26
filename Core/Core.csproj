@@ -313,9 +313,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Storage\TableStorage.cs" />
-    <Compile Include="Storage\TableStorageInformation.cs" />
-    <Compile Include="Storage\TableStorageData\TableStorageColumnData.cs" />
+    <Compile Include="Storage\Tables\TableStorage.cs" />
+    <Compile Include="Storage\Tables\TableStorageInformation.cs" />
+    <Compile Include="Storage\Tables\TableStorageData\TableStorageColumnData.cs" />
+    <Compile Include="Storage\Tables\TableStorageType.cs" />
     <Compile Include="Utils\FileAssociation.cs" />
     <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>

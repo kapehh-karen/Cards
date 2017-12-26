@@ -9,45 +9,52 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace Core.Storage
+namespace Core.Storage.Tables
 {
+    using TableWithTypeDictAlias = Dictionary<TableStorageType, Dictionary<TableData, TableStorageInformation>>;
+    using TableDictAlias = Dictionary<TableData, TableStorageInformation>;
+
     public class TableStorage
     {
         public static readonly TableStorage Instance = new TableStorage();
 
         private object lockObject = new object();
-        private Dictionary<TableData, TableStorageInformation> cachedTables
-            = new Dictionary<TableData, TableStorageInformation>();
+        private TableWithTypeDictAlias cachedTypeTables = new TableWithTypeDictAlias
+            {
+                { TableStorageType.Table, new TableDictAlias() },
+                { TableStorageType.Classificator, new TableDictAlias() },
+                { TableStorageType.LinkedTable, new TableDictAlias() }
+            };
 
-        private string FilePathFromTable(TableData table)
-            => Path.Combine(Consts.TableStorageFolder, $"{table.ParentBase.BaseName}_{table.Name}.xml");
+        private string FilePathFromTable(TableData table, TableStorageType type)
+            => Path.Combine(Consts.TableStorageFolder, $"{table.ParentBase.BaseName}_{type}_{table.Name}.xml");
 
-        public TableStorageInformation Load(TableData table)
+        public TableStorageInformation Load(TableData table, TableStorageType type)
         {
             var cfg = new Configuration<TableStorageInformation>(new InternalDataSurrogate(table.ParentBase));
-            var tableFileConfig = FilePathFromTable(table);
+            var tableFileConfig = FilePathFromTable(table, type);
 
             // Если существует конфигурация для таблицы
             if (File.Exists(tableFileConfig))
             {
-                var item = cfg.ReadFromFile(tableFileConfig);
-                item.IsNew = false;
-                return item;
+                return cfg.ReadFromFile(tableFileConfig);
             }
             return null;
         }
 
-        public TableStorageInformation Get(TableData table)
+        public TableStorageInformation Get(TableData table, TableStorageType type)
         {
             lock (lockObject)
             {
+                var cachedTables = cachedTypeTables[type];
+
                 if (cachedTables.ContainsKey(table))
                 {
                     return cachedTables[table];
                 }
                 else
                 {
-                    var item = Load(table) ?? new TableStorageInformation();
+                    var item = Load(table, type) ?? new TableStorageInformation() { IsNew = true };
                     item.Table = table;
                     cachedTables.Add(table, item);
                     return item;
@@ -55,10 +62,10 @@ namespace Core.Storage
             }
         }
 
-        public void Save(TableStorageInformation tableInformation)
+        public void Save(TableStorageInformation tableInformation, TableStorageType type)
         {
             var cfg = new Configuration<TableStorageInformation>(new InternalDataSurrogate(tableInformation.Table.ParentBase));
-            var tableFileConfig = FilePathFromTable(tableInformation.Table);
+            var tableFileConfig = FilePathFromTable(tableInformation.Table, type);
 
             cfg.WriteToFile(tableInformation, tableFileConfig);
             tableInformation.IsNew = false;
