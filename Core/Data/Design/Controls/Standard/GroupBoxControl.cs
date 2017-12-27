@@ -18,6 +18,7 @@ namespace Core.Data.Design.Controls.Standard
             Properties.Add(new FontProperty(this));
             Properties.Add(new SizeProperty(this));
             Properties.Add(new PositionProperty(this));
+            Properties.Add(new TabIndexProperty(this));
 
             Text = "Группа";
             DefaultColor = BackColor;
