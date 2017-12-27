@@ -6,6 +6,7 @@ using Core.Data.Model;
 using Core.Data.Table;
 using Core.Helper;
 using Core.Notification;
+using Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -104,9 +105,11 @@ namespace Core.Forms.Main.CardForm
                 if (ModelHelper.Get(Base, Table, id, out var model))
                 {
                     modelCardView1.Model = model;
-                    UpdateUiText(id);
+                    //UpdateUiText(id);
                 }
             }
+
+            UpdateUiText(Model.ID.Value);
         }
 
         public void InitializeModel(CardModel model)
@@ -177,6 +180,9 @@ namespace Core.Forms.Main.CardForm
                 txtID.Text = id.ToString();
 
             this.Text = Model.IsNew ? "Новая запись" : "Изменение записи";
+
+            // После обновления UI делаем выделение активных контролов
+            new HighlightFocusedControl(this).Install();
         }
 
         private void FormCardView_KeyUp(object sender, KeyEventArgs e)

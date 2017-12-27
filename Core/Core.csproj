@@ -318,6 +318,7 @@
     <Compile Include="Storage\Tables\TableStorageData\TableStorageColumnData.cs" />
     <Compile Include="Storage\Tables\TableStorageType.cs" />
     <Compile Include="Utils\FileAssociation.cs" />
+    <Compile Include="Utils\HighlightFocusedControl.cs" />
     <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
