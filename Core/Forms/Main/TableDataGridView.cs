@@ -23,23 +23,10 @@ namespace Core.Forms.Main
     {
         private TableData tableData;
 
-        public TableDataGridView()
+        public TableDataGridView() : base()
         {
             DoubleBuffered = true;
-            BackgroundColor = Color.White;
-            MultiSelect = false;
             BorderStyle = BorderStyle.Fixed3D;
-
-            // STYLE
-
-            // Set the selection background color for all the cells.
-            this.DefaultCellStyle.SelectionBackColor = Color.DarkGray;
-            this.DefaultCellStyle.SelectionForeColor = Color.White;
-            
-            // Set the background color for all rows and for alternating rows. 
-            // The value for alternating rows overrides the value for all rows. 
-            this.RowsDefaultCellStyle.BackColor = Color.White;
-            this.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
         }
 
         /// <summary>
@@ -50,7 +37,7 @@ namespace Core.Forms.Main
         /// <summary>
         /// Была ли инициализация ранее
         /// </summary>
-        public bool IsInitialized { get; private set; } = false;
+        public bool IsInitialized { get; private set; } = true;
         
         /// <summary>
         /// Поле идентификатора
