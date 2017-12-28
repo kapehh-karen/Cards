@@ -314,6 +314,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Storage\Tables\TableStorage.cs" />
+    <Compile Include="Storage\Tables\TableStorageData\SortDirection.cs" />
+    <Compile Include="Storage\Tables\TableStorageData\TableStorageSortData.cs" />
     <Compile Include="Storage\Tables\TableStorageInformation.cs" />
     <Compile Include="Storage\Tables\TableStorageData\TableStorageColumnData.cs" />
     <Compile Include="Storage\Tables\TableStorageType.cs" />

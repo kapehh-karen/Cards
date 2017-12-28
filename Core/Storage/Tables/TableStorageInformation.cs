@@ -16,6 +16,18 @@ namespace Core.Storage.Tables
         [DataMember]
         public List<TableStorageColumnData> Columns { get; set; } = new List<TableStorageColumnData>();
 
+        [DataMember]
+        public TableStorageSortData SortData { get; set; } = new TableStorageSortData();
+
+        #region Non Serializable Part
+
+        public bool HasColumns => Columns.Count > 0;
+
+        public void AddColumn(FieldData field)
+        {
+            Columns.Add(new TableStorageColumnData() { Field = field });
+        }
+
         public TableData Table { get; set; } = null;
 
         /// <summary>
@@ -25,21 +37,8 @@ namespace Core.Storage.Tables
 
         public DataTable Data { get; set; } = null;
 
-        public DataView View { get; set; } = null;
-
         public bool HasData => Data != null;
-
-        public bool HasColumns => Columns.Count > 0;
-
-        public void AddColumn(FieldData field)
-        {
-            Columns.Add(new TableStorageColumnData() { Field = field });
-        }
-
-        public void Reset()
-        {
-            if (View != null)
-                View.RowFilter = string.Empty;
-        }
+        
+        #endregion
     }
 }

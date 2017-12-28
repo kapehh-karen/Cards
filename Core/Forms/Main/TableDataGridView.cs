@@ -6,8 +6,10 @@ using Core.Data.Model;
 using Core.Data.Table;
 using Core.Helper;
 using Core.Storage.Tables;
+using Core.Storage.Tables.TableStorageData;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -68,7 +70,6 @@ namespace Core.Forms.Main
                     
                     // Получаем настройки таблицы
                     TableStorageInformation = TableStorage.Instance.Get(tableData, TableStorageType);
-                    TableStorageInformation.Reset();
                 }
             }
         }
@@ -161,7 +162,6 @@ namespace Core.Forms.Main
             if (Table.IsClassifier && AllowCache && CurrentDataTable == null)
             {
                 CurrentDataTable = TableStorageInformation.Data;
-                CurrentDataView = TableStorageInformation.View ?? CurrentDataView;
                 needUpdate = !TableStorageInformation.HasData;
             }
 
@@ -189,8 +189,8 @@ namespace Core.Forms.Main
                         var data = new DataSet();
                         WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
                         CurrentDataTable = data.Tables[0];
-                        firstAfterBind = true; // Перед биндингом
                         CurrentDataView.Table = CurrentDataTable;
+                        firstAfterBind = true; // Перед биндингом
                         this.DataSource = CurrentDataView;
                     }
                     else
@@ -209,11 +209,11 @@ namespace Core.Forms.Main
                 if (Table.IsClassifier && CurrentDataTable != null)
                 {
                     TableStorageInformation.Data = CurrentDataTable;
-                    TableStorageInformation.View = CurrentDataView;
                 }
             }
             else
             {
+                CurrentDataView.Table = CurrentDataTable;
                 firstAfterBind = true; // Перед биндингом
                 this.DataSource = CurrentDataView;
             }
@@ -309,15 +309,19 @@ namespace Core.Forms.Main
 
         #endregion
 
-        #region TableStorageInformation
+        #region Table Storage Information
 
         public TableStorageType TableStorageType { get; set; }
 
         private TableStorageInformation TableStorageInformation { get; set; }
 
+        /// <summary>
+        /// Сохраняем инфу всех колонок
+        /// </summary>
         private void TableStorageInformationSave()
         {
-            // Сохраняем инфу всех колонок
+            TableStorageInformation.SortData.Reset();
+
             TableStorageInformation.Columns.ForEach(col =>
             {
                 foreach (DataGridViewColumn column in Columns)
@@ -325,15 +329,35 @@ namespace Core.Forms.Main
                     {
                         col.Width = column.Width;
                         col.Order = column.DisplayIndex;
+
+                        if (SortedColumn == column)
+                        {
+                            TableStorageInformation.SortData.SortedColumn = col;
+                            switch (SortOrder)
+                            {
+                                case System.Windows.Forms.SortOrder.Ascending:
+                                    TableStorageInformation.SortData.Direction = SortDirection.Ascending;
+                                    break;
+                                case System.Windows.Forms.SortOrder.Descending:
+                                    TableStorageInformation.SortData.Direction = SortDirection.Descending;
+                                    break;
+                                default:
+                                    TableStorageInformation.SortData.Direction = SortDirection.None;
+                                    break;
+                            }
+                        }
                         break;
                     }
             });
+
             TableStorage.Instance.Save(TableStorageInformation, TableStorageType);
         }
 
+        /// <summary>
+        /// Восстанавливаем инфу всех колонок
+        /// </summary>
         private void TableStorageInformationApply()
         {
-            // Восстанавливаем инфу всех колонок
             TableStorageInformation.Columns.ForEach(col =>
             {
                 foreach (DataGridViewColumn column in Columns)
@@ -341,6 +365,20 @@ namespace Core.Forms.Main
                     {
                         column.Width = col.Width;
                         column.DisplayIndex = col.Order;
+
+                        if (TableStorageInformation.SortData.Exists &&
+                            TableStorageInformation.SortData.SortedColumn.Equals(col))
+                        {
+                            switch (TableStorageInformation.SortData.Direction)
+                            {
+                                case SortDirection.Ascending:
+                                    Sort(column, ListSortDirection.Ascending);
+                                    break;
+                                case SortDirection.Descending:
+                                    Sort(column, ListSortDirection.Descending);
+                                    break;
+                            }
+                        }
                         break;
                     }
             });

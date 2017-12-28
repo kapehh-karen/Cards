@@ -8,10 +8,10 @@ namespace Core.Storage.Tables.TableStorageData
 {
     public class TableStorageColumnData
     {
-        public FieldData Field { get; set; } = null;
+        public FieldData Field { get; set; }
 
-        public int Width { get; set; } = 100;
+        public int Width { get; set; }
 
-        public int Order { get; set; } = 0;
+        public int Order { get; set; }
     }
 }

@@ -31,7 +31,7 @@ namespace Core.Storage.Tables
 
         public TableStorageInformation Load(TableData table, TableStorageType type)
         {
-            var cfg = new Configuration<TableStorageInformation>(new InternalDataSurrogate(table.ParentBase));
+            var cfg = new Configuration<TableStorageInformation>(new InternalDataSurrogate(table.ParentBase), true);
             var tableFileConfig = FilePathFromTable(table, type);
 
             // Если существует конфигурация для таблицы
@@ -64,7 +64,7 @@ namespace Core.Storage.Tables
 
         public void Save(TableStorageInformation tableInformation, TableStorageType type)
         {
-            var cfg = new Configuration<TableStorageInformation>(new InternalDataSurrogate(tableInformation.Table.ParentBase));
+            var cfg = new Configuration<TableStorageInformation>(new InternalDataSurrogate(tableInformation.Table.ParentBase), true);
             var tableFileConfig = FilePathFromTable(tableInformation.Table, type);
 
             cfg.WriteToFile(tableInformation, tableFileConfig);
