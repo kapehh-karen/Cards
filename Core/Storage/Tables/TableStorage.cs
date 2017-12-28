@@ -70,5 +70,18 @@ namespace Core.Storage.Tables
             cfg.WriteToFile(tableInformation, tableFileConfig);
             tableInformation.IsNew = false;
         }
+
+        public void SaveDefault(TableStorageInformation tableStorageInformation, TableStorageType linkedTable)
+        {
+            // fill defaults
+            var i = 0;
+            tableStorageInformation.Columns.ForEach(col =>
+            {
+                col.Width = 100;
+                col.Order = i++;
+            });
+
+            Save(tableStorageInformation, linkedTable);
+        }
     }
 }

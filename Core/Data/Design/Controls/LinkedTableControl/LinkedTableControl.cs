@@ -8,6 +8,8 @@ using Core.Data.Design.Properties;
 using Core.Data.Design.Properties.ControlProperties;
 using Core.Data.Table;
 using Core.Common;
+using Core.Storage.Tables;
+using Core.Helper;
 
 namespace Core.Data.Design.Controls.LinkedTableControl
 {
@@ -58,5 +60,96 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             }
             return base.IsInputKey(keyData);
         }
+
+        #region Table Storage Information
+
+        private readonly TableStorageType TableStorageType = TableStorageType.LinkedTable;
+
+        private TableData _table = null;
+        public TableData Table
+        {
+            get => _table;
+            set
+            {
+                if (value == null || value == _table)
+                    return;
+
+                _table = value;
+
+                // Получаем настройки таблицы
+                TableStorageInformation = TableStorage.Instance.Get(_table, TableStorageType);
+
+                if (!TableStorageInformation.HasColumns)
+                {
+                    _table.Fields.ForEach(TableStorageInformation.AddColumn);
+                }
+
+                // Если новая, сразу сохраним, в пизду нах
+                if (TableStorageInformation.IsNew)
+                {
+                    TableStorage.Instance.SaveDefault(TableStorageInformation, TableStorageType);
+                }
+            }
+        }
+        
+        public TableStorageInformation TableStorageInformation { get; set; }
+
+        /// <summary>
+        /// Сохраняем инфу всех колонок
+        /// </summary>
+        private void TableStorageInformationSave()
+        {
+            TableStorageInformation.Columns.ForEach(col =>
+            {
+                foreach (DataGridViewColumn column in Columns)
+                    if (column.GetTag().Field?.Equals(col.Field) ?? false)
+                    {
+                        col.Width = column.Width;
+                        col.Order = column.DisplayIndex;
+                        break;
+                    }
+            });
+
+            TableStorage.Instance.Save(TableStorageInformation, TableStorageType);
+        }
+
+        /// <summary>
+        /// Восстанавливаем инфу всех колонок
+        /// </summary>
+        private void TableStorageInformationApply()
+        {
+            TableStorageInformation.Columns.ForEach(col =>
+            {
+                foreach (DataGridViewColumn column in Columns)
+                    if (column.GetTag().Field?.Equals(col.Field) ?? false)
+                    {
+                        column.Width = col.Width;
+                        column.DisplayIndex = col.Order;
+                        break;
+                    }
+            });
+        }
+
+        protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
+        {
+            base.OnDataBindingComplete(e);
+
+            // Применить все настройки ширины столбцов и т.п.
+            TableStorageInformationApply();
+        }
+        
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Сохраняем перед вызовом базового метода Dispose
+                // (base.Dispose удалит колонки и хрен мы что сохраним)
+                TableStorageInformationSave();
+            }
+
+            base.Dispose(disposing);
+        }
+
+        #endregion
     }
 }

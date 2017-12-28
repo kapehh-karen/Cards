@@ -21,8 +21,6 @@ namespace Core.Forms.Main
 {
     public class TableDataGridView : BaseDataGridView
     {
-        private TableData tableData;
-
         public TableDataGridView() : base()
         {
             DoubleBuffered = true;
@@ -33,30 +31,37 @@ namespace Core.Forms.Main
         /// Используется в режиме классификатора. Содержит ссылку на поле для которого используется классификатор.
         /// </summary>
         public FieldData ParentField { get; set; } = null;
-
-        /// <summary>
-        /// Была ли инициализация ранее
-        /// </summary>
-        public bool IsInitialized { get; private set; } = true;
         
         /// <summary>
         /// Поле идентификатора
         /// </summary>
         public FieldData FieldID { get; private set; }
 
+        private TableData tableData = null;
         public TableData Table
         {
             get => tableData;
             set
             {
+                if (value == null || value == tableData)
+                    return;
+
                 tableData = value;
 
-                if (tableData != null)
+                FieldID = tableData.IdentifierField;
+
+                // Получаем настройки таблицы
+                TableStorageInformation = TableStorage.Instance.Get(tableData, TableStorageType);
+
+                if (!TableStorageInformation.HasColumns)
                 {
-                    FieldID = tableData.IdentifierField;
-                    
-                    // Получаем настройки таблицы
-                    TableStorageInformation = TableStorage.Instance.Get(tableData, TableStorageType);
+                    InitializeFields();
+                }
+
+                // Если новая, сразу сохраним, в пизду нах
+                if (TableStorageInformation.IsNew)
+                {
+                    TableStorage.Instance.SaveDefault(TableStorageInformation, TableStorageType);
                 }
             }
         }
@@ -108,9 +113,6 @@ namespace Core.Forms.Main
         /// <returns>false - если инициализации небыло, true - если была</returns>
         private bool InitializeFields()
         {
-            if (TableStorageInformation.HasColumns)
-                return false;
-
             // Обязательно добавляем ID, т.к. он может быть скрыт, но нам он нужен
             TableStorageInformation.AddColumn(FieldID);
 
@@ -137,10 +139,6 @@ namespace Core.Forms.Main
         {
             if (Base == null || Table == null)
                 return;
-
-            IsInitialized = false;
-
-            InitializeFields();
 
             var needUpdate = true;
             var fields = TableStorageInformation.Columns.Select(item => item.Field).ToArray();
@@ -204,16 +202,7 @@ namespace Core.Forms.Main
                 firstAfterBind = true; // Перед биндингом
                 this.DataSource = CurrentDataView;
             }
-
-            IsInitialized = true;
         }
-
-        #region Post-processing for data bindings
-
-        private object needSelectID;
-        private bool firstAfterBind;
-
-        public DataGridViewColumn KeepSelectedColumn { get; set; }
 
         private void BindingColumns()
         {
@@ -231,6 +220,13 @@ namespace Core.Forms.Main
             }
         }
 
+        #region Post-processing for data bindings
+
+        private object needSelectID;
+        private bool firstAfterBind;
+
+        public DataGridViewColumn KeepSelectedColumn { get; set; }
+        
         private void TrySelectCell(DataGridViewRow row)
         {
             if (row == null)
@@ -273,31 +269,26 @@ namespace Core.Forms.Main
         protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
         {
             base.OnDataBindingComplete(e);
-
-            if (!IsInitialized)
-            {
-                // Привязываем к колонкам тег и переименовываем их
-                BindingColumns();
-
-                if (TableStorageInformation.IsNew)
-                {
-                    TableStorageInformationSave();
-                }
-                else
-                {
-                    // Применить все настройки ширины столбцов и т.п.
-                    TableStorageInformationApply();
-                }
-            }
-
+            
             // Выделить строку
             TrySelectRow();
+        }
+
+        protected override void OnDataSourceChanged(EventArgs e)
+        {
+            base.OnDataSourceChanged(e);
+
+            // Привязываем к колонкам тег и переименовываем их
+            BindingColumns();
+
+            // Применить все настройки ширины столбцов и т.п.
+            TableStorageInformationApply();
         }
 
         #endregion
 
         #region Table Storage Information
-
+        
         public TableStorageType TableStorageType { get; set; }
 
         private TableStorageInformation TableStorageInformation { get; set; }
@@ -312,7 +303,7 @@ namespace Core.Forms.Main
             TableStorageInformation.Columns.ForEach(col =>
             {
                 foreach (DataGridViewColumn column in Columns)
-                    if (column.GetTag().Field.Equals(col.Field))
+                    if (column.GetTag().Field?.Equals(col.Field) ?? false)
                     {
                         col.Width = column.Width;
                         col.Order = column.DisplayIndex;
@@ -348,7 +339,7 @@ namespace Core.Forms.Main
             TableStorageInformation.Columns.ForEach(col =>
             {
                 foreach (DataGridViewColumn column in Columns)
-                    if (column.GetTag().Field.Equals(col.Field))
+                    if (column.GetTag().Field?.Equals(col.Field) ?? false)
                     {
                         column.Width = col.Width;
                         column.DisplayIndex = col.Order;

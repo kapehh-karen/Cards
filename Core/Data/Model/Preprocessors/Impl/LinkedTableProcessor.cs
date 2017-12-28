@@ -31,7 +31,6 @@ namespace Core.Data.Model.Preprocessors.Impl
             }
         }
 
-
         public override void Detach()
         {
             if (control != null)
@@ -46,11 +45,15 @@ namespace Core.Data.Model.Preprocessors.Impl
         {
             if (ModelLinkedTable == null)
                 return;
+
+            // Для сохраненных настроек столбцов
+            control.Table = ModelLinkedTable.LinkedTable.Table;
             
             if (data == null)
             {
                 data = new DataTable();
-                ModelLinkedTable.LinkedTable.Table.Fields.ForEach(f => data.Columns.Add(f.Name, FieldHelper.GetTypeFromField(f)));
+                ModelLinkedTable.LinkedTable.Table
+                    .Fields.ForEach(field => data.Columns.Add(field.Name, FieldHelper.GetTypeFromField(field)));
                 control.DataSource = data;
             }
             else
