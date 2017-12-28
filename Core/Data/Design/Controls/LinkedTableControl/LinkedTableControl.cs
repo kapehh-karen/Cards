@@ -10,6 +10,7 @@ using Core.Data.Table;
 using Core.Common;
 using Core.Storage.Tables;
 using Core.Helper;
+using Core.Forms.Main;
 
 namespace Core.Data.Design.Controls.LinkedTableControl
 {
@@ -91,7 +92,23 @@ namespace Core.Data.Design.Controls.LinkedTableControl
                 }
             }
         }
-        
+
+        private void BindingColumns()
+        {
+            var fields = TableStorageInformation.Columns.Select(item => item.Field);
+
+            // Renaming columns header
+            foreach (DataGridViewColumn column in this.Columns)
+            {
+                var fieldData = fields.Single(f => f.Name.Equals(column.Name));
+                var tag = new TableColumnTag() { Field = fieldData };
+                column.HeaderText = fieldData.DisplayName;
+                column.Tag = tag;
+                column.Visible = fieldData.Visible;
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+        }
+
         public TableStorageInformation TableStorageInformation { get; set; }
 
         /// <summary>
@@ -129,15 +146,18 @@ namespace Core.Data.Design.Controls.LinkedTableControl
                     }
             });
         }
-
-        protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
+        
+        protected override void OnDataSourceChanged(EventArgs e)
         {
-            base.OnDataBindingComplete(e);
+            base.OnDataSourceChanged(e);
+
+            // Привязываем к колонкам тег и переименовываем их
+            BindingColumns();
 
             // Применить все настройки ширины столбцов и т.п.
             TableStorageInformationApply();
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

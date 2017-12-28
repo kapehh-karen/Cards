@@ -84,6 +84,7 @@
             this.tableDataGridView1.Table = null;
             this.tableDataGridView1.TableStorageType = Core.Storage.Tables.TableStorageType.Classificator;
             this.tableDataGridView1.PressedEnter += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
+            this.tableDataGridView1.PressedClick += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
             this.tableDataGridView1.CurrentCellChanged += new System.EventHandler(this.tableDataGridView1_CurrentCellChanged);
             this.tableDataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tableDataGridView1_KeyPress);
             // 

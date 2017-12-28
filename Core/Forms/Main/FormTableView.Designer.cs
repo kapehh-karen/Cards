@@ -81,10 +81,12 @@
             this.tableDataGridView1.SelectedID = null;
             this.tableDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tableDataGridView1.Size = new System.Drawing.Size(804, 424);
+            this.tableDataGridView1.StandardTab = true;
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
-            this.tableDataGridView1.PressedEnter += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
+            this.tableDataGridView1.TableStorageType = Core.Storage.Tables.TableStorageType.Table;
             this.tableDataGridView1.PressedKey += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedKey);
+            this.tableDataGridView1.PressedClick += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedKey);
             // 
             // statusStrip1
             // 

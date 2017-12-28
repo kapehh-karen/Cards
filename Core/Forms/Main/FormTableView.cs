@@ -76,11 +76,6 @@ namespace Core.Forms.Main
             }
         }
 
-        private void tableDataGridView1_PressedEnter(object sender, KeyEventArgs e)
-        {
-            PerformChange();
-        }
-
         private void PerformNew()
         {
             using (var dialog = new FormCardView() { Table = this.Table, Base = this.Base })

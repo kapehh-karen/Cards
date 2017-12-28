@@ -32,9 +32,15 @@ namespace Core.Common
 
         #region Keys bindings
 
+        // Заглушка для кнопки мыши, action как и у кнопки Enter
         private readonly KeyEventArgs enterKeyEventArgs = new KeyEventArgs(Keys.Enter);
+
         public event KeyEventHandler PressedEnter;
+
         public event KeyEventHandler PressedKey;
+
+        // KeyEventHandler для использования уже имеющегося обработчика PressedKey или PressedEnter
+        public event KeyEventHandler PressedClick;
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
@@ -57,7 +63,7 @@ namespace Core.Common
 
             if (CurrentRow != null)
             {
-                PressedEnter?.Invoke(this, enterKeyEventArgs);
+                PressedClick?.Invoke(this, enterKeyEventArgs);
             }
         }
 

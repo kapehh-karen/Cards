@@ -26,7 +26,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             if (control != null)
             {
                 control.PressedKey += Control_KeyDown;
-                control.PressedEnter += Control_KeyDown;
+                control.PressedClick += Control_KeyDown;
                 control.DataBindingComplete += Control_DataBindingComplete;
             }
         }
@@ -36,7 +36,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             if (control != null)
             {
                 control.PressedKey -= Control_KeyDown;
-                control.PressedEnter -= Control_KeyDown;
+                control.PressedClick -= Control_KeyDown;
                 control.DataBindingComplete -= Control_DataBindingComplete;
             }
         }
@@ -46,15 +46,16 @@ namespace Core.Data.Model.Preprocessors.Impl
             if (ModelLinkedTable == null)
                 return;
 
+            var initData = false;
+
             // Для сохраненных настроек столбцов
             control.Table = ModelLinkedTable.LinkedTable.Table;
             
             if (data == null)
             {
                 data = new DataTable();
-                ModelLinkedTable.LinkedTable.Table
-                    .Fields.ForEach(field => data.Columns.Add(field.Name, FieldHelper.GetTypeFromField(field)));
-                control.DataSource = data;
+                ModelLinkedTable.LinkedTable.Table.Fields.ForEach(field => data.Columns.Add(field.Name, FieldHelper.GetTypeFromField(field)));
+                initData = true;
             }
             else
             {
@@ -72,16 +73,11 @@ namespace Core.Data.Model.Preprocessors.Impl
 
             data.AcceptChanges();
 
-            ModelLinkedTable.LinkedTable.Table.Fields.ForEach(field =>
+            if (initData)
             {
-                // Renaming columns header
-                var column = control.Columns[field.Name];
-                var tag = new TableColumnTag() { Field = field };
-                column.HeaderText = field.DisplayName;
-                column.Tag = tag;
-                column.Visible = field.Visible;
-                column.SortMode = DataGridViewColumnSortMode.NotSortable;
-            });
+                // После всех манипуляций делаем это
+                control.DataSource = data;
+            }
         }
 
         public int SelectedIndex => control.CurrentRow == null ? -1 : control.CurrentRow.Index;
