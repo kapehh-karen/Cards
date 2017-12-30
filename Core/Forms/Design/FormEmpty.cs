@@ -70,6 +70,7 @@ namespace Core.Forms.Design
                     property.Value = p.Value;
             });
             element.DesignControls = control.Chields.Select(cdata => MapDataToDesignControl(cdata, element as Control, cardTabPage)).ToList();
+            element.InDesigner = true;
 
             parent.Controls.Add(element as Control);
             cardTabPage.AddDesignControl(element);

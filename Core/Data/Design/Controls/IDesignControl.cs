@@ -23,6 +23,11 @@ namespace Core.Data.Design.Controls
 
         IDesignControl ParentControl { get; set; }
 
+        /// <summary>
+        /// Указывает, используется ли элемент в дизайнере форм или нет
+        /// </summary>
+        bool InDesigner { get; set; }
+
         Color DefaultColor { get; }
     }
 }

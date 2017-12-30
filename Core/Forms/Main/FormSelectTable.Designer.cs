@@ -56,7 +56,7 @@
             this.listViewTables.Location = new System.Drawing.Point(0, 0);
             this.listViewTables.MultiSelect = false;
             this.listViewTables.Name = "listViewTables";
-            this.listViewTables.Size = new System.Drawing.Size(470, 383);
+            this.listViewTables.Size = new System.Drawing.Size(683, 446);
             this.listViewTables.TabIndex = 0;
             this.listViewTables.TileSize = new System.Drawing.Size(216, 70);
             this.listViewTables.UseCompatibleStateImageBehavior = false;
@@ -67,11 +67,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(470, 383);
+            this.ClientSize = new System.Drawing.Size(683, 446);
             this.Controls.Add(this.listViewTables);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "FormSelectTable";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = ".:: CARDS ::.";

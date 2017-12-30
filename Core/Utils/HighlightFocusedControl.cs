@@ -14,9 +14,9 @@ namespace Core.Utils
             this.Form = form;
         }
 
-        public void Install()
+        public void Install(bool force = false)
         {
-            if (Installed)
+            if (Installed && !force)
                 return;
 
             InstallEventHandlers(this.Form);

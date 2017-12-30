@@ -25,6 +25,8 @@ namespace Core.Forms.Main.CardForm
 
         public Color DefaultColor => throw new NotImplementedException();
 
+        public bool InDesigner { get; set; }
+
         public List<IDesignControl> DesignControls { get; set; }
     }
 }

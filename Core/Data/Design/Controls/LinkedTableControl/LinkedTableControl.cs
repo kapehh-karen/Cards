@@ -45,6 +45,8 @@ namespace Core.Data.Design.Controls.LinkedTableControl
 
         public Color DefaultColor { get; set; }
 
+        public bool InDesigner { get; set; }
+
         protected override bool IsInputKey(Keys keyData)
         {
             switch (keyData)
@@ -151,6 +153,9 @@ namespace Core.Data.Design.Controls.LinkedTableControl
         {
             base.OnDataSourceChanged(e);
 
+            if (InDesigner)
+                return;
+
             // Привязываем к колонкам тег и переименовываем их
             BindingColumns();
 
@@ -160,7 +165,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing)
+            if (!InDesigner && disposing)
             {
                 // Сохраняем перед вызовом базового метода Dispose
                 // (base.Dispose удалит колонки и хрен мы что сохраним)

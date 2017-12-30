@@ -42,6 +42,8 @@ namespace Core.Forms.Design
         /// </summary>
         public string TempString { get; set; }
 
+        public bool InDesigner { get; set; }
+
         public List<IControlProperty> Properties => throw new NotImplementedException();
 
         public DesignControlType ControlType => throw new NotImplementedException();

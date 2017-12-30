@@ -49,7 +49,7 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>service_manager.ico</ApplicationIcon>
+    <ApplicationIcon>settings.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="service_manager.ico" />
+    <Content Include="settings.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

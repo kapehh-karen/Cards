@@ -40,6 +40,8 @@ namespace Core.Data.Design.Controls.FieldControl
 
         public Color DefaultColor { get; set; }
 
+        public bool InDesigner { get; set; }
+
         protected override bool IsInputKey(Keys keyData)
         {
             switch (keyData)
