@@ -16,18 +16,6 @@ namespace Core.Forms.Main
 {
     public partial class FormSelectTable : Form
     {
-        private class ComboBoxTableItem
-        {
-            public TableData Table { get; set; }
-
-            public string Text { get; set; }
-
-            public override string ToString()
-            {
-                return Text;
-            }
-        }
-
         public FormSelectTable()
         {
             InitializeComponent();
@@ -45,14 +33,22 @@ namespace Core.Forms.Main
 
             SelectedDataBase?.Tables
                 .Where(t => t.Visible)
-                .ForEach(t => lbTables.Items.Add(new ComboBoxTableItem() { Table = t, Text = t.DisplayName }));
+                .ForEach(t =>
+                {
+                    var item = new ListViewItem(t.DisplayName);
+                    item.SubItems.Add(t.IsClassifier ? "Классификатор" : "Таблица");
+                    item.SubItems.Add(t.Name);
+                    item.ImageIndex = t.IsClassifier ? 1 : 0;
+                    item.Tag = t;
+                    listViewTables.Items.Add(item);
+                });
         }
 
-        private void btnSelectTable_Click(object sender, EventArgs e)
+        private void listViewTables_ItemActivate(object sender, EventArgs e)
         {
-            if (lbTables.SelectedItem is ComboBoxTableItem item && item != null)
+            if (listViewTables.SelectedItems[0].Tag is TableData table)
             {
-                SelectedTableData = item.Table;
+                SelectedTableData = table;
                 DialogResult = DialogResult.OK;
             }
         }

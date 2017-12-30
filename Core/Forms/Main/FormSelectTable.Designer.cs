@@ -28,47 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbTables = new System.Windows.Forms.ListBox();
-            this.btnSelectTable = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSelectTable));
+            this.imageListTables = new System.Windows.Forms.ImageList(this.components);
+            this.listViewTables = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
-            // lbTables
+            // imageListTables
             // 
-            this.lbTables.FormattingEnabled = true;
-            this.lbTables.Location = new System.Drawing.Point(20, 29);
-            this.lbTables.Name = "lbTables";
-            this.lbTables.Size = new System.Drawing.Size(303, 251);
-            this.lbTables.TabIndex = 2;
+            this.imageListTables.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTables.ImageStream")));
+            this.imageListTables.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListTables.Images.SetKeyName(0, "classificator.png");
+            this.imageListTables.Images.SetKeyName(1, "table.png");
             // 
-            // btnSelectTable
+            // listViewTables
             // 
-            this.btnSelectTable.Location = new System.Drawing.Point(209, 286);
-            this.btnSelectTable.Name = "btnSelectTable";
-            this.btnSelectTable.Size = new System.Drawing.Size(114, 23);
-            this.btnSelectTable.TabIndex = 3;
-            this.btnSelectTable.Text = "Соединиться";
-            this.btnSelectTable.UseVisualStyleBackColor = true;
-            this.btnSelectTable.Click += new System.EventHandler(this.btnSelectTable_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Таблицы";
+            this.listViewTables.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3});
+            this.listViewTables.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewTables.LabelWrap = false;
+            this.listViewTables.LargeImageList = this.imageListTables;
+            this.listViewTables.Location = new System.Drawing.Point(0, 0);
+            this.listViewTables.MultiSelect = false;
+            this.listViewTables.Name = "listViewTables";
+            this.listViewTables.Size = new System.Drawing.Size(470, 383);
+            this.listViewTables.TabIndex = 0;
+            this.listViewTables.TileSize = new System.Drawing.Size(216, 70);
+            this.listViewTables.UseCompatibleStateImageBehavior = false;
+            this.listViewTables.View = System.Windows.Forms.View.Tile;
+            this.listViewTables.ItemActivate += new System.EventHandler(this.listViewTables_ItemActivate);
             // 
             // FormSelectTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(345, 316);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnSelectTable);
-            this.Controls.Add(this.lbTables);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.ClientSize = new System.Drawing.Size(470, 383);
+            this.Controls.Add(this.listViewTables);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSelectTable";
@@ -76,13 +77,15 @@
             this.Text = ".:: CARDS ::.";
             this.Load += new System.EventHandler(this.FormSelectTable_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.ListBox lbTables;
-        private System.Windows.Forms.Button btnSelectTable;
-        private System.Windows.Forms.Label label2;
+
+        private System.Windows.Forms.ImageList imageListTables;
+        private System.Windows.Forms.ListView listViewTables;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
     }
 }

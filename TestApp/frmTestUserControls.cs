@@ -16,15 +16,11 @@ namespace TestApp
         public frmTestUserControls()
         {
             InitializeComponent();
-
-            new HighlightFocusedControl(this);
         }
         
-        private void button1_Click(object sender, EventArgs e)
+        private void frmTestUserControls_Load(object sender, EventArgs e)
         {
-            
-        }
 
-        
+        }
     }
 }

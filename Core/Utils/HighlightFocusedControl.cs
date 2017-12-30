@@ -14,9 +14,18 @@ namespace Core.Utils
             this.Form = form;
         }
 
-        public void Install() => InstallEventHandlers(this.Form);
+        public void Install()
+        {
+            if (Installed)
+                return;
+
+            InstallEventHandlers(this.Form);
+            Installed = true;
+        }
 
         public Form Form { get; set; }
+
+        public bool Installed { get; private set; } = false;
 
         private Pen pen = new Pen(Color.DeepSkyBlue, 3);
 

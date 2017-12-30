@@ -21,10 +21,16 @@ namespace Core.Forms.Main.CardForm
 {
     public partial class FormCardView : Form
     {
-        private TableData table;
         private DataBase mainBase;
-        private bool isLinkedModel;
+        private HighlightFocusedControl highlight;
 
+        public FormCardView()
+        {
+            InitializeComponent();
+            highlight = new HighlightFocusedControl(this);
+        }
+
+        private TableData table;
         public TableData Table
         {
             get => table;
@@ -79,7 +85,8 @@ namespace Core.Forms.Main.CardForm
                 modelCardView1.Base = mainBase;
             }
         }
-        
+
+        private bool isLinkedModel;
         public bool IsLinkedModel
         {
             get => isLinkedModel;
@@ -123,16 +130,6 @@ namespace Core.Forms.Main.CardForm
                 modelCardView1.Model = model.Clone() as CardModel;
                 UpdateUiText(model.ID.Value);
             }
-        }
-
-        public FormCardView()
-        {
-            InitializeComponent();
-        }
-
-        private void FormCardView_Load(object sender, EventArgs e)
-        {
-
         }
         
         private void btnSave_Click(object sender, EventArgs e)
@@ -182,7 +179,7 @@ namespace Core.Forms.Main.CardForm
             this.Text = Model.IsNew ? "Новая запись" : "Изменение записи";
 
             // После обновления UI делаем выделение активных контролов
-            new HighlightFocusedControl(this).Install();
+            highlight.Install();
         }
 
         private void FormCardView_KeyUp(object sender, KeyEventArgs e)

@@ -80,6 +80,7 @@
             this.tableDataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.tableDataGridView1.SelectedID = null;
             this.tableDataGridView1.Size = new System.Drawing.Size(630, 467);
+            this.tableDataGridView1.StandardTab = true;
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
             this.tableDataGridView1.TableStorageType = Core.Storage.Tables.TableStorageType.Classificator;
