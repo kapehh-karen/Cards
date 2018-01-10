@@ -21,11 +21,13 @@ namespace Core.Forms.Design
 
         private IDesignControl control;
         private IFormBrush brush;
+        private HighlightFocusedControl highlight;
 
         public FormEmpty(FormData formData = null)
         {
             InitializeComponent();
-            
+
+            highlight = new HighlightFocusedControl(this);
             if (formData == null)
             {
                 tabPages.TabPages.Add(SelectedTabPage = new CardTabPage() { Text = "Основная информация", Form = this });
@@ -34,9 +36,8 @@ namespace Core.Forms.Design
             {
                 LoadFromData(formData);
             }
-
-            ControlSelected += FormEmpty_ControlSelected;
-            ControlRelease += FormEmpty_ControlRelease;
+            highlight.Install();
+            
             SetEventListeners();
         }
 
@@ -99,19 +100,7 @@ namespace Core.Forms.Design
                 SetEventListeners();
             }
         }
-
-        private void FormEmpty_ControlRelease(IDesignControl control)
-        {
-            if (control is Control c && c != null)
-                c.BackColor = control.DefaultColor;
-        }
-
-        private void FormEmpty_ControlSelected(IDesignControl control)
-        {
-            if (control is Control c && c != null)
-                c.BackColor = Color.Red;
-        }
-
+        
         private CardTabPage SelectedTabPage { get; set; }
 
         public IFormBrush FormBrush
@@ -143,8 +132,13 @@ namespace Core.Forms.Design
                 {
                     ControlSelected?.Invoke(value);
 
-                    // For hook KeyDown, set focus to selected element
+                    // Для отлова KeyDown и выделения его рамкой
                     (value as Control).Focus();
+                }
+                else if (control != null)
+                {
+                    // Для потери фокуса с элементов
+                    (control as Control).FindForm().ActiveControl = null;
                 }
 
                 control = value;

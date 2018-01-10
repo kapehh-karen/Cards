@@ -163,6 +163,7 @@
             this.Controls.Add(this.listViewProperties);
             this.Controls.Add(this.listViewControls);
             this.Controls.Add(this.menuStrip1);
+            this.DoubleBuffered = true;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormDesigner";

@@ -9,6 +9,13 @@ namespace Core.Utils
 {
     public class HighlightFocusedControl
     {
+        private enum ControlEvent
+        {
+            Reinstall = 0,
+            Install = 1,
+            Uninstall = 2
+        }
+
         public HighlightFocusedControl(Form form)
         {
             this.Form = form;
@@ -36,25 +43,63 @@ namespace Core.Utils
         /// </summary>
         private void InstallEventHandlers(Control containerControl)
         {
-            containerControl.Paint -= Control_Paint;  // Defensive programming
-            containerControl.Paint += Control_Paint;
+            // Событие отрисовки
+            containerControl.Paint -= ContainerControl_Paint;
+            containerControl.Paint += ContainerControl_Paint;
+
+            // Добавление нового контрола
+            containerControl.ControlAdded -= ContainerControl_ControlAdded;
+            containerControl.ControlAdded += ContainerControl_ControlAdded;
+
+            // Удаление существующего контрола
+            containerControl.ControlRemoved -= ContainerControl_ControlRemoved;
+            containerControl.ControlRemoved += ContainerControl_ControlRemoved;
 
             foreach (Control nestedControl in containerControl.Controls)
             {
-                nestedControl.Enter -= Control_ReceivedFocus;  // Defensive programming
-                nestedControl.Enter += Control_ReceivedFocus;
+                InstallControlEventHandlers(nestedControl);
 
                 if (nestedControl.HasChildren)
                     InstallEventHandlers(nestedControl);
             }
         }
 
+        private void InstallControlEventHandlers(Control nestedControl, ControlEvent controlEvent = ControlEvent.Reinstall)
+        {
+            if (controlEvent != ControlEvent.Install) nestedControl.Enter -= Control_Enter;
+            if (controlEvent != ControlEvent.Uninstall) nestedControl.Enter += Control_Enter;
+
+            if (controlEvent != ControlEvent.Install) nestedControl.Move -= Control_Move;
+            if (controlEvent != ControlEvent.Uninstall) nestedControl.Move += Control_Move;
+
+            if (controlEvent != ControlEvent.Install) nestedControl.GotFocus -= Control_GotFocus;
+            if (controlEvent != ControlEvent.Uninstall) nestedControl.GotFocus += Control_GotFocus;
+
+            if (controlEvent != ControlEvent.Install) nestedControl.LostFocus -= Control_LostFocus;
+            if (controlEvent != ControlEvent.Uninstall) nestedControl.LostFocus += Control_LostFocus;
+        }
+        
         /// <summary>
         /// Event handler method that gets called when a control receives focus. This just indicates 
         /// that the whole form needs to be redrawn. (This is a bit inefficient, but will presumably 
         /// only be noticeable if there are many, many controls on the form.)
         /// </summary>
-        private void Control_ReceivedFocus(object sender, EventArgs e)
+        private void Control_Enter(object sender, EventArgs e)
+        {
+            this.Form.Refresh();
+        }
+
+        private void Control_Move(object sender, EventArgs e)
+        {
+            this.Form.Refresh();
+        }
+
+        private void Control_GotFocus(object sender, EventArgs e)
+        {
+            this.Form.Refresh();
+        }
+
+        private void Control_LostFocus(object sender, EventArgs e)
         {
             this.Form.Refresh();
         }
@@ -63,7 +108,7 @@ namespace Core.Utils
         /// Event handler method to draw a dark blue rectangle around a control if it has focus, and 
         /// if it is in the container control that is invoking this method.
         /// </summary>
-        private void Control_Paint(object sender, PaintEventArgs e)
+        private void ContainerControl_Paint(object sender, PaintEventArgs e)
         {
             Control activeControl = this.Form.ActiveControl;
             if (activeControl != null && activeControl.Parent == sender)
@@ -72,6 +117,16 @@ namespace Core.Utils
                             new Rectangle(activeControl.Location.X - 2, activeControl.Location.Y - 2,
                                           activeControl.Size.Width + 3, activeControl.Size.Height + 3));
             }
+        }
+
+        private void ContainerControl_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            InstallControlEventHandlers(e.Control, ControlEvent.Uninstall);
+        }
+
+        private void ContainerControl_ControlAdded(object sender, ControlEventArgs e)
+        {
+            InstallControlEventHandlers(e.Control, ControlEvent.Install);
         }
     }
 }

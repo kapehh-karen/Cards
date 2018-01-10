@@ -27,7 +27,5 @@ namespace Core.Data.Design.Controls
         /// Указывает, используется ли элемент в дизайнере форм или нет
         /// </summary>
         bool InDesigner { get; set; }
-
-        Color DefaultColor { get; }
     }
 }

@@ -28,7 +28,6 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             Properties.Add(new TabIndexProperty(this));
 
             BorderStyle = BorderStyle.FixedSingle;
-            DefaultColor = BackgroundColor;
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
@@ -42,9 +41,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 
         public IDesignControl ParentControl { get; set; }
-
-        public Color DefaultColor { get; set; }
-
+        
         public bool InDesigner { get; set; }
 
         protected override bool IsInputKey(Keys keyData)

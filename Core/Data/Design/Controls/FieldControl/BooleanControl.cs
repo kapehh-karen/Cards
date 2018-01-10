@@ -24,7 +24,6 @@ namespace Core.Data.Design.Controls.FieldControl
 
             FlatStyle = FlatStyle.Flat;
             AutoSize = true;
-            DefaultColor = BackColor;
             CheckAlign = ContentAlignment.MiddleRight;
         }
 
@@ -35,9 +34,7 @@ namespace Core.Data.Design.Controls.FieldControl
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 
         public IDesignControl ParentControl { get; set; }
-
-        public Color DefaultColor { get; set; }
-
+        
         public bool InDesigner { get; set; }
 
         protected override bool IsInputKey(Keys keyData)

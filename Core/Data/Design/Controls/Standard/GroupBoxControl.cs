@@ -21,7 +21,6 @@ namespace Core.Data.Design.Controls.Standard
             Properties.Add(new TabIndexProperty(this));
 
             Text = "Группа";
-            DefaultColor = BackColor;
             TabStop = false;
         }
 
@@ -32,9 +31,7 @@ namespace Core.Data.Design.Controls.Standard
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 
         public IDesignControl ParentControl { get; set; }
-
-        public Color DefaultColor { get; set; }
-
+        
         public bool InDesigner { get; set; }
 
         protected override bool IsInputKey(Keys keyData)

@@ -26,7 +26,6 @@ namespace Core.Data.Design.Controls.FieldControl
             BackColor = Color.White;
             ForeColor = Color.Black;
             Cursor = Cursors.Hand;
-            DefaultColor = BackColor;
             TextAlign = ContentAlignment.MiddleLeft;
         }
 
@@ -37,9 +36,7 @@ namespace Core.Data.Design.Controls.FieldControl
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 
         public IDesignControl ParentControl { get; set; }
-
-        public Color DefaultColor { get; set; }
-
+        
         public bool InDesigner { get; set; }
 
         protected override bool IsInputKey(Keys keyData)

@@ -22,8 +22,7 @@ namespace Core.Data.Design.Controls.FieldControl
             Properties.Add(new FieldProperty(this) { AccessTypes = new FieldType[] { FieldType.TEXT, FieldType.NUMBER } });
             Properties.Add(new MaxLengthProperty(this));
             Properties.Add(new TabIndexProperty(this));
-
-            DefaultColor = BackColor;
+            
             BorderStyle = BorderStyle.FixedSingle;
         }
         
@@ -34,9 +33,7 @@ namespace Core.Data.Design.Controls.FieldControl
         public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 
         public IDesignControl ParentControl { get; set; }
-
-        public Color DefaultColor { get; set; }
-
+        
         public bool InDesigner { get; set; }
 
         protected override bool IsInputKey(Keys keyData)
