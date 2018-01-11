@@ -50,6 +50,9 @@ namespace Core.Data.Design.FormBrushes
 
                 control.Left = Math.Max((int)(Math.Round(x / MOD_POS) * MOD_POS), 0);
                 control.Top = Math.Max((int)(Math.Round(y / MOD_POS) * MOD_POS), 0);
+
+                // WARNING! Быдлокод для вызова отрисовки у Highlighter
+                sender.Refresh();
             }
         }
 
@@ -123,6 +126,9 @@ namespace Core.Data.Design.FormBrushes
                         }
                         break;
                 }
+                
+                // WARNING! Быдлокод для вызова отрисовки у Highlighter
+                sender.Refresh();
             }
         }
     }

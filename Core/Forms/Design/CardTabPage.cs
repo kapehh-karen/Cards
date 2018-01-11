@@ -15,6 +15,7 @@ namespace Core.Forms.Design
         {
             AutoScroll = true;
             AutoScrollMargin = new Size(5, 5);
+            DoubleBuffered = true;
         }
 
         public FormEmpty Form { get; set; }

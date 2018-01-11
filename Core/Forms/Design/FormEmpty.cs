@@ -28,6 +28,7 @@ namespace Core.Forms.Design
             InitializeComponent();
 
             highlight = new HighlightFocusedControl(this);
+            SuspendLayout();
             if (formData == null)
             {
                 tabPages.TabPages.Add(SelectedTabPage = new CardTabPage() { Text = "Основная информация", Form = this });
@@ -36,6 +37,7 @@ namespace Core.Forms.Design
             {
                 LoadFromData(formData);
             }
+            ResumeLayout();
             highlight.Install();
             
             SetEventListeners();

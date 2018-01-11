@@ -139,10 +139,18 @@ namespace Core.Forms.Design
             return new FormData()
             {
                 Size = frmEmpty.Size,
-                Pages = frmEmpty.CardTabPages.Select(tp => new PageData()
+                Pages = frmEmpty.CardTabPages.Select(tp =>
                 {
-                    Title = tp.Text,
-                    Controls = tp.DesignControls.Select(MapDesignControlToData).ToList()
+                    // Сбрасываем позицию скроллов!!!
+                    // Очень важно, потому-что из-за них координаты элементов смещаются от реальных
+                    tp.HorizontalScroll.Value = 0;
+                    tp.VerticalScroll.Value = 0;
+
+                    return new PageData()
+                    {
+                        Title = tp.Text,
+                        Controls = tp.DesignControls.Select(MapDesignControlToData).ToList()
+                    };
                 }).ToList()
             };
         }

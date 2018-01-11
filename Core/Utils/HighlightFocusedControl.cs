@@ -33,7 +33,7 @@ namespace Core.Utils
         public Form Form { get; set; }
 
         public bool Installed { get; private set; } = false;
-
+        
         private Pen pen = new Pen(Color.DeepSkyBlue, 3);
 
         /// <summary>
@@ -66,17 +66,18 @@ namespace Core.Utils
 
         private void InstallControlEventHandlers(Control nestedControl, ControlEvent controlEvent = ControlEvent.Reinstall)
         {
-            if (controlEvent != ControlEvent.Install) nestedControl.Enter -= Control_Enter;
-            if (controlEvent != ControlEvent.Uninstall) nestedControl.Enter += Control_Enter;
+            if (controlEvent != ControlEvent.Install) nestedControl.Enter -= Control_Event;
+            if (controlEvent != ControlEvent.Uninstall) nestedControl.Enter += Control_Event;
 
-            if (controlEvent != ControlEvent.Install) nestedControl.Move -= Control_Move;
-            if (controlEvent != ControlEvent.Uninstall) nestedControl.Move += Control_Move;
+            // Хреновая идея, очень глючит при скроллинге, потому-что скроллинг перемещает элементы
+            //if (controlEvent != ControlEvent.Install) nestedControl.Move -= Control_Event;
+            //if (controlEvent != ControlEvent.Uninstall) nestedControl.Move += Control_Event;
 
-            if (controlEvent != ControlEvent.Install) nestedControl.GotFocus -= Control_GotFocus;
-            if (controlEvent != ControlEvent.Uninstall) nestedControl.GotFocus += Control_GotFocus;
+            if (controlEvent != ControlEvent.Install) nestedControl.GotFocus -= Control_Event;
+            if (controlEvent != ControlEvent.Uninstall) nestedControl.GotFocus += Control_Event;
 
-            if (controlEvent != ControlEvent.Install) nestedControl.LostFocus -= Control_LostFocus;
-            if (controlEvent != ControlEvent.Uninstall) nestedControl.LostFocus += Control_LostFocus;
+            if (controlEvent != ControlEvent.Install) nestedControl.LostFocus -= Control_Event;
+            if (controlEvent != ControlEvent.Uninstall) nestedControl.LostFocus += Control_Event;
         }
         
         /// <summary>
@@ -84,22 +85,7 @@ namespace Core.Utils
         /// that the whole form needs to be redrawn. (This is a bit inefficient, but will presumably 
         /// only be noticeable if there are many, many controls on the form.)
         /// </summary>
-        private void Control_Enter(object sender, EventArgs e)
-        {
-            this.Form.Refresh();
-        }
-
-        private void Control_Move(object sender, EventArgs e)
-        {
-            this.Form.Refresh();
-        }
-
-        private void Control_GotFocus(object sender, EventArgs e)
-        {
-            this.Form.Refresh();
-        }
-
-        private void Control_LostFocus(object sender, EventArgs e)
+        private void Control_Event(object sender, EventArgs e)
         {
             this.Form.Refresh();
         }
