@@ -38,6 +38,9 @@ namespace Core.Data.Design.FormBrushes
                     form.SelectedControl = cc;
                 else
                     form.SelectedControl = null;
+
+                // WARNING! Быдлокод для вызова отрисовки у Highlighter
+                sender.Refresh();
             }
         }
 

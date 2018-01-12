@@ -73,11 +73,11 @@ namespace Core.Utils
             //if (controlEvent != ControlEvent.Install) nestedControl.Move -= Control_Event;
             //if (controlEvent != ControlEvent.Uninstall) nestedControl.Move += Control_Event;
 
-            if (controlEvent != ControlEvent.Install) nestedControl.GotFocus -= Control_Event;
-            if (controlEvent != ControlEvent.Uninstall) nestedControl.GotFocus += Control_Event;
+            //if (controlEvent != ControlEvent.Install) nestedControl.GotFocus -= Control_Event;
+            //if (controlEvent != ControlEvent.Uninstall) nestedControl.GotFocus += Control_Event;
 
-            if (controlEvent != ControlEvent.Install) nestedControl.LostFocus -= Control_Event;
-            if (controlEvent != ControlEvent.Uninstall) nestedControl.LostFocus += Control_Event;
+            //if (controlEvent != ControlEvent.Install) nestedControl.LostFocus -= Control_Event;
+            //if (controlEvent != ControlEvent.Uninstall) nestedControl.LostFocus += Control_Event;
         }
         
         /// <summary>

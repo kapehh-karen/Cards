@@ -44,8 +44,10 @@ namespace Core.Forms.Main
             get => base.Table;
             set
             {
-                base.Table = value;
+                // Сначала ищем FieldID, потому-что оно используется в InitializeFields
                 FieldID = value?.IdentifierField;
+
+                base.Table = value;
             }
         }
 
