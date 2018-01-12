@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using Core.Data.Design.Properties;
 using Core.Data.Design.Properties.ControlProperties;
 using Core.Data.Table;
-using Core.Common;
+using Core.Common.DataGrid;
 using Core.Storage.Tables;
 using Core.Helper;
 using Core.Forms.Main;
@@ -15,7 +15,7 @@ using Core.Forms.Main;
 namespace Core.Data.Design.Controls.LinkedTableControl
 {
     // TODO: Добавление, изменение и удаление записей можно сделать на клавиши и на контекстное меню
-    public class LinkedTableControl : BaseDataGridView, IDesignControl
+    public class LinkedTableControl : BaseDataGridView
     {
         public LinkedTableControl() : base()
         {
@@ -31,18 +31,15 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
-        // Override for red color in FormDesigner
-        public override Color BackColor { get => base.BackgroundColor; set => base.BackgroundColor = value; }
+        public override DataGridType ViewType => DataGridType.LinkedTable;
 
-        public DesignControlType ControlType => DesignControlType.LINKED_TABLE;
+        #region IDesignControl Impl
 
-        public List<IControlProperty> Properties { get; set; } = new List<IControlProperty>();
+        public override DesignControlType ControlType => DesignControlType.LINKED_TABLE;
+        public override List<IControlProperty> Properties { get; } = new List<IControlProperty>();
+        public override List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
 
-        public List<IDesignControl> DesignControls { get; set; } = new List<IDesignControl>();
-
-        public IDesignControl ParentControl { get; set; }
-        
-        public bool InDesigner { get; set; }
+        #endregion
 
         protected override bool IsInputKey(Keys keyData)
         {
@@ -63,113 +60,12 @@ namespace Core.Data.Design.Controls.LinkedTableControl
 
         #region Table Storage Information
 
-        private readonly TableStorageType TableStorageType = TableStorageType.LinkedTable;
+        public override TableStorageType TableStorageType { get; set; } = TableStorageType.LinkedTable;
 
-        private TableData _table = null;
-        public TableData Table
+        protected override bool InitializeFields()
         {
-            get => _table;
-            set
-            {
-                if (value == null || value == _table)
-                    return;
-
-                _table = value;
-
-                // Получаем настройки таблицы
-                TableStorageInformation = TableStorage.Instance.Get(_table, TableStorageType);
-
-                if (!TableStorageInformation.HasColumns)
-                {
-                    _table.Fields.ForEach(TableStorageInformation.AddColumn);
-                }
-
-                // Если новая, сразу сохраним, в пизду нах
-                if (TableStorageInformation.IsNew)
-                {
-                    TableStorage.Instance.SaveDefault(TableStorageInformation, TableStorageType);
-                }
-            }
-        }
-
-        private void BindingColumns()
-        {
-            var fields = TableStorageInformation.Columns.Select(item => item.Field);
-
-            // Renaming columns header
-            foreach (DataGridViewColumn column in this.Columns)
-            {
-                var fieldData = fields.Single(f => f.Name.Equals(column.Name));
-                var tag = new TableColumnTag() { Field = fieldData };
-                column.HeaderText = fieldData.DisplayName;
-                column.Tag = tag;
-                column.Visible = fieldData.Visible;
-                column.SortMode = DataGridViewColumnSortMode.NotSortable;
-            }
-        }
-
-        public TableStorageInformation TableStorageInformation { get; set; }
-
-        /// <summary>
-        /// Сохраняем инфу всех колонок
-        /// </summary>
-        private void TableStorageInformationSave()
-        {
-            TableStorageInformation.Columns.ForEach(col =>
-            {
-                foreach (DataGridViewColumn column in Columns)
-                    if (column.GetTag().Field?.Equals(col.Field) ?? false)
-                    {
-                        col.Width = column.Width;
-                        col.Order = column.DisplayIndex;
-                        break;
-                    }
-            });
-
-            TableStorage.Instance.Save(TableStorageInformation, TableStorageType);
-        }
-
-        /// <summary>
-        /// Восстанавливаем инфу всех колонок
-        /// </summary>
-        private void TableStorageInformationApply()
-        {
-            TableStorageInformation.Columns.ForEach(col =>
-            {
-                foreach (DataGridViewColumn column in Columns)
-                    if (column.GetTag().Field?.Equals(col.Field) ?? false)
-                    {
-                        column.Width = col.Width;
-                        column.DisplayIndex = col.Order;
-                        break;
-                    }
-            });
-        }
-        
-        protected override void OnDataSourceChanged(EventArgs e)
-        {
-            base.OnDataSourceChanged(e);
-
-            if (InDesigner)
-                return;
-
-            // Привязываем к колонкам тег и переименовываем их
-            BindingColumns();
-
-            // Применить все настройки ширины столбцов и т.п.
-            TableStorageInformationApply();
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (!InDesigner && disposing)
-            {
-                // Сохраняем перед вызовом базового метода Dispose
-                // (base.Dispose удалит колонки и хрен мы что сохраним)
-                TableStorageInformationSave();
-            }
-
-            base.Dispose(disposing);
+            base.Table.Fields.ForEach(TableStorageInformation.AddColumn);
+            return true;
         }
 
         #endregion

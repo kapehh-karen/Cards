@@ -1,4 +1,4 @@
-﻿using Core.Common;
+﻿using Core.Common.DataGrid;
 using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Field;
@@ -27,6 +27,8 @@ namespace Core.Forms.Main
             BorderStyle = BorderStyle.Fixed3D;
         }
 
+        public override DataGridType ViewType => DataGridType.TableAndClassificator;
+
         /// <summary>
         /// Используется в режиме классификатора. Содержит ссылку на поле для которого используется классификатор.
         /// </summary>
@@ -36,33 +38,14 @@ namespace Core.Forms.Main
         /// Поле идентификатора
         /// </summary>
         public FieldData FieldID { get; private set; }
-
-        private TableData tableData = null;
-        public TableData Table
+        
+        public override TableData Table
         {
-            get => tableData;
+            get => base.Table;
             set
             {
-                if (value == null || value == tableData)
-                    return;
-
-                tableData = value;
-
-                FieldID = tableData.IdentifierField;
-
-                // Получаем настройки таблицы
-                TableStorageInformation = TableStorage.Instance.Get(tableData, TableStorageType);
-
-                if (!TableStorageInformation.HasColumns)
-                {
-                    InitializeFields();
-                }
-
-                // Если новая, сразу сохраним, в пизду нах
-                if (TableStorageInformation.IsNew)
-                {
-                    TableStorage.Instance.SaveDefault(TableStorageInformation, TableStorageType);
-                }
+                base.Table = value;
+                FieldID = value?.IdentifierField;
             }
         }
 
@@ -106,34 +89,6 @@ namespace Core.Forms.Main
         /// Используется когда требуется поддержка кеша, и наоборот
         /// </summary>
         public bool AllowCache { get; set; } = true;
-
-        /// <summary>
-        /// Распределение полей по дефолту. Если в настройках не указано какие поля отображать
-        /// </summary>
-        /// <returns>false - если инициализации небыло, true - если была</returns>
-        private bool InitializeFields()
-        {
-            // Обязательно добавляем ID, т.к. он может быть скрыт, но нам он нужен
-            TableStorageInformation.AddColumn(FieldID);
-
-            if (ParentField?.Type == FieldType.BIND)
-            {
-                var displayField = ParentField.BindData?.Field; // Отображаемое поле
-
-                // Добавляем в список отображаемых полей только тогда, когда displayField не ID
-                // NOTE: Если отображаемое поле = ID, то надо показать что-то ещё, а что именно - хз
-                if (displayField != null && displayField != FieldID)
-                {
-                    // Только отображаемое поле
-                    TableStorageInformation.AddColumn(displayField);
-                    return true;
-                }
-            }
-
-            // Все видимые поля (кроме ID, его добавили уже)
-            Table.Fields.Where(f => f.Visible && !f.IsIdentifier).Take(5).ForEach(TableStorageInformation.AddColumn);
-            return true;
-        }
 
         public void FillTable(bool forceUpdate = false)
         {
@@ -204,21 +159,6 @@ namespace Core.Forms.Main
             }
         }
 
-        private void BindingColumns()
-        {
-            var fields = TableStorageInformation.Columns.Select(item => item.Field);
-
-            // Renaming columns header
-            foreach (DataGridViewColumn column in this.Columns)
-            {
-                var fieldData = fields.Single(f => f.Name.Equals(column.Name));
-                var tag = new TableColumnTag() { Field = fieldData };
-                column.HeaderText = fieldData.DisplayName;
-                column.Tag = tag;
-                column.Visible = fieldData.Visible;
-                column.SortMode = DataGridViewColumnSortMode.Automatic;
-            }
-        }
 
         #region Post-processing for data bindings
 
@@ -273,107 +213,39 @@ namespace Core.Forms.Main
             // Выделить строку
             TrySelectRow();
         }
-
-        protected override void OnDataSourceChanged(EventArgs e)
-        {
-            base.OnDataSourceChanged(e);
-
-            // Привязываем к колонкам тег и переименовываем их
-            BindingColumns();
-
-            // Применить все настройки ширины столбцов и т.п.
-            TableStorageInformationApply();
-        }
-
+        
         #endregion
 
         #region Table Storage Information
         
-        public TableStorageType TableStorageType { get; set; }
-
-        private TableStorageInformation TableStorageInformation { get; set; }
-
         /// <summary>
-        /// Сохраняем инфу всех колонок
+        /// Распределение полей по дефолту. Если в настройках не указано какие поля отображать
         /// </summary>
-        private void TableStorageInformationSave()
+        /// <returns>false - если инициализации небыло, true - если была</returns>
+        protected override bool InitializeFields()
         {
-            TableStorageInformation.SortData.Reset();
+            // Обязательно добавляем ID, т.к. он может быть скрыт, но нам он нужен
+            TableStorageInformation.AddColumn(FieldID);
 
-            TableStorageInformation.Columns.ForEach(col =>
+            if (ParentField?.Type == FieldType.BIND)
             {
-                foreach (DataGridViewColumn column in Columns)
-                    if (column.GetTag().Field?.Equals(col.Field) ?? false)
-                    {
-                        col.Width = column.Width;
-                        col.Order = column.DisplayIndex;
+                var displayField = ParentField.BindData?.Field; // Отображаемое поле
 
-                        if (SortedColumn == column)
-                        {
-                            TableStorageInformation.SortData.SortedColumn = col;
-                            switch (SortOrder)
-                            {
-                                case System.Windows.Forms.SortOrder.Ascending:
-                                    TableStorageInformation.SortData.Direction = SortDirection.Ascending;
-                                    break;
-                                case System.Windows.Forms.SortOrder.Descending:
-                                    TableStorageInformation.SortData.Direction = SortDirection.Descending;
-                                    break;
-                                default:
-                                    TableStorageInformation.SortData.Direction = SortDirection.None;
-                                    break;
-                            }
-                        }
-                        break;
-                    }
-            });
-
-            TableStorage.Instance.Save(TableStorageInformation, TableStorageType);
-        }
-
-        /// <summary>
-        /// Восстанавливаем инфу всех колонок
-        /// </summary>
-        private void TableStorageInformationApply()
-        {
-            TableStorageInformation.Columns.ForEach(col =>
-            {
-                foreach (DataGridViewColumn column in Columns)
-                    if (column.GetTag().Field?.Equals(col.Field) ?? false)
-                    {
-                        column.Width = col.Width;
-                        column.DisplayIndex = col.Order;
-
-                        if (TableStorageInformation.SortData.Exists &&
-                            TableStorageInformation.SortData.SortedColumn.Equals(col))
-                        {
-                            switch (TableStorageInformation.SortData.Direction)
-                            {
-                                case SortDirection.Ascending:
-                                    Sort(column, ListSortDirection.Ascending);
-                                    break;
-                                case SortDirection.Descending:
-                                    Sort(column, ListSortDirection.Descending);
-                                    break;
-                            }
-                        }
-                        break;
-                    }
-            });
-        }
-        
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                // Сохраняем перед вызовом базового метода Dispose
-                // (base.Dispose удалит колонки и хрен мы что сохраним)
-                TableStorageInformationSave();
+                // Добавляем в список отображаемых полей только тогда, когда displayField не ID
+                // NOTE: Если отображаемое поле = ID, то надо показать что-то ещё, а что именно - хз
+                if (displayField != null && displayField != FieldID)
+                {
+                    // Только отображаемое поле
+                    TableStorageInformation.AddColumn(displayField);
+                    return true;
+                }
             }
 
-            base.Dispose(disposing);
+            // Все видимые поля (кроме ID, его добавили уже)
+            Table.Fields.Where(f => f.Visible && !f.IsIdentifier).Take(5).ForEach(TableStorageInformation.AddColumn);
+            return true;
         }
-
+        
         #endregion
     }
 }
