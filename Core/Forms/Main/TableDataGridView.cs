@@ -226,13 +226,13 @@ namespace Core.Forms.Main
         {
             // Обязательно добавляем ID, т.к. он может быть скрыт, но нам он нужен
             TableStorageInformation.AddColumn(FieldID);
-
+            
+            // Если открывается через просмотрщик классификаторов
             if (ParentField?.Type == FieldType.BIND)
             {
                 var displayField = ParentField.BindData?.Field; // Отображаемое поле
 
-                // Добавляем в список отображаемых полей только тогда, когда displayField не ID
-                // NOTE: Если отображаемое поле = ID, то надо показать что-то ещё, а что именно - хз
+                // Добавляем в список полей поле которое должно отображаться заместо ID
                 if (displayField != null && displayField != FieldID)
                 {
                     // Только отображаемое поле
