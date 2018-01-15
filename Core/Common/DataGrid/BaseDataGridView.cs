@@ -184,6 +184,7 @@ namespace Core.Common.DataGrid
         /// </summary>
         private void TableStorageInformationApply()
         {
+            // Сначала применяем визуальные параметры
             TableStorageInformation.Columns.ForEach(col =>
             {
                 foreach (DataGridViewColumn column in Columns)
@@ -191,24 +192,32 @@ namespace Core.Common.DataGrid
                     {
                         column.Width = col.Width;
                         column.DisplayIndex = col.Order;
-
-                        if (ViewType.Equals(DataGridType.TableAndClassificator) &&
-                            TableStorageInformation.SortData.Exists &&
-                            TableStorageInformation.SortData.SortedColumn.Equals(col))
-                        {
-                            switch (TableStorageInformation.SortData.Direction)
-                            {
-                                case SortDirection.Ascending:
-                                    Sort(column, ListSortDirection.Ascending);
-                                    break;
-                                case SortDirection.Descending:
-                                    Sort(column, ListSortDirection.Descending);
-                                    break;
-                            }
-                        }
                         break;
                     }
             });
+
+            // И только потом сортируем колонку
+            if (ViewType.Equals(DataGridType.TableAndClassificator) && TableStorageInformation.SortData.Exists)
+            {
+                var colData = TableStorageInformation.SortData.SortedColumn;
+
+                foreach (DataGridViewColumn column in Columns)
+                {
+                    if (column.GetTag().Field?.Equals(colData.Field) ?? false)
+                    {
+                        switch (TableStorageInformation.SortData.Direction)
+                        {
+                            case SortDirection.Ascending:
+                                Sort(column, ListSortDirection.Ascending);
+                                break;
+                            case SortDirection.Descending:
+                                Sort(column, ListSortDirection.Descending);
+                                break;
+                        }
+                        break;
+                    }
+                }
+            }
         }
         
         protected override void OnDataSourceChanged(EventArgs e)
