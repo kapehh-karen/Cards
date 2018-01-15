@@ -36,31 +36,33 @@ namespace Core.Utils
         
         private Pen pen = new Pen(Color.DeepSkyBlue, 3);
 
+        private bool IsControlContainer(Control nestedControl) => nestedControl.HasChildren || nestedControl is TabPage || nestedControl is GroupBox;
+
         /// <summary>
         /// Recursive method to install the paint event handler for all container controls on a form, 
         /// including the form itself, and also to install the "enter" event handler for all controls 
         /// on a form.
         /// </summary>
-        private void InstallEventHandlers(Control containerControl)
+        private void InstallEventHandlers(Control containerControl, ControlEvent controlEvent = ControlEvent.Reinstall)
         {
             // Событие отрисовки
-            containerControl.Paint -= ContainerControl_Paint;
-            containerControl.Paint += ContainerControl_Paint;
+            if (controlEvent != ControlEvent.Install) containerControl.Paint -= ContainerControl_Paint;
+            if (controlEvent != ControlEvent.Uninstall) containerControl.Paint += ContainerControl_Paint;
 
             // Добавление нового контрола
-            containerControl.ControlAdded -= ContainerControl_ControlAdded;
-            containerControl.ControlAdded += ContainerControl_ControlAdded;
+            if (controlEvent != ControlEvent.Install) containerControl.ControlAdded -= ContainerControl_ControlAdded;
+            if (controlEvent != ControlEvent.Uninstall) containerControl.ControlAdded += ContainerControl_ControlAdded;
 
             // Удаление существующего контрола
-            containerControl.ControlRemoved -= ContainerControl_ControlRemoved;
-            containerControl.ControlRemoved += ContainerControl_ControlRemoved;
+            if (controlEvent != ControlEvent.Install) containerControl.ControlRemoved -= ContainerControl_ControlRemoved;
+            if (controlEvent != ControlEvent.Uninstall) containerControl.ControlRemoved += ContainerControl_ControlRemoved;
 
             foreach (Control nestedControl in containerControl.Controls)
             {
-                InstallControlEventHandlers(nestedControl);
+                InstallControlEventHandlers(nestedControl, controlEvent);
 
-                if (nestedControl.HasChildren)
-                    InstallEventHandlers(nestedControl);
+                if (IsControlContainer(nestedControl))
+                    InstallEventHandlers(nestedControl, controlEvent);
             }
         }
 
@@ -68,16 +70,6 @@ namespace Core.Utils
         {
             if (controlEvent != ControlEvent.Install) nestedControl.Enter -= Control_Event;
             if (controlEvent != ControlEvent.Uninstall) nestedControl.Enter += Control_Event;
-
-            // Хреновая идея, очень глючит при скроллинге, потому-что скроллинг перемещает элементы
-            //if (controlEvent != ControlEvent.Install) nestedControl.Move -= Control_Event;
-            //if (controlEvent != ControlEvent.Uninstall) nestedControl.Move += Control_Event;
-
-            //if (controlEvent != ControlEvent.Install) nestedControl.GotFocus -= Control_Event;
-            //if (controlEvent != ControlEvent.Uninstall) nestedControl.GotFocus += Control_Event;
-
-            //if (controlEvent != ControlEvent.Install) nestedControl.LostFocus -= Control_Event;
-            //if (controlEvent != ControlEvent.Uninstall) nestedControl.LostFocus += Control_Event;
         }
         
         /// <summary>
@@ -107,12 +99,22 @@ namespace Core.Utils
 
         private void ContainerControl_ControlRemoved(object sender, ControlEventArgs e)
         {
-            InstallControlEventHandlers(e.Control, ControlEvent.Uninstall);
+            var control = e.Control;
+
+            InstallControlEventHandlers(control, ControlEvent.Uninstall);
+
+            if (IsControlContainer(control))
+                InstallEventHandlers(control, ControlEvent.Uninstall);
         }
 
         private void ContainerControl_ControlAdded(object sender, ControlEventArgs e)
         {
-            InstallControlEventHandlers(e.Control, ControlEvent.Install);
+            var control = e.Control;
+
+            InstallControlEventHandlers(control, ControlEvent.Install);
+
+            if (IsControlContainer(control))
+                InstallEventHandlers(control, ControlEvent.Install);
         }
     }
 }

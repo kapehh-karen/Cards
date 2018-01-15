@@ -54,6 +54,7 @@
             this.Name = "FormEmpty";
             this.Text = "Форма";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEmpty_FormClosing);
+            this.Load += new System.EventHandler(this.FormEmpty_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormEmpty_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormEmpty_MouseMove);

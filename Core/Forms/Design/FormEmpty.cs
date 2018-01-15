@@ -28,17 +28,16 @@ namespace Core.Forms.Design
             InitializeComponent();
 
             highlight = new HighlightFocusedControl(this);
-            SuspendLayout();
             if (formData == null)
             {
                 tabPages.TabPages.Add(SelectedTabPage = new CardTabPage() { Text = "Основная информация", Form = this });
             }
             else
             {
+                SuspendLayout();
                 LoadFromData(formData);
+                ResumeLayout();
             }
-            ResumeLayout();
-            highlight.Install();
             
             SetEventListeners();
         }
@@ -140,7 +139,9 @@ namespace Core.Forms.Design
                 else if (control != null)
                 {
                     // Для потери фокуса с элементов
-                    (control as Control).FindForm().ActiveControl = null;
+                    // NOTE: Вся эта пиздопляска для отрисовки Highlighter-а
+                    this.ActiveControl = null;
+                    this.Refresh();
                 }
 
                 control = value;
@@ -236,6 +237,11 @@ namespace Core.Forms.Design
                 (SelectedControl as Control)?.Dispose();
                 SelectedControl = null;
             }
+        }
+
+        private void FormEmpty_Load(object sender, EventArgs e)
+        {
+            highlight.Install();
         }
     }
 }
