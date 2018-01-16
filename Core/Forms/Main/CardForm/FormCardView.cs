@@ -85,17 +85,8 @@ namespace Core.Forms.Main.CardForm
                 modelCardView1.Base = mainBase;
             }
         }
-
-        private bool isLinkedModel;
-        public bool IsLinkedModel
-        {
-            get => isLinkedModel;
-            set
-            {
-                isLinkedModel = value;
-                txtID.Visible = !isLinkedModel;
-            }
-        }
+        
+        public bool IsLinkedModel { get; set; }
 
         public CardModel Model => modelCardView1.Model;
         
@@ -173,10 +164,7 @@ namespace Core.Forms.Main.CardForm
 
         private void UpdateUiText(object id)
         {
-            if (id != null)
-                txtID.Text = id.ToString();
-
-            this.Text = Model.IsNew ? "Новая запись" : "Изменение записи";
+            this.Text = Model.IsNew ? "Новая запись" : $"Изменение записи #{id}";
 
             // После обновления UI делаем выделение активных контролов
             highlight.Install();

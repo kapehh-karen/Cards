@@ -32,7 +32,6 @@
             this.modelCardView1 = new Core.Forms.Main.CardForm.ModelCardView();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.txtID = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // modelCardView1
@@ -72,27 +71,17 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // txtID
-            // 
-            this.txtID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtID.Location = new System.Drawing.Point(267, 213);
-            this.txtID.Name = "txtID";
-            this.txtID.ReadOnly = true;
-            this.txtID.Size = new System.Drawing.Size(105, 20);
-            this.txtID.TabIndex = 1;
-            this.txtID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // FormCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 243);
-            this.Controls.Add(this.txtID);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.modelCardView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(400, 80);
             this.Name = "FormCardView";
             this.ShowInTaskbar = false;
@@ -100,7 +89,6 @@
             this.Text = "Новая запись";
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormCardView_KeyUp);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -109,6 +97,5 @@
         private ModelCardView modelCardView1;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.TextBox txtID;
     }
 }

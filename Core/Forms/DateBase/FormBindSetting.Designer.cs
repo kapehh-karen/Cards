@@ -62,6 +62,9 @@
             // 
             // gbDateBase
             // 
+            this.gbDateBase.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbDateBase.Controls.Add(this.gbDateTable);
             this.gbDateBase.Controls.Add(this.cmbTables);
             this.gbDateBase.Controls.Add(this.label2);
@@ -74,6 +77,9 @@
             // 
             // gbDateTable
             // 
+            this.gbDateTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbDateTable.Controls.Add(this.btnFormRemove);
             this.gbDateTable.Controls.Add(this.checkVisible);
             this.gbDateTable.Controls.Add(this.txtTableDisplayName);
@@ -95,6 +101,7 @@
             // 
             // btnFormRemove
             // 
+            this.btnFormRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFormRemove.Location = new System.Drawing.Point(441, 19);
             this.btnFormRemove.Name = "btnFormRemove";
             this.btnFormRemove.Size = new System.Drawing.Size(25, 23);
@@ -105,6 +112,7 @@
             // 
             // checkVisible
             // 
+            this.checkVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkVisible.AutoSize = true;
             this.checkVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkVisible.Location = new System.Drawing.Point(384, 420);
@@ -117,6 +125,8 @@
             // 
             // txtTableDisplayName
             // 
+            this.txtTableDisplayName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTableDisplayName.Location = new System.Drawing.Point(196, 371);
             this.txtTableDisplayName.Name = "txtTableDisplayName";
             this.txtTableDisplayName.Size = new System.Drawing.Size(270, 20);
@@ -125,6 +135,7 @@
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(9, 374);
             this.label6.Name = "label6";
@@ -134,6 +145,7 @@
             // 
             // checkClassif
             // 
+            this.checkClassif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkClassif.AutoSize = true;
             this.checkClassif.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.checkClassif.Location = new System.Drawing.Point(315, 397);
@@ -146,6 +158,8 @@
             // 
             // lvDataList
             // 
+            this.lvDataList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDataList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader6,
             this.columnHeader7});
@@ -172,6 +186,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label5.Location = new System.Drawing.Point(9, 231);
@@ -192,6 +207,9 @@
             // 
             // lvFields
             // 
+            this.lvFields.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvFields.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -262,6 +280,7 @@
             // 
             // btnForm
             // 
+            this.btnForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnForm.Location = new System.Drawing.Point(337, 19);
             this.btnForm.Name = "btnForm";
             this.btnForm.Size = new System.Drawing.Size(98, 23);
@@ -292,6 +311,7 @@
             // 
             // btnSaveApply
             // 
+            this.btnSaveApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSaveApply.Location = new System.Drawing.Point(360, 548);
             this.btnSaveApply.Name = "btnSaveApply";
             this.btnSaveApply.Size = new System.Drawing.Size(163, 23);
@@ -302,6 +322,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.Location = new System.Drawing.Point(279, 548);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
@@ -312,6 +333,7 @@
             // 
             // btnEditDB
             // 
+            this.btnEditDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnEditDB.Location = new System.Drawing.Point(12, 550);
             this.btnEditDB.Name = "btnEditDB";
             this.btnEditDB.Size = new System.Drawing.Size(189, 21);
@@ -329,9 +351,9 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveApply);
             this.Controls.Add(this.gbDateBase);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(550, 617);
             this.Name = "FormBindSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки БД";

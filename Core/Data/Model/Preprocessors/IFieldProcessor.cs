@@ -11,13 +11,13 @@ namespace Core.Data.Model.Preprocessors
 {
     public abstract class IFieldProcessor
     {
-        public void Save()
+        public virtual void Save()
         {
             if (ModelField != null)
                 ModelField.Value = Value;
         }
 
-        public void Load()
+        public virtual void Load()
         {
             Detach();
             if (ModelField != null)

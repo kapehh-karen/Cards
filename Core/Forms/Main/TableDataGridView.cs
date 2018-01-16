@@ -226,25 +226,29 @@ namespace Core.Forms.Main
         /// <returns>false - если инициализации небыло, true - если была</returns>
         protected override bool InitializeFields()
         {
+            FieldData displayedField = null;
+
             // Обязательно добавляем ID, т.к. он может быть скрыт, но нам он нужен
             TableStorageInformation.AddColumn(FieldID);
-            
+
             // Если открывается через просмотрщик классификаторов
             if (ParentField?.Type == FieldType.BIND)
             {
-                var displayField = ParentField.BindData?.Field; // Отображаемое поле
+                displayedField = ParentField.BindData?.Field; // Отображаемое поле
 
                 // Добавляем в список полей поле которое должно отображаться заместо ID
-                if (displayField != null && displayField != FieldID)
+                if (displayedField != null && displayedField != FieldID)
                 {
                     // Только отображаемое поле
-                    TableStorageInformation.AddColumn(displayField);
-                    return true;
+                    TableStorageInformation.AddColumn(displayedField);
                 }
             }
 
-            // Все видимые поля (кроме ID, его добавили уже)
-            Table.Fields.Where(f => f.Visible && !f.IsIdentifier).Take(5).ForEach(TableStorageInformation.AddColumn);
+            // Все видимые поля (кроме ID и DisplayField, их добавили уже)
+            Table.Fields
+                .Where(f => f.Visible && f != FieldID && f != displayedField)
+                .Take(5)
+                .ForEach(TableStorageInformation.AddColumn);
             return true;
         }
         
