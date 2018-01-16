@@ -8,7 +8,7 @@ namespace Core.Helper
 {
     public static class FieldHelper
     {
-        public static object CastValue(FieldData field, object value)
+        public static object CastValueForField(FieldData field, object value)
         {
             if (value is DBNull)
                 return null;
@@ -16,7 +16,7 @@ namespace Core.Helper
             switch (field.Type)
             {
                 case FieldType.BIND:
-                    return CastValue(field.BindData.Table.IdentifierField, value);
+                    return CastValueForField(field.BindData.Table.IdentifierField, value);
                 case FieldType.BOOLEAN:
                     return value is bool ? value : Convert.ToBoolean(value);
                 case FieldType.DATE:
@@ -69,6 +69,22 @@ namespace Core.Helper
         public static IEnumerable<FieldType> GetFieldTypes()
         {
             return EnumHelper.GetValues<FieldType>();
+        }
+
+        /// <summary>
+        /// Значения по-умолчанию для полей, которые ЛОГИЧЕСКИ не могут принимать значение NULL
+        /// </summary>
+        /// <param name="field">Поле</param>
+        /// <returns>Значение</returns>
+        public static object GetDefaultValue(this FieldData field)
+        {
+            switch (field.Type)
+            {
+                case FieldType.BOOLEAN:
+                    return true;
+                default:
+                    return null;
+            }
         }
     }
 }

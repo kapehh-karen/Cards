@@ -133,7 +133,7 @@ namespace Core.Helper
 
         private static void ModelFieldsFill(CardModel model, TableData tableModel, SqlDataReader reader)
         {
-            tableModel.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValue(f, reader[f.Name]));
+            tableModel.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValueForField(f, reader[f.Name]));
         }
 
         private static void ModelBindDataFill(SqlConnection connection, CardModel model, TableData tableModel)

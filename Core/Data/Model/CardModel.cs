@@ -13,7 +13,7 @@ namespace Core.Data.Model
         public static CardModel CreateFromTable(TableData table)
         {
             var model = new CardModel();
-            model.FieldValues.AddRange(table.Fields.Select(f => new ModelFieldValue() { Field = f }));
+            model.FieldValues.AddRange(table.Fields.Select(f => new ModelFieldValue() { Field = f, Value = f.GetDefaultValue() }));
             model.LinkedValues.AddRange(table.LinkedTables.Select(l => new ModelLinkedValue() { LinkedTable = l }));
             return model;
         }
