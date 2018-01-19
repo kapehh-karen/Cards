@@ -13,7 +13,7 @@ namespace Core.Filter.Data
         public TableData Table { get; set; }
         
         /// <summary>
-        /// Алиас таблицы в запросах. Например 'People_1'
+        /// Алиас таблицы в запросах. Например 'XCARDS_1'
         /// </summary>
         [DataMember]
         public string AliasName { get; set; }

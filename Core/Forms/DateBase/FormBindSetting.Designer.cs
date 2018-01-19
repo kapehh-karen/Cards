@@ -352,7 +352,6 @@
             this.Controls.Add(this.btnSaveApply);
             this.Controls.Add(this.gbDateBase);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(550, 617);
             this.Name = "FormBindSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
