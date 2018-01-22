@@ -12,6 +12,7 @@ using Core.Helper;
 using Core.Storage.Tables.TableStorageData;
 using System.ComponentModel;
 using Core.Forms.Main;
+using Core.Forms.Main.TableSetting;
 
 namespace Core.Common.DataGrid
 {
@@ -35,9 +36,41 @@ namespace Core.Common.DataGrid
             // The value for alternating rows overrides the value for all rows. 
             RowsDefaultCellStyle.BackColor = Color.White;
             AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+
+            // Контекстное меню
+            InitializeMenu();
         }
 
         public abstract DataGridType ViewType { get; }
+
+        #region Context Menu
+
+        private ContextMenuStrip Menu { get; set; }
+
+        private void InitializeMenu()
+        {
+            Menu = new ContextMenuStrip();
+
+            var itemMenu = new ToolStripMenuItem() { Text = "Настройки столбцов" };
+            itemMenu.Click += ItemMenu_Click;
+
+            Menu.Items.Add(itemMenu);
+
+            this.ContextMenuStrip = Menu;
+        }
+
+        private void ItemMenu_Click(object sender, EventArgs e)
+        {
+            using (var formSettings = new TableColumnSettingForm() { Table = Table, TableStorageType = TableStorageType })
+            {
+                if (formSettings.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
+        }
+
+        #endregion
 
         #region IDesignControl
 

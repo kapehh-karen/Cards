@@ -38,7 +38,7 @@ namespace Core.Storage.Tables
         public DataTable Data { get; set; } = null;
 
         public bool HasData => Data != null;
-        
+
         #endregion
     }
 }
