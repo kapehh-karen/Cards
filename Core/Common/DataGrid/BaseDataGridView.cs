@@ -63,14 +63,23 @@ namespace Core.Common.DataGrid
 
         private void ItemMenu_Click(object sender, EventArgs e)
         {
+            // Перед открытием настроек, актуализируем настройки текущей таблицы
+            TableStorageInformationSave(false);
+
             using (var formSettings = new TableColumnSettingForm() { Table = Table, TableStorageType = TableStorageType })
             {
                 if (formSettings.ShowDialog() == DialogResult.OK)
                 {
+                    TableStorageInformation.Columns = formSettings.Columns.ToList();
+                    OnTableStorageInformationUpdated();
 
+                    // После применения настроек, сохраняем все в файл
+                    TableStorage.Instance.Save(TableStorageInformation, TableStorageType);
                 }
             }
         }
+
+        protected virtual void OnTableStorageInformationUpdated() { }
 
         #endregion
 
@@ -189,7 +198,7 @@ namespace Core.Common.DataGrid
         /// <summary>
         /// Сохраняем инфу всех колонок
         /// </summary>
-        private void TableStorageInformationSave()
+        private void TableStorageInformationSave(bool saveToFile = true)
         {
             TableStorageInformation.SortData.Reset();
 
@@ -218,7 +227,8 @@ namespace Core.Common.DataGrid
                 }
             });
 
-            TableStorage.Instance.Save(TableStorageInformation, TableStorageType);
+            if (saveToFile)
+                TableStorage.Instance.Save(TableStorageInformation, TableStorageType);
         }
 
         /// <summary>
@@ -254,14 +264,18 @@ namespace Core.Common.DataGrid
         
         protected override void OnDataSourceChanged(EventArgs e)
         {
+            if (DataSource == null)
+                return;
+
             // Пофиксил баг с AutoGenerateColumns, из-за него порядок столбцов был упоротым и поехавшим
+            Columns.Clear(); // Удаляем колонки
             AutoGenerateColumns = true;
             base.OnDataSourceChanged(e);
             AutoGenerateColumns = false;
 
             if (InDesigner)
                 return;
-            
+
             // Привязываем к колонкам тег и переименовываем их
             BindingColumns();
 

@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lstColumns = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.lvSelectedColumns = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -50,6 +50,7 @@
             this.btnUpColumn.TabIndex = 1;
             this.btnUpColumn.Text = "Вверх";
             this.btnUpColumn.UseVisualStyleBackColor = true;
+            this.btnUpColumn.Click += new System.EventHandler(this.btnUpColumn_Click);
             // 
             // btnDownColumn
             // 
@@ -59,6 +60,7 @@
             this.btnDownColumn.TabIndex = 2;
             this.btnDownColumn.Text = "Вниз";
             this.btnDownColumn.UseVisualStyleBackColor = true;
+            this.btnDownColumn.Click += new System.EventHandler(this.btnDownColumn_Click);
             // 
             // btnAddColumn
             // 
@@ -68,6 +70,7 @@
             this.btnAddColumn.TabIndex = 4;
             this.btnAddColumn.Text = ">>";
             this.btnAddColumn.UseVisualStyleBackColor = true;
+            this.btnAddColumn.Click += new System.EventHandler(this.btnAddColumn_Click);
             // 
             // btnRemoveColumn
             // 
@@ -77,6 +80,7 @@
             this.btnRemoveColumn.TabIndex = 4;
             this.btnRemoveColumn.Text = "<<";
             this.btnRemoveColumn.UseVisualStyleBackColor = true;
+            this.btnRemoveColumn.Click += new System.EventHandler(this.btnRemoveColumn_Click);
             // 
             // label1
             // 
@@ -106,15 +110,16 @@
             this.lstColumns.Size = new System.Drawing.Size(191, 342);
             this.lstColumns.TabIndex = 7;
             // 
-            // button1
+            // btnSave
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(554, 312);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 58);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSave.Location = new System.Drawing.Point(554, 312);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(75, 58);
+            this.btnSave.TabIndex = 9;
+            this.btnSave.Text = "OK";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // lvSelectedColumns
             // 
@@ -122,7 +127,9 @@
             this.columnHeader3,
             this.columnHeader1,
             this.columnHeader2});
+            this.lvSelectedColumns.FullRowSelect = true;
             this.lvSelectedColumns.Location = new System.Drawing.Point(267, 28);
+            this.lvSelectedColumns.MultiSelect = false;
             this.lvSelectedColumns.Name = "lvSelectedColumns";
             this.lvSelectedColumns.Size = new System.Drawing.Size(281, 342);
             this.lvSelectedColumns.TabIndex = 10;
@@ -149,7 +156,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(641, 384);
             this.Controls.Add(this.lvSelectedColumns);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lstColumns);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -178,7 +185,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListBox lstColumns;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.ListView lvSelectedColumns;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader1;

@@ -108,24 +108,14 @@ namespace Core.Forms.Main
                     var query = $"SELECT {columns} FROM [{Table.Name}]\r\n{joins}";
                     var connection = dbc.Connection;
                     var adapter = new SqlDataAdapter(query, connection);
-
-                    if (CurrentDataTable == null)
-                    {
-                        var data = new DataSet();
-                        WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
-                        CurrentDataTable = data.Tables[0];
-                        CurrentDataView.Table = CurrentDataTable;
-                        firstAfterBind = true; // Перед биндингом
-                        this.DataSource = CurrentDataView;
-                    }
-                    else
-                    {
-                        firstAfterBind = false; // Чтобы не обнулять needSelectID
-                        CurrentDataTable.Clear();
-                        WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(CurrentDataTable));
-                        firstAfterBind = true; // Делаем только перед применением изменений
-                        CurrentDataTable.AcceptChanges();
-                    }
+                    
+                    this.DataSource = null;
+                    var data = new DataSet();
+                    WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
+                    CurrentDataTable = data.Tables[0];
+                    CurrentDataView.Table = CurrentDataTable;
+                    firstAfterBind = true; // Перед биндингом
+                    this.DataSource = CurrentDataView;
 
                     adapter.Dispose();
                 }
@@ -144,6 +134,11 @@ namespace Core.Forms.Main
             }
         }
 
+        protected override void OnTableStorageInformationUpdated()
+        {
+            // При обновлении настроек таблицы, обновляем контент
+            FillTable(true);
+        }
 
         #region Post-processing for data bindings
 
