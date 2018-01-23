@@ -85,12 +85,7 @@ namespace Core.Forms.Main.TableSetting
             }
         }
 
-        public IEnumerable<TableStorageColumnData> Columns =>
-            lvSelectedColumns.Items.Cast<ListViewColumnFieldItem>().Select((item, index) =>
-            {
-                item.ColumnField.Order = index;
-                return item.ColumnField;
-            });
+        public List<TableStorageColumnData> Columns { get; private set; }
 
         private void btnUpColumn_Click(object sender, EventArgs e)
         {
@@ -149,6 +144,18 @@ namespace Core.Forms.Main.TableSetting
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            Columns = lvSelectedColumns.Items
+                .Cast<ListViewColumnFieldItem>()
+                .Select((item, index) =>
+                {
+                    item.ColumnField.Order = index;
+                    return item.ColumnField;
+                })
+                .ToList();
+
+            TableStorageInformation.Columns = Columns;
+            TableStorageInformation.Repair();
+
             DialogResult = DialogResult.OK;
         }
     }

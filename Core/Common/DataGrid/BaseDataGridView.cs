@@ -72,7 +72,6 @@ namespace Core.Common.DataGrid
             {
                 if (formSettings.ShowDialog() == DialogResult.OK)
                 {
-                    TableStorageInformation.Columns = formSettings.Columns.ToList();
                     OnTableStorageInformationUpdated();
 
                     // После применения настроек, сохраняем все в файл

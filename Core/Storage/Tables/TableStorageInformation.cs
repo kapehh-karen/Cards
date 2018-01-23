@@ -43,6 +43,27 @@ namespace Core.Storage.Tables
 
         public bool HasData => Data != null;
 
+        /// <summary>
+        /// Корректирует колонки. Удаляет которых нету в таблице и проверяет колонку которую сортируем.
+        /// </summary>
+        public void Repair()
+        {
+            // Корректируем поля (удаляем лишние и восстанавливаем порядок полей)
+            if (Columns.Count > 0)
+                Columns = Columns.Where(col => Table.Fields.Contains(col.Field))
+                    .OrderBy(col => col.Order)
+                    .Select((col, index) =>
+                    {
+                        col.Order = index;
+                        return col;
+                    })
+                    .ToList();
+
+            // Если сортируемого поля нету
+            if (SortData.Exists && !Columns.Contains(SortData.SortedColumn))
+                SortData.Reset();
+        }
+
         #endregion
     }
 }

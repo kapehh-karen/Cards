@@ -56,6 +56,7 @@ namespace Core.Storage.Tables
                 {
                     var item = Load(table, type) ?? new TableStorageInformation() { IsNew = true };
                     item.Table = table;
+                    item.Repair(); // После считывания из файла, лучше восстановить инфу
                     cachedTables.Add(table, item);
                     return item;
                 }
