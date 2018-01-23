@@ -40,7 +40,8 @@ namespace Core.Common.DataGrid
             AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
 
             // Контекстное меню
-            InitializeMenu();
+            if (ViewType == DataGridType.TableAndClassificator)
+                InitializeMenu();
         }
 
         public abstract DataGridType ViewType { get; }
@@ -66,7 +67,8 @@ namespace Core.Common.DataGrid
             // Перед открытием настроек, актуализируем настройки текущей таблицы
             TableStorageInformationSave(false);
 
-            using (var formSettings = new TableColumnSettingForm() { Table = Table, TableStorageType = TableStorageType })
+            // Сначала в свойствах присваивается TableStorageType, иначе будет баг
+            using (var formSettings = new TableColumnSettingForm() { TableStorageType = TableStorageType, Table = Table })
             {
                 if (formSettings.ShowDialog() == DialogResult.OK)
                 {

@@ -87,7 +87,9 @@ namespace Core.Forms.Main.CardForm
                 return;
 
             selectedField = tableDataGridView1.CurrentCell.OwningColumn.GetTag().Field;
-            lblSelectedCell.Text = $"по полю '{selectedField.DisplayName}'";
+
+            if (selectedField != null)
+                lblSelectedCell.Text = $"по полю '{selectedField.DisplayName}'";
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
