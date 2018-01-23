@@ -75,11 +75,7 @@ namespace Core.Storage.Tables
         {
             // fill defaults
             var i = 0;
-            tableStorageInformation.Columns.ForEach(col =>
-            {
-                col.Width = 100;
-                col.Order = i++;
-            });
+            tableStorageInformation.Columns.ForEach(col => col.Order = i++);
 
             Save(tableStorageInformation, linkedTable);
         }

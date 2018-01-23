@@ -25,7 +25,11 @@ namespace Core.Storage.Tables
 
         public void AddColumn(FieldData field)
         {
-            Columns.Add(new TableStorageColumnData() { Field = field });
+            Columns.Add(new TableStorageColumnData()
+            {
+                Field = field,
+                Order = Columns.Count
+            });
         }
 
         public TableData Table { get; set; } = null;

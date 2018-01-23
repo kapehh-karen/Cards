@@ -13,6 +13,7 @@ using Core.Storage.Tables.TableStorageData;
 using System.ComponentModel;
 using Core.Forms.Main;
 using Core.Forms.Main.TableSetting;
+using Core.Data.Field;
 
 namespace Core.Common.DataGrid
 {
@@ -27,6 +28,7 @@ namespace Core.Common.DataGrid
             ReadOnly = true;
             StandardTab = true;
             ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            AutoGenerateColumns = false; // По-дефолту вырубаю, а там где надо включаю
 
             // Set the selection background color for all the cells.
             DefaultCellStyle.SelectionBackColor = Color.DarkGray;
@@ -109,9 +111,9 @@ namespace Core.Common.DataGrid
             PressedKey?.Invoke(this, e);
         }
 
-        protected override void OnDoubleClick(EventArgs e)
+        protected override void OnCellDoubleClick(DataGridViewCellEventArgs e)
         {
-            base.OnDoubleClick(e);
+            base.OnCellDoubleClick(e);
 
             if (CurrentRow != null)
             {
@@ -122,7 +124,12 @@ namespace Core.Common.DataGrid
         #endregion
 
         #region Table Storage Information
-        
+
+        /// <summary>
+        /// Поле идентификатора
+        /// </summary>
+        public FieldData FieldID { get; private set; }
+
         private void BindingColumns()
         {
             var fields = TableStorageInformation.Columns.Select(item => item.Field);
@@ -156,6 +163,7 @@ namespace Core.Common.DataGrid
                     return;
 
                 tableData = value;
+                FieldID = value.IdentifierField;
 
                 // Получаем настройки таблицы
                 TableStorageInformation = TableStorage.Instance.Get(tableData, TableStorageType);
@@ -163,6 +171,11 @@ namespace Core.Common.DataGrid
                 if (!TableStorageInformation.HasColumns)
                 {
                     InitializeFields();
+                }
+                else if (TableStorageInformation.Columns.Find(col => col.Field.IsIdentifier) == null)
+                {
+                    // Если куда-то спиздили поле с идентификатором, то его надо добавить, используется же в логике всегда
+                    TableStorageInformation.AddColumn(FieldID);
                 }
 
                 // Если новая, сразу сохраним, в пизду нах
@@ -182,31 +195,27 @@ namespace Core.Common.DataGrid
 
             TableStorageInformation.Columns.ForEach(col =>
             {
-                foreach (DataGridViewColumn column in Columns)
-                    if (column.GetTag().Field?.Equals(col.Field) ?? false)
-                    {
-                        col.Width = column.Width;
-                        col.Order = column.DisplayIndex;
+                var column = Columns[col.Field.Name];
+                col.Width = column.Width;
+                col.Order = column.DisplayIndex;
 
-                        if (ViewType.Equals(DataGridType.TableAndClassificator) &&
-                            SortedColumn == column)
-                        {
-                            TableStorageInformation.SortData.SortedColumn = col;
-                            switch (SortOrder)
-                            {
-                                case SortOrder.Ascending:
-                                    TableStorageInformation.SortData.Direction = SortDirection.Ascending;
-                                    break;
-                                case SortOrder.Descending:
-                                    TableStorageInformation.SortData.Direction = SortDirection.Descending;
-                                    break;
-                                default:
-                                    TableStorageInformation.SortData.Direction = SortDirection.None;
-                                    break;
-                            }
-                        }
-                        break;
+                // Сортировка допустима только в таблицах и классификаторах
+                if (ViewType.Equals(DataGridType.TableAndClassificator) && SortedColumn == column)
+                {
+                    TableStorageInformation.SortData.SortedColumn = col;
+                    switch (SortOrder)
+                    {
+                        case SortOrder.Ascending:
+                            TableStorageInformation.SortData.Direction = SortDirection.Ascending;
+                            break;
+                        case SortOrder.Descending:
+                            TableStorageInformation.SortData.Direction = SortDirection.Descending;
+                            break;
+                        default:
+                            TableStorageInformation.SortData.Direction = SortDirection.None;
+                            break;
                     }
+                }
             });
 
             TableStorage.Instance.Save(TableStorageInformation, TableStorageType);
@@ -217,56 +226,49 @@ namespace Core.Common.DataGrid
         /// </summary>
         private void TableStorageInformationApply()
         {
-            // Сначала применяем визуальные параметры
-            TableStorageInformation.Columns.ForEach(col =>
+            // Сначала применяем визуальные параметры (сортируем по ордеру и применяем последовательно)
+            TableStorageInformation.Columns.OrderBy(col => col.Order).ForEach(col =>
             {
-                foreach (DataGridViewColumn column in Columns)
-                    if (column.GetTag().Field?.Equals(col.Field) ?? false)
-                    {
-                        column.Width = col.Width;
-                        column.DisplayIndex = col.Order;
-                        break;
-                    }
+                var column = Columns[col.Field.Name];
+                column.Width = col.Width;
+                column.DisplayIndex = col.Order;
             });
 
             // И только потом сортируем колонку
+            // Сортировка допустима только в таблицах и классификаторах
             if (ViewType.Equals(DataGridType.TableAndClassificator) && TableStorageInformation.SortData.Exists)
             {
                 var colData = TableStorageInformation.SortData.SortedColumn;
-
-                foreach (DataGridViewColumn column in Columns)
+                var column = Columns[colData.Field.Name];
+                switch (TableStorageInformation.SortData.Direction)
                 {
-                    if (column.GetTag().Field?.Equals(colData.Field) ?? false)
-                    {
-                        switch (TableStorageInformation.SortData.Direction)
-                        {
-                            case SortDirection.Ascending:
-                                Sort(column, ListSortDirection.Ascending);
-                                break;
-                            case SortDirection.Descending:
-                                Sort(column, ListSortDirection.Descending);
-                                break;
-                        }
+                    case SortDirection.Ascending:
+                        Sort(column, ListSortDirection.Ascending);
                         break;
-                    }
+                    case SortDirection.Descending:
+                        Sort(column, ListSortDirection.Descending);
+                        break;
                 }
             }
         }
         
         protected override void OnDataSourceChanged(EventArgs e)
         {
+            // Пофиксил баг с AutoGenerateColumns, из-за него порядок столбцов был упоротым и поехавшим
+            AutoGenerateColumns = true;
             base.OnDataSourceChanged(e);
+            AutoGenerateColumns = false;
 
             if (InDesigner)
                 return;
-
+            
             // Привязываем к колонкам тег и переименовываем их
             BindingColumns();
 
             // Применить все настройки ширины столбцов и т.п.
             TableStorageInformationApply();
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (!InDesigner && disposing)

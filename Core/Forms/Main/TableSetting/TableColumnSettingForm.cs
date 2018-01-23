@@ -18,12 +18,23 @@ namespace Core.Forms.Main.TableSetting
         private class ListBoxFieldItem
         {
             public FieldData Field { get; set; }
+
             public override string ToString() => Field.DisplayName;
         }
 
-        private class ListBoxColumnFieldItem
+        private class ListViewColumnFieldItem : ListViewItem
         {
-            public TableStorageColumnData ColumnField { get; set; }
+            public ListViewColumnFieldItem(TableStorageColumnData columnField) : base()
+            {
+                Text = columnField.Field.IsIdentifier ? "*" : "";
+                SubItems.Add(columnField.Field.DisplayName);
+                SubItems.Add(columnField.Field.Visible ? "Видим" : "Скрыт");
+
+                ColumnField = columnField;
+            }
+
+            public TableStorageColumnData ColumnField { get; private set; }
+
             public override string ToString() => ColumnField.Field.DisplayName;
         }
 
@@ -58,15 +69,15 @@ namespace Core.Forms.Main.TableSetting
 
                     // Сортируем по отображаемому имени столбцы которые ещё не выбраны
                     lstColumns.Items.AddRange(tableData.Fields
-                        .Where(f => !fieldsSelected.Contains(f))
+                        .Where(f => f.Visible && !fieldsSelected.Contains(f))
                         .OrderBy(f => f.DisplayName)
                         .Select(f => new ListBoxFieldItem() { Field = f })
                         .ToArray());
 
                     // Сортируем по Order-у
-                    lstSelectedColumns.Items.AddRange(TableStorageInformation.Columns
+                    lvSelectedColumns.Items.AddRange(TableStorageInformation.Columns
                         .OrderBy(col => col.Order)
-                        .Select(col => new ListBoxColumnFieldItem() { ColumnField = col })
+                        .Select(col => new ListViewColumnFieldItem(col))
                         .ToArray());
                 }
             }

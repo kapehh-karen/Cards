@@ -33,23 +33,6 @@ namespace Core.Forms.Main
         /// Используется в режиме классификатора. Содержит ссылку на поле для которого используется классификатор.
         /// </summary>
         public FieldData ParentField { get; set; } = null;
-        
-        /// <summary>
-        /// Поле идентификатора
-        /// </summary>
-        public FieldData FieldID { get; private set; }
-        
-        public override TableData Table
-        {
-            get => base.Table;
-            set
-            {
-                // Сначала ищем FieldID, потому-что оно используется в InitializeFields
-                FieldID = value?.IdentifierField;
-
-                base.Table = value;
-            }
-        }
 
         public DataBase Base { get; set; }
 
