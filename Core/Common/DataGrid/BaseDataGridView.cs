@@ -41,7 +41,6 @@ namespace Core.Common.DataGrid
             AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
 
             // Контекстное меню
-            //if (ViewType == DataGridType.TableAndClassificator)
             InitializeMenu();
         }
 
@@ -54,10 +53,9 @@ namespace Core.Common.DataGrid
         private void InitializeMenu()
         {
             Menu = new ContextMenuStrip();
-
+            
             var itemMenu = new ToolStripMenuItem() { Text = "Настройки столбцов" };
             itemMenu.Click += ItemMenu_Click;
-
             Menu.Items.Add(itemMenu);
 
             this.ContextMenuStrip = Menu;
@@ -276,7 +274,6 @@ namespace Core.Common.DataGrid
                 return;
 
             // Пофиксил баг с AutoGenerateColumns, из-за него порядок столбцов был упоротым и поехавшим
-            Columns.Clear(); // Удаляем колонки
             AutoGenerateColumns = true;
             base.OnDataSourceChanged(e);
             AutoGenerateColumns = false;

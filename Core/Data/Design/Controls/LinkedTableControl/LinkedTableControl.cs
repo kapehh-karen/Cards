@@ -74,7 +74,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
         {
             TableStorageInformationUpdated(this, null);
         }
-
+        
         #endregion
     }
 }

@@ -103,7 +103,6 @@ namespace Core.Forms.Main.CardForm
                 if (ModelHelper.Get(Base, Table, id, out var model))
                 {
                     modelCardView1.Model = model;
-                    //UpdateUiText(id);
                 }
             }
 
