@@ -25,6 +25,7 @@ namespace Core.Common.DataGrid
             MultiSelect = false;
             AllowUserToAddRows = false;
             AllowUserToDeleteRows = false;
+            AllowUserToOrderColumns = true;
             ReadOnly = true;
             StandardTab = true;
             ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -40,8 +41,8 @@ namespace Core.Common.DataGrid
             AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
 
             // Контекстное меню
-            if (ViewType == DataGridType.TableAndClassificator)
-                InitializeMenu();
+            //if (ViewType == DataGridType.TableAndClassificator)
+            InitializeMenu();
         }
 
         public abstract DataGridType ViewType { get; }
@@ -147,7 +148,13 @@ namespace Core.Common.DataGrid
             // Renaming columns header
             foreach (DataGridViewColumn column in this.Columns)
             {
-                var fieldData = fields.Single(f => f.Name.Equals(column.Name));
+                var fieldData = fields.SingleOrDefault(f => f.Name.Equals(column.Name));
+                if (fieldData == null)
+                {
+                    column.Visible = false;
+                    continue; // скипаем колонки для которых нету колонок в настройках
+                }
+
                 var tag = new TableColumnTag() { Field = fieldData };
                 column.HeaderText = fieldData.DisplayName;
                 column.Tag = tag;

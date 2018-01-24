@@ -116,7 +116,7 @@ namespace Core.Forms.Main
             if (selectedID == null)
                 return;
 
-            if (MessageBox.Show("Удалить запись?", "Подтверждение действия",
+            if (MessageBox.Show("Удалить запись?", Consts.ProgramTitle,
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                 return;
 
@@ -144,6 +144,20 @@ namespace Core.Forms.Main
         private void toolStripButtonDelete_Click(object sender, EventArgs e)
         {
             PerformDelete();
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                if (MessageBox.Show("Выйти из программы?", Consts.ProgramTitle,
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    this.Close();
+                    return true;
+                }
+            }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }

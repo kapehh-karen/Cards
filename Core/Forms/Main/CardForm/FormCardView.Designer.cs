@@ -87,7 +87,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Новая запись";
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormCardView_KeyUp);
             this.ResumeLayout(false);
 
         }

@@ -170,18 +170,22 @@ namespace Core.Forms.Main.CardForm
             highlight.Install();
         }
 
-        private void FormCardView_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-                DialogResult = DialogResult.Cancel;
-        }
-
         public new DialogResult ShowDialog()
         {
             if (modelCardView1.Form == null || Model == null)
                 return DialogResult.Abort;
 
             return base.ShowDialog();
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }

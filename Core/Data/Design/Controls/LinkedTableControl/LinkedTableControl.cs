@@ -17,6 +17,8 @@ namespace Core.Data.Design.Controls.LinkedTableControl
     // TODO: Добавление, изменение и удаление записей можно сделать на клавиши и на контекстное меню
     public class LinkedTableControl : BaseDataGridView
     {
+        public event EventHandler TableStorageInformationUpdated = (s, e) => { };
+
         public LinkedTableControl() : base()
         {
             Properties.Add(new NameProperty(this));
@@ -66,6 +68,11 @@ namespace Core.Data.Design.Controls.LinkedTableControl
         {
             base.Table.Fields.ForEach(TableStorageInformation.AddColumn);
             return true;
+        }
+
+        protected override void OnTableStorageInformationUpdated()
+        {
+            TableStorageInformationUpdated(this, null);
         }
 
         #endregion

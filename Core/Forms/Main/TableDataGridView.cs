@@ -133,13 +133,7 @@ namespace Core.Forms.Main
                 this.DataSource = CurrentDataView;
             }
         }
-
-        protected override void OnTableStorageInformationUpdated()
-        {
-            // При обновлении настроек таблицы, обновляем контент
-            FillTable(true);
-        }
-
+        
         #region Post-processing for data bindings
 
         private object needSelectID;
@@ -193,11 +187,17 @@ namespace Core.Forms.Main
             // Выделить строку
             TrySelectRow();
         }
-        
+
         #endregion
 
         #region Table Storage Information
-        
+
+        protected override void OnTableStorageInformationUpdated()
+        {
+            // При обновлении настроек таблицы, обновляем контент
+            FillTable(true);
+        }
+
         /// <summary>
         /// Распределение полей по дефолту. Если в настройках не указано какие поля отображать
         /// </summary>

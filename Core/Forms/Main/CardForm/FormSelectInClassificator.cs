@@ -71,11 +71,6 @@ namespace Core.Forms.Main.CardForm
 
         public CardModel Model => tableDataGridView1.SelectedModel;
 
-        private void FormSelectInClassificator_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void tableDataGridView1_PressedEnter(object sender, KeyEventArgs e)
         {
             DialogResult = DialogResult.OK;
@@ -141,13 +136,7 @@ namespace Core.Forms.Main.CardForm
                 SendKeys.Send(e.KeyChar.ToString());
             }
         }
-
-        private void FormSelectInClassificator_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
-                DialogResult = DialogResult.Cancel;
-        }
-
+        
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -178,6 +167,16 @@ namespace Core.Forms.Main.CardForm
         private void useNullToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Ignore;
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }

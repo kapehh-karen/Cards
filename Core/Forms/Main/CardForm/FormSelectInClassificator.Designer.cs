@@ -177,8 +177,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор из классификатора";
-            this.Load += new System.EventHandler(this.FormSelectInClassificator_Load);
-            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormSelectInClassificator_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

@@ -1,5 +1,6 @@
 ﻿using Core.Data.Field;
 using Core.Data.Table;
+using Core.Helper;
 using Core.Storage.Tables;
 using Core.Storage.Tables.TableStorageData;
 using System;
@@ -30,7 +31,7 @@ namespace Core.Forms.Main.TableSetting
                 SubItems.Add(columnField.Field.DisplayName);
                 SubItems.Add(columnField.Field.Visible ? "Видим" : "Скрыт");
 
-                ForeColor = columnField.Field.IsIdentifier ? Color.Green : Color.Black;
+                ForeColor = columnField.Field.IsIdentifier ? Color.Blue : columnField.Field.Visible ? Color.Black : Color.Green;
 
                 ColumnField = columnField;
             }
@@ -70,10 +71,10 @@ namespace Core.Forms.Main.TableSetting
                     var fieldsSelected = TableStorageInformation.Columns.Select(col => col.Field);
 
                     // Сортируем по отображаемому имени столбцы которые ещё не выбраны
-                    lstColumns.Items.AddRange(tableData.Fields
-                        .Where(f => f.Visible && !fieldsSelected.Contains(f))
+                    lvColumns.Items.AddRange(tableData.Fields
+                        .Where(f => !fieldsSelected.Contains(f))
                         .OrderBy(f => f.DisplayName)
-                        .Select(f => new ListBoxFieldItem() { Field = f })
+                        .Select(f => new ListViewColumnFieldItem(new TableStorageColumnData() { Field = f }))
                         .ToArray());
 
                     // Сортируем по Order-у
@@ -117,28 +118,30 @@ namespace Core.Forms.Main.TableSetting
 
         private void btnAddColumn_Click(object sender, EventArgs e)
         {
-            if (lstColumns.SelectedItem != null &&
-                lstColumns.SelectedItem is ListBoxFieldItem item)
+            if (lvColumns.SelectedItems.Count > 0)
             {
-                lstColumns.Items.Remove(item);
-                lvSelectedColumns.Items
-                    .Add(new ListViewColumnFieldItem(new TableStorageColumnData() { Field = item.Field }));
+                var selectedItems = lvColumns.SelectedItems.Cast<ListViewColumnFieldItem>().ToArray();
+
+                selectedItems.ForEach(lvColumns.Items.Remove);
+                lvSelectedColumns.Items.AddRange(selectedItems);
             }
         }
 
         private void btnRemoveColumn_Click(object sender, EventArgs e)
         {
-            if (lvSelectedColumns.SelectedItems.Count > 0 &&
-                lvSelectedColumns.SelectedItems[0] is ListViewColumnFieldItem item)
+            if (lvSelectedColumns.SelectedItems.Count > 0)
             {
-                if (item.ColumnField.Field.IsIdentifier)
+                var selectedItems = lvSelectedColumns.SelectedItems.Cast<ListViewColumnFieldItem>().ToArray();
+
+                if (selectedItems.SingleOrDefault(col => col.ColumnField.Field.IsIdentifier) is ListViewColumnFieldItem itemID
+                    && itemID != null)
                 {
                     MessageBox.Show("Нельзя убрать поле идентификатора!", Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-
-                lvSelectedColumns.Items.Remove(item);
-                lstColumns.Items.Add(new ListBoxFieldItem() { Field = item.ColumnField.Field });
+                
+                selectedItems.ForEach(lvSelectedColumns.Items.Remove);
+                lvColumns.Items.AddRange(selectedItems);
             }
         }
 
@@ -157,6 +160,16 @@ namespace Core.Forms.Main.TableSetting
             TableStorageInformation.Repair();
 
             DialogResult = DialogResult.OK;
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }

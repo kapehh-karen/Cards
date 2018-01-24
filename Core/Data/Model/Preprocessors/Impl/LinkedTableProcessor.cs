@@ -17,7 +17,6 @@ namespace Core.Data.Model.Preprocessors.Impl
     {
         private List<CardModel> displayedItems;
         private LinkedTableControl control;
-        private DataTable data;
 
         public override IDesignControl Control { get => control; set => control = value as LinkedTableControl; }
 
@@ -28,6 +27,7 @@ namespace Core.Data.Model.Preprocessors.Impl
                 control.PressedKey += Control_KeyDown;
                 control.PressedClick += Control_KeyDown;
                 control.DataBindingComplete += Control_DataBindingComplete;
+                control.TableStorageInformationUpdated += Control_TableStorageInformationUpdated;
             }
         }
 
@@ -38,6 +38,7 @@ namespace Core.Data.Model.Preprocessors.Impl
                 control.PressedKey -= Control_KeyDown;
                 control.PressedClick -= Control_KeyDown;
                 control.DataBindingComplete -= Control_DataBindingComplete;
+                control.TableStorageInformationUpdated -= Control_TableStorageInformationUpdated;
             }
         }
 
@@ -45,23 +46,12 @@ namespace Core.Data.Model.Preprocessors.Impl
         {
             if (ModelLinkedTable == null)
                 return;
-
-            var initData = false;
-
+            
             // Для сохраненных настроек столбцов
             control.Table = ModelLinkedTable.LinkedTable.Table;
-            
-            if (data == null)
-            {
-                data = new DataTable();
-                ModelLinkedTable.LinkedTable.Table.Fields.ForEach(field => data.Columns.Add(field.Name, FieldHelper.GetTypeFromField(field)));
-                initData = true;
-            }
-            else
-            {
-                data.Clear();
-            }
 
+            var data = new DataTable();
+            ModelLinkedTable.LinkedTable.Table.Fields.ForEach(field => data.Columns.Add(field.Name, FieldHelper.GetTypeFromField(field)));
             displayedItems = ModelLinkedTable.Items.Where(item => item.LinkedState != ModelLinkedItemState.DELETED).ToList();
             displayedItems.ForEach(item =>
             {
@@ -70,17 +60,18 @@ namespace Core.Data.Model.Preprocessors.Impl
                 item.FieldValues.ForEach(fv => row[fv.Field.Name] = fv.ToDataGridValue() ?? DBNull.Value);
                 data.Rows.Add(row);
             });
-
             data.AcceptChanges();
 
-            if (initData)
-            {
-                // После всех манипуляций делаем это
-                control.DataSource = data;
-            }
+            // После всех манипуляций делаем это
+            control.DataSource = data;
         }
 
         public int SelectedIndex => control.CurrentRow == null ? -1 : control.CurrentRow.Index;
+
+        private void Control_TableStorageInformationUpdated(object sender, EventArgs e)
+        {
+            Load();
+        }
 
         private void Control_KeyDown(object sender, KeyEventArgs e)
         {
