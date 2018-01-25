@@ -10,14 +10,13 @@ namespace Core.Filter.Data.Operand.Impl
     {
         public override OperandType Type => OperandType.VALUE;
 
-        /// <summary>
-        /// Тип значения, используется в окне изменения значения в фильтрах
-        /// </summary>
-        public FieldType FieldType { get; set; }
+        public override FieldType ValueType { get; set; }
 
         /// <summary>
         /// Значение любого FieldType типа
         /// </summary>
         public object Value { get; set; }
+
+        public override string SQLExpression => Value.ToString();
     }
 }

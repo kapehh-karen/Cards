@@ -23,5 +23,7 @@ namespace Core.Filter.Data.Condition.Impl
         /// Правые операнды. Типы операндов и их количество управляются оператором.
         /// </summary>
         public List<IFilterOperand> RightOperands { get; set; } = new List<IFilterOperand>(2);
+
+        public override string SQLExpression => Operator.BuildSQLExpression(this);
     }
 }

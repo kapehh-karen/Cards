@@ -10,6 +10,12 @@ namespace Core.Filter.Data.Operand.Impl
     {
         public override OperandType Type => OperandType.FIELD;
 
+        public override FieldType ValueType
+        {
+            get => FilterField.Field.Type;
+            set { /* ignoring */ }
+        }
+
         /// <summary>
         /// Таблица
         /// </summary>
@@ -19,5 +25,7 @@ namespace Core.Filter.Data.Operand.Impl
         /// Поле
         /// </summary>
         public FilterField FilterField { get; set; }
+
+        public override string SQLExpression => $"[{FilterTable.AliasName}].[{FilterField.Field.Name}]";
     }
 }

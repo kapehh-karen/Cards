@@ -11,5 +11,7 @@ namespace Core.Filter.Data.Condition
         /// Оператор AND, OR, etc. перед самим условием
         /// </summary>
         public ConditionOperator ConditionOperator { get; set; } = ConditionOperator.NONE;
+
+        public virtual string SQLExpression => string.Empty;
     }
 }

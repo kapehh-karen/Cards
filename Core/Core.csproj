@@ -157,6 +157,7 @@
     <Compile Include="Filter\Data\FilterTable.cs" />
     <Compile Include="Filter\Data\Operand\OperandType.cs" />
     <Compile Include="Filter\Data\Operand\Impl\ValueOperand.cs" />
+    <Compile Include="Filter\Data\Operator\Impl\EqualOperator.cs" />
     <Compile Include="Filter\Data\Operator\OperatorType.cs" />
     <Compile Include="Forms\DateBase\FormBindSetting.cs">
       <SubType>Form</SubType>

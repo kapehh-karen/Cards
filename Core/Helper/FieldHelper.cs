@@ -78,15 +78,13 @@ namespace Core.Helper
         /// <returns>Значение</returns>
         public static object GetDefaultValue(this FieldData field)
         {
-            /*switch (field.Type)
+            switch (field.Type)
             {
                 case FieldType.BOOLEAN:
-                    return true;
+                    return false;
                 default:
                     return null;
-            }*/
-
-            return null;
+            }
         }
     }
 }
