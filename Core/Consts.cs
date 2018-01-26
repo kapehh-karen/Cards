@@ -5,7 +5,7 @@ namespace Core
 {
     public static class Consts
     {
-        public static readonly string ProgramTitle = ".:: CARDS ::.";
+        public const string ProgramTitle = ".:: CARDS ::.";
 
         public static readonly string UserSettingsFolder
             = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CARDS User Settings");

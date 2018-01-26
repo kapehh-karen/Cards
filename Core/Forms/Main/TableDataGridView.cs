@@ -161,7 +161,9 @@ namespace Core.Forms.Main
             if (firstAfterBind && needSelectID != null) // Выделение нужной строки при первом открытии
             {
                 var findedRow = WaitDialog.Run("Подождите...", () =>
-                    (from DataGridViewRow row in Rows select row).FirstOrDefault(row => row.Cells[FieldID.Name].Value.Equals(needSelectID)));
+                    (from DataGridViewRow row in Rows select row).FirstOrDefault(row => 
+                    needSelectID.Equals(row.Cells[FieldID.Name].Value)
+                    ));
 
                 if (CurrentRow != findedRow)
                 {
@@ -179,11 +181,14 @@ namespace Core.Forms.Main
                 TrySelectCell(CurrentRow);
             }
         }
-
-        protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
+        
+        protected override void OnDataSourceChanged(EventArgs e)
         {
-            base.OnDataBindingComplete(e);
-            
+            base.OnDataSourceChanged(e);
+
+            if (DataSource == null)
+                return;
+
             // Выделить строку
             TrySelectRow();
         }

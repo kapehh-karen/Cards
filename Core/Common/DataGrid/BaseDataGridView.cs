@@ -71,6 +71,10 @@ namespace Core.Common.DataGrid
             {
                 if (formSettings.ShowDialog() == DialogResult.OK)
                 {
+                    // Чтобы не сохранять настройки таблицы в DataSource Changed событии
+                    initializedFirstData = false;
+
+                    // Оповещаем дочерние классы об изменении конфигурации таблицы, следует обновить данные
                     OnTableStorageInformationUpdated();
 
                     // После применения настроек, сохраняем все в файл
@@ -267,11 +271,19 @@ namespace Core.Common.DataGrid
                 }
             }
         }
-        
+
+        private bool initializedFirstData = false;
         protected override void OnDataSourceChanged(EventArgs e)
         {
             if (DataSource == null)
                 return;
+
+            if (initializedFirstData)
+            {
+                // Перед изменением DataSource, актуализируем настройки текущей таблицы
+                TableStorageInformationSave(false);
+            }
+            else initializedFirstData = true;
 
             // Пофиксил баг с AutoGenerateColumns, из-за него порядок столбцов был упоротым и поехавшим
             AutoGenerateColumns = true;

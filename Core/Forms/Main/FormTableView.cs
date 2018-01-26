@@ -104,7 +104,6 @@ namespace Core.Forms.Main
 
                 if (res != DialogResult.Abort)
                 {
-                    tableDataGridView1.SelectedID = selectedID;
                     FillTable();
                 }
             }

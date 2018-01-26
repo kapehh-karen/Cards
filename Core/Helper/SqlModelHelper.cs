@@ -78,9 +78,11 @@ namespace Core.Helper
                     {
                         changedFields.ForEach(f => command.Parameters.AddWithValue(f.Name, model[f] ?? DBNull.Value));
                         id = command.ExecuteScalar();
+
                         // Если небыло возвращено идентификатора, то он должен быть уже в modelId.Value
+                        // Но если идентификатор вернулся, то он обязательно будет int-ом
                         if (id != DBNull.Value)
-                            modelId.Value = id;
+                            modelId.Value = Convert.ToInt32(id);
                     }
                     break;
 

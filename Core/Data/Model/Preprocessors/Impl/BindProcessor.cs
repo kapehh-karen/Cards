@@ -57,8 +57,8 @@ namespace Core.Data.Model.Preprocessors.Impl
                 Base = this.Base
             })
             {
-                dialog.FillTable();
                 dialog.SelectedID = Value;
+                dialog.FillTable();
 
                 var result = dialog.ShowDialog();
                 switch (result)
