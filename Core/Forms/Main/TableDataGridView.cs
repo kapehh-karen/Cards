@@ -148,11 +148,11 @@ namespace Core.Forms.Main
 
             if (KeepSelectedColumn != null)
             {
-                CurrentCell = (from DataGridViewCell cell in row.Cells select cell).FirstOrDefault(cell => cell.OwningColumn.Equals(KeepSelectedColumn));
+                CurrentCell = row.Cells.Cast<DataGridViewCell>().FirstOrDefault(cell => cell.OwningColumn.Equals(KeepSelectedColumn));
             }
             else
             {
-                CurrentCell = (from DataGridViewCell col in row.Cells select col).FirstOrDefault(col => col.Visible);
+                CurrentCell = row.Cells.Cast<DataGridViewCell>().FirstOrDefault(cell => cell.Visible);
             }
         }
 
@@ -160,10 +160,8 @@ namespace Core.Forms.Main
         {
             if (firstAfterBind && needSelectID != null) // Выделение нужной строки при первом открытии
             {
-                var findedRow = WaitDialog.Run("Подождите...", () =>
-                    (from DataGridViewRow row in Rows select row).FirstOrDefault(row => 
-                    needSelectID.Equals(row.Cells[FieldID.Name].Value)
-                    ));
+                var findedRow = WaitDialog.Run("Подождите...",
+                    () => Rows.Cast<DataGridViewRow>().FirstOrDefault(row => needSelectID.Equals(row.Cells[FieldID.Name].Value)));
 
                 if (CurrentRow != findedRow)
                 {
