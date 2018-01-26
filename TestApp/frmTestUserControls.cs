@@ -22,5 +22,11 @@ namespace TestApp
         {
 
         }
+
+        private void treeView1_QueryContinueDrag(object sender, QueryContinueDragEventArgs e)
+        {
+            e.Action = DragAction.Continue;
+            
+        }
     }
 }

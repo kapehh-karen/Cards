@@ -159,6 +159,12 @@
     <Compile Include="Filter\Data\Operand\Impl\ValueOperand.cs" />
     <Compile Include="Filter\Data\Operator\Impl\EqualOperator.cs" />
     <Compile Include="Filter\Data\Operator\OperatorType.cs" />
+    <Compile Include="Filter\Forms\FormFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filter\Forms\FormFilter.Designer.cs">
+      <DependentUpon>FormFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DateBase\FormBindSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -326,6 +332,9 @@
     <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Filter\Forms\FormFilter.resx">
+      <DependentUpon>FormFilter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DateBase\FormBindSetting.resx">
       <DependentUpon>FormBindSetting.cs</DependentUpon>
     </EmbeddedResource>
@@ -409,6 +418,8 @@
   <ItemGroup>
     <None Include="Resources\office-material.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\funnel.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

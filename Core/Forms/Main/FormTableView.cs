@@ -1,6 +1,7 @@
 ﻿using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Table;
+using Core.Filter.Forms;
 using Core.Forms.Main.CardForm;
 using Core.Helper;
 using Core.Notification;
@@ -157,6 +158,17 @@ namespace Core.Forms.Main
                 }
             }
             return base.ProcessDialogKey(keyData);
+        }
+
+        private void toolStripButtonFilter_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new FormFilter())
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
         }
     }
 }

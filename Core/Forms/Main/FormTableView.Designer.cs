@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -36,11 +37,13 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelAmount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonCreate = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonChange = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonFilter = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -70,10 +73,13 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.tableDataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.tableDataGridView1.DesignControls = null;
+            this.tableDataGridView1.InDesigner = false;
             this.tableDataGridView1.KeepSelectedColumn = null;
             this.tableDataGridView1.Location = new System.Drawing.Point(5, 82);
             this.tableDataGridView1.MultiSelect = false;
             this.tableDataGridView1.Name = "tableDataGridView1";
+            this.tableDataGridView1.ParentControl = null;
             this.tableDataGridView1.ParentField = null;
             this.tableDataGridView1.ReadOnly = true;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
@@ -84,6 +90,7 @@
             this.tableDataGridView1.StandardTab = true;
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
+            this.tableDataGridView1.TableStorageInformation = null;
             this.tableDataGridView1.TableStorageType = Core.Storage.Tables.TableStorageType.Table;
             this.tableDataGridView1.PressedKey += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedKey);
             this.tableDataGridView1.PressedClick += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedKey);
@@ -112,13 +119,20 @@
             this.toolStripSeparator1,
             this.toolStripButtonCreate,
             this.toolStripButtonChange,
-            this.toolStripButtonDelete});
+            this.toolStripButtonDelete,
+            this.toolStripSeparator2,
+            this.toolStripButtonFilter});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStrip1.Size = new System.Drawing.Size(814, 79);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 79);
             // 
             // toolStripButtonRefresh
             // 
@@ -132,11 +146,6 @@
             this.toolStripButtonRefresh.Text = "Обновить";
             this.toolStripButtonRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 79);
             // 
             // toolStripButtonCreate
             // 
@@ -177,6 +186,24 @@
             this.toolStripButtonDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonDelete.Click += new System.EventHandler(this.toolStripButtonDelete_Click);
             // 
+            // toolStripButtonFilter
+            // 
+            this.toolStripButtonFilter.AutoSize = false;
+            this.toolStripButtonFilter.Image = global::Core.Properties.Resources.funnel;
+            this.toolStripButtonFilter.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolStripButtonFilter.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonFilter.Name = "toolStripButtonFilter";
+            this.toolStripButtonFilter.Size = new System.Drawing.Size(80, 76);
+            this.toolStripButtonFilter.Text = "Фильтр";
+            this.toolStripButtonFilter.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonFilter.Click += new System.EventHandler(this.toolStripButtonFilter_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 79);
+            // 
             // FormTableView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -211,5 +238,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonCreate;
         private System.Windows.Forms.ToolStripButton toolStripButtonChange;
         private System.Windows.Forms.ToolStripButton toolStripButtonDelete;
+        private System.Windows.Forms.ToolStripButton toolStripButtonFilter;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
