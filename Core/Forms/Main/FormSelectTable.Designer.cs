@@ -73,6 +73,7 @@
             this.Name = "FormSelectTable";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = ".:: CARDS ::.";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FormSelectTable_Load);
             this.ResumeLayout(false);
 

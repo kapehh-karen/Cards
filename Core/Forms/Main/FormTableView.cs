@@ -164,6 +164,8 @@ namespace Core.Forms.Main
         {
             using (var dialog = new FormFilter())
             {
+                dialog.InitializeFilter(Table);
+
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
 

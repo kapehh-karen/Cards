@@ -28,23 +28,68 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.treeSubFilter = new System.Windows.Forms.TreeView();
+            this.btnApply = new System.Windows.Forms.Button();
+            this.contextMenuTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.addLinkedTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // treeSubFilter
+            // 
+            this.treeSubFilter.Location = new System.Drawing.Point(12, 12);
+            this.treeSubFilter.Name = "treeSubFilter";
+            this.treeSubFilter.Size = new System.Drawing.Size(307, 414);
+            this.treeSubFilter.TabIndex = 0;
+            this.treeSubFilter.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeSubFilter_NodeMouseClick);
+            // 
+            // btnApply
+            // 
+            this.btnApply.Location = new System.Drawing.Point(776, 403);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(75, 23);
+            this.btnApply.TabIndex = 1;
+            this.btnApply.Text = "button1";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
+            // 
+            // contextMenuTreeView
+            // 
+            this.contextMenuTreeView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addLinkedTableToolStripMenuItem});
+            this.contextMenuTreeView.Name = "contextMenuTreeView";
+            this.contextMenuTreeView.Size = new System.Drawing.Size(298, 48);
+            // 
+            // addLinkedTableToolStripMenuItem
+            // 
+            this.addLinkedTableToolStripMenuItem.Name = "addLinkedTableToolStripMenuItem";
+            this.addLinkedTableToolStripMenuItem.Size = new System.Drawing.Size(297, 22);
+            this.addLinkedTableToolStripMenuItem.Text = "Добавить выборку по внешним данным";
             // 
             // FormFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 438);
+            this.ClientSize = new System.Drawing.Size(863, 438);
+            this.Controls.Add(this.btnApply);
+            this.Controls.Add(this.treeSubFilter);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormFilter";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FormFilter";
+            this.Text = "Фильтрация";
             this.Load += new System.EventHandler(this.FormFilter_Load);
+            this.contextMenuTreeView.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.TreeView treeSubFilter;
+        private System.Windows.Forms.Button btnApply;
+        private System.Windows.Forms.ContextMenuStrip contextMenuTreeView;
+        private System.Windows.Forms.ToolStripMenuItem addLinkedTableToolStripMenuItem;
     }
 }

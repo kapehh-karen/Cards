@@ -17,5 +17,10 @@ namespace Core.Filter.Data
         /// </summary>
         [DataMember]
         public string AliasName { get; set; }
+
+        public override string ToString()
+        {
+            return $"[{AliasName}] {Table?.DisplayName}";
+        }
     }
 }

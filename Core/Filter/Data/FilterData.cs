@@ -1,4 +1,5 @@
-﻿using Core.Filter.Data.Condition;
+﻿using Core.Data.Table;
+using Core.Filter.Data.Condition;
 using Core.Filter.Data.Condition.Impl;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,21 @@ namespace Core.Filter.Data
     [DataContract]
     public class FilterData
     {
+        private static int countEntities = 0;
+
+        public static FilterData CreateBy(TableData table, FilterData parent = null)
+        {
+            var data = new FilterData();
+            countEntities++;
+            data.FilterTable.Table = table;
+            data.FilterTable.AliasName = $"{table.Name}_{countEntities}";
+            data.Parent = parent;
+            if (parent != null) parent.Chields.Add(data);
+            return data;
+        }
+
         [DataMember]
-        public FilterTable FilterTable { get; set; } = null;
+        public FilterTable FilterTable { get; set; } = new FilterTable();
 
         [DataMember]
         public ICondition Where { get; set; } = new ContainerCondition();
@@ -28,7 +42,13 @@ namespace Core.Filter.Data
         public void MoveTo(FilterData newParent)
         {
             if (Parent != null) Parent.Chields.Remove(this);
-            newParent.Chields.Add(this);
+            Parent = newParent;
+            Parent.Chields.Add(this);
+        }
+
+        public override string ToString()
+        {
+            return FilterTable.ToString();
         }
     }
 }
