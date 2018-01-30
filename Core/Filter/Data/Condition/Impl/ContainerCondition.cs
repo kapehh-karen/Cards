@@ -7,6 +7,8 @@ namespace Core.Filter.Data.Condition.Impl
 {
     public class ContainerCondition : ICondition
     {
+        public override ConditionType Type => ConditionType.CONTAINER;
+
         public List<ICondition> Conditions { get; private set; } = new List<ICondition>();
 
         public override string SQLExpression

@@ -9,6 +9,8 @@ namespace Core.Filter.Data.Condition.Impl
 {
     public class ItemCondition : ICondition
     {
+        public override ConditionType Type => ConditionType.ITEM;
+
         /// <summary>
         /// Левый операнд
         /// </summary>
@@ -24,6 +26,6 @@ namespace Core.Filter.Data.Condition.Impl
         /// </summary>
         public List<IFilterOperand> RightOperands { get; set; } = new List<IFilterOperand>(2);
 
-        public override string SQLExpression => Operator.BuildSQLExpression(this);
+        public override string SQLExpression => Operator.SQLExpression;
     }
 }

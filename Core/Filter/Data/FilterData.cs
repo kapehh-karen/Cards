@@ -12,6 +12,7 @@ namespace Core.Filter.Data
     [DataContract]
     public class FilterData
     {
+        // TODO: Это тоже сериализировать в файл при сохранении, а то будет пиздень, циферки поедут
         private static int countEntities = 0;
 
         public static FilterData CreateBy(TableData table, FilterData parent = null)
@@ -36,15 +37,17 @@ namespace Core.Filter.Data
 
         [DataMember]
         public List<FilterData> Chields { get; set; } = new List<FilterData>();
-
-        public bool IsRoot => Parent == null;
-
+        
         public void MoveTo(FilterData newParent)
         {
             if (Parent != null) Parent.Chields.Remove(this);
             Parent = newParent;
-            Parent.Chields.Add(this);
+            Parent?.Chields.Add(this);
         }
+
+        public bool IsRoot => Parent == null;
+
+        public void Remove() => MoveTo(null);
 
         public override string ToString()
         {

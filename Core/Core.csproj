@@ -146,6 +146,7 @@
     <Compile Include="Config\Surrogate\InternalDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\Data\TableDataSurrogate.cs" />
     <Compile Include="Filter\Data\Condition\ConditionOperator.cs" />
+    <Compile Include="Filter\Data\Condition\ConditionType.cs" />
     <Compile Include="Filter\Data\Condition\Impl\ContainerCondition.cs" />
     <Compile Include="Filter\Data\Condition\ICondition.cs" />
     <Compile Include="Filter\Data\Condition\Impl\ItemCondition.cs" />

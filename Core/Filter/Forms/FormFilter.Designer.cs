@@ -33,6 +33,7 @@
             this.btnApply = new System.Windows.Forms.Button();
             this.contextMenuTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addLinkedTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +58,8 @@
             // contextMenuTreeView
             // 
             this.contextMenuTreeView.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.addLinkedTableToolStripMenuItem});
+            this.addLinkedTableToolStripMenuItem,
+            this.removeNodeToolStripMenuItem});
             this.contextMenuTreeView.Name = "contextMenuTreeView";
             this.contextMenuTreeView.Size = new System.Drawing.Size(298, 48);
             // 
@@ -66,6 +68,13 @@
             this.addLinkedTableToolStripMenuItem.Name = "addLinkedTableToolStripMenuItem";
             this.addLinkedTableToolStripMenuItem.Size = new System.Drawing.Size(297, 22);
             this.addLinkedTableToolStripMenuItem.Text = "Добавить выборку по внешним данным";
+            // 
+            // removeNodeToolStripMenuItem
+            // 
+            this.removeNodeToolStripMenuItem.Name = "removeNodeToolStripMenuItem";
+            this.removeNodeToolStripMenuItem.Size = new System.Drawing.Size(297, 22);
+            this.removeNodeToolStripMenuItem.Text = "Удалить выбранный элемент";
+            this.removeNodeToolStripMenuItem.Click += new System.EventHandler(this.removeNodeToolStripMenuItem_Click);
             // 
             // FormFilter
             // 
@@ -77,6 +86,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormFilter";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Фильтрация";
             this.Load += new System.EventHandler(this.FormFilter_Load);
@@ -91,5 +101,6 @@
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.ContextMenuStrip contextMenuTreeView;
         private System.Windows.Forms.ToolStripMenuItem addLinkedTableToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeNodeToolStripMenuItem;
     }
 }

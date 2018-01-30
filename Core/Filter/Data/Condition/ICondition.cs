@@ -12,6 +12,8 @@ namespace Core.Filter.Data.Condition
         /// </summary>
         public ConditionOperator ConditionOperator { get; set; } = ConditionOperator.NONE;
 
+        public abstract ConditionType Type { get; }
+
         public virtual string SQLExpression => string.Empty;
     }
 }

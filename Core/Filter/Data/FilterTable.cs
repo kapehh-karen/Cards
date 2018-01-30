@@ -20,7 +20,7 @@ namespace Core.Filter.Data
 
         public override string ToString()
         {
-            return $"[{AliasName}] {Table?.DisplayName}";
+            return $"[{AliasName}]: {Table?.DisplayName}";
         }
     }
 }

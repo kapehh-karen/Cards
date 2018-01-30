@@ -10,6 +10,8 @@ namespace Core.Filter.Data.Operator
     {
         public abstract OperatorType Type { get; }
 
-        public virtual string BuildSQLExpression(ItemCondition condition) => string.Empty;
+        public virtual ItemCondition Condition { get; set; }
+
+        public virtual string SQLExpression => string.Empty;
     }
 }

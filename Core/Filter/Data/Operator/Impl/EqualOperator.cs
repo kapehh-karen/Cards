@@ -10,7 +10,6 @@ namespace Core.Filter.Data.Operator.Impl
     {
         public override OperatorType Type => OperatorType.EQUAL;
 
-        public override string BuildSQLExpression(ItemCondition condition)
-            => $"{condition.LeftOperand.SQLExpression} = {condition.RightOperands[0].SQLExpression}";
+        public override string SQLExpression => $"{Condition.LeftOperand.SQLExpression} = {Condition.RightOperands[0].SQLExpression}";
     }
 }

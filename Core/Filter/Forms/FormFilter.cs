@@ -18,15 +18,16 @@ namespace Core.Filter.Forms
             InitializeComponent();
         }
 
-        private void FormFilter_Load(object sender, EventArgs e)
+        protected override bool ProcessDialogKey(Keys keyData)
         {
-            treeSubFilter.AllowDrop = true;
-            treeSubFilter.ItemDrag += new ItemDragEventHandler(treeView_ItemDrag);
-            treeSubFilter.DragEnter += new DragEventHandler(treeView_DragEnter);
-            treeSubFilter.DragOver += new DragEventHandler(treeView_DragOver);
-            treeSubFilter.DragDrop += new DragEventHandler(treeView_DragDrop);
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
         }
-
+        
         private FilterData filterData;
         public FilterData FilterData
         {
@@ -57,6 +58,80 @@ namespace Core.Filter.Forms
             FilterData = FilterData.CreateBy(table);
         }
         
+        private void btnApply_Click(object sender, EventArgs e)
+        {
+            var fd = FilterData;
+        }
+
+        private void treeSubFilter_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var selectedNode = e.Node;
+                var fdata = (selectedNode.Tag as FilterData);
+                var table = fdata.FilterTable.Table;
+
+                contextMenuTreeView.Tag = selectedNode;
+                contextMenuTreeView.Show(sender as Control, e.Location);
+
+                addLinkedTableToolStripMenuItem.DropDownItems.Clear();
+                if (table.LinkedTables.Count > 0)
+                {
+                    table.LinkedTables.ForEach(lt =>
+                    {
+                        var item = addLinkedTableToolStripMenuItem.DropDownItems.Add(lt.Table?.DisplayName);
+                        item.Tag = lt;
+                        item.Click += addLinkedTableToolStripMenuItems_Click;
+                    });
+                }
+                else
+                {
+                    var item = addLinkedTableToolStripMenuItem.DropDownItems.Add("Пусто");
+                    item.Enabled = false;
+                }
+
+                removeNodeToolStripMenuItem.Enabled = !fdata.IsRoot;
+            }
+        }
+
+        private void addLinkedTableToolStripMenuItems_Click(object sender, EventArgs e)
+        {
+            var selectedNode = contextMenuTreeView.Tag as TreeNode;
+            var fdata = selectedNode.Tag as FilterData;
+            var linkedTable = (sender as ToolStripItem).Tag as LinkedTable;
+
+            var newFilterData = FilterData.CreateBy(linkedTable.Table, fdata);
+            AddNode(newFilterData, selectedNode.Nodes);
+            selectedNode.Expand();
+        }
+
+        private void removeNodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selectedNode = contextMenuTreeView.Tag as TreeNode;
+            var fdata = selectedNode.Tag as FilterData;
+
+            if (fdata.IsRoot)
+            {
+                MessageBox.Show("Нельзя удалить корневой элемент", Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                fdata.Remove();
+                selectedNode.Remove();
+            }
+        }
+
+        #region Перемещение вложенности выборок
+
+        private void FormFilter_Load(object sender, EventArgs e)
+        {
+            /*treeSubFilter.AllowDrop = true;
+            treeSubFilter.ItemDrag += new ItemDragEventHandler(treeView_ItemDrag);
+            treeSubFilter.DragEnter += new DragEventHandler(treeView_DragEnter);
+            treeSubFilter.DragOver += new DragEventHandler(treeView_DragOver);
+            treeSubFilter.DragDrop += new DragEventHandler(treeView_DragDrop);*/
+        }
+
         private void treeView_ItemDrag(object sender, ItemDragEventArgs e)
         {
             // Move the dragged node when the left mouse button is used.
@@ -135,46 +210,6 @@ namespace Core.Filter.Forms
             return ContainsNode(node1, node2.Parent);
         }
 
-        private void btnApply_Click(object sender, EventArgs e)
-        {
-            var fd = FilterData;
-        }
-
-        private void treeSubFilter_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                var table = (e.Node.Tag as FilterData).FilterTable.Table;
-                contextMenuTreeView.Tag = e.Node;
-                contextMenuTreeView.Show(sender as Control, e.Location);
-
-                addLinkedTableToolStripMenuItem.DropDownItems.Clear();
-                if (table.LinkedTables.Count > 0)
-                {
-                    table.LinkedTables.ForEach(lt =>
-                    {
-                        var item = addLinkedTableToolStripMenuItem.DropDownItems.Add(lt.Table?.DisplayName);
-                        item.Tag = lt;
-                        item.Click += addLinkedTableToolStripMenuItems_Click;
-                    });
-                }
-                else
-                {
-                    var item = addLinkedTableToolStripMenuItem.DropDownItems.Add("Пусто");
-                    item.Enabled = false;
-                }
-            }
-        }
-
-        private void addLinkedTableToolStripMenuItems_Click(object sender, EventArgs e)
-        {
-            var selectedNode = contextMenuTreeView.Tag as TreeNode;
-            var fdata = selectedNode.Tag as FilterData;
-            var linkedTable = (sender as ToolStripItem).Tag as LinkedTable;
-
-            var newFilterData = FilterData.CreateBy(linkedTable.Table, fdata);
-            AddNode(newFilterData, selectedNode.Nodes);
-            selectedNode.Expand();
-        }
+        #endregion
     }
 }
