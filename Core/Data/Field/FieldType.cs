@@ -7,29 +7,31 @@ namespace Core.Data.Field
 {
     public enum FieldType
     {
+        UNKNOWN = 0,
+
         /// <summary>
         /// Текстовое
         /// </summary>
-        TEXT = 0,
+        TEXT = 1,
 
         /// <summary>
         /// Числовое
         /// </summary>
-        NUMBER = 1,
+        NUMBER = 2,
 
         /// <summary>
         /// Дата
         /// </summary>
-        DATE = 2,
+        DATE = 3,
 
         /// <summary>
         /// Логический
         /// </summary>
-        BOOLEAN = 3,
+        BOOLEAN = 4,
 
         /// <summary>
         /// Связанное значение
         /// </summary>
-        BIND = 4
+        BIND = 5
     }
 }

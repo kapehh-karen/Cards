@@ -17,6 +17,25 @@ namespace TestApp
         {
             InitializeComponent();
         }
-        
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            inputValue2.Type = Core.Data.Field.FieldType.TEXT;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            inputValue2.Type = Core.Data.Field.FieldType.DATE;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            inputValue2.Type = Core.Data.Field.FieldType.BOOLEAN;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show($"{inputValue2.Value}");
+        }
     }
 }

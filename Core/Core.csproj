@@ -145,6 +145,12 @@
     <Compile Include="Config\Surrogate\Data\FieldDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\InternalDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\Data\TableDataSurrogate.cs" />
+    <Compile Include="Filter\Controls\InputValue.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filter\Controls\InputValue.Designer.cs">
+      <DependentUpon>InputValue.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filter\Data\Condition\ConditionOperator.cs" />
     <Compile Include="Filter\Data\Condition\ConditionType.cs" />
     <Compile Include="Filter\Data\Condition\Impl\ContainerCondition.cs" />
@@ -333,6 +339,9 @@
     <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Filter\Controls\InputValue.resx">
+      <DependentUpon>InputValue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Filter\Forms\FormFilter.resx">
       <DependentUpon>FormFilter.cs</DependentUpon>
     </EmbeddedResource>
