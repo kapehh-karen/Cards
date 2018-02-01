@@ -36,7 +36,7 @@ namespace Core.Forms.DateBase
         {
             if (SelectedTable == null || SelectedField == null)
             {
-                MessageBox.Show("Обязательно требуется выбрать таблицу и поле", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Обязательно требуется выбрать таблицу и поле", Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

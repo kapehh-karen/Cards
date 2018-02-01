@@ -25,6 +25,7 @@ namespace Core.Data.Design.Controls.FieldControl
             
             InsertKeyMode = InsertKeyMode.Overwrite;
             BorderStyle = BorderStyle.FixedSingle;
+            Mask = "00/00/0000";
         }
 
         public DesignControlType ControlType => DesignControlType.FIELD;

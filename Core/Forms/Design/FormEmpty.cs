@@ -230,7 +230,7 @@ namespace Core.Forms.Design
 
         public void DeleteControl()
         {
-            if (MessageBox.Show("Вы уверены что хотите удалить элемент?", "Удаление элемента",
+            if (MessageBox.Show("Вы уверены что хотите удалить элемент?", Consts.ProgramTitle,
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
             {
                 SelectedControl.ParentControl?.DesignControls.Remove(SelectedControl);

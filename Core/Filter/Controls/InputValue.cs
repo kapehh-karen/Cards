@@ -11,6 +11,7 @@ using Core.Data.Design.Controls.FieldControl;
 using Core.Data.Model.Preprocessors;
 using Core.Data.Model.Preprocessors.Impl;
 using Core.Data.Design.Controls;
+using Core.Filter.Data.Operand;
 
 namespace Core.Filter.Controls
 {
@@ -20,7 +21,7 @@ namespace Core.Filter.Controls
         {
             InitializeComponent();
         }
-
+        
         private FieldType type = FieldType.UNKNOWN;
         public FieldType Type
         {
@@ -41,10 +42,16 @@ namespace Core.Filter.Controls
         private void UpdateComponent()
         {
             if (InputControl != null)
+            {
                 InputControl.Dispose();
+                InputControl = null;
+            }
 
             if (Processor != null)
+            {
                 Processor.Detach();
+                Processor = null;
+            }
 
             switch (Type)
             {
@@ -67,9 +74,6 @@ namespace Core.Filter.Controls
                 case FieldType.DATE:
                     InputControl = new MaskedTextControl();
                     Processor = new DateProcessor();
-
-                    var cd = InputControl as MaskedTextControl;
-                    cd.Mask = "00/00/0000";
                     break;
 
                 case FieldType.BOOLEAN:
@@ -90,7 +94,7 @@ namespace Core.Filter.Controls
                 default:
                     return;
             }
-
+            
             InputControl.Dock = DockStyle.Fill;
             Controls.Add(InputControl);
             Processor.Control = InputControl as IDesignControl;

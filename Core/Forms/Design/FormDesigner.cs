@@ -197,7 +197,7 @@ namespace Core.Forms.Design
 
             if (e.CloseReason == CloseReason.UserClosing)
             {
-                var res = MessageBox.Show("Сохранить все изменения?", "Редактор форм", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+                var res = MessageBox.Show("Сохранить все изменения?", Consts.ProgramTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
                 switch (res)
                 {
                     case DialogResult.Yes:

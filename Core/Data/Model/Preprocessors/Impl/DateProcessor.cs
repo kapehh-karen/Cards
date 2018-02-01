@@ -57,7 +57,7 @@ namespace Core.Data.Model.Preprocessors.Impl
         {
             if (control.MaskCompleted && !DateTime.TryParse(control.Text, out var date))
             {
-                if (MessageBox.Show($"Не удается преобразовать \"{control.Text}\" в дату.", "Ошибка ввода",
+                if (MessageBox.Show($"Не удается преобразовать \"{control.Text}\" в дату.", Consts.ProgramTitle,
                     MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
                     control.Focus();
                 else

@@ -150,7 +150,7 @@ namespace Core.Forms.Main.CardForm
             if (Model.LinkedState != ModelLinkedItemState.UNCHANGED)
             {
                 if (MessageBox.Show("Вы уверены? Все несохраненные изменения будут утеряны.",
-                    "Предупреждение",
+                    Consts.ProgramTitle,
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Exclamation) == DialogResult.No)
                 {

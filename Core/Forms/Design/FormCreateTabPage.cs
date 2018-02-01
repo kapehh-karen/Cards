@@ -29,7 +29,7 @@ namespace Core.Forms.Design
 
             if (string.IsNullOrEmpty(enteredText))
             {
-                MessageBox.Show("Нельзя создать вкладку с пустым заголовком", "Пустой заголовок", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Нельзя создать вкладку с пустым заголовком", Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

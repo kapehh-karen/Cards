@@ -26,15 +26,27 @@ namespace Core.Filter.Data
             return data;
         }
 
+        /// <summary>
+        /// Текущая таблица
+        /// </summary>
         [DataMember]
         public FilterTable FilterTable { get; set; } = new FilterTable();
 
+        /// <summary>
+        /// Конструкция WHERE
+        /// </summary>
         [DataMember]
         public ICondition Where { get; set; } = new ContainerCondition();
 
+        /// <summary>
+        /// Родительская таблица
+        /// </summary>
         [DataMember]
         public FilterData Parent { get; set; } = null;
 
+        /// <summary>
+        /// Вложенные запросы
+        /// </summary>
         [DataMember]
         public List<FilterData> Chields { get; set; } = new List<FilterData>();
         

@@ -1,5 +1,6 @@
 ﻿using Core.Data.Table;
 using Core.Filter.Data;
+using Core.Notification;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -112,7 +113,7 @@ namespace Core.Filter.Forms
 
             if (fdata.IsRoot)
             {
-                MessageBox.Show("Нельзя удалить корневой элемент", Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                NotificationMessage.Error("Нельзя удалить корневой элемент");
             }
             else
             {

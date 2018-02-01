@@ -202,7 +202,7 @@ namespace Core.Forms.DateBase
             if (e.CloseReason == CloseReason.UserClosing)
             {
                 if (MessageBox.Show("Вы уверены? Все несохраненные изменения будут утеряны.",
-                    "Предупреждение",
+                    Consts.ProgramTitle,
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning) == DialogResult.No)
                 {
@@ -220,7 +220,7 @@ namespace Core.Forms.DateBase
             var tableDataWithoutID = _dataBase.Tables.FirstOrDefault(td => td.IdentifierField == null);
             if (tableDataWithoutID != null)
             {
-                MessageBox.Show($"Не выбрано поле идентификатора в таблице \"{tableDataWithoutID.Name}\".", "Ошибка",
+                MessageBox.Show($"Не выбрано поле идентификатора в таблице \"{tableDataWithoutID.Name}\".", Consts.ProgramTitle,
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -236,7 +236,7 @@ namespace Core.Forms.DateBase
                     if (fd.BindData == null || fd.BindData.Table == null || fd.BindData.Field == null)
                     {
                         MessageBox.Show($"В таблице \"{td.Name}\" у связанного поля \"{fd.Name}\" отсутствует информация о таблице или поле",
-                            "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 }
@@ -246,7 +246,7 @@ namespace Core.Forms.DateBase
                     if (lt.Field == null || lt.Table == null)
                     {
                         MessageBox.Show($"В таблице \"{td.Name}\" имеются внешние данные, у которых отсутствует информация о таблице или поле",
-                            "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 }
@@ -254,7 +254,7 @@ namespace Core.Forms.DateBase
 
             // TODO
             CardsLoader.Save();
-            MessageBox.Show("Конфигурация успешно сохранена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Конфигурация успешно сохранена!", Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void lvDataList_KeyUp(object sender, KeyEventArgs e)
@@ -285,7 +285,7 @@ namespace Core.Forms.DateBase
                         var lvi = listView.SelectedItems[0];
                         linkedTable = lvi.Tag as LinkedTable;
 
-                        if (MessageBox.Show($"Удалить связь?\r\n\r\n{linkedTable}", "Подтверждение действия",
+                        if (MessageBox.Show($"Удалить связь?\r\n\r\n{linkedTable}", Consts.ProgramTitle,
                                             MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                         {
                             _tableData.LinkedTables.Remove(linkedTable);
@@ -372,7 +372,7 @@ namespace Core.Forms.DateBase
 
         private void btnFormRemove_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show($"Удалить форму в таблице \"{_tableData.Name}\"?", "Подтверждение действия", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+            if (MessageBox.Show($"Удалить форму в таблице \"{_tableData.Name}\"?", Consts.ProgramTitle, MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
             {
                 _tableData.Form = null;
             }

@@ -106,7 +106,7 @@ namespace Core.Data.Model.Preprocessors.Impl
                         break;
 
                     case Keys.Delete:
-                        if (MessageBox.Show("Удалить запись?", "Подтверждение действия",
+                        if (MessageBox.Show("Удалить запись?", Consts.ProgramTitle,
                             MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.OK)
                         {
                             model.CheckDeleteFull();

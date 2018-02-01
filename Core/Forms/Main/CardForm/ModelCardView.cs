@@ -99,7 +99,7 @@ namespace Core.Forms.Main.CardForm
             {
                 if (!proc.CheckRequired())
                 {
-                    MessageBox.Show($"Поле '{proc.Field.DisplayName}' не заполнено.", "Ошибка заполнения", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show($"Поле '{proc.Field.DisplayName}' не заполнено.", Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return false;
                 }
             }

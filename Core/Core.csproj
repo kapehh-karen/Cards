@@ -145,6 +145,12 @@
     <Compile Include="Config\Surrogate\Data\FieldDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\InternalDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\Data\TableDataSurrogate.cs" />
+    <Compile Include="Filter\Controls\InputField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filter\Controls\InputField.Designer.cs">
+      <DependentUpon>InputField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filter\Controls\InputValue.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -339,6 +345,9 @@
     <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Filter\Controls\InputField.resx">
+      <DependentUpon>InputField.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Filter\Controls\InputValue.resx">
       <DependentUpon>InputValue.cs</DependentUpon>
     </EmbeddedResource>
