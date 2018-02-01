@@ -32,7 +32,18 @@ namespace Core.Filter.Controls
 
         public FilterData FilterData { get; set; }
 
-        private void button1_Click(object sender, EventArgs e)
+        private FieldType type = FieldType.UNKNOWN;
+        public FieldType Type
+        {
+            get => type;
+            set
+            {
+                var needUpdate = value != type;
+                type = value;
+            }
+        }
+
+        private void btnSelectField_Click(object sender, EventArgs e)
         {
             var contextMenu = new ContextMenuStrip();
 
@@ -56,15 +67,15 @@ namespace Core.Filter.Controls
                 contextMenu.Items.Add(menuItem);
             }
 
-            contextMenu.Show(button1, 0, 0);
+            contextMenu.Show(btnSelectField, 0, 0);
         }
 
         private void fieldMenu_Click(object sender, EventArgs e)
         {
             var tag = (sender as ToolStripMenuItem).Tag as MenuItemTag;
 
-            button1.ForeColor = Color.Black;
-            button1.Text = tag.ToString();
+            btnSelectField.ForeColor = Color.Black;
+            btnSelectField.Text = tag.ToString();
         }
     }
 }

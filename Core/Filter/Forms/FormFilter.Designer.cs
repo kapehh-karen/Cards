@@ -34,6 +34,7 @@
             this.contextMenuTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addLinkedTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputOperand1 = new Core.Filter.Controls.InputOperand();
             this.contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,11 +77,21 @@
             this.removeNodeToolStripMenuItem.Text = "Удалить выбранный элемент";
             this.removeNodeToolStripMenuItem.Click += new System.EventHandler(this.removeNodeToolStripMenuItem_Click);
             // 
+            // inputOperand1
+            // 
+            this.inputOperand1.FilterData = null;
+            this.inputOperand1.InputControl = null;
+            this.inputOperand1.Location = new System.Drawing.Point(419, 169);
+            this.inputOperand1.Name = "inputOperand1";
+            this.inputOperand1.Size = new System.Drawing.Size(282, 25);
+            this.inputOperand1.TabIndex = 2;
+            // 
             // FormFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(863, 438);
+            this.Controls.Add(this.inputOperand1);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.treeSubFilter);
             this.MaximizeBox = false;
@@ -102,5 +113,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuTreeView;
         private System.Windows.Forms.ToolStripMenuItem addLinkedTableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeNodeToolStripMenuItem;
+        private Controls.InputOperand inputOperand1;
     }
 }

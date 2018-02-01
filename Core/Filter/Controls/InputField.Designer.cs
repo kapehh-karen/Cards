@@ -28,27 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSelectField = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // btnSelectField
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(187, 40);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Выбрать поле";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSelectField.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSelectField.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSelectField.ForeColor = System.Drawing.Color.Red;
+            this.btnSelectField.Location = new System.Drawing.Point(0, 0);
+            this.btnSelectField.Name = "btnSelectField";
+            this.btnSelectField.Size = new System.Drawing.Size(187, 40);
+            this.btnSelectField.TabIndex = 0;
+            this.btnSelectField.Text = "Выбрать поле";
+            this.btnSelectField.UseVisualStyleBackColor = true;
+            this.btnSelectField.Click += new System.EventHandler(this.btnSelectField_Click);
             // 
             // InputField
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSelectField);
             this.Name = "InputField";
             this.Size = new System.Drawing.Size(187, 40);
             this.ResumeLayout(false);
@@ -57,6 +57,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSelectField;
     }
 }

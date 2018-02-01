@@ -151,6 +151,12 @@
     <Compile Include="Filter\Controls\InputField.Designer.cs">
       <DependentUpon>InputField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filter\Controls\InputOperand.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filter\Controls\InputOperand.Designer.cs">
+      <DependentUpon>InputOperand.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filter\Controls\InputValue.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -348,6 +354,9 @@
     <EmbeddedResource Include="Filter\Controls\InputField.resx">
       <DependentUpon>InputField.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Filter\Controls\InputOperand.resx">
+      <DependentUpon>InputOperand.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Filter\Controls\InputValue.resx">
       <DependentUpon>InputValue.cs</DependentUpon>
     </EmbeddedResource>
@@ -439,6 +448,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\funnel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\choose.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\choose1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\choose2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\choose3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

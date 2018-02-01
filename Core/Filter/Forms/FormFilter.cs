@@ -62,6 +62,7 @@ namespace Core.Filter.Forms
         private void btnApply_Click(object sender, EventArgs e)
         {
             var fd = FilterData;
+            inputOperand1.FilterData = fd;
         }
 
         private void treeSubFilter_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
