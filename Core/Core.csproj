@@ -145,6 +145,7 @@
     <Compile Include="Config\Surrogate\Data\FieldDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\InternalDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\Data\TableDataSurrogate.cs" />
+    <Compile Include="Filter\Controls\IInputOperand.cs" />
     <Compile Include="Filter\Controls\InputField.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -157,11 +158,20 @@
     <Compile Include="Filter\Controls\InputOperand.Designer.cs">
       <DependentUpon>InputOperand.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filter\Controls\InputOperator.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Filter\Controls\InputValue.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Filter\Controls\InputValue.Designer.cs">
       <DependentUpon>InputValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filter\Controls\ItemConditionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filter\Controls\ItemConditionControl.Designer.cs">
+      <DependentUpon>ItemConditionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Filter\Data\Condition\ConditionOperator.cs" />
     <Compile Include="Filter\Data\Condition\ConditionType.cs" />
@@ -172,6 +182,7 @@
     <Compile Include="Filter\Data\FilterField.cs" />
     <Compile Include="Filter\Data\Operand\Impl\FieldOperand.cs" />
     <Compile Include="Filter\Data\Operand\IFilterOperand.cs" />
+    <Compile Include="Filter\Data\Operand\OperandWeight.cs" />
     <Compile Include="Filter\Data\Operator\IFilterOperator.cs" />
     <Compile Include="Filter\Data\FilterTable.cs" />
     <Compile Include="Filter\Data\Operand\OperandType.cs" />
@@ -359,6 +370,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Filter\Controls\InputValue.resx">
       <DependentUpon>InputValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filter\Controls\ItemConditionControl.resx">
+      <DependentUpon>ItemConditionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filter\Forms\FormFilter.resx">
       <DependentUpon>FormFilter.cs</DependentUpon>

@@ -7,6 +7,8 @@ namespace Core.Filter.Data.Operator
 {
     public enum OperatorType
     {
+        UNKNOWN,
+
         /// <summary>
         /// Равно
         /// </summary>

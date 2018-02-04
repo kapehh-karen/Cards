@@ -11,7 +11,7 @@ using Core.Data.Field;
 
 namespace Core.Filter.Controls
 {
-    public partial class InputField : UserControl
+    public partial class InputField : UserControl, IInputOperand
     {
         private class MenuItemTag
         {
@@ -21,9 +21,11 @@ namespace Core.Filter.Controls
 
             public override string ToString()
             {
-                return $"{FilterTable.AliasName} -> {FieldData.DisplayName}";
+                return $"[{FilterTable.AliasName}].{FieldData.DisplayName}";
             }
         }
+        
+        public event EventHandler OperandTypeChanged = (s, e) => { };
 
         public InputField()
         {
@@ -40,6 +42,9 @@ namespace Core.Filter.Controls
             {
                 var needUpdate = value != type;
                 type = value;
+
+                // Оповещаем что тип мог измениться
+                OperandTypeChanged(this, null);
             }
         }
 
@@ -47,7 +52,7 @@ namespace Core.Filter.Controls
         {
             var contextMenu = new ContextMenuStrip();
 
-            var menuItem = new ToolStripMenuItem("Текущая таблица");
+            var menuItem = new ToolStripMenuItem("Текущая таблица") { ForeColor = Color.Green };
             FilterData.FilterTable.Table.Fields.ForEach(field =>
             {
                 var item = menuItem.DropDownItems.Add(field.DisplayName, null, fieldMenu_Click);
@@ -67,15 +72,23 @@ namespace Core.Filter.Controls
                 contextMenu.Items.Add(menuItem);
             }
 
-            contextMenu.Show(btnSelectField, 0, 0);
+            contextMenu.Show(btnSelectField, 0, btnSelectField.Height);
         }
+
+        private bool removedStylesButton = false;
 
         private void fieldMenu_Click(object sender, EventArgs e)
         {
             var tag = (sender as ToolStripMenuItem).Tag as MenuItemTag;
 
-            btnSelectField.ForeColor = Color.Black;
+            if (!removedStylesButton)
+            {
+                btnSelectField.ForeColor = Color.Black;
+                btnSelectField.Font = new Font(btnSelectField.Font, FontStyle.Regular);
+                removedStylesButton = true;
+            }
             btnSelectField.Text = tag.ToString();
+            Type = tag.FieldData.Type;
         }
     }
 }

@@ -15,13 +15,15 @@ using Core.Filter.Data.Operand;
 
 namespace Core.Filter.Controls
 {
-    public partial class InputValue : UserControl
+    public partial class InputValue : UserControl, IInputOperand
     {
         public InputValue()
         {
             InitializeComponent();
         }
-        
+
+        public event EventHandler OperandTypeChanged = (s, e) => { };
+
         private FieldType type = FieldType.UNKNOWN;
         public FieldType Type
         {
@@ -32,6 +34,9 @@ namespace Core.Filter.Controls
                 type = value;
                 if (needUpdate)
                     UpdateComponent();
+
+                // Оповещаем что тип мог измениться
+                OperandTypeChanged(this, null);
             }
         }
 

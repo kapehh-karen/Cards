@@ -45,26 +45,27 @@
             this.fieldToolStripMenuItem,
             this.subqueryToolStripMenuItem});
             this.contextMenuStripInput.Name = "contextMenuStripInput";
-            this.contextMenuStripInput.Size = new System.Drawing.Size(128, 70);
+            this.contextMenuStripInput.Size = new System.Drawing.Size(153, 92);
             // 
             // constToolStripMenuItem
             // 
+            this.constToolStripMenuItem.Enabled = false;
             this.constToolStripMenuItem.Name = "constToolStripMenuItem";
-            this.constToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.constToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.constToolStripMenuItem.Text = "Значение";
             this.constToolStripMenuItem.Click += new System.EventHandler(this.constToolStripMenuItem_Click);
             // 
             // fieldToolStripMenuItem
             // 
             this.fieldToolStripMenuItem.Name = "fieldToolStripMenuItem";
-            this.fieldToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.fieldToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fieldToolStripMenuItem.Text = "Поле";
             this.fieldToolStripMenuItem.Click += new System.EventHandler(this.fieldToolStripMenuItem_Click);
             // 
             // subqueryToolStripMenuItem
             // 
             this.subqueryToolStripMenuItem.Name = "subqueryToolStripMenuItem";
-            this.subqueryToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.subqueryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.subqueryToolStripMenuItem.Text = "Выборка";
             this.subqueryToolStripMenuItem.Click += new System.EventHandler(this.subqueryToolStripMenuItem_Click);
             // 
