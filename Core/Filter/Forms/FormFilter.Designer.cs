@@ -34,12 +34,14 @@
             this.contextMenuTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addLinkedTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.itemConditionControl1 = new Core.Filter.Controls.ItemConditionControl();
+            this.containerConditionControl1 = new Core.Filter.Controls.ContainerConditionControl();
             this.contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeSubFilter
             // 
+            this.treeSubFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.treeSubFilter.Location = new System.Drawing.Point(12, 12);
             this.treeSubFilter.Name = "treeSubFilter";
             this.treeSubFilter.Size = new System.Drawing.Size(235, 414);
@@ -48,6 +50,7 @@
             // 
             // btnApply
             // 
+            this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnApply.Location = new System.Drawing.Point(776, 403);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
@@ -77,24 +80,26 @@
             this.removeNodeToolStripMenuItem.Text = "Удалить выбранный элемент";
             this.removeNodeToolStripMenuItem.Click += new System.EventHandler(this.removeNodeToolStripMenuItem_Click);
             // 
-            // itemConditionControl1
+            // containerConditionControl1
             // 
-            this.itemConditionControl1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.itemConditionControl1.FilterData = null;
-            this.itemConditionControl1.Location = new System.Drawing.Point(279, 165);
-            this.itemConditionControl1.Name = "itemConditionControl1";
-            this.itemConditionControl1.Size = new System.Drawing.Size(510, 47);
-            this.itemConditionControl1.TabIndex = 2;
+            this.containerConditionControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.containerConditionControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.containerConditionControl1.FilterData = null;
+            this.containerConditionControl1.Location = new System.Drawing.Point(253, 12);
+            this.containerConditionControl1.Name = "containerConditionControl1";
+            this.containerConditionControl1.Size = new System.Drawing.Size(517, 414);
+            this.containerConditionControl1.TabIndex = 2;
             // 
             // FormFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(863, 438);
-            this.Controls.Add(this.itemConditionControl1);
+            this.Controls.Add(this.containerConditionControl1);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.treeSubFilter);
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormFilter";
             this.ShowInTaskbar = false;
@@ -113,6 +118,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuTreeView;
         private System.Windows.Forms.ToolStripMenuItem addLinkedTableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeNodeToolStripMenuItem;
-        private Controls.ItemConditionControl itemConditionControl1;
+        private Controls.ContainerConditionControl containerConditionControl1;
     }
 }

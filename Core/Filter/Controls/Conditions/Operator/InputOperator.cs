@@ -21,6 +21,12 @@ namespace Core.Filter.Controls
                 {
                     case OperatorType.EQUAL:
                         return "равно";
+                    case OperatorType.BETWEEN:
+                        return "между";
+                    case OperatorType.IS_NULL:
+                        return "пустое";
+                    case OperatorType.IS_NOT_NULL:
+                        return "не пустое";
                 }
 
                 return base.ToString();

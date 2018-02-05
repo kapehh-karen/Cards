@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Core.Filter.Data;
 using Core.Data.Field;
+using Core.Notification;
 
 namespace Core.Filter.Controls
 {
@@ -50,6 +51,12 @@ namespace Core.Filter.Controls
 
         private void btnSelectField_Click(object sender, EventArgs e)
         {
+            if (FilterData == null)
+            {
+                NotificationMessage.SystemError("Данные для поля неопределены");
+                return;
+            }
+
             var contextMenu = new ContextMenuStrip();
 
             var menuItem = new ToolStripMenuItem("Текущая таблица") { ForeColor = Color.Green };

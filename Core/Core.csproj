@@ -145,32 +145,39 @@
     <Compile Include="Config\Surrogate\Data\FieldDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\InternalDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\Data\TableDataSurrogate.cs" />
-    <Compile Include="Filter\Controls\IInputOperand.cs" />
-    <Compile Include="Filter\Controls\InputField.cs">
+    <Compile Include="Filter\Controls\Conditions\ContainerConditionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Filter\Controls\InputField.Designer.cs">
+    <Compile Include="Filter\Controls\Conditions\ContainerConditionControl.Designer.cs">
+      <DependentUpon>ContainerConditionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Filter\Controls\Conditions\IConditionControl.cs" />
+    <Compile Include="Filter\Controls\Conditions\Operands\IInputOperand.cs" />
+    <Compile Include="Filter\Controls\Conditions\Operands\InputField.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Filter\Controls\Conditions\Operands\InputField.Designer.cs">
       <DependentUpon>InputField.cs</DependentUpon>
     </Compile>
-    <Compile Include="Filter\Controls\InputOperand.cs">
+    <Compile Include="Filter\Controls\Conditions\Operands\InputOperand.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Filter\Controls\InputOperand.Designer.cs">
+    <Compile Include="Filter\Controls\Conditions\Operands\InputOperand.Designer.cs">
       <DependentUpon>InputOperand.cs</DependentUpon>
     </Compile>
-    <Compile Include="Filter\Controls\InputOperator.cs">
+    <Compile Include="Filter\Controls\Conditions\Operator\InputOperator.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Filter\Controls\InputValue.cs">
+    <Compile Include="Filter\Controls\Conditions\Operands\InputValue.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Filter\Controls\InputValue.Designer.cs">
+    <Compile Include="Filter\Controls\Conditions\Operands\InputValue.Designer.cs">
       <DependentUpon>InputValue.cs</DependentUpon>
     </Compile>
-    <Compile Include="Filter\Controls\ItemConditionControl.cs">
+    <Compile Include="Filter\Controls\Conditions\ItemConditionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Filter\Controls\ItemConditionControl.Designer.cs">
+    <Compile Include="Filter\Controls\Conditions\ItemConditionControl.Designer.cs">
       <DependentUpon>ItemConditionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Filter\Data\Condition\ConditionOperator.cs" />
@@ -362,16 +369,19 @@
     <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Filter\Controls\InputField.resx">
+    <EmbeddedResource Include="Filter\Controls\Conditions\ContainerConditionControl.resx">
+      <DependentUpon>ContainerConditionControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Filter\Controls\Conditions\Operands\InputField.resx">
       <DependentUpon>InputField.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Filter\Controls\InputOperand.resx">
+    <EmbeddedResource Include="Filter\Controls\Conditions\Operands\InputOperand.resx">
       <DependentUpon>InputOperand.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Filter\Controls\InputValue.resx">
+    <EmbeddedResource Include="Filter\Controls\Conditions\Operands\InputValue.resx">
       <DependentUpon>InputValue.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Filter\Controls\ItemConditionControl.resx">
+    <EmbeddedResource Include="Filter\Controls\Conditions\ItemConditionControl.resx">
       <DependentUpon>ItemConditionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filter\Forms\FormFilter.resx">
@@ -475,5 +485,6 @@
   <ItemGroup>
     <None Include="Resources\choose3.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

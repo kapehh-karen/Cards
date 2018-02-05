@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Core.Filter.Data;
+using Core.Filter.Controls.Conditions;
 
 namespace Core.Filter.Controls
 {
-    public partial class ItemConditionControl : UserControl
+    public partial class ItemConditionControl : UserControl, IConditionControl
     {
         public ItemConditionControl()
         {
@@ -27,6 +28,17 @@ namespace Core.Filter.Controls
 
                 inputOperandLeft.FilterData = value;
                 inputOperandRight1.FilterData = value;
+            }
+        }
+
+        private bool isFirst = false;
+        public bool IsFirst
+        {
+            get => isFirst;
+            set
+            {
+                isFirst = value;
+                cmbConcatenate.Enabled = !isFirst;
             }
         }
 

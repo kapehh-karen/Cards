@@ -45,46 +45,47 @@
             this.fieldToolStripMenuItem,
             this.subqueryToolStripMenuItem});
             this.contextMenuStripInput.Name = "contextMenuStripInput";
-            this.contextMenuStripInput.Size = new System.Drawing.Size(153, 92);
+            this.contextMenuStripInput.Size = new System.Drawing.Size(128, 70);
             // 
             // constToolStripMenuItem
             // 
             this.constToolStripMenuItem.Enabled = false;
             this.constToolStripMenuItem.Name = "constToolStripMenuItem";
-            this.constToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.constToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.constToolStripMenuItem.Text = "Значение";
             this.constToolStripMenuItem.Click += new System.EventHandler(this.constToolStripMenuItem_Click);
             // 
             // fieldToolStripMenuItem
             // 
             this.fieldToolStripMenuItem.Name = "fieldToolStripMenuItem";
-            this.fieldToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fieldToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.fieldToolStripMenuItem.Text = "Поле";
             this.fieldToolStripMenuItem.Click += new System.EventHandler(this.fieldToolStripMenuItem_Click);
             // 
             // subqueryToolStripMenuItem
             // 
             this.subqueryToolStripMenuItem.Name = "subqueryToolStripMenuItem";
-            this.subqueryToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.subqueryToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.subqueryToolStripMenuItem.Text = "Выборка";
             this.subqueryToolStripMenuItem.Click += new System.EventHandler(this.subqueryToolStripMenuItem_Click);
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.SystemColors.Info;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(32, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(140, 25);
+            this.panel1.Size = new System.Drawing.Size(140, 28);
             this.panel1.TabIndex = 3;
             // 
             // btnSelectInput
             // 
             this.btnSelectInput.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSelectInput.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnSelectInput.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnSelectInput.Image = global::Core.Properties.Resources.choose2;
-            this.btnSelectInput.Location = new System.Drawing.Point(140, 0);
+            this.btnSelectInput.Location = new System.Drawing.Point(0, 0);
             this.btnSelectInput.Name = "btnSelectInput";
-            this.btnSelectInput.Size = new System.Drawing.Size(32, 25);
+            this.btnSelectInput.Size = new System.Drawing.Size(32, 28);
             this.btnSelectInput.TabIndex = 0;
             this.btnSelectInput.UseVisualStyleBackColor = true;
             this.btnSelectInput.Click += new System.EventHandler(this.btnSelectInput_Click);
@@ -96,7 +97,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnSelectInput);
             this.Name = "InputOperand";
-            this.Size = new System.Drawing.Size(172, 25);
+            this.Size = new System.Drawing.Size(172, 28);
             this.contextMenuStripInput.ResumeLayout(false);
             this.ResumeLayout(false);
 
