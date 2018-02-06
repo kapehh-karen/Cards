@@ -65,7 +65,7 @@ namespace Core.Filter.Controls
                     Processor = new TextProcessor();
 
                     var ct = InputControl as TextControl;
-                    ct.Multiline = true;
+                    ct.AutoSize = false;
                     break;
 
                 case FieldType.NUMBER:
@@ -73,12 +73,16 @@ namespace Core.Filter.Controls
                     Processor = new NumberProcessor();
 
                     var cn = InputControl as TextControl;
-                    cn.Multiline = true;
+                    cn.AutoSize = false;
                     break;
 
                 case FieldType.DATE:
                     InputControl = new MaskedTextControl();
                     Processor = new DateProcessor();
+                    
+                    var cd = InputControl as MaskedTextControl;
+                    cd.AutoSize = false;
+                    cd.TextAlign = HorizontalAlignment.Center;
                     break;
 
                 case FieldType.BOOLEAN:

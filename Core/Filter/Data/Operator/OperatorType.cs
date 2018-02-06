@@ -40,11 +40,6 @@ namespace Core.Filter.Data.Operator
         LESS_EQUAL,
 
         /// <summary>
-        /// Между (в диапазоне)
-        /// </summary>
-        BETWEEN,
-
-        /// <summary>
         /// Существует
         /// </summary>
         EXISTS,

@@ -47,5 +47,10 @@ namespace Core.Filter.Controls
             inputOperator.DependentType = inputOperandLeft.Type;
             inputOperandRight1.DependentType = inputOperandLeft.Type;
         }
+
+        private void btnActionDelete_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

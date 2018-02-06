@@ -44,14 +44,14 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeSubFilter.Location = new System.Drawing.Point(12, 12);
             this.treeSubFilter.Name = "treeSubFilter";
-            this.treeSubFilter.Size = new System.Drawing.Size(235, 414);
+            this.treeSubFilter.Size = new System.Drawing.Size(235, 462);
             this.treeSubFilter.TabIndex = 0;
             this.treeSubFilter.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeSubFilter_NodeMouseClick);
             // 
             // btnApply
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnApply.Location = new System.Drawing.Point(776, 403);
+            this.btnApply.Location = new System.Drawing.Point(898, 451);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
             this.btnApply.TabIndex = 1;
@@ -85,18 +85,21 @@
             this.containerConditionControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.containerConditionControl1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.containerConditionControl1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.containerConditionControl1.FilterData = null;
+            this.containerConditionControl1.IsFirst = false;
+            this.containerConditionControl1.IsRoot = true;
             this.containerConditionControl1.Location = new System.Drawing.Point(253, 12);
             this.containerConditionControl1.Name = "containerConditionControl1";
-            this.containerConditionControl1.Size = new System.Drawing.Size(517, 414);
+            this.containerConditionControl1.Size = new System.Drawing.Size(639, 462);
             this.containerConditionControl1.TabIndex = 2;
             // 
             // FormFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(863, 438);
+            this.ClientSize = new System.Drawing.Size(985, 486);
             this.Controls.Add(this.containerConditionControl1);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.treeSubFilter);

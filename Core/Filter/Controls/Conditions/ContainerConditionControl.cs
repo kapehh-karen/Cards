@@ -75,5 +75,10 @@ namespace Core.Filter.Controls
         {
             UpdateUI();
         }
+
+        private void btnActionDelete_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

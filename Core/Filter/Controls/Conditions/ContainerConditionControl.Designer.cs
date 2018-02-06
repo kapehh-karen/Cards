@@ -31,8 +31,8 @@
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddContainer = new System.Windows.Forms.Button();
             this.btnAddCondition = new System.Windows.Forms.Button();
-            this.btnActionDelete = new System.Windows.Forms.Button();
             this.cmbConcatenate = new System.Windows.Forms.ComboBox();
+            this.btnActionDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // flowLayoutPanel
@@ -54,35 +54,28 @@
             // btnAddContainer
             // 
             this.btnAddContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddContainer.Image = global::Core.Properties.Resources.add;
             this.btnAddContainer.Location = new System.Drawing.Point(342, 3);
             this.btnAddContainer.Name = "btnAddContainer";
             this.btnAddContainer.Size = new System.Drawing.Size(75, 23);
             this.btnAddContainer.TabIndex = 1;
-            this.btnAddContainer.Text = "+ группа";
+            this.btnAddContainer.Text = "Группа";
+            this.btnAddContainer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddContainer.UseVisualStyleBackColor = true;
             this.btnAddContainer.Click += new System.EventHandler(this.btnAddContainer_Click);
             // 
             // btnAddCondition
             // 
             this.btnAddCondition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddCondition.Image = global::Core.Properties.Resources.add;
             this.btnAddCondition.Location = new System.Drawing.Point(261, 3);
             this.btnAddCondition.Name = "btnAddCondition";
             this.btnAddCondition.Size = new System.Drawing.Size(75, 23);
             this.btnAddCondition.TabIndex = 2;
-            this.btnAddCondition.Text = "+ условие";
+            this.btnAddCondition.Text = "Условие";
+            this.btnAddCondition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddCondition.UseVisualStyleBackColor = true;
             this.btnAddCondition.Click += new System.EventHandler(this.btnAddCondition_Click);
-            // 
-            // btnActionDelete
-            // 
-            this.btnActionDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnActionDelete.Enabled = false;
-            this.btnActionDelete.Location = new System.Drawing.Point(430, 5);
-            this.btnActionDelete.Name = "btnActionDelete";
-            this.btnActionDelete.Size = new System.Drawing.Size(27, 21);
-            this.btnActionDelete.TabIndex = 3;
-            this.btnActionDelete.Text = "X";
-            this.btnActionDelete.UseVisualStyleBackColor = true;
             // 
             // cmbConcatenate
             // 
@@ -94,14 +87,25 @@
             this.cmbConcatenate.Size = new System.Drawing.Size(59, 21);
             this.cmbConcatenate.TabIndex = 5;
             // 
+            // btnActionDelete
+            // 
+            this.btnActionDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnActionDelete.Image = global::Core.Properties.Resources.remove;
+            this.btnActionDelete.Location = new System.Drawing.Point(431, 3);
+            this.btnActionDelete.Name = "btnActionDelete";
+            this.btnActionDelete.Size = new System.Drawing.Size(26, 23);
+            this.btnActionDelete.TabIndex = 6;
+            this.btnActionDelete.UseVisualStyleBackColor = true;
+            this.btnActionDelete.Click += new System.EventHandler(this.btnActionDelete_Click);
+            // 
             // ContainerConditionControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.Controls.Add(this.cmbConcatenate);
             this.Controls.Add(this.btnActionDelete);
+            this.Controls.Add(this.cmbConcatenate);
             this.Controls.Add(this.btnAddCondition);
             this.Controls.Add(this.btnAddContainer);
             this.Controls.Add(this.flowLayoutPanel);
@@ -116,7 +120,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Button btnAddContainer;
         private System.Windows.Forms.Button btnAddCondition;
-        private System.Windows.Forms.Button btnActionDelete;
         private System.Windows.Forms.ComboBox cmbConcatenate;
+        private System.Windows.Forms.Button btnActionDelete;
     }
 }

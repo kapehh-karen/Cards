@@ -21,12 +21,12 @@ namespace Core.Filter.Controls
                 {
                     case OperatorType.EQUAL:
                         return "равно";
-                    case OperatorType.BETWEEN:
-                        return "между";
+                    case OperatorType.NOT_EQUAL:
+                        return "не равно";
                     case OperatorType.IS_NULL:
-                        return "пустое";
+                        return "пусто";
                     case OperatorType.IS_NOT_NULL:
-                        return "не пустое";
+                        return "не пусто";
                 }
 
                 return base.ToString();
@@ -37,7 +37,7 @@ namespace Core.Filter.Controls
         {
             { FieldType.UNKNOWN, new OperatorType[0] },
             { FieldType.TEXT, new OperatorType[] { OperatorType.EQUAL, OperatorType.IS_NULL, OperatorType.IS_NOT_NULL } },
-            { FieldType.NUMBER, new OperatorType[] { OperatorType.EQUAL, OperatorType.BETWEEN } },
+            { FieldType.NUMBER, new OperatorType[] { OperatorType.EQUAL, OperatorType.NOT_EQUAL } },
             { FieldType.DATE, new OperatorType[] { OperatorType.EQUAL } },
             { FieldType.BOOLEAN, new OperatorType[] { OperatorType.EQUAL } },
             { FieldType.BIND, new OperatorType[] { OperatorType.EQUAL } }

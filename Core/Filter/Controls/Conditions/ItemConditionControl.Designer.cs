@@ -37,7 +37,7 @@
             // 
             // inputOperandLeft
             // 
-            this.inputOperandLeft.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.inputOperandLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputOperandLeft.DependentType = Core.Data.Field.FieldType.UNKNOWN;
             this.inputOperandLeft.FilterData = null;
             this.inputOperandLeft.InputControl = null;
@@ -60,7 +60,7 @@
             // 
             // inputOperandRight1
             // 
-            this.inputOperandRight1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.inputOperandRight1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputOperandRight1.DependentType = Core.Data.Field.FieldType.UNKNOWN;
             this.inputOperandRight1.FilterData = null;
             this.inputOperandRight1.InputControl = null;
@@ -72,12 +72,13 @@
             // 
             // btnActionDelete
             // 
-            this.btnActionDelete.Location = new System.Drawing.Point(551, 8);
+            this.btnActionDelete.Image = global::Core.Properties.Resources.remove;
+            this.btnActionDelete.Location = new System.Drawing.Point(548, 3);
             this.btnActionDelete.Name = "btnActionDelete";
-            this.btnActionDelete.Size = new System.Drawing.Size(24, 21);
+            this.btnActionDelete.Size = new System.Drawing.Size(33, 32);
             this.btnActionDelete.TabIndex = 3;
-            this.btnActionDelete.Text = "X";
             this.btnActionDelete.UseVisualStyleBackColor = true;
+            this.btnActionDelete.Click += new System.EventHandler(this.btnActionDelete_Click);
             // 
             // cmbConcatenate
             // 
