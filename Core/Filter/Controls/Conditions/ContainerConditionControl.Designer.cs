@@ -1,4 +1,6 @@
-﻿namespace Core.Filter.Controls
+﻿using Core.Filter.Controls.Conditions.Operator;
+
+namespace Core.Filter.Controls
 {
     partial class ContainerConditionControl
     {
@@ -31,7 +33,7 @@
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddContainer = new System.Windows.Forms.Button();
             this.btnAddCondition = new System.Windows.Forms.Button();
-            this.cmbConcatenate = new System.Windows.Forms.ComboBox();
+            this.cmbConcatenate = new InputOperatorConcatenate();
             this.btnActionDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -80,7 +82,6 @@
             // cmbConcatenate
             // 
             this.cmbConcatenate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbConcatenate.Enabled = false;
             this.cmbConcatenate.FormattingEnabled = true;
             this.cmbConcatenate.Location = new System.Drawing.Point(3, 5);
             this.cmbConcatenate.Name = "cmbConcatenate";
@@ -120,7 +121,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel;
         private System.Windows.Forms.Button btnAddContainer;
         private System.Windows.Forms.Button btnAddCondition;
-        private System.Windows.Forms.ComboBox cmbConcatenate;
+        private InputOperatorConcatenate cmbConcatenate;
         private System.Windows.Forms.Button btnActionDelete;
     }
 }

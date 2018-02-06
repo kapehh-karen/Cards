@@ -16,11 +16,13 @@ namespace Core.Filter.Controls
         public ContainerConditionControl()
         {
             InitializeComponent();
+            IsRoot = false;
+            IsFirst = false;
         }
         
         public FilterData FilterData { get; set; }
 
-        private bool isRoot = true;
+        private bool isRoot;
         public bool IsRoot
         {
             get => isRoot;
@@ -35,7 +37,7 @@ namespace Core.Filter.Controls
             }
         }
 
-        private bool isFirst = false;
+        private bool isFirst;
         public bool IsFirst
         {
             get => isFirst;
@@ -48,15 +50,17 @@ namespace Core.Filter.Controls
 
         private void btnAddCondition_Click(object sender, EventArgs e)
         {
-            flowLayoutPanel.Controls.Add(new ItemConditionControl() { FilterData = FilterData });
+            flowLayoutPanel.Controls.Add(new ItemConditionControl()
+            {
+                FilterData = FilterData
+            });
         }
 
         private void btnAddContainer_Click(object sender, EventArgs e)
         {
             flowLayoutPanel.Controls.Add(new ContainerConditionControl()
             {
-                FilterData = FilterData,
-                IsRoot = false
+                FilterData = FilterData
             });
         }
 
@@ -78,7 +82,7 @@ namespace Core.Filter.Controls
 
         private void btnActionDelete_Click(object sender, EventArgs e)
         {
-
+            this.Dispose();
         }
     }
 }

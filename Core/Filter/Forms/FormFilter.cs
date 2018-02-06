@@ -59,12 +59,6 @@ namespace Core.Filter.Forms
             FilterData = FilterData.CreateBy(table);
         }
         
-        private void btnApply_Click(object sender, EventArgs e)
-        {
-            var fd = FilterData;
-            containerConditionControl1.FilterData = fd;
-        }
-
         private void treeSubFilter_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -121,6 +115,12 @@ namespace Core.Filter.Forms
                 fdata.Remove();
                 selectedNode.Remove();
             }
+        }
+
+        private void treeSubFilter_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var filterData = e.Node?.Tag as FilterData;
+            containerConditionControl1.FilterData = filterData;
         }
 
         #region Перемещение вложенности выборок

@@ -1,4 +1,6 @@
-﻿namespace Core.Filter.Controls
+﻿using Core.Filter.Controls.Conditions.Operator;
+
+namespace Core.Filter.Controls
 {
     partial class ItemConditionControl
     {
@@ -32,7 +34,7 @@
             this.inputOperator = new Core.Filter.Controls.InputOperator();
             this.inputOperandRight1 = new Core.Filter.Controls.InputOperand();
             this.btnActionDelete = new System.Windows.Forms.Button();
-            this.cmbConcatenate = new System.Windows.Forms.ComboBox();
+            this.cmbConcatenate = new InputOperatorConcatenate();
             this.SuspendLayout();
             // 
             // inputOperandLeft
@@ -110,6 +112,6 @@
         private InputOperator inputOperator;
         private InputOperand inputOperandRight1;
         private System.Windows.Forms.Button btnActionDelete;
-        private System.Windows.Forms.ComboBox cmbConcatenate;
+        private InputOperatorConcatenate cmbConcatenate;
     }
 }

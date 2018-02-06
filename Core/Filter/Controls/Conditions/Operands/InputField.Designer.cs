@@ -34,6 +34,7 @@
             // btnSelectField
             // 
             this.btnSelectField.AutoEllipsis = true;
+            this.btnSelectField.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSelectField.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSelectField.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSelectField.ForeColor = System.Drawing.Color.Red;

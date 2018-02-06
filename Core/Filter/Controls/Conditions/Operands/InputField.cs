@@ -94,7 +94,7 @@ namespace Core.Filter.Controls
                 btnSelectField.Font = new Font(btnSelectField.Font, FontStyle.Regular);
                 removedStylesButton = true;
             }
-            btnSelectField.Text = tag.ToString();
+            btnSelectField.Text = tag.FieldData.DisplayName;
             Type = tag.FieldData.Type;
         }
     }

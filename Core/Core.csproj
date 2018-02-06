@@ -165,6 +165,9 @@
     <Compile Include="Filter\Controls\Conditions\Operands\InputOperand.Designer.cs">
       <DependentUpon>InputOperand.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filter\Controls\Conditions\Operator\InputOperatorConcatenate.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Filter\Controls\Conditions\Operator\InputOperator.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -189,7 +192,6 @@
     <Compile Include="Filter\Data\FilterField.cs" />
     <Compile Include="Filter\Data\Operand\Impl\FieldOperand.cs" />
     <Compile Include="Filter\Data\Operand\IFilterOperand.cs" />
-    <Compile Include="Filter\Data\Operand\OperandWeight.cs" />
     <Compile Include="Filter\Data\Operator\IFilterOperator.cs" />
     <Compile Include="Filter\Data\FilterTable.cs" />
     <Compile Include="Filter\Data\Operand\OperandType.cs" />

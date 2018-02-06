@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Core.Filter.Data;
 using Core.Filter.Controls.Conditions;
+using Core.Filter.Data.Condition;
 
 namespace Core.Filter.Controls
 {
@@ -16,6 +17,7 @@ namespace Core.Filter.Controls
         public ItemConditionControl()
         {
             InitializeComponent();
+            IsFirst = false;
         }
 
         private FilterData filterData;
@@ -31,7 +33,7 @@ namespace Core.Filter.Controls
             }
         }
 
-        private bool isFirst = false;
+        private bool isFirst;
         public bool IsFirst
         {
             get => isFirst;
@@ -50,7 +52,7 @@ namespace Core.Filter.Controls
 
         private void btnActionDelete_Click(object sender, EventArgs e)
         {
-
+            this.Dispose();
         }
     }
 }
