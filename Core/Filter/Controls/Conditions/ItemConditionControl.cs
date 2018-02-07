@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Core.Filter.Data;
 using Core.Filter.Controls.Conditions;
 using Core.Filter.Data.Condition;
+using Core.Filter.Data.Condition.Impl;
 
 namespace Core.Filter.Controls
 {
@@ -29,7 +30,7 @@ namespace Core.Filter.Controls
                 filterData = value;
 
                 inputOperandLeft.FilterData = value;
-                inputOperandRight1.FilterData = value;
+                inputOperandRight.FilterData = value;
             }
         }
 
@@ -44,10 +45,30 @@ namespace Core.Filter.Controls
             }
         }
 
-        private void inputOperand1_OperandTypeChanged(object sender, EventArgs e)
+        public ICondition Condition
+        {
+            get
+            {
+                var item = new ItemCondition()
+                {
+                    ConditionOperator = cmbConcatenate.SelectedConditionOperator,
+                    Operator = inputOperator.Operator,
+                    LeftOperand = inputOperandLeft.Operand,
+                    RightOperand = inputOperandRight.Operand
+                };
+                item.Operator.Condition = item;
+                return item;
+            }
+            set
+            {
+
+            }
+        }
+
+        private void inputOperandLeft_OperandTypeChanged(object sender, EventArgs e)
         {
             inputOperator.DependentType = inputOperandLeft.Type;
-            inputOperandRight1.DependentType = inputOperandLeft.Type;
+            inputOperandRight.DependentType = inputOperandLeft.Type;
         }
 
         private void btnActionDelete_Click(object sender, EventArgs e)

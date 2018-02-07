@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Core.Filter.Data;
 using Core.Data.Field;
 using Core.Notification;
+using Core.Filter.Data.Operand;
+using Core.Filter.Data.Operand.Impl;
 
 namespace Core.Filter.Controls
 {
@@ -28,6 +30,8 @@ namespace Core.Filter.Controls
         
         public event EventHandler OperandTypeChanged = (s, e) => { };
 
+        private MenuItemTag SelectedItem { get; set; }
+
         public InputField()
         {
             InitializeComponent();
@@ -46,6 +50,19 @@ namespace Core.Filter.Controls
 
                 // Оповещаем что тип мог измениться
                 OperandTypeChanged(this, null);
+            }
+        }
+
+        public IFilterOperand Operand
+        {
+            get => SelectedItem != null ? new FieldOperand()
+            {
+                FilterTable = SelectedItem.FilterTable,
+                FilterField = new FilterField() { Field = SelectedItem.FieldData }
+            } : null;
+            set
+            {
+
             }
         }
 
@@ -95,6 +112,7 @@ namespace Core.Filter.Controls
                 removedStylesButton = true;
             }
             btnSelectField.Text = tag.FieldData.DisplayName;
+            SelectedItem = tag;
             Type = tag.FieldData.Type;
         }
     }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Core.Filter.Data;
 using Core.Data.Field;
+using Core.Filter.Data.Operand;
 
 namespace Core.Filter.Controls
 {
@@ -93,6 +94,12 @@ namespace Core.Filter.Controls
         private void subqueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+        
+        public IFilterOperand Operand
+        {
+            get => (InputControl as IInputOperand).Operand;
+            set => (InputControl as IInputOperand).Operand = value;
         }
     }
 }

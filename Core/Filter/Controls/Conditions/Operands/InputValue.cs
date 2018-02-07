@@ -12,6 +12,7 @@ using Core.Data.Model.Preprocessors;
 using Core.Data.Model.Preprocessors.Impl;
 using Core.Data.Design.Controls;
 using Core.Filter.Data.Operand;
+using Core.Filter.Data.Operand.Impl;
 
 namespace Core.Filter.Controls
 {
@@ -66,6 +67,7 @@ namespace Core.Filter.Controls
 
                     var ct = InputControl as TextControl;
                     ct.AutoSize = false;
+                    ct.BorderStyle = BorderStyle.None;
                     break;
 
                 case FieldType.NUMBER:
@@ -74,6 +76,7 @@ namespace Core.Filter.Controls
 
                     var cn = InputControl as TextControl;
                     cn.AutoSize = false;
+                    cn.BorderStyle = BorderStyle.None;
                     break;
 
                 case FieldType.DATE:
@@ -83,6 +86,7 @@ namespace Core.Filter.Controls
                     var cd = InputControl as MaskedTextControl;
                     cd.AutoSize = false;
                     cd.TextAlign = HorizontalAlignment.Center;
+                    cd.BorderStyle = BorderStyle.None;
                     break;
 
                 case FieldType.BOOLEAN:
@@ -113,6 +117,19 @@ namespace Core.Filter.Controls
         {
             get => Processor?.Value;
             set => Processor.Value = value;
+        }
+
+        public IFilterOperand Operand
+        {
+            get => new ValueOperand()
+            {
+                Value = Value,
+                ValueType = Type
+            };
+            set
+            {
+
+            }
         }
     }
 }

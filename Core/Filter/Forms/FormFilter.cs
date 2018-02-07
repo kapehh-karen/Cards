@@ -123,6 +123,11 @@ namespace Core.Filter.Forms
             containerConditionControl1.FilterData = filterData;
         }
 
+        private void btnAccept_Click(object sender, EventArgs e)
+        {
+            var k = containerConditionControl1.Condition;
+        }
+
         #region Перемещение вложенности выборок
 
         private void FormFilter_Load(object sender, EventArgs e)

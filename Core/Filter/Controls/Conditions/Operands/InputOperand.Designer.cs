@@ -82,7 +82,7 @@
             // 
             this.btnSelectInput.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSelectInput.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnSelectInput.Image = global::Core.Properties.Resources.choose2;
+            this.btnSelectInput.Image = global::Core.Properties.Resources.choose;
             this.btnSelectInput.Location = new System.Drawing.Point(0, 0);
             this.btnSelectInput.Name = "btnSelectInput";
             this.btnSelectInput.Size = new System.Drawing.Size(32, 28);

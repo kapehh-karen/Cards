@@ -33,7 +33,7 @@ namespace Core.Filter.Controls
             this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddContainer = new System.Windows.Forms.Button();
             this.btnAddCondition = new System.Windows.Forms.Button();
-            this.cmbConcatenate = new InputOperatorConcatenate();
+            this.cmbConcatenate = new Core.Filter.Controls.Conditions.Operator.InputOperatorConcatenate();
             this.btnActionDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -56,7 +56,7 @@ namespace Core.Filter.Controls
             // btnAddContainer
             // 
             this.btnAddContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddContainer.Image = global::Core.Properties.Resources.add;
+            this.btnAddContainer.Image = global::Core.Properties.Resources.add_s;
             this.btnAddContainer.Location = new System.Drawing.Point(342, 3);
             this.btnAddContainer.Name = "btnAddContainer";
             this.btnAddContainer.Size = new System.Drawing.Size(75, 23);
@@ -69,7 +69,7 @@ namespace Core.Filter.Controls
             // btnAddCondition
             // 
             this.btnAddCondition.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddCondition.Image = global::Core.Properties.Resources.add;
+            this.btnAddCondition.Image = global::Core.Properties.Resources.add_s;
             this.btnAddCondition.Location = new System.Drawing.Point(261, 3);
             this.btnAddCondition.Name = "btnAddCondition";
             this.btnAddCondition.Size = new System.Drawing.Size(75, 23);
@@ -91,7 +91,7 @@ namespace Core.Filter.Controls
             // btnActionDelete
             // 
             this.btnActionDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnActionDelete.Image = global::Core.Properties.Resources.remove;
+            this.btnActionDelete.Image = global::Core.Properties.Resources.delete_s;
             this.btnActionDelete.Location = new System.Drawing.Point(431, 3);
             this.btnActionDelete.Name = "btnActionDelete";
             this.btnActionDelete.Size = new System.Drawing.Size(26, 23);

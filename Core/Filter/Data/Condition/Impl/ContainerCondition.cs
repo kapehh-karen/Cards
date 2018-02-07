@@ -9,7 +9,7 @@ namespace Core.Filter.Data.Condition.Impl
     {
         public override ConditionType Type => ConditionType.CONTAINER;
 
-        public List<ICondition> Conditions { get; private set; } = new List<ICondition>();
+        public List<ICondition> Conditions { get; set; }
 
         public override string SQLExpression
         {

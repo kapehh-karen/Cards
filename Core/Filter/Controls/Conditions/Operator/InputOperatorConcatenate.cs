@@ -51,6 +51,9 @@ namespace Core.Filter.Controls.Conditions.Operator
             UpdateConditions();
         }
 
+        public ConditionOperator SelectedConditionOperator =>
+            (SelectedItem as ConditionConcatenate)?.Operator ?? ConditionOperator.NONE;
+
         protected override void OnEnabledChanged(EventArgs e)
         {
             UpdateConditions();

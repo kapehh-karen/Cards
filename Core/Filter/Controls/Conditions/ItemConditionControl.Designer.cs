@@ -32,9 +32,9 @@ namespace Core.Filter.Controls
         {
             this.inputOperandLeft = new Core.Filter.Controls.InputOperand();
             this.inputOperator = new Core.Filter.Controls.InputOperator();
-            this.inputOperandRight1 = new Core.Filter.Controls.InputOperand();
+            this.inputOperandRight  = new Core.Filter.Controls.InputOperand();
             this.btnActionDelete = new System.Windows.Forms.Button();
-            this.cmbConcatenate = new InputOperatorConcatenate();
+            this.cmbConcatenate = new Core.Filter.Controls.Conditions.Operator.InputOperatorConcatenate();
             this.SuspendLayout();
             // 
             // inputOperandLeft
@@ -48,7 +48,7 @@ namespace Core.Filter.Controls
             this.inputOperandLeft.Size = new System.Drawing.Size(172, 33);
             this.inputOperandLeft.TabIndex = 0;
             this.inputOperandLeft.Type = Core.Data.Field.FieldType.UNKNOWN;
-            this.inputOperandLeft.OperandTypeChanged += new System.EventHandler(this.inputOperand1_OperandTypeChanged);
+            this.inputOperandLeft.OperandTypeChanged += new System.EventHandler(this.inputOperandLeft_OperandTypeChanged);
             // 
             // inputOperator
             // 
@@ -62,19 +62,19 @@ namespace Core.Filter.Controls
             // 
             // inputOperandRight1
             // 
-            this.inputOperandRight1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.inputOperandRight1.DependentType = Core.Data.Field.FieldType.UNKNOWN;
-            this.inputOperandRight1.FilterData = null;
-            this.inputOperandRight1.InputControl = null;
-            this.inputOperandRight1.Location = new System.Drawing.Point(373, 3);
-            this.inputOperandRight1.Name = "inputOperandRight1";
-            this.inputOperandRight1.Size = new System.Drawing.Size(172, 33);
-            this.inputOperandRight1.TabIndex = 2;
-            this.inputOperandRight1.Type = Core.Data.Field.FieldType.UNKNOWN;
+            this.inputOperandRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.inputOperandRight.DependentType = Core.Data.Field.FieldType.UNKNOWN;
+            this.inputOperandRight.FilterData = null;
+            this.inputOperandRight.InputControl = null;
+            this.inputOperandRight.Location = new System.Drawing.Point(373, 3);
+            this.inputOperandRight.Name = "inputOperandRight";
+            this.inputOperandRight.Size = new System.Drawing.Size(172, 33);
+            this.inputOperandRight.TabIndex = 2;
+            this.inputOperandRight.Type = Core.Data.Field.FieldType.UNKNOWN;
             // 
             // btnActionDelete
             // 
-            this.btnActionDelete.Image = global::Core.Properties.Resources.remove;
+            this.btnActionDelete.Image = global::Core.Properties.Resources.delete_s;
             this.btnActionDelete.Location = new System.Drawing.Point(548, 3);
             this.btnActionDelete.Name = "btnActionDelete";
             this.btnActionDelete.Size = new System.Drawing.Size(33, 32);
@@ -97,7 +97,7 @@ namespace Core.Filter.Controls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.cmbConcatenate);
             this.Controls.Add(this.btnActionDelete);
-            this.Controls.Add(this.inputOperandRight1);
+            this.Controls.Add(this.inputOperandRight);
             this.Controls.Add(this.inputOperator);
             this.Controls.Add(this.inputOperandLeft);
             this.Name = "ItemConditionControl";
@@ -110,7 +110,7 @@ namespace Core.Filter.Controls
 
         private InputOperand inputOperandLeft;
         private InputOperator inputOperator;
-        private InputOperand inputOperandRight1;
+        private InputOperand inputOperandRight;
         private System.Windows.Forms.Button btnActionDelete;
         private InputOperatorConcatenate cmbConcatenate;
     }

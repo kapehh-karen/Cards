@@ -34,6 +34,7 @@
             this.addLinkedTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.containerConditionControl1 = new Core.Filter.Controls.ContainerConditionControl();
+            this.btnAccept = new System.Windows.Forms.Button();
             this.contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,7 +44,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeSubFilter.Location = new System.Drawing.Point(12, 12);
             this.treeSubFilter.Name = "treeSubFilter";
-            this.treeSubFilter.Size = new System.Drawing.Size(235, 462);
+            this.treeSubFilter.Size = new System.Drawing.Size(235, 467);
             this.treeSubFilter.TabIndex = 0;
             this.treeSubFilter.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeSubFilter_AfterSelect);
             this.treeSubFilter.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeSubFilter_NodeMouseClick);
@@ -81,14 +82,26 @@
             this.containerConditionControl1.IsRoot = true;
             this.containerConditionControl1.Location = new System.Drawing.Point(253, 12);
             this.containerConditionControl1.Name = "containerConditionControl1";
-            this.containerConditionControl1.Size = new System.Drawing.Size(670, 462);
+            this.containerConditionControl1.Size = new System.Drawing.Size(670, 467);
             this.containerConditionControl1.TabIndex = 2;
+            // 
+            // btnAccept
+            // 
+            this.btnAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAccept.Location = new System.Drawing.Point(803, 490);
+            this.btnAccept.Name = "btnAccept";
+            this.btnAccept.Size = new System.Drawing.Size(120, 23);
+            this.btnAccept.TabIndex = 3;
+            this.btnAccept.Text = "Применить";
+            this.btnAccept.UseVisualStyleBackColor = true;
+            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
             // 
             // FormFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 486);
+            this.ClientSize = new System.Drawing.Size(935, 523);
+            this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.containerConditionControl1);
             this.Controls.Add(this.treeSubFilter);
             this.MinimizeBox = false;
@@ -109,5 +122,6 @@
         private System.Windows.Forms.ToolStripMenuItem addLinkedTableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeNodeToolStripMenuItem;
         private Controls.ContainerConditionControl containerConditionControl1;
+        private System.Windows.Forms.Button btnAccept;
     }
 }

@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using Core.Filter.Data;
 using Core.Filter.Controls.Conditions;
+using Core.Filter.Data.Condition;
+using Core.Filter.Data.Condition.Impl;
 
 namespace Core.Filter.Controls
 {
@@ -45,6 +47,19 @@ namespace Core.Filter.Controls
             {
                 isFirst = value;
                 cmbConcatenate.Enabled = !isFirst;
+            }
+        }
+
+        public ICondition Condition
+        {
+            get => new ContainerCondition()
+            {
+                ConditionOperator = cmbConcatenate.SelectedConditionOperator,
+                Conditions = flowLayoutPanel.Controls.Cast<IConditionControl>().Select(c => c.Condition).ToList()
+            };
+            set
+            {
+                // TODO Nothing
             }
         }
 

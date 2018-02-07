@@ -1,5 +1,7 @@
 ﻿using Core.Data.Field;
+using Core.Filter.Data.Operand;
 using Core.Filter.Data.Operator;
+using Core.Filter.Data.Operator.Impl;
 using Core.Helper;
 using System;
 using System.Collections.Generic;
@@ -67,5 +69,18 @@ namespace Core.Filter.Controls
         }
 
         public OperatorType Type => SelectedItem != null ? (SelectedItem as OperatorItem).OperatorType : OperatorType.UNKNOWN;
+
+        public IFilterOperator Operator
+        {
+            get
+            {
+                switch (Type)
+                {
+                    case OperatorType.EQUAL:
+                        return new EqualOperator();
+                }
+                return null;
+            }
+        }
     }
 }
