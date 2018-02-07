@@ -17,6 +17,8 @@ namespace Core.Filter.Data.Operand.Impl
         /// </summary>
         public object Value { get; set; }
 
-        public override string SQLExpression => Value.ToString();
+        public override bool Completed => Value != null;
+
+        public override string SQLExpression => Value?.ToString();
     }
 }

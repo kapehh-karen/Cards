@@ -14,6 +14,8 @@ namespace Core.Filter.Data.Condition
 
         public abstract ConditionType Type { get; }
 
+        public virtual bool Completed => true;
+
         public virtual string SQLExpression => string.Empty;
     }
 }

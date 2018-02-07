@@ -47,7 +47,7 @@ namespace Core.Filter.Controls
             this.flowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel.Location = new System.Drawing.Point(3, 32);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new System.Drawing.Size(459, 11);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(459, 5);
             this.flowLayoutPanel.TabIndex = 0;
             this.flowLayoutPanel.WrapContents = false;
             this.flowLayoutPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.flowLayoutPanel_ControlAdded);
@@ -111,7 +111,7 @@ namespace Core.Filter.Controls
             this.Controls.Add(this.btnAddContainer);
             this.Controls.Add(this.flowLayoutPanel);
             this.Name = "ContainerConditionControl";
-            this.Size = new System.Drawing.Size(465, 46);
+            this.Size = new System.Drawing.Size(465, 40);
             this.ResumeLayout(false);
 
         }

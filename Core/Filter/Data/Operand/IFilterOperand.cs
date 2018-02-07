@@ -15,6 +15,8 @@ namespace Core.Filter.Data.Operand
         /// </summary>
         public abstract FieldType ValueType { get; set; }
 
+        public virtual bool Completed => true;
+
         public virtual string SQLExpression => string.Empty;
     }
 }

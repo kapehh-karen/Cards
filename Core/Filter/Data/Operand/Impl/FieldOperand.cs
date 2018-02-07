@@ -26,6 +26,10 @@ namespace Core.Filter.Data.Operand.Impl
         /// </summary>
         public FilterField FilterField { get; set; }
 
+        public override bool Completed =>
+            FilterTable != null && FilterField != null &&
+            FilterTable.Table != null && FilterField.Field != null;
+
         public override string SQLExpression => $"[{FilterTable.AliasName}].[{FilterField.Field.Name}]";
     }
 }

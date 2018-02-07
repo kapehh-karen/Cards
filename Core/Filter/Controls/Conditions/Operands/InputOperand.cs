@@ -98,8 +98,8 @@ namespace Core.Filter.Controls
         
         public IFilterOperand Operand
         {
-            get => (InputControl as IInputOperand).Operand;
-            set => (InputControl as IInputOperand).Operand = value;
+            get => (InputControl as IInputOperand)?.Operand;
+            set { if (InputControl != null) (InputControl as IInputOperand).Operand = value; }
         }
     }
 }

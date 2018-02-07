@@ -9,7 +9,7 @@ namespace Core.Filter.Data.Operator.Impl
     public class EqualOperator : IFilterOperator
     {
         public override OperatorType Type => OperatorType.EQUAL;
-
-        public override string SQLExpression => $"{Condition.LeftOperand.SQLExpression} = {Condition.RightOperand.SQLExpression}";
+        
+        public override string SQLExpression => $"{Condition.LeftOperand?.SQLExpression} = {Condition.RightOperand?.SQLExpression}";
     }
 }

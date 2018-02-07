@@ -12,6 +12,10 @@ namespace Core.Filter.Data.Operator
 
         public virtual ItemCondition Condition { get; set; }
 
+        public virtual bool Completed =>
+            Condition != null && Condition.LeftOperand != null && Condition.RightOperand != null &&
+            Condition.LeftOperand.Completed && Condition.RightOperand.Completed;
+
         public virtual string SQLExpression => string.Empty;
     }
 }

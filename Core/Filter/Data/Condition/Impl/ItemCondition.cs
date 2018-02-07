@@ -26,6 +26,8 @@ namespace Core.Filter.Data.Condition.Impl
         /// </summary>
         public IFilterOperand RightOperand { get; set; }
 
-        public override string SQLExpression => Operator.SQLExpression;
+        public override bool Completed => Operator != null && Operator.Completed;
+
+        public override string SQLExpression => Operator?.SQLExpression;
     }
 }

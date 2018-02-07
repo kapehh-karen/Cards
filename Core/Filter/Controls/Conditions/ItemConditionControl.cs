@@ -56,7 +56,7 @@ namespace Core.Filter.Controls
                     LeftOperand = inputOperandLeft.Operand,
                     RightOperand = inputOperandRight.Operand
                 };
-                item.Operator.Condition = item;
+                if (item.Operator != null) item.Operator.Condition = item;
                 return item;
             }
             set

@@ -126,6 +126,7 @@ namespace Core.Filter.Forms
         private void btnAccept_Click(object sender, EventArgs e)
         {
             var k = containerConditionControl1.Condition;
+            var s = k.SQLExpression;
         }
 
         #region Перемещение вложенности выборок
