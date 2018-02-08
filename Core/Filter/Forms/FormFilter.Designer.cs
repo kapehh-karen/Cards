@@ -36,6 +36,8 @@
             this.removeNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.containerConditionControl1 = new Core.Filter.Controls.ContainerConditionControl();
             this.btnAccept = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblCondition = new System.Windows.Forms.Label();
             this.contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -43,9 +45,9 @@
             // 
             this.treeSubFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.treeSubFilter.Location = new System.Drawing.Point(12, 12);
+            this.treeSubFilter.Location = new System.Drawing.Point(12, 34);
             this.treeSubFilter.Name = "treeSubFilter";
-            this.treeSubFilter.Size = new System.Drawing.Size(235, 467);
+            this.treeSubFilter.Size = new System.Drawing.Size(235, 445);
             this.treeSubFilter.TabIndex = 0;
             this.treeSubFilter.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeSubFilter_AfterSelect);
             this.treeSubFilter.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeSubFilter_NodeMouseClick);
@@ -81,9 +83,9 @@
             this.containerConditionControl1.FilterData = null;
             this.containerConditionControl1.IsFirst = false;
             this.containerConditionControl1.IsRoot = true;
-            this.containerConditionControl1.Location = new System.Drawing.Point(253, 12);
+            this.containerConditionControl1.Location = new System.Drawing.Point(253, 34);
             this.containerConditionControl1.Name = "containerConditionControl1";
-            this.containerConditionControl1.Size = new System.Drawing.Size(670, 467);
+            this.containerConditionControl1.Size = new System.Drawing.Size(670, 445);
             this.containerConditionControl1.TabIndex = 2;
             // 
             // btnAccept
@@ -99,11 +101,33 @@
             this.btnAccept.UseVisualStyleBackColor = true;
             this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(12, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(86, 13);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Вложенность";
+            // 
+            // lblCondition
+            // 
+            this.lblCondition.AutoSize = true;
+            this.lblCondition.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lblCondition.Location = new System.Drawing.Point(250, 12);
+            this.lblCondition.Name = "lblCondition";
+            this.lblCondition.Size = new System.Drawing.Size(103, 13);
+            this.lblCondition.TabIndex = 4;
+            this.lblCondition.Text = "Условие отбора";
+            // 
             // FormFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(935, 523);
+            this.Controls.Add(this.lblCondition);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.containerConditionControl1);
             this.Controls.Add(this.treeSubFilter);
@@ -116,6 +140,7 @@
             this.Load += new System.EventHandler(this.FormFilter_Load);
             this.contextMenuTreeView.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -127,5 +152,7 @@
         private System.Windows.Forms.ToolStripMenuItem removeNodeToolStripMenuItem;
         private Controls.ContainerConditionControl containerConditionControl1;
         private System.Windows.Forms.Button btnAccept;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblCondition;
     }
 }

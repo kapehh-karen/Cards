@@ -128,6 +128,8 @@ namespace Core.Filter.Forms
             var nextFilterData = e.Node?.Tag as FilterData;
             containerConditionControl1.FilterData = nextFilterData;
             containerConditionControl1.LoadCondition(nextFilterData.Where);
+
+            lblCondition.Text = $"Условие отбора для таблицы: {nextFilterData.FilterTable.Table.DisplayName.ToUpper()}";
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
