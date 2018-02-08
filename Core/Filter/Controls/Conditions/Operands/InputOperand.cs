@@ -99,7 +99,26 @@ namespace Core.Filter.Controls
         public IFilterOperand Operand
         {
             get => (InputControl as IInputOperand)?.Operand;
-            set { if (InputControl != null) (InputControl as IInputOperand).Operand = value; }
+            set
+            {
+                // Если не задан операнд
+                if (value == null)
+                    return;
+
+                switch (value.Type)
+                {
+                    case OperandType.FIELD:
+                        fieldToolStripMenuItem_Click(null, null);
+                        break;
+                    case OperandType.VALUE:
+                        constToolStripMenuItem_Click(null, null);
+                        break;
+                    default:
+                        return;
+                }
+
+                if (InputControl != null) (InputControl as IInputOperand).Operand = value;
+            }
         }
     }
 }

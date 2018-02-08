@@ -479,15 +479,6 @@
     <None Include="Resources\choose.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\choose1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\choose2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\choose3.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\add.png" />
   </ItemGroup>
   <ItemGroup>
@@ -498,6 +489,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\delete_s.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\check.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

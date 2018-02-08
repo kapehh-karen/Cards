@@ -10,6 +10,8 @@ namespace Core.Filter.Controls.Conditions
     {
         bool IsFirst { get; set; }
 
-        ICondition Condition { get; set; }
+        ICondition BuildCondition();
+
+        void LoadCondition(ICondition condition);
     }
 }

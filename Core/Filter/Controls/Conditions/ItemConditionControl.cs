@@ -10,6 +10,7 @@ using Core.Filter.Data;
 using Core.Filter.Controls.Conditions;
 using Core.Filter.Data.Condition;
 using Core.Filter.Data.Condition.Impl;
+using Core.Data.Field;
 
 namespace Core.Filter.Controls
 {
@@ -44,25 +45,33 @@ namespace Core.Filter.Controls
                 cmbConcatenate.Enabled = !isFirst;
             }
         }
-
-        public ICondition Condition
+        
+        public ICondition BuildCondition()
         {
-            get
+            var item = new ItemCondition()
             {
-                var item = new ItemCondition()
-                {
-                    ConditionOperator = cmbConcatenate.SelectedConditionOperator,
-                    Operator = inputOperator.Operator,
-                    LeftOperand = inputOperandLeft.Operand,
-                    RightOperand = inputOperandRight.Operand
-                };
-                if (item.Operator != null) item.Operator.Condition = item;
-                return item;
-            }
-            set
-            {
+                ConditionOperator = cmbConcatenate.SelectedConditionOperator,
+                Operator = inputOperator.Operator,
+                LeftOperand = inputOperandLeft.Operand,
+                RightOperand = inputOperandRight.Operand
+            };
+            if (item.Operator != null) item.Operator.Condition = item;
+            return item;
+        }
 
-            }
+        public void LoadCondition(ICondition condition)
+        {
+            // Можем загрузить только айтем
+            if (condition.Type != ConditionType.ITEM)
+                return;
+
+            var item = condition as ItemCondition;
+            inputOperandLeft.Operand = item.LeftOperand; // Left
+            inputOperandRight.DependentType = item.LeftOperand?.ValueType ?? FieldType.UNKNOWN; // Right
+            inputOperandRight.Operand = item.RightOperand;
+            inputOperator.DependentType = item.LeftOperand?.ValueType ?? FieldType.UNKNOWN; // Operator
+            inputOperator.Operator = item.Operator;
+            cmbConcatenate.SelectedConditionOperator = item.ConditionOperator; // Condition prefix
         }
 
         private void inputOperandLeft_OperandTypeChanged(object sender, EventArgs e)

@@ -68,7 +68,11 @@ namespace Core.Filter.Controls
             }
         }
 
-        public OperatorType Type => SelectedItem != null ? (SelectedItem as OperatorItem).OperatorType : OperatorType.UNKNOWN;
+        public OperatorType Type
+        {
+            get => SelectedItem != null ? (SelectedItem as OperatorItem).OperatorType : OperatorType.UNKNOWN;
+            set => SelectedItem = Items.Cast<OperatorItem>().FirstOrDefault(i => i.OperatorType == value);
+        }
 
         public IFilterOperator Operator
         {
@@ -80,6 +84,14 @@ namespace Core.Filter.Controls
                         return new EqualOperator();
                 }
                 return null;
+            }
+            set
+            {
+                // Если не задан оператор
+                if (value == null)
+                    return;
+
+                Type = value.Type;
             }
         }
     }

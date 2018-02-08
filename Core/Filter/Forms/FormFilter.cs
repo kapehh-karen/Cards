@@ -119,13 +119,20 @@ namespace Core.Filter.Forms
 
         private void treeSubFilter_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            var filterData = e.Node?.Tag as FilterData;
-            containerConditionControl1.FilterData = filterData;
+            var currentFilterData = containerConditionControl1.FilterData;
+            if (currentFilterData != null)
+            {
+                currentFilterData.Where = containerConditionControl1.BuildCondition();
+            }
+
+            var nextFilterData = e.Node?.Tag as FilterData;
+            containerConditionControl1.FilterData = nextFilterData;
+            containerConditionControl1.LoadCondition(nextFilterData.Where);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            var k = containerConditionControl1.Condition;
+            var k = containerConditionControl1.BuildCondition();
             var s = k.SQLExpression;
         }
 

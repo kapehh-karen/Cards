@@ -62,7 +62,12 @@ namespace Core.Filter.Controls
             } : null;
             set
             {
-
+                var operand = value as FieldOperand;
+                SetField(new MenuItemTag()
+                {
+                    FilterTable = operand.FilterTable,
+                    FieldData = operand.FilterField.Field
+                });
             }
         }
 
@@ -104,16 +109,20 @@ namespace Core.Filter.Controls
         private void fieldMenu_Click(object sender, EventArgs e)
         {
             var tag = (sender as ToolStripMenuItem).Tag as MenuItemTag;
+            SetField(tag);
+        }
 
+        private void SetField(MenuItemTag itemTag)
+        {
             if (!removedStylesButton)
             {
                 btnSelectField.ForeColor = Color.Black;
                 btnSelectField.Font = new Font(btnSelectField.Font, FontStyle.Regular);
                 removedStylesButton = true;
             }
-            btnSelectField.Text = tag.FieldData.DisplayName;
-            SelectedItem = tag;
-            Type = tag.FieldData.Type;
+            btnSelectField.Text = itemTag.FieldData.DisplayName;
+            SelectedItem = itemTag;
+            Type = itemTag.FieldData.Type;
         }
     }
 }

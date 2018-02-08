@@ -50,33 +50,58 @@ namespace Core.Filter.Controls
             }
         }
 
-        public ICondition Condition
+        public ICondition BuildCondition()
         {
-            get => new ContainerCondition()
+            return new ContainerCondition()
             {
                 ConditionOperator = cmbConcatenate.SelectedConditionOperator,
-                Conditions = flowLayoutPanel.Controls.Cast<IConditionControl>().Select(c => c.Condition).ToList()
+                Conditions = flowLayoutPanel.Controls.Cast<IConditionControl>().Select(c => c.BuildCondition()).ToList()
             };
-            set
+        }
+
+        public void LoadCondition(ICondition condition)
+        {
+            if (condition.Type != ConditionType.CONTAINER)
+                return;
+
+            var group = condition as ContainerCondition;
+            cmbConcatenate.SelectedConditionOperator = group.ConditionOperator;
+            flowLayoutPanel.Controls.Clear();
+            group.Conditions?.ForEach(cond =>
             {
-                // TODO Nothing
+                var control = CreateConditionControl(cond.Type);
+                control.LoadCondition(cond);
+                flowLayoutPanel.Controls.Add(control as Control);
+            });
+        }
+
+        private IConditionControl CreateConditionControl(ConditionType typeCondition)
+        {
+            switch (typeCondition)
+            {
+                case ConditionType.ITEM:
+                    return new ItemConditionControl()
+                    {
+                        FilterData = FilterData
+                    };
+                case ConditionType.CONTAINER:
+                    return new ContainerConditionControl()
+                    {
+                        FilterData = FilterData
+                    };
+                default:
+                    return null;
             }
         }
 
         private void btnAddCondition_Click(object sender, EventArgs e)
         {
-            flowLayoutPanel.Controls.Add(new ItemConditionControl()
-            {
-                FilterData = FilterData
-            });
+            flowLayoutPanel.Controls.Add(CreateConditionControl(ConditionType.ITEM) as Control);
         }
 
         private void btnAddContainer_Click(object sender, EventArgs e)
         {
-            flowLayoutPanel.Controls.Add(new ContainerConditionControl()
-            {
-                FilterData = FilterData
-            });
+            flowLayoutPanel.Controls.Add(CreateConditionControl(ConditionType.CONTAINER) as Control);
         }
 
         private void UpdateUI()

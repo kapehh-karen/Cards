@@ -51,8 +51,11 @@ namespace Core.Filter.Controls.Conditions.Operator
             UpdateConditions();
         }
 
-        public ConditionOperator SelectedConditionOperator =>
-            (SelectedItem as ConditionConcatenate)?.Operator ?? ConditionOperator.NONE;
+        public ConditionOperator SelectedConditionOperator
+        {
+            get => (SelectedItem as ConditionConcatenate)?.Operator ?? ConditionOperator.NONE;
+            set => SelectedItem = operators.ContainsKey(value) ? operators[value] : null;
+        }
 
         protected override void OnEnabledChanged(EventArgs e)
         {

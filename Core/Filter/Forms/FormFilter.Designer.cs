@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormFilter));
             this.treeSubFilter = new System.Windows.Forms.TreeView();
             this.contextMenuTreeView = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.addLinkedTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,11 +89,13 @@
             // btnAccept
             // 
             this.btnAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAccept.Image = global::Core.Properties.Resources.check;
             this.btnAccept.Location = new System.Drawing.Point(803, 490);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(120, 23);
             this.btnAccept.TabIndex = 3;
             this.btnAccept.Text = "Применить";
+            this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
             this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
             // 
@@ -104,6 +107,7 @@
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.containerConditionControl1);
             this.Controls.Add(this.treeSubFilter);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.Name = "FormFilter";
             this.ShowInTaskbar = false;

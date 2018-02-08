@@ -128,7 +128,9 @@ namespace Core.Filter.Controls
             };
             set
             {
-
+                var operand = value as ValueOperand;
+                Value = operand.Value;
+                Type = operand.ValueType;
             }
         }
     }
