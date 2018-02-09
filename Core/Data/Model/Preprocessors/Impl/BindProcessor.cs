@@ -43,6 +43,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             set
             {
                 ModelField.Value = value;
+                ModelField.UpdateBindData(); // Обновляем, поменяли ведь Value все-таки
                 if (control != null)
                     control.Text = ModelField.ToString();
             }
@@ -63,12 +64,10 @@ namespace Core.Data.Model.Preprocessors.Impl
                 switch (result)
                 {
                     case System.Windows.Forms.DialogResult.OK:
-                        ModelField.BindData = dialog.Model;
                         Value = dialog.SelectedID;
                         break;
 
                     case System.Windows.Forms.DialogResult.Ignore:
-                        ModelField.BindData = null;
                         Value = null;
                         break;
                 }

@@ -17,6 +17,12 @@ namespace Core.Helper
         {
             bool ret = false;
 
+            if (id == null)
+            {
+                outModel = null;
+                return false;
+            }
+
             using (var dbc = new SQLServerConnection(dataBase))
             {
                 var model = SqlModelHelper.GetById(dbc.Connection, table, id);
@@ -71,6 +77,9 @@ namespace Core.Helper
         public static bool Delete(DataBase dataBase, TableData table, object id)
         {
             bool ret = false;
+
+            if (id == null)
+                return false;
 
             // Make SQL request
             using (var dbc = new SQLServerConnection(dataBase))
