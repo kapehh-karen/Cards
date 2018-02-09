@@ -55,7 +55,9 @@ namespace Core.Filter.Controls
             set
             {
                 field = value;
-                Processor.ModelField.Field = field;
+
+                if (Processor != null)
+                    Processor.ModelField.Field = field;
             }
         }
 

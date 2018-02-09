@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Core.Filter.Data;
 using Core.Data.Field;
 using Core.Filter.Data.Operand;
+using Core.Filter.Controls.Conditions.Operands;
 
 namespace Core.Filter.Controls
 {
@@ -82,7 +83,16 @@ namespace Core.Filter.Controls
                 inputOperand.OperandTypeChanged += OperandTypeChanged;
                 inputOperand.OperandFieldChanged += OperandFieldChanged;
                 panel1.Controls.Add(inputControl);
+
+                UpdateSelectedInputType();
             }
+        }
+
+        private void UpdateSelectedInputType()
+        {
+            constToolStripMenuItem.ForeColor = inputControl is InputValue ? Color.DarkViolet : Color.Black;
+            fieldToolStripMenuItem.ForeColor = inputControl is InputField ? Color.DarkViolet : Color.Black;
+            subqueryToolStripMenuItem.ForeColor = inputControl is InputSubquery ? Color.DarkViolet : Color.Black;
         }
 
         public FieldType Type
@@ -126,7 +136,9 @@ namespace Core.Filter.Controls
 
         private void subqueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            InputControl = new InputSubquery() { FilterData = FilterData };
+            Type = DependentType;
+            Field = DependentField;
         }
         
         public IFilterOperand Operand

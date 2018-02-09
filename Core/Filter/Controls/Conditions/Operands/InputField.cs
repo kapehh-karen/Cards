@@ -21,11 +21,6 @@ namespace Core.Filter.Controls
             public FilterTable FilterTable { get; set; }
 
             public FieldData FieldData { get; set; }
-
-            public override string ToString()
-            {
-                return $"[{FilterTable.AliasName}].{FieldData.DisplayName}";
-            }
         }
         
         public event EventHandler OperandTypeChanged = (s, e) => { };
