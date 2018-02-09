@@ -77,7 +77,7 @@ namespace Core.Forms.Main
 
         public void FillTable(bool forceUpdate = false)
         {
-            if (Base == null || Table == null)
+            if (Table == null)
                 return;
 
             var needUpdate = true;
@@ -93,7 +93,7 @@ namespace Core.Forms.Main
             if (forceUpdate || needUpdate)
             {
                 // Make SQL request
-                using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection(Base)))
+                using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection()))
                 {
                     // main part query
                     var columns = string.Join(", ", fields

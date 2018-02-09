@@ -16,6 +16,8 @@ namespace Core.Filter.Controls
     {
         public event EventHandler OperandTypeChanged = (s, e) => { };
 
+        public event EventHandler OperandFieldChanged = (s, e) => { };
+
         public InputOperand()
         {
             InitializeComponent();
@@ -23,10 +25,8 @@ namespace Core.Filter.Controls
 
         public FilterData FilterData { get; set; }
 
+        // Тип от которого зависит операнд. Если не задан, то это ведущий операнд.
         private FieldType dependentType = FieldType.UNKNOWN;
-        /// <summary>
-        /// Тип от которого зависит операнд. Если не задан, то это ведущий операнд.
-        /// </summary>
         public FieldType DependentType
         {
             get => dependentType;
@@ -41,15 +41,34 @@ namespace Core.Filter.Controls
             }
         }
 
+        // Поле от которого зависит операнд
+        private FieldData dependentField = null;
+        public FieldData DependentField
+        {
+            get => dependentField;
+            set
+            {
+                if (dependentField != value)
+                {
+                    dependentField = value;
+                    Field = dependentField;
+                }
+            }
+        }
+
         private Control inputControl;
         public Control InputControl
         {
             get => inputControl;
             set
             {
+                IInputOperand inputOperand;
+
                 if (inputControl != null)
                 {
-                    (inputControl as IInputOperand).OperandTypeChanged -= OperandTypeChanged;
+                    inputOperand = inputControl as IInputOperand;
+                    inputOperand.OperandTypeChanged -= OperandTypeChanged;
+                    inputOperand.OperandFieldChanged -= OperandFieldChanged;
                     inputControl.Dispose();
                     inputControl = null;
                 }
@@ -58,9 +77,11 @@ namespace Core.Filter.Controls
                     return;
 
                 inputControl = value;
-                panel1.Controls.Add(inputControl);
                 inputControl.Dock = DockStyle.Fill;
-                (inputControl as IInputOperand).OperandTypeChanged += OperandTypeChanged;
+                inputOperand = inputControl as IInputOperand;
+                inputOperand.OperandTypeChanged += OperandTypeChanged;
+                inputOperand.OperandFieldChanged += OperandFieldChanged;
+                panel1.Controls.Add(inputControl);
             }
         }
 
@@ -74,6 +95,16 @@ namespace Core.Filter.Controls
             }
         }
 
+        public FieldData Field
+        {
+            get => (InputControl as IInputOperand)?.Field;
+            set
+            {
+                if (InputControl != null)
+                    (InputControl as IInputOperand).Field = value;
+            }
+        }
+
         private void btnSelectInput_Click(object sender, EventArgs e)
         {
             contextMenuStripInput.Show(btnSelectInput, 0, btnSelectInput.Height);
@@ -83,12 +114,14 @@ namespace Core.Filter.Controls
         {
             InputControl = new InputValue();
             Type = DependentType;
+            Field = DependentField;
         }
 
         private void fieldToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InputControl = new InputField() { FilterData = FilterData };
             Type = DependentType;
+            Field = DependentField;
         }
 
         private void subqueryToolStripMenuItem_Click(object sender, EventArgs e)

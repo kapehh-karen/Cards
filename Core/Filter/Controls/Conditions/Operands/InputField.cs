@@ -30,13 +30,28 @@ namespace Core.Filter.Controls
         
         public event EventHandler OperandTypeChanged = (s, e) => { };
 
+        public event EventHandler OperandFieldChanged = (s, e) => { };
+
         private MenuItemTag SelectedItem { get; set; }
+
+        private FieldData field = null;
+        public FieldData Field
+        {
+            get => field;
+            set
+            {
+                field = value;
+
+                // Оповещаем что поменялось поле
+                OperandFieldChanged(this, null);
+            }
+        }
 
         public InputField()
         {
             InitializeComponent();
         }
-
+        
         public FilterData FilterData { get; set; }
 
         private FieldType type = FieldType.UNKNOWN;
@@ -45,7 +60,6 @@ namespace Core.Filter.Controls
             get => type;
             set
             {
-                var needUpdate = value != type;
                 type = value;
 
                 // Оповещаем что тип мог измениться
@@ -123,6 +137,7 @@ namespace Core.Filter.Controls
             btnSelectField.Text = itemTag.FieldData.DisplayName;
             SelectedItem = itemTag;
             Type = itemTag.FieldData.Type;
+            Field = itemTag.FieldData;
         }
     }
 }

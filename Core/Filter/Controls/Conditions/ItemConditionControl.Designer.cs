@@ -32,23 +32,25 @@ namespace Core.Filter.Controls
         {
             this.inputOperandLeft = new Core.Filter.Controls.InputOperand();
             this.inputOperator = new Core.Filter.Controls.InputOperator();
-            this.inputOperandRight  = new Core.Filter.Controls.InputOperand();
+            this.inputOperandRight = new Core.Filter.Controls.InputOperand();
             this.btnActionDelete = new System.Windows.Forms.Button();
             this.cmbConcatenate = new Core.Filter.Controls.Conditions.Operator.InputOperatorConcatenate();
             this.SuspendLayout();
             // 
             // inputOperandLeft
             // 
-            this.inputOperandLeft.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputOperandLeft.DependentType = Core.Data.Field.FieldType.UNKNOWN;
+            this.inputOperandLeft.Field = null;
             this.inputOperandLeft.FilterData = null;
             this.inputOperandLeft.InputControl = null;
             this.inputOperandLeft.Location = new System.Drawing.Point(68, 3);
             this.inputOperandLeft.Name = "inputOperandLeft";
+            this.inputOperandLeft.Operand = null;
             this.inputOperandLeft.Size = new System.Drawing.Size(172, 33);
             this.inputOperandLeft.TabIndex = 0;
             this.inputOperandLeft.Type = Core.Data.Field.FieldType.UNKNOWN;
             this.inputOperandLeft.OperandTypeChanged += new System.EventHandler(this.inputOperandLeft_OperandTypeChanged);
+            this.inputOperandLeft.OperandFieldChanged += new System.EventHandler(this.inputOperandLeft_OperandFieldChanged);
             // 
             // inputOperator
             // 
@@ -57,17 +59,20 @@ namespace Core.Filter.Controls
             this.inputOperator.FormattingEnabled = true;
             this.inputOperator.Location = new System.Drawing.Point(246, 8);
             this.inputOperator.Name = "inputOperator";
+            this.inputOperator.Operator = null;
             this.inputOperator.Size = new System.Drawing.Size(121, 21);
             this.inputOperator.TabIndex = 1;
+            this.inputOperator.Type = Core.Filter.Data.Operator.OperatorType.UNKNOWN;
             // 
-            // inputOperandRight1
+            // inputOperandRight
             // 
-            this.inputOperandRight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.inputOperandRight.DependentType = Core.Data.Field.FieldType.UNKNOWN;
+            this.inputOperandRight.Field = null;
             this.inputOperandRight.FilterData = null;
             this.inputOperandRight.InputControl = null;
             this.inputOperandRight.Location = new System.Drawing.Point(373, 3);
             this.inputOperandRight.Name = "inputOperandRight";
+            this.inputOperandRight.Operand = null;
             this.inputOperandRight.Size = new System.Drawing.Size(172, 33);
             this.inputOperandRight.TabIndex = 2;
             this.inputOperandRight.Type = Core.Data.Field.FieldType.UNKNOWN;
@@ -88,6 +93,7 @@ namespace Core.Filter.Controls
             this.cmbConcatenate.FormattingEnabled = true;
             this.cmbConcatenate.Location = new System.Drawing.Point(3, 8);
             this.cmbConcatenate.Name = "cmbConcatenate";
+            this.cmbConcatenate.SelectedConditionOperator = Core.Filter.Data.Condition.ConditionOperator.AND;
             this.cmbConcatenate.Size = new System.Drawing.Size(59, 21);
             this.cmbConcatenate.TabIndex = 4;
             // 

@@ -33,7 +33,7 @@ namespace Core.Data.Model
 
         public object ToDataGridValue()
         {
-            switch (Field.Type)
+            switch (Field?.Type)
             {
                 case FieldType.BIND:
                     return BindData?[Field.BindData?.Field];
@@ -48,7 +48,7 @@ namespace Core.Data.Model
 
         public override string ToString()
         {
-            switch (Field.Type)
+            switch (Field?.Type)
             {
                 case FieldType.BIND:
                     return BindData?[Field.BindData?.Field]?.ToString();

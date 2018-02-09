@@ -13,6 +13,7 @@ using Core.Data.Model.Preprocessors.Impl;
 using Core.Data.Design.Controls;
 using Core.Filter.Data.Operand;
 using Core.Filter.Data.Operand.Impl;
+using Core.Data.Model;
 
 namespace Core.Filter.Controls
 {
@@ -24,6 +25,8 @@ namespace Core.Filter.Controls
         }
 
         public event EventHandler OperandTypeChanged = (s, e) => { };
+
+        public event EventHandler OperandFieldChanged = (s, e) => { };
 
         private FieldType type = FieldType.UNKNOWN;
         public FieldType Type
@@ -44,6 +47,17 @@ namespace Core.Filter.Controls
         public Control InputControl { get; set; }
 
         public IFieldProcessor Processor { get; set; }
+
+        private FieldData field = null;
+        public FieldData Field
+        {
+            get => field;
+            set
+            {
+                field = value;
+                Processor.ModelField.Field = field;
+            }
+        }
 
         private void UpdateComponent()
         {
@@ -67,7 +81,6 @@ namespace Core.Filter.Controls
 
                     var ct = InputControl as TextControl;
                     ct.AutoSize = false;
-                    ct.BorderStyle = BorderStyle.None;
                     break;
 
                 case FieldType.NUMBER:
@@ -76,7 +89,6 @@ namespace Core.Filter.Controls
 
                     var cn = InputControl as TextControl;
                     cn.AutoSize = false;
-                    cn.BorderStyle = BorderStyle.None;
                     break;
 
                 case FieldType.DATE:
@@ -86,7 +98,6 @@ namespace Core.Filter.Controls
                     var cd = InputControl as MaskedTextControl;
                     cd.AutoSize = false;
                     cd.TextAlign = HorizontalAlignment.Center;
-                    cd.BorderStyle = BorderStyle.None;
                     break;
 
                 case FieldType.BOOLEAN:
@@ -111,6 +122,7 @@ namespace Core.Filter.Controls
             InputControl.Dock = DockStyle.Fill;
             Controls.Add(InputControl);
             Processor.Control = InputControl as IDesignControl;
+            Processor.ModelField = new ModelFieldValue() { Field = Field };
         }
 
         public object Value

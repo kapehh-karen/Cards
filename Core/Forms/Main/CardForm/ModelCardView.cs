@@ -71,7 +71,6 @@ namespace Core.Forms.Main.CardForm
                 var proc = Processors.GetFieldProcessor(element);
                 if (proc != null)
                 {
-                    proc.Base = Base;
                     proc.ModelField = Model.GetModelField(proc.Field);
                     fieldProcessors.Add(proc);
                 }

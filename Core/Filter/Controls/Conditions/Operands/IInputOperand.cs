@@ -13,6 +13,10 @@ namespace Core.Filter.Controls
 
         FieldType Type { get; set; }
 
+        event EventHandler OperandFieldChanged;
+
+        FieldData Field { get; set; }
+
         IFilterOperand Operand { get; set; }
     }
 }

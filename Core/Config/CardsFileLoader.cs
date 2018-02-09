@@ -1,4 +1,5 @@
-﻿using Core.Data.Base;
+﻿using Core.Connection;
+using Core.Data.Base;
 using Core.Notification;
 using Ionic.Zip;
 using System;
@@ -70,6 +71,9 @@ namespace Core.Config
                 // База не загружена
                 return false;
             }
+
+            // База по-умолчанию
+            SQLServerConnection.DefaultDataBase = Base;
 
             // fill parent-property
             Base.Tables.ForEach(t =>

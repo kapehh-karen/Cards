@@ -42,9 +42,7 @@ namespace Core.Data.Model.Preprocessors
         public virtual void Detach() { }
 
         public FieldData Field { get; set; }
-
-        public DataBase Base { get; set; }
-
+        
         public ModelFieldValue ModelField { get; set; }
 
         public abstract object Value { get; set; }

@@ -69,6 +69,7 @@ namespace Core.Filter.Controls
             inputOperandLeft.Operand = item.LeftOperand; // Left
             inputOperandRight.DependentType = item.LeftOperand?.ValueType ?? FieldType.UNKNOWN; // Right
             inputOperandRight.Operand = item.RightOperand;
+            inputOperandRight.Field = inputOperandLeft.Field;
             inputOperator.DependentType = item.LeftOperand?.ValueType ?? FieldType.UNKNOWN; // Operator
             inputOperator.Operator = item.Operator;
             cmbConcatenate.SelectedConditionOperator = item.ConditionOperator; // Condition prefix
@@ -78,6 +79,11 @@ namespace Core.Filter.Controls
         {
             inputOperator.DependentType = inputOperandLeft.Type;
             inputOperandRight.DependentType = inputOperandLeft.Type;
+        }
+
+        private void inputOperandLeft_OperandFieldChanged(object sender, EventArgs e)
+        {
+            inputOperandRight.DependentField = inputOperandLeft.Field;
         }
 
         private void btnActionDelete_Click(object sender, EventArgs e)

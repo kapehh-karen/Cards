@@ -53,8 +53,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             using (var dialog = new FormSelectInClassificator()
             {
                 Field = ModelField.Field,
-                Table = ModelField.Field.BindData?.Table,
-                Base = this.Base
+                Table = ModelField.Field.BindData?.Table
             })
             {
                 dialog.SelectedID = Value;

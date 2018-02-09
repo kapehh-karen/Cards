@@ -10,11 +10,26 @@ namespace Core.Connection
 {
     public class SQLServerConnection : IDisposable
     {
+        public static DataBase DefaultDataBase { get; set; }
+
         private SqlConnection conn;
         private bool connected;
 
+        public SQLServerConnection()
+            : this(DefaultDataBase.Sever,
+                   DefaultDataBase.Port,
+                   DefaultDataBase.UserName,
+                   DefaultDataBase.Password,
+                   DefaultDataBase.BaseName)
+        {
+        }
+
         public SQLServerConnection(DataBase dataBase)
-            : this(dataBase.Sever, dataBase.Port, dataBase.UserName, dataBase.Password, dataBase.BaseName)
+            : this(dataBase.Sever,
+                   dataBase.Port,
+                   dataBase.UserName,
+                   dataBase.Password,
+                   dataBase.BaseName)
         {
         }
 
