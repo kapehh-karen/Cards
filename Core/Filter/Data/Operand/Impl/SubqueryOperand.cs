@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Core.Data.Field;
+using Core.Filter.SQLBuilders.Impl;
 
 namespace Core.Filter.Data.Operand.Impl
 {
@@ -15,13 +16,11 @@ namespace Core.Filter.Data.Operand.Impl
             get => FieldType.NUMBER;
             set { }
         }
-
-        public FilterData ParentFilter { get; set; }
-
+        
         public FilterData CurrentFilter { get; set; }
         
-        public override bool Completed => ParentFilter != null && CurrentFilter != null;
+        public override bool Completed => CurrentFilter != null;
 
-        public override string SQLExpression => $"<< {CurrentFilter.Where.SQLExpression} >>";
+        public override string SQLExpression => CurrentFilter.SQLExpression;
     }
 }

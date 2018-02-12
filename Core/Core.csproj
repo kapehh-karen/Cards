@@ -194,6 +194,7 @@
     <Compile Include="Filter\Data\Condition\Impl\ContainerCondition.cs" />
     <Compile Include="Filter\Data\Condition\ICondition.cs" />
     <Compile Include="Filter\Data\Condition\Impl\ItemCondition.cs" />
+    <Compile Include="Filter\Data\FilterStaticData.cs" />
     <Compile Include="Filter\Data\FilterData.cs" />
     <Compile Include="Filter\Data\FilterField.cs" />
     <Compile Include="Filter\Data\Operand\Impl\FieldOperand.cs" />
@@ -211,6 +212,9 @@
     <Compile Include="Filter\Forms\FormFilter.Designer.cs">
       <DependentUpon>FormFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filter\SQLBuilders\Impl\CountSQLBuilder.cs" />
+    <Compile Include="Filter\SQLBuilders\Impl\FullSQLBuilder.cs" />
+    <Compile Include="Filter\SQLBuilders\ISQLBuilder.cs" />
     <Compile Include="Forms\DateBase\FormBindSetting.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -503,5 +507,6 @@
   <ItemGroup>
     <None Include="Resources\check.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

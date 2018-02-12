@@ -56,7 +56,7 @@ namespace Core.Filter.Forms
 
         public void InitializeFilter(TableData table)
         {
-            FilterData = FilterData.CreateBy(table);
+            FilterData = FilterData.CreateRoot(table);
         }
         
         private void treeSubFilter_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -96,7 +96,7 @@ namespace Core.Filter.Forms
             var fdata = selectedNode.Tag as FilterData;
             var linkedTable = (sender as ToolStripItem).Tag as LinkedTable;
 
-            var newFilterData = FilterData.CreateBy(linkedTable.Table, fdata);
+            var newFilterData = FilterData.CreateSubquery(linkedTable.Table, fdata);
             AddNode(newFilterData, selectedNode.Nodes);
             selectedNode.Expand();
         }
@@ -117,13 +117,19 @@ namespace Core.Filter.Forms
             }
         }
 
-        private void treeSubFilter_AfterSelect(object sender, TreeViewEventArgs e)
+        private void SaveCurrentChanges()
         {
             var currentFilterData = containerConditionControl1.FilterData;
             if (currentFilterData != null)
             {
                 currentFilterData.Where = containerConditionControl1.BuildCondition();
             }
+        }
+
+        private void treeSubFilter_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            // Сохраняем текущие изменения перед изменением ноды
+            SaveCurrentChanges();
 
             var nextFilterData = e.Node?.Tag as FilterData;
             containerConditionControl1.FilterData = nextFilterData;
@@ -134,8 +140,10 @@ namespace Core.Filter.Forms
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            var k = containerConditionControl1.BuildCondition();
-            var s = k.SQLExpression;
+            // Сохраняем текущие изменения перед применением фильтра
+            SaveCurrentChanges();
+
+            var sql = FilterData.SQLExpression;
         }
 
         #region Перемещение вложенности выборок

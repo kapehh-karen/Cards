@@ -122,7 +122,7 @@ namespace Core.Filter.Controls
 
         private void constToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputControl = new InputValue();
+            InputControl = new InputValue() { FilterData = FilterData };
             Type = DependentType;
             Field = DependentField;
         }
@@ -157,6 +157,9 @@ namespace Core.Filter.Controls
                         break;
                     case OperandType.VALUE:
                         constToolStripMenuItem_Click(null, null);
+                        break;
+                    case OperandType.SUBQUERY:
+                        subqueryToolStripMenuItem_Click(null, null);
                         break;
                     default:
                         return;

@@ -14,6 +14,7 @@ using Core.Data.Design.Controls;
 using Core.Filter.Data.Operand;
 using Core.Filter.Data.Operand.Impl;
 using Core.Data.Model;
+using Core.Filter.Data;
 
 namespace Core.Filter.Controls
 {
@@ -133,18 +134,21 @@ namespace Core.Filter.Controls
             set => Processor.Value = value;
         }
 
+        public FilterData FilterData { get; set; }
+
         public IFilterOperand Operand
         {
             get => new ValueOperand()
             {
                 Value = Value,
-                ValueType = Type
+                ValueType = Type,
+                StaticData = FilterData.StaticData
             };
             set
             {
                 var operand = value as ValueOperand;
-                Value = operand.Value;
-                Type = operand.ValueType;
+                Type = operand.ValueType; // Сначала делаем присвоение типа. Оно создаст нужные компоненты
+                Value = operand.Value; // Только потом присваиваем значение
             }
         }
     }

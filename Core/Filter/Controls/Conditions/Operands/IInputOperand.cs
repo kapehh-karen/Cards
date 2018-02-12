@@ -1,4 +1,5 @@
 ﻿using Core.Data.Field;
+using Core.Filter.Data;
 using Core.Filter.Data.Operand;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,13 @@ namespace Core.Filter.Controls
     {
         event EventHandler OperandTypeChanged;
 
-        FieldType Type { get; set; }
-
         event EventHandler OperandFieldChanged;
 
+        FieldType Type { get; set; }
+        
         FieldData Field { get; set; }
+
+        FilterData FilterData { get; set; }
 
         IFilterOperand Operand { get; set; }
     }

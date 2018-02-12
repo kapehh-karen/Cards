@@ -10,6 +10,7 @@ using Core.Data.Field;
 using Core.Filter.Data.Operand;
 using Core.Filter.Data;
 using Core.Notification;
+using Core.Filter.Data.Operand.Impl;
 
 namespace Core.Filter.Controls.Conditions.Operands
 {
@@ -17,8 +18,6 @@ namespace Core.Filter.Controls.Conditions.Operands
     {
         private class MenuItemTag
         {
-            public FilterData Parent { get; set; }
-
             public FilterData Current { get; set; }
         }
 
@@ -40,7 +39,24 @@ namespace Core.Filter.Controls.Conditions.Operands
         }
 
         public FieldData Field { get; set; }
-        public IFilterOperand Operand { get; set; }
+
+        private MenuItemTag SelectedItem { get; set; }
+
+        public IFilterOperand Operand
+        {
+            get => new SubqueryOperand()
+            {
+                CurrentFilter = SelectedItem?.Current
+            };
+            set
+            {
+                var subquery = value as SubqueryOperand;
+                SetSubquery(new MenuItemTag()
+                {
+                    Current = subquery.CurrentFilter
+                });
+            }
+        }
 
         public FilterData FilterData { get; set; }
 
@@ -60,7 +76,7 @@ namespace Core.Filter.Controls.Conditions.Operands
             FilterData.Chields.ForEach(filterData =>
             {
                 var menuItem = new ToolStripMenuItem(filterData.ToString()) { ForeColor = Color.Blue };
-                menuItem.Tag = new MenuItemTag() { Parent = FilterData, Current = filterData };
+                menuItem.Tag = new MenuItemTag() { Current = filterData };
                 menuItem.Click += selectSubquery;
                 contextMenu.Items.Add(menuItem);
             });
@@ -85,6 +101,7 @@ namespace Core.Filter.Controls.Conditions.Operands
             }
             btnSelectSubquery.Text = itemTag.Current.FilterTable.Table.DisplayName;
             Type = FieldType.NUMBER; // Бесполезное присвоение, нужно только для вызова события
+            SelectedItem = itemTag;
         }
     }
 }
