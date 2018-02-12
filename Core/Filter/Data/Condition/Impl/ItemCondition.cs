@@ -1,5 +1,6 @@
 ﻿using Core.Filter.Data.Operand;
 using Core.Filter.Data.Operator;
+using Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,15 @@ namespace Core.Filter.Data.Condition.Impl
         public IFilterOperand RightOperand { get; set; }
 
         public override bool Completed => Operator != null && Operator.Completed;
+
+        public override IEnumerable<KeyValuePair<string, object>> GetParameters()
+        {
+            foreach (var param in LeftOperand.GetParameters())
+                yield return param;
+
+            foreach (var param in RightOperand.GetParameters())
+                yield return param;
+        }
 
         public override string SQLExpression => Operator?.SQLExpression;
     }

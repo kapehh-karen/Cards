@@ -14,6 +14,7 @@ using System.ComponentModel;
 using Core.Forms.Main;
 using Core.Forms.Main.TableSetting;
 using Core.Data.Field;
+using Core.Filter.Data;
 
 namespace Core.Common.DataGrid
 {
@@ -45,6 +46,8 @@ namespace Core.Common.DataGrid
         }
 
         public abstract DataGridType ViewType { get; }
+
+        public FilterData Filter { get; set; }
 
         #region Context Menu
 
@@ -202,6 +205,8 @@ namespace Core.Common.DataGrid
                 {
                     TableStorage.Instance.SaveDefault(TableStorageInformation, TableStorageType);
                 }
+
+                Filter = FilterData.CreateRoot(Table);
             }
         }
         

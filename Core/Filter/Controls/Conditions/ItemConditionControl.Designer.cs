@@ -1,4 +1,5 @@
-﻿using Core.Filter.Controls.Conditions.Operator;
+﻿using Core.Filter.Controls.Conditions.Operands;
+using Core.Filter.Controls.Conditions.Operator;
 
 namespace Core.Filter.Controls
 {
@@ -30,9 +31,9 @@ namespace Core.Filter.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            this.inputOperandLeft = new Core.Filter.Controls.InputOperand();
-            this.inputOperator = new Core.Filter.Controls.InputOperator();
-            this.inputOperandRight = new Core.Filter.Controls.InputOperand();
+            this.inputOperandLeft = new InputOperand();
+            this.inputOperator = new InputOperator();
+            this.inputOperandRight = new InputOperand();
             this.btnActionDelete = new System.Windows.Forms.Button();
             this.cmbConcatenate = new Core.Filter.Controls.Conditions.Operator.InputOperatorConcatenate();
             this.SuspendLayout();

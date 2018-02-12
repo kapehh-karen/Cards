@@ -143,7 +143,7 @@ namespace Core.Filter.Forms
             // Сохраняем текущие изменения перед применением фильтра
             SaveCurrentChanges();
 
-            var sql = FilterData.SQLExpression;
+            DialogResult = DialogResult.OK;
         }
 
         #region Перемещение вложенности выборок

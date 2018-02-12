@@ -9,9 +9,16 @@ namespace Core.Filter.Data.Condition.Impl
     {
         public override ConditionType Type => ConditionType.CONTAINER;
 
-        public List<ICondition> Conditions { get; set; }
+        public List<ICondition> Conditions { get; set; } = new List<ICondition>();
 
         public override bool Completed => Conditions.Any(cond => cond.Completed);
+
+        public override IEnumerable<KeyValuePair<string, object>> GetParameters()
+        {
+            foreach (var cond in Conditions.Where(cond => cond.Completed))
+                foreach (var param in cond.GetParameters())
+                    yield return param;
+        }
 
         public override string SQLExpression
         {

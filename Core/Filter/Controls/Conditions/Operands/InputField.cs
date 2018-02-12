@@ -12,7 +12,7 @@ using Core.Notification;
 using Core.Filter.Data.Operand;
 using Core.Filter.Data.Operand.Impl;
 
-namespace Core.Filter.Controls
+namespace Core.Filter.Controls.Conditions.Operands
 {
     public partial class InputField : UserControl, IInputOperand
     {

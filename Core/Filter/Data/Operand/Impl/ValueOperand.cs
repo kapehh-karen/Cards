@@ -21,6 +21,11 @@ namespace Core.Filter.Data.Operand.Impl
 
         public override bool Completed => Value != null;
 
+        public override IEnumerable<KeyValuePair<string, object>> GetParameters()
+        {
+            yield return new KeyValuePair<string, object>(VarName, Value);
+        }
+
         public override string SQLExpression => $"@{VarName}";
     }
 }

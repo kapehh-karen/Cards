@@ -1,4 +1,6 @@
-﻿namespace TestApp
+﻿using Core.Filter.Controls.Conditions.Operands;
+
+namespace TestApp
 {
     partial class frmTestUserControls
     {
@@ -31,7 +33,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTestUserControls));
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.inputValue2 = new Core.Filter.Controls.InputValue();
+            this.inputValue2 = new InputValue();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -116,7 +118,7 @@
 
         #endregion
         private System.Windows.Forms.ImageList imageList1;
-        private Core.Filter.Controls.InputValue inputValue2;
+        private InputValue inputValue2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;

@@ -21,6 +21,12 @@ namespace Core.Filter.Data.Operand.Impl
         
         public override bool Completed => CurrentFilter != null;
 
+        public override IEnumerable<KeyValuePair<string, object>> GetParameters()
+        {
+            foreach (var param in CurrentFilter.Where.GetParameters())
+                yield return param;
+        }
+
         public override string SQLExpression => CurrentFilter.SQLExpression;
     }
 }

@@ -91,7 +91,7 @@ namespace Core.Filter.Data
         [DataMember]
         public FilterStaticData StaticData { get; set; }
 
-        public string SQLExpression => SQLBuilder?.SQLExpression;
+        public string SQLExpression => SQLBuilder?.BuildSQLExpression();
 
         public void MoveTo(FilterData newParent)
         {

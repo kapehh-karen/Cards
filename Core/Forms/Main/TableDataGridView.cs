@@ -4,6 +4,7 @@ using Core.Data.Base;
 using Core.Data.Field;
 using Core.Data.Model;
 using Core.Data.Table;
+using Core.Filter.Data;
 using Core.Helper;
 using Core.Storage.Tables;
 using Core.Storage.Tables.TableStorageData;
@@ -95,29 +96,25 @@ namespace Core.Forms.Main
                 // Make SQL request
                 using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection()))
                 {
-                    // main part query
-                    var columns = string.Join(", ", fields
-                        .Select(f => f.Type != FieldType.BIND ? $"[{Table.Name}].[{f.Name}]" : $"[{f.Name}__{f.BindData.Table.Name}].[{f.BindData.Field.Name}] AS [{f.Name}]")
-                        .ToArray());
-
-                    // joins part query
-                    var joins = string.Join("\r\n", fields.Where(f => f.Type == FieldType.BIND)
-                        .Select(f => $"LEFT JOIN [{f.BindData.Table.Name}] AS [{f.Name}__{f.BindData.Table.Name}] ON [{f.Name}__{f.BindData.Table.Name}].[{f.BindData.Table.IdentifierField.Name}] = [{Table.Name}].[{f.Name}]")
-                        .ToArray());
-
-                    var query = $"SELECT {columns} FROM [{Table.Name}]\r\n{joins}";
+                    var query = Filter.SQLBuilder.BuildSQLExpression(fields);
                     var connection = dbc.Connection;
-                    var adapter = new SqlDataAdapter(query, connection);
-                    
-                    this.DataSource = null;
-                    var data = new DataSet();
-                    WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
-                    CurrentDataTable = data.Tables[0];
-                    CurrentDataView.Table = CurrentDataTable;
-                    firstAfterBind = true; // Перед биндингом
-                    this.DataSource = CurrentDataView;
 
-                    adapter.Dispose();
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        // Добавляем параметры
+                        Filter.SQLBuilder.BuildParams().ForEach(pair => command.Parameters.AddWithValue(pair.Key, pair.Value));
+
+                        using (var adapter = new SqlDataAdapter(command))
+                        {
+                            this.DataSource = null;
+                            var data = new DataSet();
+                            WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
+                            CurrentDataTable = data.Tables[0];
+                            CurrentDataView.Table = CurrentDataTable;
+                            firstAfterBind = true; // Перед биндингом
+                            this.DataSource = CurrentDataView;
+                        }
+                    }
                 }
 
                 // Не важно значение флага AllowCache, всегда сохраняем данные классификатора в память

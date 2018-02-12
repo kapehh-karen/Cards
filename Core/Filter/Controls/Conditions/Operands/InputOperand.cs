@@ -11,7 +11,7 @@ using Core.Data.Field;
 using Core.Filter.Data.Operand;
 using Core.Filter.Controls.Conditions.Operands;
 
-namespace Core.Filter.Controls
+namespace Core.Filter.Controls.Conditions.Operands
 {
     public partial class InputOperand : UserControl, IInputOperand
     {

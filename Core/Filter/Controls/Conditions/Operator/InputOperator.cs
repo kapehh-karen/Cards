@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Core.Filter.Controls
+namespace Core.Filter.Controls.Conditions.Operator
 {
     public class InputOperator : ComboBox
     {

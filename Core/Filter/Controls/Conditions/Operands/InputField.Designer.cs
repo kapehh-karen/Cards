@@ -1,4 +1,4 @@
-﻿namespace Core.Filter.Controls
+﻿namespace Core.Filter.Controls.Conditions.Operands
 {
     partial class InputField
     {

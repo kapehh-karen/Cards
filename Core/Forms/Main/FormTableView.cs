@@ -168,7 +168,8 @@ namespace Core.Forms.Main
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-
+                    tableDataGridView1.Filter = dialog.FilterData;
+                    FillTable();
                 }
             }
         }

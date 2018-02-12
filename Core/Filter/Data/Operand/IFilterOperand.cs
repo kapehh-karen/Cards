@@ -17,6 +17,8 @@ namespace Core.Filter.Data.Operand
 
         public virtual bool Completed => true;
 
+        public virtual IEnumerable<KeyValuePair<string, object>> GetParameters() { yield break; }
+
         public virtual string SQLExpression => string.Empty;
     }
 }
