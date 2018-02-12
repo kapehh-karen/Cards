@@ -134,21 +134,35 @@ namespace Core.Filter.Controls
             set => Processor.Value = value;
         }
 
+        public string VarName { get; set; }
+
         public FilterData FilterData { get; set; }
 
         public IFilterOperand Operand
         {
-            get => new ValueOperand()
+            get
             {
-                Value = Value,
-                ValueType = Type,
-                StaticData = FilterData.StaticData
-            };
+                var operand = new ValueOperand()
+                {
+                    Value = Value,
+                    ValueType = Type,
+                    VarName = VarName
+                };
+
+                if (string.IsNullOrEmpty(operand.VarName))
+                {
+                    FilterData.StaticData.CountVariables++;
+                    operand.VarName = VarName = $"var{FilterData.StaticData.CountVariables}";
+                }
+
+                return operand;
+            }
             set
             {
                 var operand = value as ValueOperand;
                 Type = operand.ValueType; // Сначала делаем присвоение типа. Оно создаст нужные компоненты
                 Value = operand.Value; // Только потом присваиваем значение
+                VarName = operand.VarName;
             }
         }
     }
