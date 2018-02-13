@@ -38,11 +38,11 @@ namespace Core.Filter.Controls.Conditions.Operator
         private Dictionary<FieldType, OperatorType[]> _operators = new Dictionary<FieldType, OperatorType[]>
         {
             { FieldType.UNKNOWN, new OperatorType[0] },
-            { FieldType.TEXT, new OperatorType[] { OperatorType.EQUAL, OperatorType.NOT_EQUAL } },
-            { FieldType.NUMBER, new OperatorType[] { OperatorType.EQUAL, OperatorType.NOT_EQUAL } },
-            { FieldType.DATE, new OperatorType[] { OperatorType.EQUAL, OperatorType.NOT_EQUAL } },
-            { FieldType.BOOLEAN, new OperatorType[] { OperatorType.EQUAL, OperatorType.NOT_EQUAL } },
-            { FieldType.BIND, new OperatorType[] { OperatorType.EQUAL, OperatorType.NOT_EQUAL } }
+            { FieldType.TEXT, new OperatorType[] { OperatorType.EQUAL } },
+            { FieldType.NUMBER, new OperatorType[] { OperatorType.EQUAL } },
+            { FieldType.DATE, new OperatorType[] { OperatorType.EQUAL } },
+            { FieldType.BOOLEAN, new OperatorType[] { OperatorType.EQUAL } },
+            { FieldType.BIND, new OperatorType[] { OperatorType.EQUAL } }
         };
 
         public InputOperator()

@@ -11,6 +11,7 @@ using Core.Data.Field;
 using Core.Notification;
 using Core.Filter.Data.Operand;
 using Core.Filter.Data.Operand.Impl;
+using Core.Helper;
 
 namespace Core.Filter.Controls.Conditions.Operands
 {
@@ -91,7 +92,7 @@ namespace Core.Filter.Controls.Conditions.Operands
             var contextMenu = new ContextMenuStrip();
 
             var menuItem = new ToolStripMenuItem("Текущая таблица") { ForeColor = Color.Green };
-            FilterData.FilterTable.Table.Fields.ForEach(field =>
+            FilterData.FilterTable.Table.Fields.OrderBy(field => field.DisplayName).ForEach(field =>
             {
                 var item = menuItem.DropDownItems.Add(field.DisplayName, null, fieldMenu_Click);
                 item.Tag = new MenuItemTag() { FilterTable = FilterData.FilterTable, FieldData = field };
@@ -102,7 +103,7 @@ namespace Core.Filter.Controls.Conditions.Operands
             while ((cursor = cursor.Parent) != null)
             {
                 menuItem = new ToolStripMenuItem(cursor.FilterTable.ToString());
-                cursor.FilterTable.Table.Fields.ForEach(field =>
+                cursor.FilterTable.Table.Fields.OrderBy(field => field.DisplayName).ForEach(field =>
                 {
                     var item = menuItem.DropDownItems.Add(field.DisplayName, null, fieldMenu_Click);
                     item.Tag = new MenuItemTag() { FilterTable = cursor.FilterTable, FieldData = field };
