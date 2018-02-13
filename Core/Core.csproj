@@ -212,6 +212,12 @@
     <Compile Include="Filter\Forms\FormFilter.Designer.cs">
       <DependentUpon>FormFilter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Filter\Forms\FormSQLView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Filter\Forms\FormSQLView.Designer.cs">
+      <DependentUpon>FormSQLView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Filter\SQLBuilders\Impl\CountSQLBuilder.cs" />
     <Compile Include="Filter\SQLBuilders\Impl\FullSQLBuilder.cs" />
     <Compile Include="Filter\SQLBuilders\ISQLBuilder.cs" />
@@ -403,6 +409,9 @@
     <EmbeddedResource Include="Filter\Forms\FormFilter.resx">
       <DependentUpon>FormFilter.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Filter\Forms\FormSQLView.resx">
+      <DependentUpon>FormSQLView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\DateBase\FormBindSetting.resx">
       <DependentUpon>FormBindSetting.cs</DependentUpon>
     </EmbeddedResource>
@@ -507,6 +516,20 @@
   <ItemGroup>
     <None Include="Resources\check.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\checkmark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\funnel-off.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sql-open-file-format.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copy.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

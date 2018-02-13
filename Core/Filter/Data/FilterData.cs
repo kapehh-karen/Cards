@@ -14,7 +14,7 @@ using System.Text;
 namespace Core.Filter.Data
 {
     [DataContract]
-    public class FilterData
+    public class FilterData : ICloneable
     {
         /// <summary>
         /// Создаем FilterData для основной таблицы
@@ -107,6 +107,24 @@ namespace Core.Filter.Data
         public override string ToString()
         {
             return FilterTable.ToString();
+        }
+
+        public object Clone()
+        {
+            var data = new FilterData()
+            {
+                FilterTable = FilterTable,
+                Where = Where, // В FormFilter это свойство просто перезаписывается, так-что и так сойдет
+                Parent = Parent,
+                Chields = new List<FilterData>(Chields.Select(chield => chield.Clone() as FilterData)), // Создаем новый список
+                SQLBuilder = SQLBuilder,
+                StaticData = StaticData.Clone() as FilterStaticData // На всякий случай тоже копию делаю
+            };
+
+            if (data.SQLBuilder != null)
+                data.SQLBuilder.Filter = data;
+
+            return data;
         }
     }
 }

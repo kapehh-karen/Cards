@@ -49,6 +49,11 @@ namespace Core.Common.DataGrid
 
         public FilterData Filter { get; set; }
 
+        public void ResetFilter()
+        {
+            Filter = FilterData.CreateRoot(Table);
+        }
+
         #region Context Menu
 
         private ContextMenuStrip Menu { get; set; }
@@ -206,7 +211,8 @@ namespace Core.Common.DataGrid
                     TableStorage.Instance.SaveDefault(TableStorageInformation, TableStorageType);
                 }
 
-                Filter = FilterData.CreateRoot(Table);
+                // Сбрасываем фильтр при инициализации
+                ResetFilter();
             }
         }
         

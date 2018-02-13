@@ -38,11 +38,12 @@ namespace Core.Filter.Forms
             }
             set
             {
-                filterData = value;
+                filterData = value.Clone() as FilterData;
                 if (filterData != null)
                 {
                     treeSubFilter.Nodes.Clear();
                     AddNode(filterData, treeSubFilter.Nodes);
+                    treeSubFilter.ExpandAll();
                 }
             }
         }
@@ -54,7 +55,7 @@ namespace Core.Filter.Forms
             fdata.Chields.ForEach(fd => AddNode(fd, node.Nodes));
         }
 
-        public void InitializeFilter(TableData table)
+        public void InitializeNewFilter(TableData table)
         {
             FilterData = FilterData.CreateRoot(table);
         }
@@ -146,6 +147,11 @@ namespace Core.Filter.Forms
             DialogResult = DialogResult.OK;
         }
 
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+        }
+        
         #region Перемещение вложенности выборок
 
         private void FormFilter_Load(object sender, EventArgs e)

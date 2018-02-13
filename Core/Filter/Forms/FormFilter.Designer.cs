@@ -35,9 +35,10 @@
             this.addLinkedTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeNodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.containerConditionControl1 = new Core.Filter.Controls.ContainerConditionControl();
-            this.btnAccept = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblCondition = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnAccept = new System.Windows.Forms.Button();
             this.contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeSubFilter.Location = new System.Drawing.Point(12, 34);
             this.treeSubFilter.Name = "treeSubFilter";
-            this.treeSubFilter.Size = new System.Drawing.Size(235, 445);
+            this.treeSubFilter.Size = new System.Drawing.Size(235, 409);
             this.treeSubFilter.TabIndex = 0;
             this.treeSubFilter.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeSubFilter_AfterSelect);
             this.treeSubFilter.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeSubFilter_NodeMouseClick);
@@ -85,21 +86,8 @@
             this.containerConditionControl1.IsRoot = true;
             this.containerConditionControl1.Location = new System.Drawing.Point(253, 34);
             this.containerConditionControl1.Name = "containerConditionControl1";
-            this.containerConditionControl1.Size = new System.Drawing.Size(670, 445);
+            this.containerConditionControl1.Size = new System.Drawing.Size(658, 409);
             this.containerConditionControl1.TabIndex = 2;
-            // 
-            // btnAccept
-            // 
-            this.btnAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAccept.Image = global::Core.Properties.Resources.check;
-            this.btnAccept.Location = new System.Drawing.Point(803, 490);
-            this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(120, 23);
-            this.btnAccept.TabIndex = 3;
-            this.btnAccept.Text = "Применить";
-            this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAccept.UseVisualStyleBackColor = true;
-            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
             // 
             // label1
             // 
@@ -121,13 +109,43 @@
             this.lblCondition.TabIndex = 4;
             this.lblCondition.Text = "Условие отбора";
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Image = global::Core.Properties.Resources.back;
+            this.btnCancel.Location = new System.Drawing.Point(655, 449);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(105, 36);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "ОТМЕНА";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnAccept
+            // 
+            this.btnAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnAccept.Image = global::Core.Properties.Resources.checkmark;
+            this.btnAccept.Location = new System.Drawing.Point(766, 449);
+            this.btnAccept.Name = "btnAccept";
+            this.btnAccept.Size = new System.Drawing.Size(145, 36);
+            this.btnAccept.TabIndex = 3;
+            this.btnAccept.Text = "ПРИМЕНИТЬ";
+            this.btnAccept.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAccept.UseVisualStyleBackColor = true;
+            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
+            // 
             // FormFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(935, 523);
+            this.ClientSize = new System.Drawing.Size(923, 492);
             this.Controls.Add(this.lblCondition);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.containerConditionControl1);
             this.Controls.Add(this.treeSubFilter);
@@ -154,5 +172,6 @@
         private System.Windows.Forms.Button btnAccept;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblCondition;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

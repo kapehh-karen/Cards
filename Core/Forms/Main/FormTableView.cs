@@ -164,14 +164,22 @@ namespace Core.Forms.Main
         {
             using (var dialog = new FormFilter())
             {
-                dialog.InitializeFilter(Table);
+                dialog.FilterData = tableDataGridView1.Filter;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     tableDataGridView1.Filter = dialog.FilterData;
                     FillTable();
+                    toolStripButtonFilter.BackColor = Color.Aqua;
                 }
             }
+        }
+
+        private void toolStripButtonFilterReset_Click(object sender, EventArgs e)
+        {
+            tableDataGridView1.ResetFilter();
+            FillTable();
+            toolStripButtonFilter.BackColor = SystemColors.Control;
         }
     }
 }
