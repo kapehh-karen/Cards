@@ -211,12 +211,12 @@
             // 
             this.toolStripButtonFilterReset.AutoSize = false;
             this.toolStripButtonFilterReset.Image = global::Core.Properties.Resources.funnel_off;
+            this.toolStripButtonFilterReset.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolStripButtonFilterReset.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonFilterReset.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonFilterReset.Name = "toolStripButtonFilterReset";
             this.toolStripButtonFilterReset.Size = new System.Drawing.Size(80, 76);
             this.toolStripButtonFilterReset.Text = "Сбросить";
-            this.toolStripButtonFilterReset.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolStripButtonFilterReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonFilterReset.Click += new System.EventHandler(this.toolStripButtonFilterReset_Click);
             // 

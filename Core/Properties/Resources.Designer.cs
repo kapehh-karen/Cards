@@ -165,7 +165,17 @@ namespace Core.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap funnel_off {
             get {
-                object obj = ResourceManager.GetObject("funnel-off", resourceCulture);
+                object obj = ResourceManager.GetObject("funnel_off", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap funnel_on {
+            get {
+                object obj = ResourceManager.GetObject("funnel_on", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -195,7 +205,7 @@ namespace Core.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap sql_open_file_format {
             get {
-                object obj = ResourceManager.GetObject("sql-open-file-format", resourceCulture);
+                object obj = ResourceManager.GetObject("sql_open_file_format", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -16,7 +16,16 @@ namespace Core.Filter.Forms
             InitializeComponent();
         }
 
-        public string SQL { get => txtSQL.Text; set => txtSQL.Text = value; }
+        public string SQL
+        {
+            get => txtSQL.Text;
+            set
+            {
+                txtSQL.Text = value;
+                txtSQL.SelectionStart = 0;
+                txtSQL.SelectionLength = 0;
+            }
+        }
 
         private void btnCopy_Click(object sender, EventArgs e)
         {

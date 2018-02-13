@@ -1,6 +1,7 @@
 ﻿using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Table;
+using Core.Filter.Data;
 using Core.Filter.Forms;
 using Core.Forms.Main.CardForm;
 using Core.Helper;
@@ -35,6 +36,7 @@ namespace Core.Forms.Main
                 table = value;
                 tableDataGridView1.Table = table;
                 Text = table?.FullDisplayName;
+                LastUsedFilterData = tableDataGridView1.Filter;
             }
         }
 
@@ -47,6 +49,8 @@ namespace Core.Forms.Main
                 tableDataGridView1.Base = Base;
             }
         }
+
+        public FilterData LastUsedFilterData { get; set; }
 
         public void FillTable()
         {
@@ -164,13 +168,13 @@ namespace Core.Forms.Main
         {
             using (var dialog = new FormFilter())
             {
-                dialog.FilterData = tableDataGridView1.Filter;
+                dialog.FilterData = LastUsedFilterData;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    tableDataGridView1.Filter = dialog.FilterData;
+                    tableDataGridView1.Filter = LastUsedFilterData = dialog.FilterData;
                     FillTable();
-                    toolStripButtonFilter.BackColor = Color.Aqua;
+                    toolStripButtonFilter.Image = Properties.Resources.funnel_on;
                 }
             }
         }
@@ -179,7 +183,7 @@ namespace Core.Forms.Main
         {
             tableDataGridView1.ResetFilter();
             FillTable();
-            toolStripButtonFilter.BackColor = SystemColors.Control;
+            toolStripButtonFilter.Image = Properties.Resources.funnel;
         }
     }
 }

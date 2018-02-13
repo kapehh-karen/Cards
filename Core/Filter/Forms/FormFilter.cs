@@ -151,7 +151,19 @@ namespace Core.Filter.Forms
         {
             DialogResult = DialogResult.Cancel;
         }
-        
+
+        private void btnViewSQL_Click(object sender, EventArgs e)
+        {
+            // Сохраняем текущие изменения перед просмотром SQL
+            SaveCurrentChanges();
+
+            using (var dialog = new FormSQLView())
+            {
+                dialog.SQL = FilterData.SQLExpression;
+                dialog.ShowDialog();
+            }
+        }
+
         #region Перемещение вложенности выборок
 
         private void FormFilter_Load(object sender, EventArgs e)

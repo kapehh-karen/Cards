@@ -39,6 +39,7 @@
             this.lblCondition = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAccept = new System.Windows.Forms.Button();
+            this.btnViewSQL = new System.Windows.Forms.Button();
             this.contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,6 +139,20 @@
             this.btnAccept.UseVisualStyleBackColor = true;
             this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
             // 
+            // btnViewSQL
+            // 
+            this.btnViewSQL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnViewSQL.Image = global::Core.Properties.Resources.sql_open_file_format;
+            this.btnViewSQL.Location = new System.Drawing.Point(12, 449);
+            this.btnViewSQL.Name = "btnViewSQL";
+            this.btnViewSQL.Size = new System.Drawing.Size(139, 36);
+            this.btnViewSQL.TabIndex = 3;
+            this.btnViewSQL.Text = "Просмотр SQL";
+            this.btnViewSQL.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnViewSQL.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnViewSQL.UseVisualStyleBackColor = true;
+            this.btnViewSQL.Click += new System.EventHandler(this.btnViewSQL_Click);
+            // 
             // FormFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -145,6 +160,7 @@
             this.ClientSize = new System.Drawing.Size(923, 492);
             this.Controls.Add(this.lblCondition);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnViewSQL);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(this.containerConditionControl1);
@@ -173,5 +189,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblCondition;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnViewSQL;
     }
 }

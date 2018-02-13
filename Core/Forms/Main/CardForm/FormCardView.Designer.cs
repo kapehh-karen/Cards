@@ -52,22 +52,28 @@
             // btnClose
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClose.Location = new System.Drawing.Point(139, 211);
+            this.btnClose.Image = global::Core.Properties.Resources.back;
+            this.btnClose.Location = new System.Drawing.Point(139, 206);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(121, 23);
+            this.btnClose.Size = new System.Drawing.Size(121, 33);
             this.btnClose.TabIndex = 0;
             this.btnClose.Text = "Закрыть";
+            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnSave
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSave.Location = new System.Drawing.Point(12, 211);
+            this.btnSave.Image = global::Core.Properties.Resources.checkmark;
+            this.btnSave.Location = new System.Drawing.Point(12, 206);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(121, 23);
+            this.btnSave.Size = new System.Drawing.Size(121, 33);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Сохранить";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 

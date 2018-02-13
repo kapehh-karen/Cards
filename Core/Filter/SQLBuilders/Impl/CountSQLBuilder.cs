@@ -17,9 +17,7 @@ namespace Core.Filter.SQLBuilders.Impl
             var currentTable = Filter.FilterTable;
             var parentTable = Filter.Parent.FilterTable;
             var foreignField = parentTable.Table.LinkedTables.Single(lt => lt.Table == currentTable.Table).Field;
-            return $@"(SELECT COUNT(*)
-                        FROM [{currentTable.Table.Name}] AS [{currentTable.AliasName}]
-                        WHERE [{parentTable.AliasName}].[{parentTable.Table.IdentifierField.Name}] = [{currentTable.AliasName}].[{foreignField.Name}] {where})";
+            return $@"(SELECT COUNT(*) FROM [{currentTable.Table.Name}] AS [{currentTable.AliasName}] WHERE [{parentTable.AliasName}].[{parentTable.Table.IdentifierField.Name}] = [{currentTable.AliasName}].[{foreignField.Name}] {where})";
         }
     }
 }

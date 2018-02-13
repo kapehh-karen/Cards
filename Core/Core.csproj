@@ -531,5 +531,8 @@
   <ItemGroup>
     <None Include="Resources\copy.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\funnel-on.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
