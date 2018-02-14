@@ -188,6 +188,17 @@ namespace Core.Forms.Main
             TrySelectRow();
         }
 
+        protected override void OnDataBindingComplete(DataGridViewBindingCompleteEventArgs e)
+        {
+            base.OnDataBindingComplete(e);
+
+            if (DataSource == null)
+                return;
+
+            // Выделить столбец
+            TrySelectCell(CurrentRow);
+        }
+
         #endregion
 
         #region Table Storage Information
