@@ -31,11 +31,13 @@ namespace Core.Filter.Data.Condition.Impl
 
         public override IEnumerable<KeyValuePair<string, object>> GetParameters()
         {
-            foreach (var param in LeftOperand.GetParameters())
-                yield return param;
+            if (LeftOperand != null)
+                foreach (var param in LeftOperand.GetParameters())
+                    yield return param;
 
-            foreach (var param in RightOperand.GetParameters())
-                yield return param;
+            if (RightOperand != null)
+                foreach (var param in RightOperand.GetParameters())
+                    yield return param;
         }
 
         public override string SQLExpression => Operator?.SQLExpression;

@@ -38,17 +38,7 @@ namespace Core.Filter.Data.Operator
         /// Меньше или равно
         /// </summary>
         LESS_EQUAL,
-
-        /// <summary>
-        /// Существует
-        /// </summary>
-        EXISTS,
-
-        /// <summary>
-        /// Не существует
-        /// </summary>
-        NOT_EXISTS,
-
+        
         /// <summary>
         /// Пусто
         /// </summary>
@@ -58,5 +48,15 @@ namespace Core.Filter.Data.Operator
         /// Не пусто
         /// </summary>
         IS_NOT_NULL,
+
+        /// <summary>
+        /// Содержит
+        /// </summary>
+        LIKE,
+
+        /// <summary>
+        /// Не содержит
+        /// </summary>
+        NOT_LIKE
     }
 }

@@ -11,6 +11,7 @@ using Core.Filter.Controls.Conditions;
 using Core.Filter.Data.Condition;
 using Core.Filter.Data.Condition.Impl;
 using Core.Data.Field;
+using Core.Filter.Data.Operator;
 
 namespace Core.Filter.Controls
 {
@@ -84,6 +85,13 @@ namespace Core.Filter.Controls
         private void inputOperandLeft_OperandFieldChanged(object sender, EventArgs e)
         {
             inputOperandRight.DependentField = inputOperandLeft.Field;
+        }
+
+        private void inputOperator_SelectedValueChanged(object sender, EventArgs e)
+        {
+            var selectedType = inputOperator.Type;
+            var onlyLeft = selectedType == OperatorType.IS_NULL || selectedType == OperatorType.IS_NOT_NULL;
+            inputOperandRight.Visible = !onlyLeft;
         }
 
         private void btnActionDelete_Click(object sender, EventArgs e)

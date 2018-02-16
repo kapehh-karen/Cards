@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -70,10 +71,14 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.tableDataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.tableDataGridView1.DesignControls = null;
+            this.tableDataGridView1.Filter = null;
+            this.tableDataGridView1.InDesigner = false;
             this.tableDataGridView1.KeepSelectedColumn = null;
             this.tableDataGridView1.Location = new System.Drawing.Point(5, 56);
             this.tableDataGridView1.MultiSelect = false;
             this.tableDataGridView1.Name = "tableDataGridView1";
+            this.tableDataGridView1.ParentControl = null;
             this.tableDataGridView1.ParentField = null;
             this.tableDataGridView1.ReadOnly = true;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
@@ -83,6 +88,7 @@
             this.tableDataGridView1.StandardTab = true;
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
+            this.tableDataGridView1.TableStorageInformation = null;
             this.tableDataGridView1.TableStorageType = Core.Storage.Tables.TableStorageType.Classificator;
             this.tableDataGridView1.PressedEnter += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
             this.tableDataGridView1.PressedClick += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedEnter);
@@ -174,7 +180,6 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "FormSelectInClassificator";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор из классификатора";
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).EndInit();

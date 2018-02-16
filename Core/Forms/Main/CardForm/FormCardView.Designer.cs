@@ -90,7 +90,6 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(400, 80);
             this.Name = "FormCardView";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Новая запись";
             this.ResumeLayout(false);

@@ -31,15 +31,16 @@ namespace Core.Filter.Controls
         /// </summary>
         private void InitializeComponent()
         {
-            this.inputOperandLeft = new InputOperand();
-            this.inputOperator = new InputOperator();
-            this.inputOperandRight = new InputOperand();
+            this.inputOperandLeft = new Core.Filter.Controls.Conditions.Operands.InputOperand();
+            this.inputOperator = new Core.Filter.Controls.Conditions.Operator.InputOperator();
+            this.inputOperandRight = new Core.Filter.Controls.Conditions.Operands.InputOperand();
             this.btnActionDelete = new System.Windows.Forms.Button();
             this.cmbConcatenate = new Core.Filter.Controls.Conditions.Operator.InputOperatorConcatenate();
             this.SuspendLayout();
             // 
             // inputOperandLeft
             // 
+            this.inputOperandLeft.DependentField = null;
             this.inputOperandLeft.DependentType = Core.Data.Field.FieldType.UNKNOWN;
             this.inputOperandLeft.Field = null;
             this.inputOperandLeft.FilterData = null;
@@ -64,9 +65,11 @@ namespace Core.Filter.Controls
             this.inputOperator.Size = new System.Drawing.Size(121, 21);
             this.inputOperator.TabIndex = 1;
             this.inputOperator.Type = Core.Filter.Data.Operator.OperatorType.UNKNOWN;
+            this.inputOperator.SelectedValueChanged += new System.EventHandler(this.inputOperator_SelectedValueChanged);
             // 
             // inputOperandRight
             // 
+            this.inputOperandRight.DependentField = null;
             this.inputOperandRight.DependentType = Core.Data.Field.FieldType.UNKNOWN;
             this.inputOperandRight.Field = null;
             this.inputOperandRight.FilterData = null;

@@ -205,6 +205,15 @@
     <Compile Include="Filter\Data\Operand\OperandType.cs" />
     <Compile Include="Filter\Data\Operand\Impl\ValueOperand.cs" />
     <Compile Include="Filter\Data\Operator\Impl\EqualOperator.cs" />
+    <Compile Include="Filter\Data\Operator\Impl\GreaterEqualOperator.cs" />
+    <Compile Include="Filter\Data\Operator\Impl\GreaterOperator.cs" />
+    <Compile Include="Filter\Data\Operator\Impl\LessEqualOperator.cs" />
+    <Compile Include="Filter\Data\Operator\Impl\LessOperator.cs" />
+    <Compile Include="Filter\Data\Operator\Impl\LikeOperator.cs" />
+    <Compile Include="Filter\Data\Operator\Impl\NotEqualOperator.cs" />
+    <Compile Include="Filter\Data\Operator\Impl\NotLikeOperator.cs" />
+    <Compile Include="Filter\Data\Operator\Impl\NotNullOperator.cs" />
+    <Compile Include="Filter\Data\Operator\Impl\NullOperator.cs" />
     <Compile Include="Filter\Data\Operator\OperatorType.cs" />
     <Compile Include="Filter\Forms\FormFilter.cs">
       <SubType>Form</SubType>
