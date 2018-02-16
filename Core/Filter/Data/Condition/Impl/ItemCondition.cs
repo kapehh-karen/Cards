@@ -36,8 +36,22 @@ namespace Core.Filter.Data.Condition.Impl
                     yield return param;
 
             if (RightOperand != null)
-                foreach (var param in RightOperand.GetParameters())
-                    yield return param;
+            {
+                // NOTE: Грязный хак, чтобы вставить символ % в операторы LIKE и NOT LIKE
+                var likeOperators = Operator?.Type == OperatorType.LIKE || Operator?.Type == OperatorType.NOT_LIKE;
+                var valueOperand = RightOperand?.Type == OperandType.VALUE;
+
+                if (likeOperators && valueOperand)
+                {
+                    var param = RightOperand.GetParameters().ElementAt(0);
+                    yield return new KeyValuePair<string, object>(param.Key, $"%{param.Value}%");
+                }
+                else
+                {
+                    foreach (var param in RightOperand.GetParameters())
+                        yield return param;
+                }
+            }
         }
 
         public override string SQLExpression => Operator?.SQLExpression;
