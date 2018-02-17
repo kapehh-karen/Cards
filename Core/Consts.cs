@@ -21,5 +21,9 @@ namespace Core
         // Table Storage
 
         public static readonly string TableStorageFolder = Path.Combine(UserSettingsFolder, "Tables");
+
+        // Filter Storage
+        
+        public static readonly string FilterStorageFolder = Path.Combine(UserSettingsFolder, "Filters");
     }
 }

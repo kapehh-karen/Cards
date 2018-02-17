@@ -40,6 +40,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnAccept = new System.Windows.Forms.Button();
             this.btnViewSQL = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
             this.contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,7 +51,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeSubFilter.Location = new System.Drawing.Point(12, 34);
             this.treeSubFilter.Name = "treeSubFilter";
-            this.treeSubFilter.Size = new System.Drawing.Size(235, 409);
+            this.treeSubFilter.Size = new System.Drawing.Size(235, 396);
             this.treeSubFilter.TabIndex = 0;
             this.treeSubFilter.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeSubFilter_AfterSelect);
             this.treeSubFilter.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeSubFilter_NodeMouseClick);
@@ -87,7 +89,7 @@
             this.containerConditionControl1.IsRoot = true;
             this.containerConditionControl1.Location = new System.Drawing.Point(253, 34);
             this.containerConditionControl1.Name = "containerConditionControl1";
-            this.containerConditionControl1.Size = new System.Drawing.Size(658, 409);
+            this.containerConditionControl1.Size = new System.Drawing.Size(603, 396);
             this.containerConditionControl1.TabIndex = 2;
             // 
             // label1
@@ -114,7 +116,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.Image = global::Core.Properties.Resources.back;
-            this.btnCancel.Location = new System.Drawing.Point(655, 449);
+            this.btnCancel.Location = new System.Drawing.Point(600, 436);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(105, 36);
             this.btnCancel.TabIndex = 3;
@@ -129,7 +131,7 @@
             this.btnAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnAccept.Image = global::Core.Properties.Resources.checkmark;
-            this.btnAccept.Location = new System.Drawing.Point(766, 449);
+            this.btnAccept.Location = new System.Drawing.Point(711, 436);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(145, 36);
             this.btnAccept.TabIndex = 3;
@@ -143,7 +145,7 @@
             // 
             this.btnViewSQL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnViewSQL.Image = global::Core.Properties.Resources.sql_open_file_format;
-            this.btnViewSQL.Location = new System.Drawing.Point(12, 449);
+            this.btnViewSQL.Location = new System.Drawing.Point(12, 436);
             this.btnViewSQL.Name = "btnViewSQL";
             this.btnViewSQL.Size = new System.Drawing.Size(139, 36);
             this.btnViewSQL.TabIndex = 3;
@@ -153,11 +155,41 @@
             this.btnViewSQL.UseVisualStyleBackColor = true;
             this.btnViewSQL.Click += new System.EventHandler(this.btnViewSQL_Click);
             // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSave.Image = global::Core.Properties.Resources.save;
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.Location = new System.Drawing.Point(253, 436);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(122, 36);
+            this.btnSave.TabIndex = 5;
+            this.btnSave.Text = "Сохранить";
+            this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnLoad.Image = global::Core.Properties.Resources.folder;
+            this.btnLoad.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLoad.Location = new System.Drawing.Point(381, 436);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(122, 36);
+            this.btnLoad.TabIndex = 6;
+            this.btnLoad.Text = "Загрузить";
+            this.btnLoad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
             // FormFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(923, 492);
+            this.ClientSize = new System.Drawing.Size(868, 479);
+            this.Controls.Add(this.btnLoad);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblCondition);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnViewSQL);
@@ -190,5 +222,7 @@
         private System.Windows.Forms.Label lblCondition;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnViewSQL;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnLoad;
     }
 }

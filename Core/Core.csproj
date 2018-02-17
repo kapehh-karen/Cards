@@ -386,6 +386,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Storage\Filter\FilterStorage.cs" />
     <Compile Include="Storage\Tables\TableStorage.cs" />
     <Compile Include="Storage\Tables\TableStorageData\SortDirection.cs" />
     <Compile Include="Storage\Tables\TableStorageData\TableStorageSortData.cs" />
@@ -542,6 +543,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\funnel-on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,7 @@
 ﻿using Core.Data.Table;
 using Core.Filter.Data;
 using Core.Notification;
+using Core.Storage.Filter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,21 +39,22 @@ namespace Core.Filter.Forms
             }
             set
             {
+                if (value == null)
+                    return;
+
                 filterData = value.Clone() as FilterData;
-                if (filterData != null)
-                {
-                    treeSubFilter.Nodes.Clear();
-                    AddNode(filterData, treeSubFilter.Nodes);
-                    treeSubFilter.ExpandAll();
-                }
+                treeSubFilter.Nodes.Clear();
+                treeSubFilter.SelectedNode = AddNode(filterData, treeSubFilter.Nodes);
+                treeSubFilter.ExpandAll();
             }
         }
 
-        private void AddNode(FilterData fdata, TreeNodeCollection nodes)
+        private TreeNode AddNode(FilterData fdata, TreeNodeCollection nodes)
         {
             var node = new TreeNode(fdata.FilterTable.ToString()) { Tag = fdata };
             nodes.Add(node);
             fdata.Chields.ForEach(fd => AddNode(fd, node.Nodes));
+            return node;
         }
 
         public void InitializeNewFilter(TableData table)
@@ -127,16 +129,21 @@ namespace Core.Filter.Forms
             }
         }
 
+        private void AcceptFilterData(FilterData nextFilterData)
+        {
+            containerConditionControl1.FilterData = nextFilterData;
+            containerConditionControl1.LoadCondition(nextFilterData.Where);
+
+            lblCondition.Text = $"Условие отбора для таблицы: {nextFilterData.FilterTable.Table.DisplayName.ToUpper()}";
+        }
+
         private void treeSubFilter_AfterSelect(object sender, TreeViewEventArgs e)
         {
             // Сохраняем текущие изменения перед изменением ноды
             SaveCurrentChanges();
 
             var nextFilterData = e.Node?.Tag as FilterData;
-            containerConditionControl1.FilterData = nextFilterData;
-            containerConditionControl1.LoadCondition(nextFilterData.Where);
-
-            lblCondition.Text = $"Условие отбора для таблицы: {nextFilterData.FilterTable.Table.DisplayName.ToUpper()}";
+            AcceptFilterData(nextFilterData);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -162,6 +169,19 @@ namespace Core.Filter.Forms
                 dialog.SQL = FilterData.SQLExpression;
                 dialog.ShowDialog();
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // Сохраняем текущие изменения перед сохранением в файл
+            SaveCurrentChanges();
+
+            FilterStorage.Instance.Save(FilterData);
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            FilterData = FilterStorage.Instance.Load();
         }
 
         #region Перемещение вложенности выборок

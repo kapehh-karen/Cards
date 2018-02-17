@@ -14,6 +14,23 @@ using System.Text;
 namespace Core.Filter.Data
 {
     [DataContract]
+    [KnownType(typeof(CountSQLBuilder))]
+    [KnownType(typeof(FullSQLBuilder))]
+    [KnownType(typeof(ContainerCondition))]
+    [KnownType(typeof(ItemCondition))]
+    [KnownType(typeof(FieldOperand))]
+    [KnownType(typeof(SubqueryOperand))]
+    [KnownType(typeof(ValueOperand))]
+    [KnownType(typeof(EqualOperator))]
+    [KnownType(typeof(GreaterEqualOperator))]
+    [KnownType(typeof(GreaterOperator))]
+    [KnownType(typeof(LessEqualOperator))]
+    [KnownType(typeof(LessOperator))]
+    [KnownType(typeof(LikeOperator))]
+    [KnownType(typeof(NotEqualOperator))]
+    [KnownType(typeof(NotLikeOperator))]
+    [KnownType(typeof(NotNullOperator))]
+    [KnownType(typeof(NullOperator))]
     public class FilterData : ICloneable
     {
         /// <summary>
