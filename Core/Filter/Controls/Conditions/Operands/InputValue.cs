@@ -62,6 +62,8 @@ namespace Core.Filter.Controls.Conditions.Operands
             }
         }
 
+        public OperandType OperandType => OperandType.VALUE;
+
         private void UpdateComponent()
         {
             if (InputControl != null)

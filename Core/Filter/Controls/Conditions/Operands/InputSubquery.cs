@@ -40,6 +40,8 @@ namespace Core.Filter.Controls.Conditions.Operands
 
         public FieldData Field { get; set; }
 
+        public OperandType OperandType => OperandType.SUBQUERY;
+
         private MenuItemTag SelectedItem { get; set; }
 
         public IFilterOperand Operand

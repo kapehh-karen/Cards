@@ -63,6 +63,8 @@ namespace Core.Filter.Controls.Conditions.Operands
             }
         }
 
+        public OperandType OperandType => OperandType.FIELD;
+
         public IFilterOperand Operand
         {
             get => SelectedItem != null ? new FieldOperand()

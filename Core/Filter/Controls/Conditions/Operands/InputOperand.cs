@@ -10,6 +10,7 @@ using Core.Filter.Data;
 using Core.Data.Field;
 using Core.Filter.Data.Operand;
 using Core.Filter.Controls.Conditions.Operands;
+using Core.Filter.Data.Operator;
 
 namespace Core.Filter.Controls.Conditions.Operands
 {
@@ -25,6 +26,27 @@ namespace Core.Filter.Controls.Conditions.Operands
         }
 
         public FilterData FilterData { get; set; }
+        
+        private void UpdateEnabledInput()
+        {
+            // Только к типу NUMERIC можно применять выборку
+            var isNumeric = DependentType == FieldType.NUMBER;
+
+            // Оператор LIKE можно применять только к Значению
+            var isLike = DependentOperator == OperatorType.LIKE || DependentOperator == OperatorType.NOT_LIKE;
+
+            if (!isNumeric && (InputControl as IInputOperand)?.OperandType == OperandType.SUBQUERY)
+            {
+                RecreateOperandControl(OperandType.VALUE);
+            }
+            else if (isLike && (InputControl as IInputOperand)?.OperandType != OperandType.VALUE)
+            {
+                RecreateOperandControl(OperandType.VALUE);
+            }
+            
+            fieldToolStripMenuItem.Enabled = !isLike;
+            subqueryToolStripMenuItem.Enabled = isNumeric && !isLike;
+        }
 
         // Тип от которого зависит операнд. Если не задан, то это ведущий операнд.
         private FieldType dependentType = FieldType.UNKNOWN;
@@ -38,6 +60,8 @@ namespace Core.Filter.Controls.Conditions.Operands
                     dependentType = value;
                     constToolStripMenuItem.Enabled = dependentType != FieldType.UNKNOWN;
                     Type = dependentType;
+
+                    UpdateEnabledInput();
                 }
             }
         }
@@ -53,6 +77,21 @@ namespace Core.Filter.Controls.Conditions.Operands
                 {
                     dependentField = value;
                     Field = dependentField;
+                }
+            }
+        }
+
+        private OperatorType dependentOperator = OperatorType.UNKNOWN;
+        public OperatorType DependentOperator
+        {
+            get => dependentOperator;
+            set
+            {
+                if (dependentOperator != value)
+                {
+                    dependentOperator = value;
+
+                    UpdateEnabledInput();
                 }
             }
         }
@@ -90,9 +129,9 @@ namespace Core.Filter.Controls.Conditions.Operands
 
         private void UpdateSelectedInputType()
         {
-            constToolStripMenuItem.ForeColor = inputControl is InputValue ? Color.DarkViolet : Color.Black;
-            fieldToolStripMenuItem.ForeColor = inputControl is InputField ? Color.DarkViolet : Color.Black;
-            subqueryToolStripMenuItem.ForeColor = inputControl is InputSubquery ? Color.DarkViolet : Color.Black;
+            constToolStripMenuItem.ForeColor = InputControl is InputValue ? Color.DarkViolet : Color.Black;
+            fieldToolStripMenuItem.ForeColor = InputControl is InputField ? Color.DarkViolet : Color.Black;
+            subqueryToolStripMenuItem.ForeColor = InputControl is InputSubquery ? Color.DarkViolet : Color.Black;
         }
 
         public FieldType Type
@@ -114,6 +153,8 @@ namespace Core.Filter.Controls.Conditions.Operands
                     (InputControl as IInputOperand).Field = value;
             }
         }
+
+        public OperandType OperandType => (InputControl as IInputOperand).OperandType;
 
         private void btnSelectInput_Click(object sender, EventArgs e)
         {
@@ -150,22 +191,30 @@ namespace Core.Filter.Controls.Conditions.Operands
                 if (value == null)
                     return;
 
-                switch (value.Type)
-                {
-                    case OperandType.FIELD:
-                        fieldToolStripMenuItem_Click(null, null);
-                        break;
-                    case OperandType.VALUE:
-                        constToolStripMenuItem_Click(null, null);
-                        break;
-                    case OperandType.SUBQUERY:
-                        subqueryToolStripMenuItem_Click(null, null);
-                        break;
-                    default:
-                        return;
-                }
+                RecreateOperandControl(value.Type);
 
                 if (InputControl != null) (InputControl as IInputOperand).Operand = value;
+            }
+        }
+
+        private void RecreateOperandControl(OperandType operandType)
+        {
+            if (InputControl != null && (InputControl as IInputOperand).OperandType == operandType)
+                return;
+
+            switch (operandType)
+            {
+                case OperandType.FIELD:
+                    fieldToolStripMenuItem_Click(null, null);
+                    break;
+                case OperandType.VALUE:
+                    constToolStripMenuItem_Click(null, null);
+                    break;
+                case OperandType.SUBQUERY:
+                    subqueryToolStripMenuItem_Click(null, null);
+                    break;
+                default:
+                    return;
             }
         }
     }

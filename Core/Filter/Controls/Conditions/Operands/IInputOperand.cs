@@ -21,5 +21,7 @@ namespace Core.Filter.Controls.Conditions.Operands
         FilterData FilterData { get; set; }
 
         IFilterOperand Operand { get; set; }
+
+        OperandType OperandType { get; }
     }
 }

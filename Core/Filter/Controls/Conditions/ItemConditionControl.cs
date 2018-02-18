@@ -92,6 +92,7 @@ namespace Core.Filter.Controls
             var selectedType = inputOperator.Type;
             var onlyLeft = selectedType == OperatorType.IS_NULL || selectedType == OperatorType.IS_NOT_NULL;
             inputOperandRight.Visible = !onlyLeft;
+            inputOperandRight.DependentOperator = selectedType;
         }
 
         private void btnActionDelete_Click(object sender, EventArgs e)
