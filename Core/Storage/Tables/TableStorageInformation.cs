@@ -59,6 +59,10 @@ namespace Core.Storage.Tables
                     })
                     .ToList();
 
+            // NOTE: WinXP Error's
+            if (SortData == null)
+                SortData = new TableStorageSortData();
+
             // Если сортируемого поля нету
             if (SortData.Exists && !Columns.Contains(SortData.SortedColumn))
                 SortData.Reset();
