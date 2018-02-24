@@ -168,6 +168,7 @@ namespace Core.Forms.Main
         {
             using (var dialog = new FormFilter())
             {
+                dialog.CurrentTable = Table;
                 dialog.FilterData = LastUsedFilterData;
 
                 if (dialog.ShowDialog() == DialogResult.OK)

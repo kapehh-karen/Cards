@@ -30,6 +30,8 @@ namespace Core.Filter.Forms
             return base.ProcessDialogKey(keyData);
         }
         
+        public TableData CurrentTable { get; set; }
+
         private FilterData filterData;
         public FilterData FilterData
         {
@@ -181,7 +183,18 @@ namespace Core.Filter.Forms
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            FilterData = FilterStorage.Instance.Load();
+            var loadedFilterData = FilterStorage.Instance.Load();
+
+            if (loadedFilterData == null)
+                return;
+
+            if (CurrentTable != null && loadedFilterData.FilterTable.Table != CurrentTable)
+            {
+                NotificationMessage.Error($"Выбранный фильтр создан для таблицы \"{loadedFilterData.FilterTable.Table.DisplayName}\". Его нельзя применить к таблице \"{CurrentTable.DisplayName}\"");
+                return;
+            }
+
+            FilterData = loadedFilterData;
         }
 
         #region Перемещение вложенности выборок

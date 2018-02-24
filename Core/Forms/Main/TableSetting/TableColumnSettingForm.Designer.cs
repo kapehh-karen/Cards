@@ -165,10 +165,10 @@
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnSave.Image = global::Core.Properties.Resources.check;
+            this.btnSave.Image = global::Core.Properties.Resources.checkmark;
             this.btnSave.Location = new System.Drawing.Point(644, 332);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(72, 40);
+            this.btnSave.Size = new System.Drawing.Size(75, 40);
             this.btnSave.TabIndex = 9;
             this.btnSave.Text = "ОК";
             this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
