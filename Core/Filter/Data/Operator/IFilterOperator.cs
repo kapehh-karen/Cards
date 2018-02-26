@@ -16,6 +16,17 @@ namespace Core.Filter.Data.Operator
             Condition != null && Condition.LeftOperand != null && Condition.RightOperand != null &&
             Condition.LeftOperand.Completed && Condition.RightOperand.Completed;
 
+        public virtual IEnumerable<KeyValuePair<string, object>> GetParameters()
+        {
+            if (Condition?.LeftOperand != null)
+                foreach (var param in Condition.LeftOperand.GetParameters())
+                    yield return param;
+
+            if (Condition?.RightOperand != null)
+                foreach (var param in Condition.RightOperand.GetParameters())
+                    yield return param;
+        }
+
         public virtual string SQLExpression => string.Empty;
     }
 }

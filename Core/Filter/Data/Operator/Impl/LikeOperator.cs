@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Filter.Data.Operand.Impl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,27 @@ namespace Core.Filter.Data.Operator.Impl
     public class LikeOperator : IFilterOperator
     {
         public override OperatorType Type => OperatorType.LIKE;
+
+        // Встатвляем символ % в начало и конец значения поиска
+        public override IEnumerable<KeyValuePair<string, object>> GetParameters()
+        {
+            if (Condition?.LeftOperand != null)
+                foreach (var param in Condition.LeftOperand.GetParameters())
+                    yield return param;
+
+            if (Condition?.RightOperand != null)
+            {
+                if (Condition.RightOperand is ValueOperand valueOp)
+                {
+                    yield return new KeyValuePair<string, object>(valueOp.VarName, $"%{valueOp.Value}%");
+                }
+                else
+                {
+                    foreach (var param in Condition.RightOperand.GetParameters())
+                        yield return param;
+                }
+            }
+        }
 
         public override string SQLExpression => $"{Condition.LeftOperand?.SQLExpression} LIKE {Condition.RightOperand?.SQLExpression}";
     }

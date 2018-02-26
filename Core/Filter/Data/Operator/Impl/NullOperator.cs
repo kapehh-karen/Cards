@@ -11,6 +11,14 @@ namespace Core.Filter.Data.Operator.Impl
 
         public override bool Completed => Condition?.LeftOperand?.Completed ?? false;
 
+        // Правый операнд вообще не учитываем, он мусор
+        public override IEnumerable<KeyValuePair<string, object>> GetParameters()
+        {
+            if (Condition?.LeftOperand != null)
+                foreach (var param in Condition.LeftOperand.GetParameters())
+                    yield return param;
+        }
+
         public override string SQLExpression => $"{Condition.LeftOperand?.SQLExpression} IS NULL";
     }
 }
