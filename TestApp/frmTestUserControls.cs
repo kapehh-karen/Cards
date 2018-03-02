@@ -5,9 +5,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using TemplateEngine.Docx;
 
 namespace TestApp
 {
@@ -17,25 +19,31 @@ namespace TestApp
         {
             InitializeComponent();
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        
+        private void button1_Click_1(object sender, EventArgs e)
         {
-            inputValue2.Type = Core.Data.Field.FieldType.TEXT;
-        }
+            using (var dialog = new OpenFileDialog())
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    var fileName = dialog.FileName;
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            inputValue2.Type = Core.Data.Field.FieldType.DATE;
-        }
+                    var valuesToFill = new Content(new FieldContent("fio", "ПРИВЕТ Пока Здаровович"));
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            inputValue2.Type = Core.Data.Field.FieldType.BOOLEAN;
-        }
+                    var stream = new MemoryStream(File.ReadAllBytes(fileName));
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show($"{inputValue2.Value}");
+                    using (var outputDocument = new TemplateProcessor(stream)
+                        .SetRemoveContentControls(true))
+                    {
+                        outputDocument.FillContent(valuesToFill);
+                        outputDocument.SaveChanges();
+                    }
+
+                    File.WriteAllBytes($"{fileName} GENERATED.docx", stream.ToArray());
+
+                    MessageBox.Show("OK");
+                }
+            }
         }
     }
 }
