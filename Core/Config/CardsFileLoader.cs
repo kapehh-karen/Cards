@@ -1,4 +1,5 @@
-﻿using Core.Connection;
+﻿using Core.API;
+using Core.Connection;
 using Core.Data.Base;
 using Core.Notification;
 using Ionic.Zip;
@@ -42,7 +43,7 @@ namespace Core.Config
         /// Помещает в свойство Base объект конфига
         /// </summary>
         /// <returns>true - если всё ок, иначе - false</returns>
-        public bool Load()
+        public bool Load(bool allowLoadPlugins = true)
         {
             Loaded = false;
             Base = new DataBase();
@@ -83,10 +84,13 @@ namespace Core.Config
                 t.LinkedTables.ForEach(lt => lt.ParentTable = t);
             });
 
-            // Получаем список всех плагинов
-            foreach (var entry in zip.Entries.Where(item => item.FileName.StartsWith("plugins/") && item.FileName.EndsWith(".dll")))
+            // Загружаем плагины
+            if (allowLoadPlugins)
             {
-                //MessageBox.Show(entry.FileName);
+                foreach (var entry in zip.Entries.Where(item => item.FileName.StartsWith("plugins/") && item.FileName.EndsWith(".dll")))
+                {
+                    PluginManager.Instance.LoadPlugin(entry.OpenReader());
+                }
             }
 
             Loaded = true;

@@ -63,6 +63,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\IPlugin.cs" />
+    <Compile Include="API\PluginManager.cs" />
     <Compile Include="Common\DataGrid\BaseDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>

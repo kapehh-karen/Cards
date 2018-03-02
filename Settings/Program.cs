@@ -22,7 +22,7 @@ namespace Settings
             if (args.Length > 0)
             {
                 var cardsLoader = new CardsFileLoader(args[0]);
-                cardsLoader.Load();
+                cardsLoader.Load(false);
                 Application.Run(new FormBindSetting() { CardsLoader = cardsLoader });
             }
             else

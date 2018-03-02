@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.API;
 using Core.Config;
 using Core.Data.Base;
 using Core.Data.Table;
@@ -61,6 +62,9 @@ namespace Cards
                 dialog.FillTable();
                 Application.Run(dialog);
             }
+
+            // Выгружаем все плагины после работы
+            PluginManager.Instance.UnloadAllPlugins();
         }
         
         private static void NotificationMessage_ReceiveMessage(string message, string title, object[] param, NotificationLevel level)

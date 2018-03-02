@@ -113,10 +113,13 @@ namespace Core.Forms.Main.CardForm
         {
             if (model.IsEmpty)
             {
+                // Если запись IsEmpty, значит её нужно подгрузить полностью
                 InitializeModel(model.ID?.Value);
             }
             else
             {
+                // В ином случае, мы имеем уже загруженную CardModel с которой можно сразу работать
+                // Создаем копию, т.к. изменения в CardModel не всегда нужно применять (если пользователь нажмет "Отмена")
                 modelCardView1.Model = model.Clone() as CardModel;
                 UpdateUiText(model.ID.Value);
             }
