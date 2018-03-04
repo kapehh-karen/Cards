@@ -68,9 +68,7 @@ namespace Core.Forms.Main.CardForm
             get => tableDataGridView1.SelectedID;
             set => tableDataGridView1.SelectedID = value;
         }
-
-        public CardModel Model => tableDataGridView1.SelectedModel;
-
+        
         private void tableDataGridView1_PressedEnter(object sender, KeyEventArgs e)
         {
             DialogResult = DialogResult.OK;

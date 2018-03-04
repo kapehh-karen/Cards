@@ -1,4 +1,5 @@
-﻿using Core.Connection;
+﻿using Core.API;
+using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Table;
 using Core.Filter.Data;
@@ -60,7 +61,7 @@ namespace Core.Forms.Main
 
         private void FormTableView_Load(object sender, EventArgs e)
         {
-
+            PluginListener.Instance.EventFormTableCreated(this);
         }
 
         private void tableDataGridView1_PressedKey(object sender, KeyEventArgs e)
@@ -186,5 +187,21 @@ namespace Core.Forms.Main
             FillTable();
             toolStripButtonFilter.Image = Properties.Resources.funnel;
         }
+
+        #region API
+
+        /// <summary>
+        /// Добавляет новый пункт в меню формы
+        /// </summary>
+        /// <param name="menuItem"></param>
+        public void AddMenuItem(ToolStripMenuItem menuItem) => mainMenuStrip.Items.Add(menuItem);
+
+        /// <summary>
+        /// Возвращает ID выбранной записи
+        /// </summary>
+        /// <returns></returns>
+        public object SelectedID() => tableDataGridView1.SelectedID;
+
+        #endregion
     }
 }

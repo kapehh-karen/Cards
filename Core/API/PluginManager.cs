@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Core.API.Interfaces;
 
 namespace Core.API
 {
     public class PluginManager
     {
         public static readonly PluginManager Instance = new PluginManager();
+
+        private PluginManager() { }
 
         public List<IPlugin> Plugins { get; } = new List<IPlugin>();
 
@@ -26,7 +29,7 @@ namespace Core.API
             System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(file);
             foreach (Type type in assembly.GetTypes())
             {
-                Type iface = type.GetInterface("Core.API.IPlugin");
+                Type iface = type.GetInterface(typeof(IPlugin).FullName);
                 if (iface != null)
                 {
                     IPlugin plugin = (IPlugin)Activator.CreateInstance(type);

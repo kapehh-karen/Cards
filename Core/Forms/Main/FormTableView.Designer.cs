@@ -45,6 +45,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFilter = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonFilterReset = new System.Windows.Forms.ToolStripButton();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -78,7 +79,7 @@
             this.tableDataGridView1.Filter = null;
             this.tableDataGridView1.InDesigner = false;
             this.tableDataGridView1.KeepSelectedColumn = null;
-            this.tableDataGridView1.Location = new System.Drawing.Point(5, 82);
+            this.tableDataGridView1.Location = new System.Drawing.Point(5, 106);
             this.tableDataGridView1.MultiSelect = false;
             this.tableDataGridView1.Name = "tableDataGridView1";
             this.tableDataGridView1.ParentControl = null;
@@ -88,7 +89,7 @@
             this.tableDataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.tableDataGridView1.SelectedID = null;
             this.tableDataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tableDataGridView1.Size = new System.Drawing.Size(804, 424);
+            this.tableDataGridView1.Size = new System.Drawing.Size(804, 400);
             this.tableDataGridView1.StandardTab = true;
             this.tableDataGridView1.TabIndex = 0;
             this.tableDataGridView1.Table = null;
@@ -125,7 +126,7 @@
             this.toolStripSeparator2,
             this.toolStripButtonFilter,
             this.toolStripButtonFilterReset});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStrip1.Size = new System.Drawing.Size(814, 79);
@@ -220,6 +221,14 @@
             this.toolStripButtonFilterReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonFilterReset.Click += new System.EventHandler(this.toolStripButtonFilterReset_Click);
             // 
+            // mainMenuStrip
+            // 
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Size = new System.Drawing.Size(814, 24);
+            this.mainMenuStrip.TabIndex = 7;
+            this.mainMenuStrip.Text = "menuStrip1";
+            // 
             // FormTableView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -227,8 +236,10 @@
             this.ClientSize = new System.Drawing.Size(814, 533);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.mainMenuStrip);
             this.Controls.Add(this.tableDataGridView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "FormTableView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Таблица";
@@ -257,5 +268,6 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonFilter;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton toolStripButtonFilterReset;
+        private System.Windows.Forms.MenuStrip mainMenuStrip;
     }
 }

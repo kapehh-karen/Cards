@@ -46,30 +46,6 @@ namespace Core.Forms.Main
             get => CurrentRow == null ? null : Rows[CurrentRow.Index].Cells[FieldID.Name].Value;
             set => needSelectID = value;
         }
-
-        public CardModel SelectedModel
-        {
-            get
-            {
-                if (CurrentRow == null)
-                    return null;
-
-                var model = CardModel.CreateFromTable(Table);
-                
-                (from DataGridViewCell col in CurrentRow.Cells select col)
-                    .ForEach(cell =>
-                    {
-                        var field = cell.OwningColumn.GetTag().Field;
-                        if (field.Type != FieldType.BIND)
-                        {
-                            model[field] = cell.Value;
-                        }
-                    });
-
-                model.ResetStates();
-                return model;
-            }
-        }
         
         /// <summary>
         /// Используется когда требуется поддержка кеша, и наоборот
