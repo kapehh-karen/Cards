@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\AssemblyManager.cs" />
     <Compile Include="API\Interfaces\IPlugin.cs" />
     <Compile Include="API\Interfaces\IPluginListener.cs" />
     <Compile Include="API\PluginListener.cs" />

@@ -13,6 +13,9 @@ namespace Core.Helper
 {
     public static class ModelHelper
     {
+        public static bool Get(TableData table, object id, out CardModel outModel)
+            => Get(SQLServerConnection.DefaultDataBase, table, id, out outModel);
+
         public static bool Get(DataBase dataBase, TableData table, object id, out CardModel outModel)
         {
             bool ret = false;
@@ -40,6 +43,9 @@ namespace Core.Helper
 
             return ret;
         }
+
+        public static bool Save(TableData table, CardModel model)
+            => Save(SQLServerConnection.DefaultDataBase, table, model);
 
         public static bool Save(DataBase dataBase, TableData table, CardModel model)
         {
@@ -73,6 +79,9 @@ namespace Core.Helper
 
             return ret;
         }
+
+        public static bool Delete(TableData table, object id)
+            => Delete(SQLServerConnection.DefaultDataBase, table, id);
 
         public static bool Delete(DataBase dataBase, TableData table, object id)
         {

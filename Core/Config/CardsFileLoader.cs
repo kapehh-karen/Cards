@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -84,12 +85,21 @@ namespace Core.Config
                 t.LinkedTables.ForEach(lt => lt.ParentTable = t);
             });
 
-            // Загружаем плагины
+            // Если требуется загрузить плагины
             if (allowLoadPlugins)
             {
-                foreach (var entry in zip.Entries.Where(item => item.FileName.StartsWith("plugins/") && item.FileName.EndsWith(".dll")))
+                foreach (var entry in zip.Entries
+                    .Where(item => item.FileName.StartsWith("plugins/") && item.FileName.EndsWith(".dll")))
                 {
-                    PluginManager.Instance.LoadPlugin(entry.OpenReader());
+                    var pluginAssembly = AssemblyManager.Instance.LoadFromStream(entry.OpenReader());
+                    PluginManager.Instance.LoadPlugin(pluginAssembly);
+                }
+
+                // Загружаем библиотеки для плагинов
+                foreach (var entry in zip.Entries
+                    .Where(item => item.FileName.StartsWith("lib/") && item.FileName.EndsWith(".dll")))
+                {
+                    AssemblyManager.Instance.LoadFromStream(entry.OpenReader());
                 }
             }
 

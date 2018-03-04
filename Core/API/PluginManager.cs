@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Core.API.Interfaces;
+using System.Reflection;
 
 namespace Core.API
 {
@@ -14,19 +15,9 @@ namespace Core.API
         private PluginManager() { }
 
         public List<IPlugin> Plugins { get; } = new List<IPlugin>();
-
-        public IPlugin LoadPlugin(Stream stream)
+        
+        public IPlugin LoadPlugin(Assembly assembly)
         {
-            using (MemoryStream ms = new MemoryStream())
-            {
-                stream.CopyTo(ms);
-                return LoadPlugin(ms.ToArray());
-            }
-        }
-
-        public IPlugin LoadPlugin(byte[] file)
-        {
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.Load(file);
             foreach (Type type in assembly.GetTypes())
             {
                 Type iface = type.GetInterface(typeof(IPlugin).FullName);
