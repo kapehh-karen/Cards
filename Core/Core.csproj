@@ -72,7 +72,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\DataGrid\DataGridType.cs" />
-    <Compile Include="Config\CardsFileLoader.cs" />
+    <Compile Include="Config\CardsFile.cs" />
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\DataBaseConfigLoader.cs" />
     <Compile Include="Connection\DataBaseConnection.cs" />
@@ -556,5 +556,6 @@
   <ItemGroup>
     <None Include="Resources\save.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

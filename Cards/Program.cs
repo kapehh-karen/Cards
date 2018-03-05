@@ -4,6 +4,7 @@ using Core.Config;
 using Core.Data.Base;
 using Core.Data.Table;
 using Core.Forms.Main;
+using Core.Helper;
 using Core.Notification;
 using Core.Utils;
 using System;
@@ -26,24 +27,30 @@ namespace Cards
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            CardsFileLoader cardsLoader = null;
+            
             DataBase selectedBase = null;
+
             if (args.Length > 0)
             {
-                cardsLoader = new CardsFileLoader(args[0]);
-                if (!cardsLoader.Load())
+                CardsFile.Initialize(args[0]);
+                if (WaitDialog.Run($"Идет загрузка конфигурационного файла \"{CardsFile.Current.ShortFileName}\"",
+                                   () => !CardsFile.Current.Load()))
                 {
                     return;
                 }
-                selectedBase = cardsLoader.Base;
+                selectedBase = CardsFile.Current.Base;
             }
-            
+            else
+            {
+                NotificationMessage.SystemError("Имя файла должно быть передано через командную строку");
+                return;
+            }
+
             TableData selectedTable = null;
             using (var dialogSelectTable = new FormSelectTable()
             {
                 SelectedDataBase = selectedBase,
-                FileName = cardsLoader?.ShortFileName
+                FileName = CardsFile.Current.ShortFileName
             })
             {
                 if (dialogSelectTable.ShowDialog() == DialogResult.OK)

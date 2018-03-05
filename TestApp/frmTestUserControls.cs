@@ -1,15 +1,6 @@
-﻿using Core.Utils;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+﻿using System;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using TemplateEngine.Docx;
 
 namespace TestApp
 {
@@ -22,7 +13,9 @@ namespace TestApp
         
         private void button1_Click_1(object sender, EventArgs e)
         {
-            using (var dialog = new OpenFileDialog())
+            File.Create(@"C:\CARDS\res\file.txt");
+
+            /*using (var dialog = new OpenFileDialog())
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
@@ -43,7 +36,7 @@ namespace TestApp
 
                     MessageBox.Show("OK");
                 }
-            }
+            }*/
         }
     }
 }

@@ -9,15 +9,34 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Core.Config
 {
-    public class CardsFileLoader
+    public class CardsFile
     {
+        private static CardsFile cardsInstance = null;
+        public static CardsFile Current
+        {
+            get
+            {
+                if (cardsInstance == null)
+                    throw new InvalidOperationException("CardsFile не инициализирован! Сначала инициализируйте CardsFile.Initialize");
+                return cardsInstance;
+            }
+        }
+
+        public static void Initialize(string fileName)
+        {
+            cardsInstance = new CardsFile(fileName);
+        }
+
+        // ************************************************************************
+
         private readonly string InternalConfigName = "config.xml";
 
-        public CardsFileLoader(string fileName)
+        private CardsFile(string fileName)
         {
             this.FileName = fileName;
             this.ShortFileName = Path.GetFileName(fileName);
@@ -48,7 +67,7 @@ namespace Core.Config
         {
             Loaded = false;
             Base = new DataBase();
-
+            
             ZipFile zip = null;
             try
             {
@@ -103,24 +122,55 @@ namespace Core.Config
                 }
             }
 
+            zip.Dispose();
             Loaded = true;
             return true;
         }
 
         public void Save()
         {
-            ZipFile zip = Loaded ? new ZipFile(FileName) : new ZipFile();
+            using (var zip = Loaded ? new ZipFile(FileName) : new ZipFile())
+            {
+                // Сериализация в памяти
+                var memStream = new MemoryStream();
+                new Configuration<DataBase>().WriteToStream(Base, memStream);
+                memStream.Seek(0, SeekOrigin.Begin);
 
-            // Сериализация в памяти
-            var memStream = new MemoryStream();
-            new Configuration<DataBase>().WriteToStream(Base, memStream);
-            memStream.Seek(0, SeekOrigin.Begin);
+                // Замена конфига в архиве
+                if (zip.ContainsEntry(InternalConfigName)) zip.RemoveEntry(InternalConfigName);
+                zip.AddEntry(InternalConfigName, memStream);
 
-            // Замена конфига в архиве
-            if (zip.ContainsEntry(InternalConfigName)) zip.RemoveEntry(InternalConfigName);
-            zip.AddEntry(InternalConfigName, memStream);
+                zip.Save(FileName);
+            }
+        }
 
-            zip.Save(FileName);
+        /// <summary>
+        /// Считывает файл из архива
+        /// </summary>
+        /// <param name="internalFileName">Имя файла относительно пути в архиве</param>
+        /// <returns></returns>
+        public Dictionary<string, byte[]> ReadInternalFiles(params string[] internalFileNames)
+        {
+            if (!Loaded)
+                throw new InvalidOperationException("CardsFile не был загружен. Чтение невозможно.");
+
+            var dict = new Dictionary<string, byte[]>();
+            using (var zip = new ZipFile(FileName))
+            {
+                foreach (var name in internalFileNames)
+                {
+                    var entry = zip[name];
+                    if (entry == null)
+                        continue; // Ничего не добавляем в словарь
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        entry.OpenReader().CopyTo(ms);
+                        dict.Add(name, ms.ToArray());
+                    }
+                }
+            }
+            return dict;
         }
     }
 }

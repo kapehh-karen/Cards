@@ -27,7 +27,7 @@ namespace Core.Forms.DateBase
             InitializeComponent();
         }
 
-        public CardsFileLoader CardsLoader { get; set; }
+        public CardsFile CardsLoader { get; set; }
         
         private void LoadDBInfo()
         {

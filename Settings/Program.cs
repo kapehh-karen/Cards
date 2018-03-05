@@ -1,6 +1,7 @@
 ﻿using Core.Config;
 using Core.Data.Base;
 using Core.Forms.DateBase;
+using Core.Helper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,10 @@ namespace Settings
             
             if (args.Length > 0)
             {
-                var cardsLoader = new CardsFileLoader(args[0]);
-                cardsLoader.Load(false);
-                Application.Run(new FormBindSetting() { CardsLoader = cardsLoader });
+                CardsFile.Initialize(args[0]);
+                WaitDialog.Run($"Идет загрузка конфигурационного файла \"{CardsFile.Current.ShortFileName}\"",
+                               () => CardsFile.Current.Load(false));
+                Application.Run(new FormBindSetting() { CardsLoader = CardsFile.Current });
             }
             else
             {
