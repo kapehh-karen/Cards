@@ -10,9 +10,13 @@ namespace Core.API.Interfaces
 {
     public abstract class IPluginListener
     {
+        /// <summary>
+        /// Выполняется после удачной загрузки CardsFile
+        /// </summary>
+        /// <param name="cardsFile"></param>
         public virtual void OnCardsFileLoaded(CardsFile cardsFile)
         {
-
+            // Not Implemented
         }
 
         /// <summary>

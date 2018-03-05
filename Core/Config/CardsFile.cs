@@ -124,6 +124,9 @@ namespace Core.Config
 
             zip.Dispose();
             Loaded = true;
+
+            // Вызываем событие CardsFileLoaded у плагинов
+            PluginListener.Instance.EventCardsFileLoaded(this);
             return true;
         }
 

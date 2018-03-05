@@ -188,6 +188,11 @@ namespace Core.Forms.Main
             toolStripButtonFilter.Image = Properties.Resources.funnel;
         }
 
+        private void exitProgramToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         #region API
 
         /// <summary>

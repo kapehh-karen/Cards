@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Core.API.Interfaces;
+using Core.Config;
 
 namespace Core.API
 {
@@ -31,6 +32,11 @@ namespace Core.API
         internal void EventFormTableCreated(FormTableView form)
         {
             Listeners.ForEach(listener => listener.OnFormTableCreated(form, form.Table));
+        }
+
+        internal void EventCardsFileLoaded(CardsFile cardsFile)
+        {
+            Listeners.ForEach(listener => listener.OnCardsFileLoaded(cardsFile));
         }
 
         #endregion
