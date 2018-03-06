@@ -54,6 +54,9 @@ namespace Core.Data.Model
 
         public ModelFieldValue GetModelField(FieldData field) => FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field));
 
+        public ModelLinkedValue GetModelLinked(TableData outerTable)
+            => LinkedValues.FirstOrDefault(lvi => lvi.LinkedTable.Table.Equals(outerTable));
+
         public object this[string field]
         {
             get => FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(field))?.Value;
