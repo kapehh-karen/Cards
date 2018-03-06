@@ -53,9 +53,12 @@ namespace Core.Data.Model
         public List<ModelLinkedValue> LinkedValues { get; set; } = new List<ModelLinkedValue>();
 
         public ModelFieldValue GetModelField(FieldData field) => FieldValues.FirstOrDefault(mfv => mfv.Field.Equals(field));
+        public ModelFieldValue GetModelField(string fieldName) => FieldValues.FirstOrDefault(mfv => mfv.Field.Name.Equals(fieldName));
 
         public ModelLinkedValue GetModelLinked(TableData outerTable)
             => LinkedValues.FirstOrDefault(lvi => lvi.LinkedTable.Table.Equals(outerTable));
+        public ModelLinkedValue GetModelLinked(string outerTableName)
+            => LinkedValues.FirstOrDefault(lvi => lvi.LinkedTable.Table.Name.Equals(outerTableName));
 
         public object this[string field]
         {
