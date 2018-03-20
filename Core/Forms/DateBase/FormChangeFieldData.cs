@@ -96,6 +96,7 @@ namespace Core.Forms.DateBase
             txtDisplayName.Text = Field.DisplayName;
 
             ComboBoxItem[] types = FieldHelper.GetFieldTypes()
+                .Where(t => t != FieldType.UNKNOWN)
                 .Select(t => new ComboBoxItem() { ItemType = t, ItemText = t.GetTextFieldType() })
                 .ToArray();
             cmbFieldType.Items.AddRange(types);

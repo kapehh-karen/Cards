@@ -4,6 +4,7 @@ using Core.Data.Table;
 using Core.Notification;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,16 @@ namespace Core.Helper
 {
     public static class SqlModelHelper
     {
+        private static bool HasColumn(IDataRecord dr, string columnName)
+        {
+            for (int i = 0; i < dr.FieldCount; i++)
+            {
+                if (dr.GetName(i).Equals(columnName, StringComparison.InvariantCultureIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+
         // DELETE
 
         public static void Delete(SqlConnection connection, SqlTransaction transaction, TableData table, object id)
@@ -135,7 +146,17 @@ namespace Core.Helper
 
         private static void ModelFieldsFill(CardModel model, TableData tableModel, SqlDataReader reader)
         {
-            tableModel.Fields.ForEach(f => model[f.Name] = FieldHelper.CastValueForField(f, reader[f.Name]));
+            tableModel.Fields.ForEach(f =>
+            {
+                if (HasColumn(reader, f.Name))
+                {
+                    model[f.Name] = FieldHelper.CastValueForField(f, reader[f.Name]);
+                }
+                else
+                {
+                    NotificationMessage.SystemError($"В таблице \"{tableModel.DisplayName}\" ({tableModel.Name}) отсутствует поле \"{f.DisplayName}\" ({f.Name}), возможно оно удалено, необходимо проверить поля таблицы.");
+                }
+            });
         }
 
         private static void ModelBindDataFill(SqlConnection connection, CardModel model, TableData tableModel)

@@ -78,6 +78,9 @@ namespace Core.Config
                     dataBase.Tables.Add(tableData);
                 }
 
+                // Очищаем список полей для текущей таблицы
+                fieldNames.Clear();
+
                 using (SqlCommand command = new SqlCommand($"SELECT TOP 0 [{tableName}].* FROM [{tableName}] WHERE 1 = 2", conn))
                 {
                     using (var reader = command.ExecuteReader())
@@ -104,11 +107,11 @@ namespace Core.Config
                     }
                 }
 
-                // filter fields
+                // Оставляем только те поля, которые получены в схеме таблицы
                 tableData.Fields = tableData.Fields.Where(fd => fieldNames.Contains(fd.Name)).ToList();
             }
             
-            // filter tables
+            // Оставляем только те таблицы, которые есть в базе
             dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
 
             // Close connection
