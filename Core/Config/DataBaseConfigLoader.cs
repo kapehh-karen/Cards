@@ -119,6 +119,14 @@ namespace Core.Config
 
             BaseCleanupProperties(dataBase);
 
+            // fill parent-property
+            dataBase.Tables.ForEach(t =>
+            {
+                t.ParentBase = dataBase;
+                t.Fields.ForEach(f => f.ParentTable = t);
+                t.LinkedTables.ForEach(lt => lt.ParentTable = t);
+            });
+
             return dataBase;
         }
 

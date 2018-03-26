@@ -35,7 +35,7 @@ namespace Core.Data.Model
             // Если тип поля BIND и bindData пустое, или у нас Value поменялось, то начинаем творить вакханалию
             if (BindData == null || !EqualsObjectValues(BindData.ID.Value, Value))
             {
-                ModelHelper.Get(SQLServerConnection.DefaultDataBase, Field.BindData.Table, Value, out var bindData);
+                ModelHelper.Get(Field.BindData.Table, Value, out var bindData);
                 if (bindData != null)
                 {
                     BindData = bindData;

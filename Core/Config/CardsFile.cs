@@ -96,14 +96,6 @@ namespace Core.Config
             // База по-умолчанию
             SQLServerConnection.DefaultDataBase = Base;
 
-            // fill parent-property
-            Base.Tables.ForEach(t =>
-            {
-                t.ParentBase = Base;
-                t.Fields.ForEach(f => f.ParentTable = t);
-                t.LinkedTables.ForEach(lt => lt.ParentTable = t);
-            });
-
             // Если требуется загрузить плагины
             if (allowLoadPlugins)
             {

@@ -1,4 +1,5 @@
 ﻿using Core.Config;
+using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Table;
 using Core.Helper;
@@ -23,7 +24,7 @@ namespace Core.Forms.Main
 
         public string FileName { get; set; }
 
-        public DataBase SelectedDataBase { get; set; }
+        public DataBase Base { get; set; }
 
         public TableData SelectedTableData { get; set; }
 
@@ -31,7 +32,7 @@ namespace Core.Forms.Main
         {
             this.Text = $".:: CARDS ::. - {FileName}";
 
-            SelectedDataBase?.Tables
+            Base?.Tables
                 .Where(t => t.Visible)
                 .ForEach(t =>
                 {

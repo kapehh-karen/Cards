@@ -1,6 +1,7 @@
 ﻿using Core;
 using Core.API;
 using Core.Config;
+using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Table;
 using Core.Forms.Main;
@@ -28,8 +29,6 @@ namespace Cards
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            DataBase selectedBase = null;
-
             if (args.Length > 0)
             {
                 CardsFile.Initialize(args[0]);
@@ -38,7 +37,6 @@ namespace Cards
                 {
                     return;
                 }
-                selectedBase = CardsFile.Current.Base;
             }
             else
             {
@@ -49,7 +47,7 @@ namespace Cards
             TableData selectedTable = null;
             using (var dialogSelectTable = new FormSelectTable()
             {
-                SelectedDataBase = selectedBase,
+                Base = SQLServerConnection.DefaultDataBase,
                 FileName = CardsFile.Current.ShortFileName
             })
             {
@@ -59,11 +57,11 @@ namespace Cards
                 }
             }
 
-            if (selectedBase != null && selectedTable != null)
+            if (selectedTable != null)
             {
                 var dialog = new FormTableView()
                 {
-                    Base = selectedBase,
+                    Base = SQLServerConnection.DefaultDataBase,
                     Table = selectedTable
                 };
                 dialog.FillTable();
