@@ -13,6 +13,8 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override string Name => "Color";
 
+        public override string DisplayName => "Цвет";
+
         public override object Value { get => Control.ForeColor; set => Control.ForeColor = (Color)value; }
 
         public override object DefaultValue => Control.ForeColor;

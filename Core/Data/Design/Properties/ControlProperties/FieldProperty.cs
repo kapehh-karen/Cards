@@ -14,7 +14,9 @@ namespace Core.Data.Design.Properties.ControlProperties
         public FieldProperty(Control control) : base(control) { }
 
         public override string Name => "Field";
-        
+
+        public override string DisplayName => "Поле таблицы";
+
         public override object DefaultValue => null;
 
         public FieldType[] AccessTypes { get; set; }

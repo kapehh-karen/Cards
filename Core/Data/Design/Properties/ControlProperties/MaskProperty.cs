@@ -13,6 +13,8 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override string Name => "Mask";
 
+        public override string DisplayName => "Шаблон текста";
+
         public override string Description => "Для числового символа используйте символ \"0\", для любых буквенных символов используйте символ \"?\", для разделитля даты использовать символ \"/\"";
 
         public override object Value { get => (Control as MaskedTextBox).Mask; set => (Control as MaskedTextBox).Mask = value as string; }

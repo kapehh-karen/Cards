@@ -125,6 +125,7 @@
     <Compile Include="Data\Design\Properties\ControlProperties\MaxLengthProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\NameProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\PositionProperty.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\ReadOnlyProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\SizeProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\TabIndexProperty.cs" />
     <Compile Include="Data\Design\Properties\IControlProperty.cs" />

@@ -13,6 +13,8 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override string Name => "TabIndex";
 
+        public override string DisplayName => "Индекс табуляции";
+
         public override object Value { get => Control.TabIndex; set => Control.TabIndex = (int)value; }
 
         public override object DefaultValue => 0;

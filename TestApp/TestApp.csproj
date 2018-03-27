@@ -76,35 +76,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmBDFields.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmBDFields.Designer.cs">
-      <DependentUpon>frmBDFields.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmSerializer.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmSerializer.Designer.cs">
-      <DependentUpon>frmSerializer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmTestUserControls.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmTestUserControls.Designer.cs">
-      <DependentUpon>frmTestUserControls.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="frmBDFields.resx">
-      <DependentUpon>frmBDFields.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmSerializer.resx">
-      <DependentUpon>frmSerializer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmTestUserControls.resx">
-      <DependentUpon>frmTestUserControls.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -127,12 +100,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{cafa0b0a-6d13-4e02-b2f1-fecbe6f6d9f6}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

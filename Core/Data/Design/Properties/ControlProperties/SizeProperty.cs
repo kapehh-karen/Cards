@@ -14,6 +14,8 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override string Name => "Size";
 
+        public override string DisplayName => "Размер";
+
         public override object Value { get => Control.Size; set => Control.Size = (Size)value; }
 
         public override object DefaultValue => new Size(100, 20);

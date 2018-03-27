@@ -14,6 +14,8 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override string Name => "LinkedTable";
 
+        public override string DisplayName => "Внешние данные";
+
         public override object DefaultValue => null;
 
         public override bool ChangeValue(object sender)

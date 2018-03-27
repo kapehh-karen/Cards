@@ -13,6 +13,8 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override string Name => "Font";
 
+        public override string DisplayName => "Шрифт";
+
         public override object Value { get => Control.Font; set => Control.Font = value as Font; }
 
         public override object DefaultValue => Control.Font;

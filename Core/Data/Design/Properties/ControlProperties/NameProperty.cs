@@ -13,6 +13,8 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override string Name => "Name";
 
+        public override string DisplayName => "Имя элемента";
+
         public override object Value { get => Control.Name; set => Control.Name = value as string; }
 
         public override object DefaultValue => $"{Control.GetType().Name}__{DateTime.Now.Ticks.ToString("x")}";

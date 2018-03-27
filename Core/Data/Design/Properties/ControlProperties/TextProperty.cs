@@ -18,7 +18,9 @@ namespace Core.Data.Design.Properties.ControlProperties
         }
 
         public override string Name => "Text";
-        
+
+        public override string DisplayName => "Текст";
+
         public override object Value
         {
             get => Control.Text;

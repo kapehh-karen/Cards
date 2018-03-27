@@ -14,6 +14,8 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override string Name => "Position";
 
+        public override string DisplayName => "Положение";
+
         public override object Value { get => Control.Location; set => Control.Location = (Point)value; }
 
         public override object DefaultValue => new Point(0, 0);

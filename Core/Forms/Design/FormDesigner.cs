@@ -85,7 +85,7 @@ namespace Core.Forms.Design
 
             foreach (var proper in control.Properties)
             {
-                var lvi = new ListViewItem() { Text = proper.Name, Tag = proper };
+                var lvi = new ListViewItem() { Text = proper.DisplayName, Tag = proper };
                 lvi.SubItems.Add(proper.Value?.ToString());
                 listViewProperties.Items.Add(lvi);
             }

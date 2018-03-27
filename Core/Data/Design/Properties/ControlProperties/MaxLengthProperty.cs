@@ -13,6 +13,8 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override string Name => "MaxLength";
 
+        public override string DisplayName => "Максимальная длина";
+
         public override object DefaultValue => 0;
 
         public override object Value { get => (Control as TextBox).MaxLength; set => (Control as TextBox).MaxLength = (int)value; }
