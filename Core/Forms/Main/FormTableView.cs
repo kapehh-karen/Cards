@@ -7,6 +7,7 @@ using Core.Filter.Forms;
 using Core.Forms.Main.CardForm;
 using Core.Helper;
 using Core.Notification;
+using Core.Storage.Documents;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -191,6 +192,11 @@ namespace Core.Forms.Main
         private void exitProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void documentsExploreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DocStorage.Instance.OpenDocumentsFolder();
         }
 
         #region API

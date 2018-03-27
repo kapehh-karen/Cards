@@ -48,6 +48,8 @@
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.documentsExploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -237,6 +239,8 @@
             // programToolStripMenuItem
             // 
             this.programToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.documentsExploreToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.exitProgramToolStripMenuItem});
             this.programToolStripMenuItem.Image = global::Core.Properties.Resources.terminal;
             this.programToolStripMenuItem.Name = "programToolStripMenuItem";
@@ -246,9 +250,21 @@
             // exitProgramToolStripMenuItem
             // 
             this.exitProgramToolStripMenuItem.Name = "exitProgramToolStripMenuItem";
-            this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.exitProgramToolStripMenuItem.Text = "Выйти из программы";
             this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
+            // 
+            // documentsExploreToolStripMenuItem
+            // 
+            this.documentsExploreToolStripMenuItem.Name = "documentsExploreToolStripMenuItem";
+            this.documentsExploreToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.documentsExploreToolStripMenuItem.Text = "Открыть папку с документами";
+            this.documentsExploreToolStripMenuItem.Click += new System.EventHandler(this.documentsExploreToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(239, 6);
             // 
             // FormTableView
             // 
@@ -295,5 +311,7 @@
         private System.Windows.Forms.MenuStrip mainMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem programToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitProgramToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem documentsExploreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
     }
 }

@@ -393,6 +393,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Storage\Documents\DocStorage.cs" />
     <Compile Include="Storage\Filter\FilterStorage.cs" />
     <Compile Include="Storage\Tables\TableStorage.cs" />
     <Compile Include="Storage\Tables\TableStorageData\SortDirection.cs" />
