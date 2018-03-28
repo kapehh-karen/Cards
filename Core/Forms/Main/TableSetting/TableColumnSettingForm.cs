@@ -82,6 +82,8 @@ namespace Core.Forms.Main.TableSetting
                         .OrderBy(col => col.Order)
                         .Select(col => new ListViewColumnFieldItem(col))
                         .ToArray());
+
+                    Text = $"Настройки столбцов для таблицы \"{tableData.DisplayName}\"";
                 }
             }
         }
@@ -123,6 +125,7 @@ namespace Core.Forms.Main.TableSetting
                 var selectedItems = lvColumns.SelectedItems.Cast<ListViewColumnFieldItem>().ToArray();
 
                 selectedItems.ForEach(lvColumns.Items.Remove);
+
                 lvSelectedColumns.Items.AddRange(selectedItems);
             }
         }
@@ -141,7 +144,17 @@ namespace Core.Forms.Main.TableSetting
                 }
                 
                 selectedItems.ForEach(lvSelectedColumns.Items.Remove);
-                lvColumns.Items.AddRange(selectedItems);
+
+                // При возвращении полей, сортируем список
+                var topIndex = lvColumns.TopItem.Index; // Берем индекс верхнего элемента
+                lvColumns.Items.AddRange(selectedItems); // Добавляем выделенные элементы из другого списка
+                var sortedItems = lvColumns.Items
+                    .Cast<ListViewColumnFieldItem>()
+                    .OrderBy(item => item.ColumnField.Field.DisplayName)
+                    .ToArray(); // Сортируем
+                lvColumns.Items.Clear();
+                lvColumns.Items.AddRange(sortedItems); // Заполняем отсортированными данными
+                lvColumns.TopItem = lvColumns.Items[topIndex]; // Задаем верхний видимый элемент с предыдущим выбранным индексом
             }
         }
 
