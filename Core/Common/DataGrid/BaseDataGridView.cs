@@ -45,8 +45,6 @@ namespace Core.Common.DataGrid
             InitializeMenu();
         }
 
-        public abstract DataGridType ViewType { get; }
-
         public FilterData Filter { get; set; }
 
         public void ResetFilter()
@@ -169,8 +167,7 @@ namespace Core.Common.DataGrid
                 column.HeaderText = fieldData.DisplayName;
                 column.Tag = tag;
                 column.Visible = fieldData.Visible;
-                column.SortMode = ViewType.Equals(DataGridType.TableAndClassificator) ?
-                    DataGridViewColumnSortMode.Automatic : DataGridViewColumnSortMode.NotSortable;
+                column.SortMode = DataGridViewColumnSortMode.Automatic;
             }
         }
 
@@ -228,9 +225,8 @@ namespace Core.Common.DataGrid
                 var column = Columns[col.Field.Name];
                 col.Width = column.Width;
                 col.Order = column.DisplayIndex;
-
-                // Сортировка допустима только в таблицах и классификаторах
-                if (ViewType.Equals(DataGridType.TableAndClassificator) && SortedColumn == column)
+                
+                if (SortedColumn == column)
                 {
                     TableStorageInformation.SortData.SortedColumn = col;
                     switch (SortOrder)
@@ -266,8 +262,7 @@ namespace Core.Common.DataGrid
             });
 
             // И только потом сортируем колонку
-            // Сортировка допустима только в таблицах и классификаторах
-            if (ViewType.Equals(DataGridType.TableAndClassificator) && TableStorageInformation.SortData.Exists)
+            if (TableStorageInformation.SortData.Exists)
             {
                 var colData = TableStorageInformation.SortData.SortedColumn;
                 var column = Columns[colData.Field.Name];

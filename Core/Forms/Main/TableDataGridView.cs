@@ -27,9 +27,7 @@ namespace Core.Forms.Main
             DoubleBuffered = true;
             BorderStyle = BorderStyle.Fixed3D;
         }
-
-        public override DataGridType ViewType => DataGridType.TableAndClassificator;
-
+        
         /// <summary>
         /// Используется в режиме классификатора. Содержит ссылку на поле для которого используется классификатор.
         /// </summary>

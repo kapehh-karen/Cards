@@ -32,9 +32,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             BorderStyle = BorderStyle.FixedSingle;
             SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
-
-        public override DataGridType ViewType => DataGridType.LinkedTable;
-
+        
         #region IDesignControl Impl
 
         public override DesignControlType ControlType => DesignControlType.LINKED_TABLE;

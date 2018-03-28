@@ -15,6 +15,9 @@ namespace Core.Data.Model.Preprocessors.Impl
 {
     public class LinkedTableProcessor : ILinkedTableProcessor
     {
+        // Генерируем случайное имя поля, чтобы оно случайно не совпало с реальным (мало ли)
+        private readonly string internalIndexField = $"IndexField_{DateTime.Now.Ticks.ToString("x")}";
+
         private List<CardModel> displayedItems;
         private LinkedTableControl control;
 
@@ -52,21 +55,24 @@ namespace Core.Data.Model.Preprocessors.Impl
 
             var data = new DataTable();
             ModelLinkedTable.LinkedTable.Table.Fields.ForEach(field => data.Columns.Add(field.Name, FieldHelper.GetTypeFromField(field)));
+            data.Columns.Add(internalIndexField, typeof(Int32));
             displayedItems = ModelLinkedTable.Items.Where(item => item.LinkedState != ModelLinkedItemState.DELETED).ToList();
-            displayedItems.ForEach(item =>
+            for (var i = 0; i < displayedItems.Count; i++)
             {
+                var item = displayedItems[i];
                 var row = data.NewRow();
                 row[item.ID.Field.Name] = item.ID.Value ?? DBNull.Value;
                 item.FieldValues.ForEach(fv => row[fv.Field.Name] = fv.DisplayValue ?? DBNull.Value);
+                row[internalIndexField] = i; // По индексу будем обращаться к элементу в displayedItems
                 data.Rows.Add(row);
-            });
+            }
             data.AcceptChanges();
 
             // После всех манипуляций делаем это
             control.DataSource = data;
         }
 
-        public int SelectedIndex => control.CurrentRow == null ? -1 : control.CurrentRow.Index;
+        public int SelectedIndex => control.CurrentRow == null ? -1 : (int)control.CurrentRow.Cells[internalIndexField].Value;
 
         private void Control_TableStorageInformationUpdated(object sender, EventArgs e)
         {
