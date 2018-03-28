@@ -56,18 +56,21 @@ namespace Core.Data.Model
             };
         }
 
-        public object ToDataGridValue()
+        public object DisplayValue
         {
-            switch (Field?.Type)
+            get
             {
-                case FieldType.BIND:
-                    return BindData?[Field.BindData?.Field];
-                case FieldType.BOOLEAN:
-                case FieldType.DATE:
-                case FieldType.NUMBER:
-                case FieldType.TEXT:
-                default:
-                    return Value;
+                switch (Field?.Type)
+                {
+                    case FieldType.BIND:
+                        return BindData?[Field.BindData?.Field];
+                    case FieldType.BOOLEAN:
+                    case FieldType.DATE:
+                    case FieldType.NUMBER:
+                    case FieldType.TEXT:
+                    default:
+                        return Value;
+                }
             }
         }
 

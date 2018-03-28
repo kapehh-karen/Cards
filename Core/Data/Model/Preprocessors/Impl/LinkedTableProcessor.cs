@@ -57,7 +57,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             {
                 var row = data.NewRow();
                 row[item.ID.Field.Name] = item.ID.Value ?? DBNull.Value;
-                item.FieldValues.ForEach(fv => row[fv.Field.Name] = fv.ToDataGridValue() ?? DBNull.Value);
+                item.FieldValues.ForEach(fv => row[fv.Field.Name] = fv.DisplayValue ?? DBNull.Value);
                 data.Rows.Add(row);
             });
             data.AcceptChanges();
