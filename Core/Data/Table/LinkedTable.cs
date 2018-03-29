@@ -22,6 +22,9 @@ namespace Core.Data.Table
         [DataMember]
         public FieldData Field { get; set; }
 
+        [DataMember]
+        public bool Required { get; set; } = false;
+
         /// <summary>
         /// Таблица в которой находится текущая связь
         /// </summary>

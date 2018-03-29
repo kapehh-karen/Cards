@@ -27,6 +27,8 @@ namespace Core.Forms.DateBase
 
         public FieldData SelectedField => cmbFields.SelectedItem as FieldData;
 
+        public bool SelectedRequire => chkRequire.Checked;
+
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
@@ -53,6 +55,7 @@ namespace Core.Forms.DateBase
 
                 cmbTables.SelectedItem = BindData.Table;
                 cmbFields.SelectedItem = BindData.Field;
+                chkRequire.Checked = BindData.Required;
             }
             else
             {

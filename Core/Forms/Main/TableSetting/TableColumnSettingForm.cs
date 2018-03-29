@@ -146,7 +146,8 @@ namespace Core.Forms.Main.TableSetting
                 selectedItems.ForEach(lvSelectedColumns.Items.Remove);
 
                 // При возвращении полей, сортируем список
-                var topIndex = lvColumns.TopItem.Index; // Берем индекс верхнего элемента
+                var topIndex = lvColumns.TopItem?.Index ?? 0; // Берем индекс верхнего элемента
+                lvColumns.BeginUpdate();
                 lvColumns.Items.AddRange(selectedItems); // Добавляем выделенные элементы из другого списка
                 var sortedItems = lvColumns.Items
                     .Cast<ListViewColumnFieldItem>()
@@ -154,6 +155,7 @@ namespace Core.Forms.Main.TableSetting
                     .ToArray(); // Сортируем
                 lvColumns.Items.Clear();
                 lvColumns.Items.AddRange(sortedItems); // Заполняем отсортированными данными
+                lvColumns.EndUpdate();
                 lvColumns.TopItem = lvColumns.Items[topIndex]; // Задаем верхний видимый элемент с предыдущим выбранным индексом
             }
         }

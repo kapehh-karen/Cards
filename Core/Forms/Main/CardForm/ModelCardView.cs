@@ -6,6 +6,7 @@ using Core.Data.Model;
 using Core.Data.Model.Preprocessors;
 using Core.Data.Table;
 using Core.Forms.Design;
+using Core.Notification;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -98,7 +99,15 @@ namespace Core.Forms.Main.CardForm
             {
                 if (!proc.CheckRequired())
                 {
-                    MessageBox.Show($"Поле '{proc.Field.DisplayName}' не заполнено.", Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    NotificationMessage.Error($"Поле \"{proc.Field.DisplayName}\" не заполнено. Необходимо заполнить.");
+                    return false;
+                }
+            }
+            foreach (var proc in linkedTableProcessors)
+            {
+                if (!proc.CheckRequired())
+                {
+                    NotificationMessage.Error($"Таблица \"{proc.LinkedTable.Table.DisplayName}\" пуста. Необходимо добавить запись.");
                     return false;
                 }
             }

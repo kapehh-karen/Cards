@@ -56,6 +56,7 @@
             this.btnSaveApply = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             this.SuspendLayout();
@@ -162,7 +163,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDataList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader6,
-            this.columnHeader7});
+            this.columnHeader7,
+            this.columnHeader9});
             this.lvDataList.FullRowSelect = true;
             this.lvDataList.GridLines = true;
             this.lvDataList.Location = new System.Drawing.Point(12, 247);
@@ -182,7 +184,7 @@
             // columnHeader7
             // 
             this.columnHeader7.Text = "Внешнее поле (Foreign Key)";
-            this.columnHeader7.Width = 212;
+            this.columnHeader7.Width = 153;
             // 
             // label5
             // 
@@ -342,6 +344,11 @@
             this.btnEditDB.UseVisualStyleBackColor = true;
             this.btnEditDB.Click += new System.EventHandler(this.btnEditDB_Click);
             // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Обязательное";
+            this.columnHeader9.Width = 115;
+            // 
             // FormBindSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -394,5 +401,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox checkVisible;
         private System.Windows.Forms.Button btnFormRemove;
+        private System.Windows.Forms.ColumnHeader columnHeader9;
     }
 }

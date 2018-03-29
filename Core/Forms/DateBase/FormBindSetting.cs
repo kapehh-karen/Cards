@@ -55,6 +55,8 @@ namespace Core.Forms.DateBase
 
         private void RedrawFields(TableData tableData)
         {
+            var topItemIndex = lvFields.TopItem?.Index ?? -1;
+            lvFields.BeginUpdate();
             lvFields.Items.Clear();
 
             foreach (var fieldData in tableData.Fields)
@@ -70,10 +72,16 @@ namespace Core.Forms.DateBase
 
                 lvFields.Items.Add(lvi);
             }
+
+            lvFields.EndUpdate();
+            if (topItemIndex >= 0)
+                lvFields.TopItem = lvFields.Items[topItemIndex];
         }
 
         private void RedrawLinkedData(TableData tableData)
         {
+            var topItemIndex = lvDataList.TopItem?.Index ?? -1;
+            lvDataList.BeginUpdate();
             lvDataList.Items.Clear();
 
             foreach (var linkedTable in tableData.LinkedTables)
@@ -81,10 +89,15 @@ namespace Core.Forms.DateBase
                 var lvi = new ListViewItem();
                 lvi.Text = linkedTable.Table != null ? linkedTable.Table.Name : " - Пусто - ";
                 lvi.SubItems.Add(linkedTable.Field != null ? linkedTable.Field.Name : " - Пусто - ");
+                lvi.SubItems.Add(linkedTable.Required ? "Да" : "Нет");
                 lvi.Tag = linkedTable;
 
                 lvDataList.Items.Add(lvi);
             }
+
+            lvDataList.EndUpdate();
+            if (topItemIndex >= 0)
+                lvDataList.TopItem = lvDataList.Items[topItemIndex];
         }
 
         private void SelectTable(TableData tableData)
@@ -275,6 +288,7 @@ namespace Core.Forms.DateBase
                         {
                             linkedTable.Table = formDialogChange.SelectedTable;
                             linkedTable.Field = formDialogChange.SelectedField;
+                            linkedTable.Required = formDialogChange.SelectedRequire;
                         }
                     }
                     break;
@@ -301,6 +315,7 @@ namespace Core.Forms.DateBase
                     {
                         linkedTable.Table = formDialogNew.SelectedTable;
                         linkedTable.Field = formDialogNew.SelectedField;
+                        linkedTable.Required = formDialogNew.SelectedRequire;
 
                         _tableData.LinkedTables.Add(linkedTable);
                     }

@@ -31,5 +31,10 @@ namespace Core.Data.Model.Preprocessors
         /// Detach events
         /// </summary>
         public virtual void Detach() { }
+
+        public bool CheckRequired()
+        {
+            return !LinkedTable.Required || (ModelLinkedTable.Items.Count > 0);
+        }
     }
 }

@@ -35,6 +35,7 @@
             this.cmbFields = new System.Windows.Forms.ComboBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.chkRequire = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -76,7 +77,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(276, 81);
+            this.btnCancel.Location = new System.Drawing.Point(276, 120);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 23);
             this.btnCancel.TabIndex = 4;
@@ -86,7 +87,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(276, 52);
+            this.btnOK.Location = new System.Drawing.Point(276, 91);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(88, 23);
             this.btnOK.TabIndex = 5;
@@ -94,11 +95,23 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
+            // chkRequire
+            // 
+            this.chkRequire.AutoSize = true;
+            this.chkRequire.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkRequire.Location = new System.Drawing.Point(28, 124);
+            this.chkRequire.Name = "chkRequire";
+            this.chkRequire.Size = new System.Drawing.Size(173, 17);
+            this.chkRequire.TabIndex = 6;
+            this.chkRequire.Text = "Обязательное к заполнению";
+            this.chkRequire.UseVisualStyleBackColor = true;
+            // 
             // FormChangeLinkedTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(376, 121);
+            this.ClientSize = new System.Drawing.Size(376, 153);
+            this.Controls.Add(this.chkRequire);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.cmbFields);
@@ -127,5 +140,6 @@
         private System.Windows.Forms.ComboBox cmbFields;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.CheckBox chkRequire;
     }
 }
