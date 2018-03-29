@@ -274,6 +274,7 @@ namespace Core.Forms.DateBase
         {
             var listView = sender as ListView;
             LinkedTable linkedTable;
+            var needRedraw = false;
 
             switch (e.KeyCode)
             {
@@ -291,6 +292,8 @@ namespace Core.Forms.DateBase
                             linkedTable.Required = formDialogChange.SelectedRequire;
                         }
                     }
+
+                    needRedraw = true;
                     break;
 
                 case Keys.Delete:
@@ -305,6 +308,8 @@ namespace Core.Forms.DateBase
                             _tableData.LinkedTables.Remove(linkedTable);
                         }
                     }
+
+                    needRedraw = true;
                     break;
 
                 case Keys.Insert:
@@ -319,10 +324,13 @@ namespace Core.Forms.DateBase
 
                         _tableData.LinkedTables.Add(linkedTable);
                     }
+
+                    needRedraw = true;
                     break;
             }
 
-            RedrawLinkedData(_tableData);
+            if (needRedraw)
+                RedrawLinkedData(_tableData);
         }
 
         private void btnForm_Click(object sender, EventArgs e)
