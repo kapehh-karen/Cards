@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Core.API.Interfaces;
 using Core.Config;
+using Core.Data.Model;
 
 namespace Core.API
 {
@@ -37,6 +38,22 @@ namespace Core.API
         internal void EventCardsFileLoaded(CardsFile cardsFile)
         {
             Listeners.ForEach(listener => listener.OnCardsFileLoaded(cardsFile));
+        }
+
+        internal bool EventModelBeforeSave(CardModel model)
+        {
+            foreach (var listener in Listeners)
+            {
+                // Если возвращается false то дальше не выполняем событие OnModelBeforeSave и возвращаем управление вверх.
+                if (!listener.OnModelBeforeSave(model))
+                    return false;
+            }
+            return true;
+        }
+
+        internal void EventModelAfterSave(CardModel model)
+        {
+            Listeners.ForEach(listener => listener.OnModelAfterSave(model));
         }
 
         #endregion
