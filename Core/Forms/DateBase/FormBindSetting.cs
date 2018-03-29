@@ -37,7 +37,7 @@ namespace Core.Forms.DateBase
             gbDateBase.Text = $"База: Server={_dataBase.Sever ?? "***"}, Port={_dataBase.Port}, User={_dataBase.UserName ?? "***"}, Password={_dataBase.Password ?? "***"}, Basename={_dataBase.BaseName ?? "***"}";
             
             cmbTables.Items.Clear();
-            _dataBase.Tables.ForEach(td => cmbTables.Items.Add(td));
+            _dataBase.Tables.OrderBy(table => table.Name).ForEach(td => cmbTables.Items.Add(td));
 
             ClearTableElementInfo();
         }
@@ -53,20 +53,20 @@ namespace Core.Forms.DateBase
             lvDataList.Items.Clear();
         }
 
-        private void RedrawFields(TableData tableData)
+        private void RedrawFields(TableData tableData, bool restoreTop = true)
         {
             var topItemIndex = lvFields.TopItem?.Index ?? -1;
             lvFields.BeginUpdate();
             lvFields.Items.Clear();
 
-            foreach (var fieldData in tableData.Fields)
+            foreach (var fieldData in tableData.Fields.OrderBy(field => field.Name))
             {
                 var lvi = new ListViewItem();
                 lvi.Text = fieldData.IsIdentifier ? "*" : "";
                 lvi.SubItems.Add(fieldData.Name);
                 lvi.SubItems.Add(fieldData.Type != FieldType.BIND ? fieldData.Type.ToString() : fieldData.BindData?.ToString());
-                lvi.SubItems.Add(fieldData.Visible ? "Да" : "Нет");
-                lvi.SubItems.Add(fieldData.Required ? "Да" : "Нет");
+                lvi.SubItems.Add(fieldData.Visible ? "Да" : "-");
+                lvi.SubItems.Add(fieldData.Required ? "Да" : "-");
                 lvi.SubItems.Add(fieldData.DisplayName);
                 lvi.Tag = fieldData;
 
@@ -74,29 +74,29 @@ namespace Core.Forms.DateBase
             }
 
             lvFields.EndUpdate();
-            if (topItemIndex >= 0)
+            if (restoreTop && topItemIndex >= 0)
                 lvFields.TopItem = lvFields.Items[topItemIndex];
         }
 
-        private void RedrawLinkedData(TableData tableData)
+        private void RedrawLinkedData(TableData tableData, bool restoreTop = true)
         {
             var topItemIndex = lvDataList.TopItem?.Index ?? -1;
             lvDataList.BeginUpdate();
             lvDataList.Items.Clear();
 
-            foreach (var linkedTable in tableData.LinkedTables)
+            foreach (var linkedTable in tableData.LinkedTables.OrderBy(lt => lt.Table.Name))
             {
                 var lvi = new ListViewItem();
                 lvi.Text = linkedTable.Table != null ? linkedTable.Table.Name : " - Пусто - ";
                 lvi.SubItems.Add(linkedTable.Field != null ? linkedTable.Field.Name : " - Пусто - ");
-                lvi.SubItems.Add(linkedTable.Required ? "Да" : "Нет");
+                lvi.SubItems.Add(linkedTable.Required ? "Да" : "-");
                 lvi.Tag = linkedTable;
 
                 lvDataList.Items.Add(lvi);
             }
 
             lvDataList.EndUpdate();
-            if (topItemIndex >= 0)
+            if (restoreTop && topItemIndex >= 0)
                 lvDataList.TopItem = lvDataList.Items[topItemIndex];
         }
 
@@ -110,7 +110,7 @@ namespace Core.Forms.DateBase
             var idField = tableData.IdentifierField;
 
             cmbIDField.Items.Clear();
-            tableData.Fields.ForEach(fd => cmbIDField.Items.Add(fd));
+            tableData.Fields.OrderBy(field => field.Name).ForEach(fd => cmbIDField.Items.Add(fd));
 
             // if ID field not exists, try find it
             if (idField == null)
@@ -128,8 +128,8 @@ namespace Core.Forms.DateBase
                 cmbIDField.SelectedItem = idField;
             }
             
-            RedrawFields(tableData);
-            RedrawLinkedData(tableData);
+            RedrawFields(tableData, false);
+            RedrawLinkedData(tableData, false);
             
             checkClassif.Checked = tableData.IsClassifier;
             txtTableDisplayName.Text = tableData.DisplayName;
