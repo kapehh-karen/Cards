@@ -1,4 +1,5 @@
-﻿using Core.Connection;
+﻿using Core.API;
+using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Design.InternalData;
 using Core.Data.Field;
@@ -127,6 +128,11 @@ namespace Core.Forms.Main.CardForm
         
         private void btnSave_Click(object sender, EventArgs e)
         {
+            // Если один из плагинов не дает разрешение на сохранение, то не сохраняем изменения
+            if (!PluginListener.Instance.EventModelBeforeSave(Table, Model, modelCardView1, this))
+                return;
+
+            // Проверяем все обязательные поля и внешние данные
             if (!modelCardView1.CheckRequired())
                 return;
 
@@ -145,6 +151,7 @@ namespace Core.Forms.Main.CardForm
             if (ModelHelper.Save(Base, Table, Model))
             {
                 UpdateUiText(Model.ID.Value);
+                PluginListener.Instance.EventModelAfterSave(Table, Model, modelCardView1, this);
             }
         }
 
@@ -170,6 +177,9 @@ namespace Core.Forms.Main.CardForm
 
             // После обновления UI делаем выделение активных контролов
             highlight.Install();
+
+            // После загрузки модели вызываем событие
+            PluginListener.Instance.EventModelLoad(Table, Model, modelCardView1, this);
         }
 
         public new DialogResult ShowDialog()

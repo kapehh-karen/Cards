@@ -2,6 +2,7 @@
 using Core.Data.Model;
 using Core.Data.Table;
 using Core.Forms.Main;
+using Core.Forms.Main.CardForm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,6 @@ namespace Core.API.Interfaces
         /// <summary>
         /// Выполняется после удачной загрузки CardsFile
         /// </summary>
-        /// <param name="cardsFile"></param>
         public virtual void OnCardsFileLoaded(CardsFile cardsFile)
         {
             // Not Implemented
@@ -23,7 +23,6 @@ namespace Core.API.Interfaces
         /// <summary>
         /// Выполняется при создании формы FormTableView
         /// </summary>
-        /// <param name="form"></param>
         public virtual void OnFormTableCreated(FormTableView form, TableData table)
         {
             // Not Implemented
@@ -33,7 +32,7 @@ namespace Core.API.Interfaces
         /// Вызывается до сохранения. Возвращает true если можно сохранять и false если запретить сохранение.
         /// </summary>
         /// <returns></returns>
-        public virtual bool OnModelBeforeSave(CardModel model)
+        public virtual bool OnModelBeforeSave(TableData table, CardModel model, ModelCardView modelView, FormCardView formView)
         {
             // Not Implemented
             return true;
@@ -42,7 +41,15 @@ namespace Core.API.Interfaces
         /// <summary>
         /// Вызывается после сохранения.
         /// </summary>
-        public virtual void OnModelAfterSave(CardModel model)
+        public virtual void OnModelAfterSave(TableData table, CardModel model, ModelCardView modelView, FormCardView formView)
+        {
+            // Not Implemented
+        }
+
+        /// <summary>
+        /// Вызывается при загрузки модели
+        /// </summary>
+        public virtual void OnModelLoad(TableData table, CardModel model, ModelCardView modelView, FormCardView formView)
         {
             // Not Implemented
         }

@@ -6,6 +6,8 @@ using System.Text;
 using Core.API.Interfaces;
 using Core.Config;
 using Core.Data.Model;
+using Core.Forms.Main.CardForm;
+using Core.Data.Table;
 
 namespace Core.API
 {
@@ -40,20 +42,25 @@ namespace Core.API
             Listeners.ForEach(listener => listener.OnCardsFileLoaded(cardsFile));
         }
 
-        internal bool EventModelBeforeSave(CardModel model)
+        internal bool EventModelBeforeSave(TableData table, CardModel model, ModelCardView modelView, FormCardView formView)
         {
             foreach (var listener in Listeners)
             {
                 // Если возвращается false то дальше не выполняем событие OnModelBeforeSave и возвращаем управление вверх.
-                if (!listener.OnModelBeforeSave(model))
+                if (!listener.OnModelBeforeSave(table, model, modelView, formView))
                     return false;
             }
             return true;
         }
 
-        internal void EventModelAfterSave(CardModel model)
+        internal void EventModelAfterSave(TableData table, CardModel model, ModelCardView modelView, FormCardView formView)
         {
-            Listeners.ForEach(listener => listener.OnModelAfterSave(model));
+            Listeners.ForEach(listener => listener.OnModelAfterSave(table, model, modelView, formView));
+        }
+
+        internal void EventModelLoad(TableData table, CardModel model, ModelCardView modelView, FormCardView formView)
+        {
+            Listeners.ForEach(listener => listener.OnModelLoad(table, model, modelView, formView));
         }
 
         #endregion

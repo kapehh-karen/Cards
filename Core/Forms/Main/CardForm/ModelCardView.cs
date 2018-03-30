@@ -157,5 +157,23 @@ namespace Core.Forms.Main.CardForm
             parent.Controls.Add(element as Control);
             return element;
         }
+
+        #region API
+
+        public IFieldProcessor GetFieldProcessor(string fieldName) =>
+            GetFieldProcessor(Model.GetModelField(fieldName));
+        public IFieldProcessor GetFieldProcessor(FieldData field) =>
+            GetFieldProcessor(Model.GetModelField(field));
+        public IFieldProcessor GetFieldProcessor(ModelFieldValue mfv) =>
+            fieldProcessors.SingleOrDefault(it => it.ModelField?.Equals(mfv) ?? false);
+
+        public ILinkedTableProcessor GetLinkedTableProcessor(string outerTableName) =>
+            GetLinkedTableProcessor(Model.GetModelLinked(outerTableName));
+        public ILinkedTableProcessor GetLinkedTableProcessor(TableData outerTable) =>
+            GetLinkedTableProcessor(Model.GetModelLinked(outerTable));
+        public ILinkedTableProcessor GetLinkedTableProcessor(ModelLinkedValue mlv) =>
+            linkedTableProcessors.SingleOrDefault(it => it.ModelLinkedTable?.Equals(mlv) ?? false);
+
+        #endregion
     }
 }
