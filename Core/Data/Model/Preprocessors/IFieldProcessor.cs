@@ -11,10 +11,22 @@ namespace Core.Data.Model.Preprocessors
 {
     public abstract class IFieldProcessor
     {
+        public event Action<object, IFieldProcessor> ValueChanged = (v, p) => { };
+
         public virtual void Save()
         {
             if (ModelField != null)
-                ModelField.Value = Value;
+            {
+                var value = Value;
+                ModelField.Value = value;
+                OnValueChanged(value, this);
+            }
+        }
+
+        protected void OnValueChanged(object value, IFieldProcessor processor)
+        {
+            // Вызываем событие что значение изменилось
+            ValueChanged(value, processor);
         }
 
         public virtual void Load()
@@ -48,5 +60,7 @@ namespace Core.Data.Model.Preprocessors
         public abstract object Value { get; set; }
 
         public abstract IDesignControl Control { get; set; }
+
+        public CardModel ParentModel { get; set; }
     }
 }

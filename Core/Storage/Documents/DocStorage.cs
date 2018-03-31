@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Notification;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -41,8 +42,7 @@ namespace Core.Storage.Documents
         {
             if (!File.Exists(fileName))
             {
-                MessageBox.Show($"Файла \"{fileName}\" не существует! Открыть невозможно.",
-                    Consts.ProgramTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                NotificationMessage.SystemError($"Файла \"{fileName}\" не существует! Открыть невозможно.");
                 return;
             }
 

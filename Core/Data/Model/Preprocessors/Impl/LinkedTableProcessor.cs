@@ -107,6 +107,7 @@ namespace Core.Data.Model.Preprocessors.Impl
                                 var index = ModelLinkedTable.Items.IndexOf(model);
                                 ModelLinkedTable.Items[index] = newModel;
                                 Load();
+                                OnValueChanged(this);
                             }
                         }
                         break;
@@ -117,6 +118,7 @@ namespace Core.Data.Model.Preprocessors.Impl
                         {
                             model.CheckDeleteFull();
                             Load();
+                            OnValueChanged(this);
                         }
                         break;
                 }
@@ -133,6 +135,7 @@ namespace Core.Data.Model.Preprocessors.Impl
                         ModelLinkedTable.Items.Add(newModel);
                         newModel.LinkedState = ModelLinkedItemState.ADDED;
                         Load();
+                        OnValueChanged(this);
                     }
                 }
             }

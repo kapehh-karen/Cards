@@ -10,6 +10,14 @@ namespace Core.Data.Model.Preprocessors
 {
     public abstract class ILinkedTableProcessor
     {
+        public event Action<ILinkedTableProcessor> ValueChanged = (p) => { };
+
+        protected void OnValueChanged(ILinkedTableProcessor processor)
+        {
+            // Вызываем событие что значение изменилось
+            ValueChanged(processor);
+        }
+
         public DataBase Base { get; set; }
 
         public LinkedTable LinkedTable { get; set; }

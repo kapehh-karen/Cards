@@ -73,6 +73,7 @@ namespace Core.Forms.Main.CardForm
                 if (proc != null)
                 {
                     proc.ModelField = Model.GetModelField(proc.Field);
+                    proc.ParentModel = model;
                     fieldProcessors.Add(proc);
                 }
             });

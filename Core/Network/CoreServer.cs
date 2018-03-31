@@ -93,8 +93,6 @@ namespace Core.Network
                                         readed = socket.Receive(buffer, buffer.Length, SocketFlags.None);
                                         ms.Write(buffer, 0, readed);
                                         readedAllData += readed;
-
-                                        Thread.Sleep(5);
                                     }
 
                                     mainContext.Send((state2) =>
@@ -103,8 +101,6 @@ namespace Core.Network
                                     }, client);
                                 }
                             }
-
-                            Thread.Sleep(50);
                         }
 
                         try

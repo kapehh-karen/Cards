@@ -44,6 +44,8 @@ namespace Core.Data.Model.Preprocessors.Impl
             {
                 ModelField.Value = value;
                 ModelField.UpdateBindData(); // Обновляем, поменяли ведь Value все-таки
+                OnValueChanged(value, this);
+
                 if (control != null)
                     control.Text = ModelField.ToString();
             }
