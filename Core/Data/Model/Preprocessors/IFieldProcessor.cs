@@ -29,6 +29,14 @@ namespace Core.Data.Model.Preprocessors
             ValueChanged(value, processor);
         }
 
+        public void SetValueAndLoad(object value)
+        {
+            ModelField.Value = value;
+            // Вызываем для того, чтобы сначала выполнить Detach а потом Attach,
+            // иначе будут лишний раз дергаться обработчики событий
+            Load();
+        }
+
         public virtual void Load()
         {
             Detach();

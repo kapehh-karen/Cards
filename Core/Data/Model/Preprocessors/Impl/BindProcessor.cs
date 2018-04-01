@@ -44,8 +44,6 @@ namespace Core.Data.Model.Preprocessors.Impl
             {
                 ModelField.Value = value;
                 ModelField.UpdateBindData(); // Обновляем, поменяли ведь Value все-таки
-                OnValueChanged(value, this);
-
                 if (control != null)
                     control.Text = ModelField.ToString();
             }
@@ -67,10 +65,12 @@ namespace Core.Data.Model.Preprocessors.Impl
                 {
                     case System.Windows.Forms.DialogResult.OK:
                         Value = dialog.SelectedID;
+                        OnValueChanged(Value, this);
                         break;
 
                     case System.Windows.Forms.DialogResult.Ignore:
                         Value = null;
+                        OnValueChanged(null, this);
                         break;
                 }
             }
