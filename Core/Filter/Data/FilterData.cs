@@ -112,9 +112,14 @@ namespace Core.Filter.Data
 
         public void MoveTo(FilterData newParent)
         {
-            if (Parent != null) Parent.Chields.Remove(this);
-            Parent = newParent;
-            Parent?.Chields.Add(this);
+            if (Parent != null)
+                Parent.Chields.Remove(this);
+
+            if (newParent != null)
+            {
+                Parent = newParent;
+                Parent.Chields.Add(this);
+            }
         }
 
         public bool IsRoot => Parent == null;
@@ -133,7 +138,7 @@ namespace Core.Filter.Data
                 FilterTable = FilterTable,
                 Where = Where, // В FormFilter это свойство просто перезаписывается, так-что и так сойдет
                 Parent = Parent,
-                Chields = new List<FilterData>(Chields.Select(chield => chield.Clone() as FilterData)), // Создаем новый список
+                Chields = new List<FilterData>(Chields), // Создаем новый список
                 SQLBuilder = SQLBuilder,
                 StaticData = StaticData.Clone() as FilterStaticData // На всякий случай тоже копию делаю
             };

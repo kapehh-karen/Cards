@@ -46,10 +46,14 @@ namespace Core.Filter.Controls.Conditions.Operands
 
         public IFilterOperand Operand
         {
-            get => new SubqueryOperand()
+            get
             {
-                CurrentFilter = SelectedItem?.Current
-            };
+                var res = new SubqueryOperand()
+                {
+                    CurrentFilter = SelectedItem?.Current
+                };
+                return res;
+            }
             set
             {
                 var subquery = value as SubqueryOperand;
