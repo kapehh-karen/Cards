@@ -9,6 +9,7 @@ using Core.Helper;
 using Core.Notification;
 using Core.Storage.Documents;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -62,7 +63,9 @@ namespace Core.Forms.Main
 
         private void tableDataGridView1_RedSelectingChanged(object sender, EventArgs e)
         {
-            toolStripStatusLabelSelectedAmount.Text = $"Выбрано записей: {tableDataGridView1.AmountSelectedItems}";
+            var amount = tableDataGridView1.CountSelectedItems;
+            toolStripStatusLabelSelectedAmount.Text = $"Выбрано записей: {amount}";
+            toolStripStatusLabelSelectedAmount.ForeColor = amount > 0 ? Color.Red : Color.Black;
         }
 
         private void FormTableView_Load(object sender, EventArgs e)
@@ -203,6 +206,18 @@ namespace Core.Forms.Main
         /// </summary>
         /// <returns></returns>
         public object SelectedID() => tableDataGridView1.SelectedID;
+
+        /// <summary>
+        /// Возвращает количество выбранных записей
+        /// </summary>
+        /// <returns></returns>
+        public int CountSelectedItems() => tableDataGridView1.CountSelectedItems;
+
+        /// <summary>
+        /// Возвращает ID выделенных записей
+        /// </summary>
+        /// <returns></returns>
+        public ArrayList GetSelectedItems() => tableDataGridView1.SelectedItems;
 
         #endregion
     }

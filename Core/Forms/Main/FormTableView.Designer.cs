@@ -120,12 +120,12 @@
             // 
             this.toolStripStatusLabelAmount.Name = "toolStripStatusLabelAmount";
             this.toolStripStatusLabelAmount.Size = new System.Drawing.Size(96, 17);
-            this.toolStripStatusLabelAmount.Text = "Всего записей: -";
+            this.toolStripStatusLabelAmount.Text = "Всего записей: 0";
             // 
             // toolStripStatusLabelSelectedAmount
             // 
             this.toolStripStatusLabelSelectedAmount.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.toolStripStatusLabelSelectedAmount.ForeColor = System.Drawing.Color.Red;
+            this.toolStripStatusLabelSelectedAmount.ForeColor = System.Drawing.Color.Black;
             this.toolStripStatusLabelSelectedAmount.Name = "toolStripStatusLabelSelectedAmount";
             this.toolStripStatusLabelSelectedAmount.Size = new System.Drawing.Size(703, 17);
             this.toolStripStatusLabelSelectedAmount.Spring = true;

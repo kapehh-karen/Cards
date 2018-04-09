@@ -61,6 +61,9 @@ namespace Core.Forms.Main
             if (Table == null)
                 return;
 
+            // Снимаем выделение перед обновлением
+            ClearSelectedRows();
+
             var needUpdate = true;
             var fields = TableStorageInformation.Columns.Select(item => item.Field).ToArray();
 
@@ -231,11 +234,17 @@ namespace Core.Forms.Main
 
         public event EventHandler RedSelectingChanged = (s, e) => { };
 
-        public int AmountSelectedItems => selectedItems.Count;
+        public int CountSelectedItems => selectedItems.Count;
 
-        public IEnumerable<int> GetSelectedItems => selectedItems.Cast<int>();
+        public ArrayList SelectedItems => selectedItems;
         
         private object IdByRowIndex(int index) => Rows[index].Cells[FieldID.Name].Value;
+
+        private void ClearSelectedRows()
+        {
+            selectedItems.Clear();
+            RedSelectingChanged(this, EventArgs.Empty);
+        }
 
         private void TableDataGridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
@@ -292,9 +301,8 @@ namespace Core.Forms.Main
                         break;
 
                     case Keys.Escape:
-                        selectedItems.Clear();
+                        ClearSelectedRows();
                         Invalidate();
-                        RedSelectingChanged(this, EventArgs.Empty);
                         break;
                 }
             }
