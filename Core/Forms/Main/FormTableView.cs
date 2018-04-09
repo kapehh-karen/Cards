@@ -60,6 +60,11 @@ namespace Core.Forms.Main
             toolStripStatusLabelAmount.Text = $"Всего записей: {tableDataGridView1.CurrentDataView.Count}";
         }
 
+        private void tableDataGridView1_RedSelectingChanged(object sender, EventArgs e)
+        {
+            toolStripStatusLabelSelectedAmount.Text = $"Выбрано записей: {tableDataGridView1.AmountSelectedItems}";
+        }
+
         private void FormTableView_Load(object sender, EventArgs e)
         {
             PluginListener.Instance.EventFormTableCreated(this);
@@ -150,20 +155,6 @@ namespace Core.Forms.Main
         private void toolStripButtonDelete_Click(object sender, EventArgs e)
         {
             PerformDelete();
-        }
-
-        protected override bool ProcessDialogKey(Keys keyData)
-        {
-            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
-            {
-                if (MessageBox.Show("Выйти из программы?", Consts.ProgramTitle,
-                    MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
-                {
-                    this.Close();
-                    return true;
-                }
-            }
-            return base.ProcessDialogKey(keyData);
         }
 
         private void toolStripButtonFilter_Click(object sender, EventArgs e)

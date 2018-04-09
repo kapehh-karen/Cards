@@ -30,7 +30,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             Properties.Add(new TabIndexProperty(this));
 
             BorderStyle = BorderStyle.FixedSingle;
-            SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            MultiSelect = false;
         }
         
         #region IDesignControl Impl

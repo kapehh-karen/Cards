@@ -36,6 +36,7 @@
             this.tableDataGridView1 = new Core.Forms.Main.TableDataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelAmount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelSelectedAmount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -47,9 +48,9 @@
             this.toolStripButtonFilterReset = new System.Windows.Forms.ToolStripButton();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentsExploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -59,6 +60,7 @@
             // tableDataGridView1
             // 
             this.tableDataGridView1.AllowCache = false;
+            this.tableDataGridView1.AllowMultiSelect = true;
             this.tableDataGridView1.AllowUserToAddRows = false;
             this.tableDataGridView1.AllowUserToDeleteRows = false;
             this.tableDataGridView1.AllowUserToOrderColumns = true;
@@ -85,7 +87,6 @@
             this.tableDataGridView1.InDesigner = false;
             this.tableDataGridView1.KeepSelectedColumn = null;
             this.tableDataGridView1.Location = new System.Drawing.Point(5, 106);
-            this.tableDataGridView1.MultiSelect = false;
             this.tableDataGridView1.Name = "tableDataGridView1";
             this.tableDataGridView1.ParentControl = null;
             this.tableDataGridView1.ParentField = null;
@@ -100,13 +101,15 @@
             this.tableDataGridView1.Table = null;
             this.tableDataGridView1.TableStorageInformation = null;
             this.tableDataGridView1.TableStorageType = Core.Storage.Tables.TableStorageType.Table;
+            this.tableDataGridView1.RedSelectingChanged += new System.EventHandler(this.tableDataGridView1_RedSelectingChanged);
             this.tableDataGridView1.PressedKey += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedKey);
             this.tableDataGridView1.PressedClick += new System.Windows.Forms.KeyEventHandler(this.tableDataGridView1_PressedKey);
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabelAmount});
+            this.toolStripStatusLabelAmount,
+            this.toolStripStatusLabelSelectedAmount});
             this.statusStrip1.Location = new System.Drawing.Point(0, 511);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(814, 22);
@@ -118,6 +121,16 @@
             this.toolStripStatusLabelAmount.Name = "toolStripStatusLabelAmount";
             this.toolStripStatusLabelAmount.Size = new System.Drawing.Size(96, 17);
             this.toolStripStatusLabelAmount.Text = "Всего записей: -";
+            // 
+            // toolStripStatusLabelSelectedAmount
+            // 
+            this.toolStripStatusLabelSelectedAmount.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripStatusLabelSelectedAmount.ForeColor = System.Drawing.Color.Red;
+            this.toolStripStatusLabelSelectedAmount.Name = "toolStripStatusLabelSelectedAmount";
+            this.toolStripStatusLabelSelectedAmount.Size = new System.Drawing.Size(703, 17);
+            this.toolStripStatusLabelSelectedAmount.Spring = true;
+            this.toolStripStatusLabelSelectedAmount.Text = "Выбрано записей: 0";
+            this.toolStripStatusLabelSelectedAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // toolStrip1
             // 
@@ -247,13 +260,6 @@
             this.programToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
             this.programToolStripMenuItem.Text = "Программа";
             // 
-            // exitProgramToolStripMenuItem
-            // 
-            this.exitProgramToolStripMenuItem.Name = "exitProgramToolStripMenuItem";
-            this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.exitProgramToolStripMenuItem.Text = "Выйти из программы";
-            this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
-            // 
             // documentsExploreToolStripMenuItem
             // 
             this.documentsExploreToolStripMenuItem.Name = "documentsExploreToolStripMenuItem";
@@ -265,6 +271,13 @@
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(239, 6);
+            // 
+            // exitProgramToolStripMenuItem
+            // 
+            this.exitProgramToolStripMenuItem.Name = "exitProgramToolStripMenuItem";
+            this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.exitProgramToolStripMenuItem.Text = "Выйти из программы";
+            this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
             // 
             // FormTableView
             // 
@@ -313,5 +326,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitProgramToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem documentsExploreToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSelectedAmount;
     }
 }

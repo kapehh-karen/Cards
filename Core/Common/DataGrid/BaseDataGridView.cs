@@ -23,13 +23,13 @@ namespace Core.Common.DataGrid
         public BaseDataGridView()
         {
             BackgroundColor = Color.White;
-            MultiSelect = false;
             AllowUserToAddRows = false;
             AllowUserToDeleteRows = false;
             AllowUserToOrderColumns = true;
             ReadOnly = true;
             StandardTab = true;
             ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             AutoGenerateColumns = false; // По-дефолту вырубаю, а там где надо включаю
 
             // Set the selection background color for all the cells.

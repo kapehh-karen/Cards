@@ -9,11 +9,14 @@ using Core.Helper;
 using Core.Storage.Tables;
 using Core.Storage.Tables.TableStorageData;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -26,8 +29,11 @@ namespace Core.Forms.Main
         {
             DoubleBuffered = true;
             BorderStyle = BorderStyle.Fixed3D;
+            MultiSelect = true;
+
+            RowPrePaint += TableDataGridView_RowPrePaint;
         }
-        
+
         /// <summary>
         /// Используется в режиме классификатора. Содержит ссылку на поле для которого используется классификатор.
         /// </summary>
@@ -44,7 +50,7 @@ namespace Core.Forms.Main
             get => CurrentRow == null ? null : Rows[CurrentRow.Index].Cells[FieldID.Name].Value;
             set => needSelectID = value;
         }
-        
+
         /// <summary>
         /// Используется когда требуется поддержка кеша, и наоборот
         /// </summary>
@@ -104,14 +110,14 @@ namespace Core.Forms.Main
                 this.DataSource = CurrentDataView;
             }
         }
-        
+
         #region Post-processing for data bindings
 
         private object needSelectID;
         private bool firstAfterBind;
 
         public DataGridViewColumn KeepSelectedColumn { get; set; }
-        
+
         private void TrySelectCell(DataGridViewRow row)
         {
             if (row == null)
@@ -141,7 +147,7 @@ namespace Core.Forms.Main
 
                     TrySelectCell(findedRow);
                 }
-                
+
                 firstAfterBind = false;
                 needSelectID = null;
             }
@@ -150,7 +156,7 @@ namespace Core.Forms.Main
                 TrySelectCell(CurrentRow);
             }
         }
-        
+
         protected override void OnDataSourceChanged(EventArgs e)
         {
             base.OnDataSourceChanged(e);
@@ -214,7 +220,88 @@ namespace Core.Forms.Main
                 .ForEach(TableStorageInformation.AddColumn);
             return true;
         }
+
+        #endregion
+
+        #region MultiSelection Rows
+
+        ArrayList selectedItems = new ArrayList();
+
+        public bool AllowMultiSelect { get; set; } = false;
+
+        public event EventHandler RedSelectingChanged = (s, e) => { };
+
+        public int AmountSelectedItems => selectedItems.Count;
+
+        public IEnumerable<int> GetSelectedItems => selectedItems.Cast<int>();
         
+        private object IdByRowIndex(int index) => Rows[index].Cells[FieldID.Name].Value;
+
+        private void TableDataGridView_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (!AllowMultiSelect)
+                return;
+
+            if (selectedItems.Contains(IdByRowIndex(e.RowIndex)))
+            {
+                e.PaintParts &= ~DataGridViewPaintParts.Background;
+
+                // Paint the custom selection background.
+                e.Graphics.FillRectangle(Brushes.Crimson,
+                    RowHeadersWidth,
+                    e.RowBounds.Top,
+                    Columns.GetColumnsWidth(DataGridViewElementStates.Visible) - HorizontalScrollingOffset + 1,
+                    e.RowBounds.Height);
+
+                // Paint the custom selection background.
+                e.Graphics.FillRectangle(Brushes.DarkRed,
+                    0,
+                    e.RowBounds.Top,
+                    RowHeadersWidth,
+                    e.RowBounds.Height);
+            }
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (AllowMultiSelect)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Space:
+                        bool isFirst = true;
+                        bool selectionDirection = false;
+                        foreach (DataGridViewRow row in SelectedRows)
+                        {
+                            var id = IdByRowIndex(row.Index);
+
+                            if (isFirst)
+                            {
+                                selectionDirection = !selectedItems.Contains(id);
+                                isFirst = false;
+                            }
+
+                            if (selectionDirection && !selectedItems.Contains(id))
+                                selectedItems.Add(id);
+                            else if (!selectionDirection)
+                                selectedItems.Remove(id);
+
+                            InvalidateRow(row.Index);
+                        }
+                        RedSelectingChanged(this, EventArgs.Empty);
+                        break;
+
+                    case Keys.Escape:
+                        selectedItems.Clear();
+                        Invalidate();
+                        RedSelectingChanged(this, EventArgs.Empty);
+                        break;
+                }
+            }
+
+            base.OnKeyDown(e);
+        }
+
         #endregion
     }
 }
