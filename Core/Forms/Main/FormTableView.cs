@@ -5,6 +5,7 @@ using Core.Data.Table;
 using Core.Filter.Data;
 using Core.Filter.Forms;
 using Core.Forms.Main.CardForm;
+using Core.GroupEdit.Forms;
 using Core.Helper;
 using Core.Notification;
 using Core.Storage.Documents;
@@ -193,6 +194,24 @@ namespace Core.Forms.Main
             DocStorage.Instance.OpenDocumentsFolder();
         }
 
+        private void toolStripButtonGroupEdit_Click(object sender, EventArgs e)
+        {
+            if (tableDataGridView1.CountSelectedItems > 0)
+            {
+                using (var dialog = new FormGroupEdit() { Table = this.Table })
+                {
+                    if (dialog.ShowDialog() == DialogResult.OK)
+                    {
+                        FillTable();
+                    }
+                }
+            }
+            else
+            {
+                NotificationMessage.Error("Для групповой корректировки требуется выбрать хотя бы одну запись.");
+            }
+        }
+
         #region API
 
         /// <summary>
@@ -217,7 +236,7 @@ namespace Core.Forms.Main
         /// Возвращает ID выделенных записей
         /// </summary>
         /// <returns></returns>
-        public ArrayList GetSelectedItems() => tableDataGridView1.SelectedItems;
+        public HashSet<object> GetSelectedItems() => tableDataGridView1.SelectedItems;
 
         #endregion
     }

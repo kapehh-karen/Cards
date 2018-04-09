@@ -228,7 +228,7 @@ namespace Core.Forms.Main
 
         #region MultiSelection Rows
 
-        ArrayList selectedItems = new ArrayList();
+        HashSet<object> selectedItems = new HashSet<object>();
 
         public bool AllowMultiSelect { get; set; } = false;
 
@@ -236,7 +236,7 @@ namespace Core.Forms.Main
 
         public int CountSelectedItems => selectedItems.Count;
 
-        public ArrayList SelectedItems => selectedItems;
+        public HashSet<object> SelectedItems => selectedItems;
         
         private object IdByRowIndex(int index) => Rows[index].Cells[FieldID.Name].Value;
 
@@ -290,7 +290,7 @@ namespace Core.Forms.Main
                                 isFirst = false;
                             }
 
-                            if (selectionDirection && !selectedItems.Contains(id))
+                            if (selectionDirection)
                                 selectedItems.Add(id);
                             else if (!selectionDirection)
                                 selectedItems.Remove(id);

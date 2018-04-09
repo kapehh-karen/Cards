@@ -51,6 +51,8 @@
             this.documentsExploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonGroupEdit = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -119,7 +121,7 @@
             // toolStripStatusLabelAmount
             // 
             this.toolStripStatusLabelAmount.Name = "toolStripStatusLabelAmount";
-            this.toolStripStatusLabelAmount.Size = new System.Drawing.Size(96, 17);
+            this.toolStripStatusLabelAmount.Size = new System.Drawing.Size(97, 17);
             this.toolStripStatusLabelAmount.Text = "Всего записей: 0";
             // 
             // toolStripStatusLabelSelectedAmount
@@ -127,7 +129,7 @@
             this.toolStripStatusLabelSelectedAmount.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.toolStripStatusLabelSelectedAmount.ForeColor = System.Drawing.Color.Black;
             this.toolStripStatusLabelSelectedAmount.Name = "toolStripStatusLabelSelectedAmount";
-            this.toolStripStatusLabelSelectedAmount.Size = new System.Drawing.Size(703, 17);
+            this.toolStripStatusLabelSelectedAmount.Size = new System.Drawing.Size(702, 17);
             this.toolStripStatusLabelSelectedAmount.Spring = true;
             this.toolStripStatusLabelSelectedAmount.Text = "Выбрано записей: 0";
             this.toolStripStatusLabelSelectedAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -143,7 +145,9 @@
             this.toolStripButtonDelete,
             this.toolStripSeparator2,
             this.toolStripButtonFilter,
-            this.toolStripButtonFilterReset});
+            this.toolStripButtonFilterReset,
+            this.toolStripSeparator3,
+            this.toolStripButtonGroupEdit});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -279,6 +283,23 @@
             this.exitProgramToolStripMenuItem.Text = "Выйти из программы";
             this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 79);
+            // 
+            // toolStripButtonGroupEdit
+            // 
+            this.toolStripButtonGroupEdit.AutoSize = false;
+            this.toolStripButtonGroupEdit.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolStripButtonGroupEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonGroupEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonGroupEdit.Name = "toolStripButtonGroupEdit";
+            this.toolStripButtonGroupEdit.Size = new System.Drawing.Size(80, 76);
+            this.toolStripButtonGroupEdit.Text = "Заполнить";
+            this.toolStripButtonGroupEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonGroupEdit.Click += new System.EventHandler(this.toolStripButtonGroupEdit_Click);
+            // 
             // FormTableView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -327,5 +348,7 @@
         private System.Windows.Forms.ToolStripMenuItem documentsExploreToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSelectedAmount;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton toolStripButtonGroupEdit;
     }
 }
