@@ -47,11 +47,11 @@
             // 
             // btnAdd
             // 
+            this.btnAdd.Image = global::Core.Properties.Resources.add_s;
             this.btnAdd.Location = new System.Drawing.Point(291, 12);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(37, 23);
+            this.btnAdd.Size = new System.Drawing.Size(37, 28);
             this.btnAdd.TabIndex = 2;
-            this.btnAdd.Text = ">>";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 

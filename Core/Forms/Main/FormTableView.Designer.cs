@@ -251,13 +251,15 @@
             // toolStripButtonGroupEdit
             // 
             this.toolStripButtonGroupEdit.AutoSize = false;
+            this.toolStripButtonGroupEdit.Image = global::Core.Properties.Resources.layers;
             this.toolStripButtonGroupEdit.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.toolStripButtonGroupEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripButtonGroupEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonGroupEdit.Name = "toolStripButtonGroupEdit";
             this.toolStripButtonGroupEdit.Size = new System.Drawing.Size(80, 76);
-            this.toolStripButtonGroupEdit.Text = "Заменить";
+            this.toolStripButtonGroupEdit.Text = "Гр. коррект.";
             this.toolStripButtonGroupEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonGroupEdit.ToolTipText = "Групповая корректировка";
             this.toolStripButtonGroupEdit.Click += new System.EventHandler(this.toolStripButtonGroupEdit_Click);
             // 
             // mainMenuStrip

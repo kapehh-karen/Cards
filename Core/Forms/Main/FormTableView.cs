@@ -198,7 +198,11 @@ namespace Core.Forms.Main
         {
             if (tableDataGridView1.CountSelectedItems > 0)
             {
-                using (var dialog = new FormGroupEdit() { Table = this.Table })
+                using (var dialog = new FormGroupEdit()
+                {
+                    Table = this.Table,
+                    SelectedIDs = tableDataGridView1.SelectedItems
+                })
                 {
                     if (dialog.ShowDialog() == DialogResult.OK)
                     {
