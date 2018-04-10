@@ -46,13 +46,13 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFilter = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonFilterReset = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonGroupEdit = new System.Windows.Forms.ToolStripButton();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentsExploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButtonGroupEdit = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -243,6 +243,23 @@
             this.toolStripButtonFilterReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonFilterReset.Click += new System.EventHandler(this.toolStripButtonFilterReset_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 79);
+            // 
+            // toolStripButtonGroupEdit
+            // 
+            this.toolStripButtonGroupEdit.AutoSize = false;
+            this.toolStripButtonGroupEdit.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.toolStripButtonGroupEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripButtonGroupEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonGroupEdit.Name = "toolStripButtonGroupEdit";
+            this.toolStripButtonGroupEdit.Size = new System.Drawing.Size(80, 76);
+            this.toolStripButtonGroupEdit.Text = "Заменить";
+            this.toolStripButtonGroupEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButtonGroupEdit.Click += new System.EventHandler(this.toolStripButtonGroupEdit_Click);
+            // 
             // mainMenuStrip
             // 
             this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -282,23 +299,6 @@
             this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.exitProgramToolStripMenuItem.Text = "Выйти из программы";
             this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 79);
-            // 
-            // toolStripButtonGroupEdit
-            // 
-            this.toolStripButtonGroupEdit.AutoSize = false;
-            this.toolStripButtonGroupEdit.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.toolStripButtonGroupEdit.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripButtonGroupEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonGroupEdit.Name = "toolStripButtonGroupEdit";
-            this.toolStripButtonGroupEdit.Size = new System.Drawing.Size(80, 76);
-            this.toolStripButtonGroupEdit.Text = "Заполнить";
-            this.toolStripButtonGroupEdit.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripButtonGroupEdit.Click += new System.EventHandler(this.toolStripButtonGroupEdit_Click);
             // 
             // FormTableView
             // 

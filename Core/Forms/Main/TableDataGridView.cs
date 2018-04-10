@@ -292,12 +292,11 @@ namespace Core.Forms.Main
 
                             if (selectionDirection)
                                 selectedItems.Add(id);
-                            else if (!selectionDirection)
+                            else
                                 selectedItems.Remove(id);
-
-                            InvalidateRow(row.Index);
                         }
                         RedSelectingChanged(this, EventArgs.Empty);
+                        Invalidate();
                         break;
 
                     case Keys.Escape:

@@ -1,5 +1,6 @@
 ﻿using Core.Data.Field;
 using Core.Data.Table;
+using Core.GroupEdit.Controls;
 using Core.Helper;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,16 @@ namespace Core.GroupEdit.Forms
             InitializeComponent();
         }
 
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
+        }
+
         private TableData table = null;
         public TableData Table
         {
@@ -35,14 +46,41 @@ namespace Core.GroupEdit.Forms
                 if (table == null)
                     return;
 
-                table.Fields.OrderBy(field => field.DisplayName)
-                    .ForEach(field => lstFields.Items.Add(new ListBoxFieldItem() { Field = field }));
+                table.Fields.ForEach(field => lstFields.Items.Add(new ListBoxFieldItem() { Field = field }));
+                lstFields.Sorted = true;
             }
         }
-
+        
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            lstFields.SelectedItems
+                .Cast<ListBoxFieldItem>()
+                .ToArray()
+                .ForEach(item =>
+                {
+                    var control = new ItemFieldValue() { Field = item.Field };
+                    control.ItemDelete += Control_ItemDelete;
+                    panelContainer.Controls.Add(control);
+                    lstFields.Items.Remove(item);
+                });
+        }
 
+        private void Control_ItemDelete(object sender, EventArgs e)
+        {
+            var control = sender as ItemFieldValue;
+            var item = new ListBoxFieldItem() { Field = control.Field };
+            lstFields.Items.Add(item);
+        }
+
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+            var newValues = panelContainer.Controls
+                .Cast<ItemFieldValue>()
+                .ToDictionary(control => control.Field, control => control.Value);
+
+            // TODO: With WaitDialog
+
+            DialogResult = DialogResult.OK;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Core.Data.Field;
+﻿using Core.Common;
+using Core.Data.Field;
 using Core.Data.Table;
 using Core.Helper;
 using Core.Storage.Tables;
@@ -73,9 +74,11 @@ namespace Core.Forms.Main.TableSetting
                     // Сортируем по отображаемому имени столбцы которые ещё не выбраны
                     lvColumns.Items.AddRange(tableData.Fields
                         .Where(f => !fieldsSelected.Contains(f))
-                        .OrderBy(f => f.DisplayName)
                         .Select(f => new ListViewColumnFieldItem(new TableStorageColumnData() { Field = f }))
                         .ToArray());
+
+                    lvColumns.ListViewItemSorter = new ListViewItemComparer(1);
+                    lvColumns.Sorting = SortOrder.Ascending;
 
                     // Сортируем по Order-у
                     lvSelectedColumns.Items.AddRange(TableStorageInformation.Columns
@@ -144,19 +147,7 @@ namespace Core.Forms.Main.TableSetting
                 }
                 
                 selectedItems.ForEach(lvSelectedColumns.Items.Remove);
-
-                // При возвращении полей, сортируем список
-                var topIndex = lvColumns.TopItem?.Index ?? 0; // Берем индекс верхнего элемента
-                lvColumns.BeginUpdate();
-                lvColumns.Items.AddRange(selectedItems); // Добавляем выделенные элементы из другого списка
-                var sortedItems = lvColumns.Items
-                    .Cast<ListViewColumnFieldItem>()
-                    .OrderBy(item => item.ColumnField.Field.DisplayName)
-                    .ToArray(); // Сортируем
-                lvColumns.Items.Clear();
-                lvColumns.Items.AddRange(sortedItems); // Заполняем отсортированными данными
-                lvColumns.EndUpdate();
-                lvColumns.TopItem = lvColumns.Items[topIndex]; // Задаем верхний видимый элемент с предыдущим выбранным индексом
+                lvColumns.Items.AddRange(selectedItems);
             }
         }
 

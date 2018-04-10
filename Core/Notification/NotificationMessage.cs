@@ -20,6 +20,16 @@ namespace Core.Notification
             Message(message, title, param, NotificationLevel.INFO);
         }
 
+        public static void Warning(string message, params object[] param)
+        {
+            Message(message, Consts.ProgramTitle, param, NotificationLevel.WARNING);
+        }
+
+        public static void Warning(string message, string title = Consts.ProgramTitle, params object[] param)
+        {
+            Message(message, title, param, NotificationLevel.WARNING);
+        }
+
         public static void Error(string message, params object[] param)
         {
             Message(message, Consts.ProgramTitle, param, NotificationLevel.ERROR);
@@ -38,6 +48,16 @@ namespace Core.Notification
         public static void SystemInfo(string message, params object[] param)
         {
             Message(message, Consts.ProgramTitle, param, NotificationLevel.SYSTEM_INFO);
+        }
+
+        public static void SystemWarning(string message, params object[] param)
+        {
+            Message(message, Consts.ProgramTitle, param, NotificationLevel.SYSTEM_WARNING);
+        }
+
+        public static void SystemWarning(string message, string title = Consts.ProgramTitle, params object[] param)
+        {
+            Message(message, title, param, NotificationLevel.SYSTEM_WARNING);
         }
 
         public static void SystemError(string message, string title = Consts.ProgramTitle, params object[] param)

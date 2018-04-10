@@ -208,7 +208,7 @@ namespace Core.Forms.Main
             }
             else
             {
-                NotificationMessage.Error("Для групповой корректировки требуется выбрать хотя бы одну запись.");
+                NotificationMessage.Warning("Для групповой корректировки требуется выбрать хотя бы одну запись.");
             }
         }
 

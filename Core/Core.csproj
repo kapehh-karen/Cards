@@ -72,6 +72,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\DataGrid\DataGridType.cs" />
+    <Compile Include="Common\ListViewItemComparer.cs" />
     <Compile Include="Config\CardsFile.cs" />
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\DataBaseConfigLoader.cs" />
@@ -372,6 +373,18 @@
     <Compile Include="Forms\Main\TableSetting\TableColumnSettingForm.Designer.cs">
       <DependentUpon>TableColumnSettingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupEdit\Controls\ControlFieldValue.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GroupEdit\Controls\ControlFieldValue.Designer.cs">
+      <DependentUpon>ControlFieldValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GroupEdit\Controls\ItemFieldValue.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GroupEdit\Controls\ItemFieldValue.Designer.cs">
+      <DependentUpon>ItemFieldValue.cs</DependentUpon>
+    </Compile>
     <Compile Include="GroupEdit\Forms\FormGroupEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -496,6 +509,12 @@
     <EmbeddedResource Include="Forms\Main\TableSetting\TableColumnSettingForm.resx">
       <DependentUpon>TableColumnSettingForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GroupEdit\Controls\ControlFieldValue.resx">
+      <DependentUpon>ControlFieldValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupEdit\Controls\ItemFieldValue.resx">
+      <DependentUpon>ItemFieldValue.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GroupEdit\Forms\FormGroupEdit.resx">
       <DependentUpon>FormGroupEdit.cs</DependentUpon>
     </EmbeddedResource>
@@ -570,5 +589,6 @@
   <ItemGroup>
     <None Include="Resources\terminal.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
