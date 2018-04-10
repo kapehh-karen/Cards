@@ -108,7 +108,7 @@ namespace Core.Helper
                 {
                     transaction.Rollback();
 
-                    NotificationMessage.Error($"Ошибка при удалении:\r\n\r\n{ex.Message}");
+                    NotificationMessage.Error($"Ошибка при удалении:\r\n\r\n{ex.Message}\r\n\r\n{ex.StackTrace}");
                 }
 
                 transaction.Dispose();

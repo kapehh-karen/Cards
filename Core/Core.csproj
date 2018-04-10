@@ -77,6 +77,12 @@
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\DataBaseConfigLoader.cs" />
     <Compile Include="Connection\DataBaseConnection.cs" />
+    <Compile Include="Connection\Forms\FormSQLException.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Connection\Forms\FormSQLException.Designer.cs">
+      <DependentUpon>FormSQLException.cs</DependentUpon>
+    </Compile>
     <Compile Include="Connection\SQLServerConnection.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Data\Base\DataBase.cs" />
@@ -425,6 +431,9 @@
     <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Connection\Forms\FormSQLException.resx">
+      <DependentUpon>FormSQLException.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Filter\Controls\Conditions\ContainerConditionControl.resx">
       <DependentUpon>ContainerConditionControl.cs</DependentUpon>
     </EmbeddedResource>

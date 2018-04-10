@@ -32,10 +32,11 @@ namespace Core.Helper
             {
                 Result = runInThread();
 
-                if (form.InvokeRequired)
-                    form.BeginInvoke((Action)(() => form.Close()));
-                else
-                    form.Close();
+                if (form != null)
+                    if (form.InvokeRequired)
+                        form.BeginInvoke((Action)(() => form.Close()));
+                    else
+                        form.Close();
             }).Start(this);
 
             form.ShowDialog();

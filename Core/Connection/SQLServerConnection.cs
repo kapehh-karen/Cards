@@ -1,10 +1,13 @@
-﻿using Core.Data.Base;
+﻿using Core.Connection.Forms;
+using Core.Data.Base;
 using Core.Notification;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace Core.Connection
 {
@@ -35,29 +38,59 @@ namespace Core.Connection
 
         public SQLServerConnection(string server, int port, string user, string pass, string basename)
         {
-            conn = new SqlConnection()
-            {
-                ConnectionString = $@"server='tcp:{server},{port}'; uid='{user}'; pwd='{pass}'; database='{basename}'; Connection Timeout=5"
-            };
+            bool retry;
 
-            try
+            do
             {
-                conn.Open();
-                connected = true;
+                retry = false;
+
+                conn = new SqlConnection()
+                {
+                    ConnectionString = $@"server='tcp:{server},{port}'; uid='{user}'; pwd='{pass}'; database='{basename}'; Connection Timeout=5"
+                };
+
+                try
+                {
+                    conn.Open();
+                    connected = true;
+                }
+                catch (SqlException e)
+                {
+                    connected = false;
+                    DoDispose();
+                    using (var dialog = new FormSQLException() { Error = e })
+                    {
+                        retry = dialog.ShowDialog() == DialogResult.Retry;
+                        if (retry)
+                            Thread.Sleep(300);
+                    }
+                }
             }
-            catch (Exception e)
+            while (retry);
+        }
+
+        public SqlConnection Connection
+        {
+            get
             {
-                NotificationMessage.Error($"Произошла ошибка при соединении с базой данных: {e.Message}", e);
-                connected = false;
+                if (!connected)
+                    throw new InvalidOperationException("Соединение отсутствует. Дальнейшая работа невозможна.");
+
+                return conn;
             }
         }
 
-        public SqlConnection Connection => conn;
+        private void DoDispose()
+        {
+            conn.Close();
+            conn.Dispose();
+            conn = null;
+        }
 
         public void Dispose()
         {
             if (connected)
-                conn.Close();
+                DoDispose();
         }
     }
 }
