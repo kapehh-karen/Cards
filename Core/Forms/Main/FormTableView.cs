@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -214,6 +215,18 @@ namespace Core.Forms.Main
             {
                 NotificationMessage.Warning("Для групповой корректировки требуется выбрать хотя бы одну запись.");
             }
+        }
+
+        private void saveToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var fileName = DocStorage.Instance.GenerateFileName("Экспорт данных", "xlsx");
+            var success = WaitDialog.Run("Экспортируются данные...", () =>
+            {
+                ExcelHelper.SaveDataGridViewToExcel(fileName, tableDataGridView1);
+                return true;
+            });
+            if (success)
+                DocStorage.Instance.OpenDocumentFile(fileName);
         }
 
         #region API

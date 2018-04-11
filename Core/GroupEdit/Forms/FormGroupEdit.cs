@@ -126,7 +126,7 @@ namespace Core.GroupEdit.Forms
                     {
                         // Добавляем значения для полей
                         command.Parameters.AddWithValue("@row_id", 0);
-                        values.ForEach(item => command.Parameters.AddWithValue($"@var_{item.Key.Name}", item.Value));
+                        values.ForEach(item => command.Parameters.AddWithValue($"@var_{item.Key.Name}", item.Value ?? DBNull.Value));
                         // Выполняем замену для каждой выделенной записи
                         SelectedIDs.ForEach(id =>
                         {

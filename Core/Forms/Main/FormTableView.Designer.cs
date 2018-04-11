@@ -53,6 +53,8 @@
             this.documentsExploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -277,11 +279,13 @@
             this.programToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.documentsExploreToolStripMenuItem,
             this.toolStripMenuItem1,
+            this.saveToExcelToolStripMenuItem,
+            this.toolStripMenuItem2,
             this.exitProgramToolStripMenuItem});
             this.programToolStripMenuItem.Image = global::Core.Properties.Resources.terminal;
             this.programToolStripMenuItem.Name = "programToolStripMenuItem";
-            this.programToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
-            this.programToolStripMenuItem.Text = "Программа";
+            this.programToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.programToolStripMenuItem.Text = "Меню";
             // 
             // documentsExploreToolStripMenuItem
             // 
@@ -301,6 +305,18 @@
             this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.exitProgramToolStripMenuItem.Text = "Выйти из программы";
             this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
+            // 
+            // saveToExcelToolStripMenuItem
+            // 
+            this.saveToExcelToolStripMenuItem.Name = "saveToExcelToolStripMenuItem";
+            this.saveToExcelToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.saveToExcelToolStripMenuItem.Text = "Сохранить данные в Excel";
+            this.saveToExcelToolStripMenuItem.Click += new System.EventHandler(this.saveToExcelToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(239, 6);
             // 
             // FormTableView
             // 
@@ -352,5 +368,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSelectedAmount;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButtonGroupEdit;
+        private System.Windows.Forms.ToolStripMenuItem saveToExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
     }
 }

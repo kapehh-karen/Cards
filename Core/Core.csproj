@@ -49,6 +49,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>lib\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>lib\Ionic.Zip.dll</HintPath>
     </Reference>
@@ -399,6 +402,7 @@
     </Compile>
     <Compile Include="Helper\DesignControlHelper.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
+    <Compile Include="Helper\ExcelHelper.cs" />
     <Compile Include="Helper\FieldHelper.cs" />
     <Compile Include="Helper\FileSystemHelper.cs" />
     <Compile Include="Helper\IterableHelper.cs" />
