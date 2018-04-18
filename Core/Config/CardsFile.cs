@@ -99,18 +99,17 @@ namespace Core.Config
             // Если требуется загрузить плагины
             if (allowLoadPlugins)
             {
-                foreach (var entry in zip.Entries
-                    .Where(item => item.FileName.StartsWith("plugins/") && item.FileName.EndsWith(".dll")))
-                {
-                    var pluginAssembly = AssemblyManager.Instance.LoadFromStream(entry.OpenReader());
-                    PluginManager.Instance.LoadPlugin(pluginAssembly);
-                }
-
                 // Загружаем библиотеки для плагинов
                 foreach (var entry in zip.Entries
                     .Where(item => item.FileName.StartsWith("lib/") && item.FileName.EndsWith(".dll")))
                 {
                     AssemblyManager.Instance.LoadFromStream(entry.OpenReader());
+                }
+
+                foreach (var entry in zip.Entries
+                    .Where(item => item.FileName.StartsWith("plugins/") && item.FileName.EndsWith(".dll")))
+                {
+                    PluginManager.Instance.LoadPlugin(AssemblyManager.Instance.LoadFromStream(entry.OpenReader()));
                 }
             }
 

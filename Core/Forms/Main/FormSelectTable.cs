@@ -34,6 +34,8 @@ namespace Core.Forms.Main
 
             Base?.Tables
                 .Where(t => t.Visible)
+                .OrderBy(t => t.IsClassifier)
+                .ThenBy(t => t.DisplayName)
                 .ForEach(t =>
                 {
                     var item = new ListViewItem(t.DisplayName);
@@ -52,6 +54,16 @@ namespace Core.Forms.Main
                 SelectedTableData = table;
                 DialogResult = DialogResult.OK;
             }
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }

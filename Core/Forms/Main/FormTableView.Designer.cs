@@ -303,7 +303,7 @@
             // 
             this.exitProgramToolStripMenuItem.Name = "exitProgramToolStripMenuItem";
             this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.exitProgramToolStripMenuItem.Text = "Выйти из программы";
+            this.exitProgramToolStripMenuItem.Text = "Открыть другую таблицу";
             this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
             // 
             // saveToExcelToolStripMenuItem

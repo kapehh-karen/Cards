@@ -187,7 +187,7 @@ namespace Core.Forms.Main
 
         private void exitProgramToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult = DialogResult.Ignore;
         }
 
         private void documentsExploreToolStripMenuItem_Click(object sender, EventArgs e)
@@ -227,6 +227,16 @@ namespace Core.Forms.Main
             });
             if (success)
                 DocStorage.Instance.OpenDocumentFile(fileName);
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Ignore;
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
         }
 
         #region API

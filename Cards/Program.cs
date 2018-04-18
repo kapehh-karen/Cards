@@ -28,15 +28,13 @@ namespace Cards
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
             if (args.Length > 0)
             {
                 CardsFile.Initialize(args[0]);
                 if (WaitDialog.Run($"Идет загрузка конфигурационного файла \"{CardsFile.Current.ShortFileName}\"",
                                    () => !CardsFile.Current.Load()))
-                {
                     return;
-                }
             }
             else
             {
@@ -44,34 +42,40 @@ namespace Cards
                 return;
             }
 
-            TableData selectedTable = null;
-            using (var dialogSelectTable = new FormSelectTable()
+            bool needSelectTable;
+            do
             {
-                Base = SQLServerConnection.DefaultDataBase,
-                FileName = CardsFile.Current.ShortFileName
-            })
-            {
-                if (dialogSelectTable.ShowDialog() == DialogResult.OK)
-                {
-                    selectedTable = dialogSelectTable.SelectedTableData;
-                }
-            }
+                TableData selectedTable = null;
+                needSelectTable = false;
 
-            if (selectedTable != null)
-            {
-                var dialog = new FormTableView()
+                using (var dialogSelectTable = new FormSelectTable()
                 {
                     Base = SQLServerConnection.DefaultDataBase,
-                    Table = selectedTable
-                };
-                dialog.FillTable();
-                Application.Run(dialog);
-            }
+                    FileName = CardsFile.Current.ShortFileName
+                })
+                {
+                    if (dialogSelectTable.ShowDialog() == DialogResult.OK)
+                        selectedTable = dialogSelectTable.SelectedTableData;
+                }
+
+                if (selectedTable != null)
+                {
+                    using (var dialog = new FormTableView()
+                    {
+                        Base = SQLServerConnection.DefaultDataBase,
+                        Table = selectedTable
+                    })
+                    {
+                        dialog.FillTable();
+                        needSelectTable = dialog.ShowDialog() == DialogResult.Ignore;
+                    }
+                }
+            } while (needSelectTable);
 
             // Выгружаем все плагины после работы
             PluginManager.Instance.UnloadAllPlugins();
         }
-        
+
         private static void NotificationMessage_ReceiveMessage(string message, string title, object[] param, NotificationLevel level)
         {
             var msgBoxIcon = MessageBoxIcon.None;

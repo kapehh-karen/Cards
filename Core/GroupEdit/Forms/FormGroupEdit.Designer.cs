@@ -33,6 +33,7 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.panelContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRun = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstFields
@@ -40,15 +41,15 @@
             this.lstFields.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.lstFields.FormattingEnabled = true;
-            this.lstFields.Location = new System.Drawing.Point(12, 12);
+            this.lstFields.Location = new System.Drawing.Point(12, 25);
             this.lstFields.Name = "lstFields";
-            this.lstFields.Size = new System.Drawing.Size(273, 381);
+            this.lstFields.Size = new System.Drawing.Size(273, 355);
             this.lstFields.TabIndex = 0;
             // 
             // btnAdd
             // 
             this.btnAdd.Image = global::Core.Properties.Resources.add_s;
-            this.btnAdd.Location = new System.Drawing.Point(291, 12);
+            this.btnAdd.Location = new System.Drawing.Point(291, 25);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(37, 28);
             this.btnAdd.TabIndex = 2;
@@ -62,9 +63,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelContainer.AutoScroll = true;
             this.panelContainer.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.panelContainer.Location = new System.Drawing.Point(334, 12);
+            this.panelContainer.Location = new System.Drawing.Point(334, 25);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(445, 354);
+            this.panelContainer.Size = new System.Drawing.Size(445, 327);
             this.panelContainer.TabIndex = 4;
             this.panelContainer.WrapContents = false;
             // 
@@ -73,7 +74,7 @@
             this.btnRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRun.Image = global::Core.Properties.Resources.checkmark;
             this.btnRun.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnRun.Location = new System.Drawing.Point(646, 372);
+            this.btnRun.Location = new System.Drawing.Point(646, 358);
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(133, 40);
             this.btnRun.TabIndex = 3;
@@ -82,11 +83,22 @@
             this.btnRun.UseVisualStyleBackColor = true;
             this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(156, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Поля для корректировки";
+            // 
             // FormGroupEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(791, 421);
+            this.ClientSize = new System.Drawing.Size(791, 407);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panelContainer);
             this.Controls.Add(this.btnRun);
             this.Controls.Add(this.btnAdd);
@@ -97,6 +109,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Групповая корректировка";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -106,5 +119,6 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.FlowLayoutPanel panelContainer;
+        private System.Windows.Forms.Label label1;
     }
 }
