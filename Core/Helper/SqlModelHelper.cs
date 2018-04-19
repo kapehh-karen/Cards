@@ -159,7 +159,7 @@ namespace Core.Helper
             });
         }
 
-        private static void ModelBindDataFill(SqlConnection connection, CardModel model, TableData tableModel)
+        private static void ModelBindDataFill(SqlConnection connection, CardModel model, TableData tableModel, int depthBindData = 1, int depthLinkedData = 1)
         {
             tableModel.Fields.Where(f => f.Type == FieldType.BIND).ForEach(f =>
             {
@@ -167,12 +167,16 @@ namespace Core.Helper
 
                 if (modelFieldValue.Value != null)
                 {
-                    modelFieldValue.BindData = GetById(connection, modelFieldValue.Field.BindData.Table, modelFieldValue.Value, false, false);
+                    modelFieldValue.BindData = GetById(connection,
+                        modelFieldValue.Field.BindData.Table,
+                        modelFieldValue.Value,
+                        depthBindData - 1,
+                        depthLinkedData - 1);
                 }
             });
         }
 
-        public static CardModel GetById(SqlConnection connection, TableData tableModel, object id, bool includeBindData = true, bool includeLinkedData = true)
+        public static CardModel GetById(SqlConnection connection, TableData tableModel, object id, int depthBindData = 1, int depthLinkedData = 1)
         {
             if (id == null)
                 return null;
@@ -199,19 +203,18 @@ namespace Core.Helper
             }
 
             // Получаем связанные значения
-            if (includeBindData)
+            if (depthBindData > 0)
             {
-                ModelBindDataFill(connection, model, tableModel);
+                ModelBindDataFill(connection, model, tableModel, depthBindData, depthLinkedData);
             }
 
             // Получаем внешние данные
-            if (includeLinkedData)
+            if (depthLinkedData > 0)
             {
                 tableModel.LinkedTables.ForEach(lt =>
                 {
                     var linkedItem = model.LinkedValues.Find(lv => lv.LinkedTable.Equals(lt));
                     var queryLinkedItem = $"SELECT * FROM [{lt.Table.Name}] WHERE [{lt.Field.Name}] = @{lt.Field.Name}";
-
                     using (var command = new SqlCommand(queryLinkedItem, connection))
                     {
                         command.Parameters.Add(new SqlParameter(lt.Field.Name, id));
@@ -220,17 +223,14 @@ namespace Core.Helper
                             while (reader.Read())
                             {
                                 var innerModel = CardModel.CreateFromTable(lt.Table);
-
                                 ModelFieldsFill(innerModel, lt.Table, reader);
-
                                 linkedItem.Items.Add(innerModel);
                             }
                         }
                     }
-
-                    linkedItem.Items.ForEach(innerModel => ModelBindDataFill(connection, innerModel, lt.Table));
+                    linkedItem.Items.ForEach(innerModel =>
+                        ModelBindDataFill(connection, innerModel, lt.Table, depthBindData, depthLinkedData));
                 });
-
                 // Так как получены внешние данные, то эта запись не заглушка
                 model.IsEmpty = false;
             }
