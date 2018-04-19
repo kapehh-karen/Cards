@@ -31,7 +31,7 @@ namespace Core.Config
         private DataBase LoadFromBase(DataBase dataBaseConfig)
         {
             var dataBase = dataBaseConfig ?? new DataBase();
-            
+
             if (string.IsNullOrEmpty(dataBaseConfig?.Sever)
                 || string.IsNullOrEmpty(dataBaseConfig?.UserName)
                 || string.IsNullOrEmpty(dataBaseConfig?.Password)
@@ -42,11 +42,12 @@ namespace Core.Config
             }
 
             var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server",
-                                     () => new SQLServerConnection(dataBaseConfig?.Sever,
+                                     (s) => new SQLServerConnection(dataBaseConfig?.Sever,
                                                                    dataBaseConfig?.Port ?? 0,
                                                                    dataBaseConfig?.UserName,
                                                                    dataBaseConfig?.Password,
-                                                                   dataBaseConfig?.BaseName));
+                                                                   dataBaseConfig?.BaseName,
+                                                                   false));
 
             var conn = dbc.Connection;
 
@@ -110,7 +111,7 @@ namespace Core.Config
                 // Оставляем только те поля, которые получены в схеме таблицы
                 tableData.Fields = tableData.Fields.Where(fd => fieldNames.Contains(fd.Name)).ToList();
             }
-            
+
             // Оставляем только те таблицы, которые есть в базе
             dataBase.Tables = dataBase.Tables.Where(td => tableNames.Contains(td.Name)).ToList();
 

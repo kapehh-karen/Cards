@@ -36,7 +36,7 @@ namespace Core.Connection
         {
         }
 
-        public SQLServerConnection(string server, int port, string user, string pass, string basename)
+        public SQLServerConnection(string server, int port, string user, string pass, string basename, bool acceptRetry = true)
         {
             bool retry;
 
@@ -57,34 +57,31 @@ namespace Core.Connection
                 catch (SqlException e)
                 {
                     connected = false;
-                    DoDispose();
-                    using (var dialog = new FormSQLException() { Error = e })
+                    if (acceptRetry)
                     {
-                        retry = dialog.ShowDialog() == DialogResult.Retry;
-                        if (retry)
-                            Thread.Sleep(300);
+                        DoDispose();
+                        using (var dialog = new FormSQLException() { Error = e })
+                        {
+                            retry = dialog.ShowDialog() == DialogResult.Retry;
+                            if (retry)
+                                Thread.Sleep(300);
+                        }
                     }
                 }
             }
             while (retry);
         }
 
-        public SqlConnection Connection
-        {
-            get
-            {
-                if (!connected)
-                    throw new InvalidOperationException("Соединение отсутствует. Дальнейшая работа невозможна.");
-
-                return conn;
-            }
-        }
+        public SqlConnection Connection => conn;
 
         private void DoDispose()
         {
-            conn.Close();
-            conn.Dispose();
-            conn = null;
+            if (conn != null)
+            {
+                conn.Close();
+                conn.Dispose();
+                conn = null;
+            }
         }
 
         public void Dispose()

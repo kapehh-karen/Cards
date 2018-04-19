@@ -86,6 +86,7 @@
     <Compile Include="Connection\Forms\FormSQLException.Designer.cs">
       <DependentUpon>FormSQLException.cs</DependentUpon>
     </Compile>
+    <Compile Include="Connection\SQLConnectionException.cs" />
     <Compile Include="Connection\SQLServerConnection.cs" />
     <Compile Include="Consts.cs" />
     <Compile Include="Data\Base\DataBase.cs" />

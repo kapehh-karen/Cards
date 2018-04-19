@@ -13,10 +13,11 @@ namespace Core.Helper
 {
     public static class ExcelHelper
     {
-        public static void SaveDataGridViewToExcel(string fileName, DataGridView dataGridView)
+        public static void SaveDataGridViewToExcel(WaitDialog waitDialog, string fileName, DataGridView dataGridView)
         {
             var visibleColumns = dataGridView.Columns.Cast<DataGridViewColumn>().Where(col => col.Visible).ToList();
             var colCount = visibleColumns.Count;
+            var rowCount = dataGridView.Rows.Count;
 
             using (var p = new ExcelPackage())
             {
@@ -39,9 +40,12 @@ namespace Core.Helper
                         ws.Column(i).Style.Numberformat.Format = "dd.MM.yyyy";
                 }
 
-                for (var i = 1; i <= dataGridView.Rows.Count; i++)
+                for (var i = 1; i <= rowCount; i++)
                 {
                     var row = dataGridView.Rows[i - 1];
+
+                    waitDialog.Message = $"Обрабатывается {i} запись из {rowCount}...";
+
                     for (var k = 1; k <= colCount; k++)
                     {
                         var column = visibleColumns[k - 1];

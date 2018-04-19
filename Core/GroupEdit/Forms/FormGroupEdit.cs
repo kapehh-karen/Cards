@@ -98,7 +98,7 @@ namespace Core.GroupEdit.Forms
                         MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                     return;
 
-                var updated = WaitDialog.Run("Выполняется операция замены.", () => DoUpdate(newValues));
+                var updated = WaitDialog.Run("Выполняется операция замены.", (s) => DoUpdate(newValues));
                 if (updated > 0)
                 {
                     NotificationMessage.Info($"Готово! Количество обработанных записей: {updated}");

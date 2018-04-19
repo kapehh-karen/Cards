@@ -42,7 +42,7 @@ namespace Core.Storage.Documents
         {
             if (!File.Exists(fileName))
             {
-                NotificationMessage.SystemError($"Файла \"{fileName}\" не существует! Открыть невозможно.");
+                //NotificationMessage.SystemError($"Файла \"{fileName}\" не существует! Открыть невозможно.");
                 return;
             }
 

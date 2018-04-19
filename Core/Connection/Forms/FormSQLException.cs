@@ -35,8 +35,7 @@ namespace Core.Connection.Forms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-            DialogResult = DialogResult.Abort;
+            Environment.Exit(0);
         }
     }
 }

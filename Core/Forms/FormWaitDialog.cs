@@ -25,7 +25,12 @@ namespace Core.Forms
                 // Изменяем размер формы под ширину текста. Чем больше текста тем шире форма
                 var g = this.CreateGraphics();
                 var rect = g.MeasureString(value, this.Font);
-                Width = (int)rect.Width + 50;
+                this.Width = (int)rect.Width + 50;
+
+                // По центру
+                Rectangle area = Screen.FromControl(this).WorkingArea; 
+                this.Top = (area.Height - this.Height) / 2;
+                this.Left = (area.Width - this.Width) / 2;
             }
         }
     }

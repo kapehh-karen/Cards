@@ -77,7 +77,7 @@ namespace Core.Forms.Main
             if (forceUpdate || needUpdate)
             {
                 // Make SQL request
-                using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", () => new SQLServerConnection()))
+                using (var dbc = WaitDialog.Run("Подождите, идет подключение к SQL Server", (s) => new SQLServerConnection()))
                 {
                     var query = Filter.SQLBuilder.BuildSQLExpression(fields);
                     var connection = dbc.Connection;
@@ -91,7 +91,7 @@ namespace Core.Forms.Main
                         {
                             this.DataSource = null;
                             var data = new DataSet();
-                            WaitDialog.Run("Ожидается ответ от сервера...", () => adapter.Fill(data));
+                            WaitDialog.Run("Ожидается ответ от сервера...", (s) => adapter.Fill(data));
                             CurrentDataTable = data.Tables[0];
                             CurrentDataView.Table = CurrentDataTable;
                             firstAfterBind = true; // Перед биндингом
@@ -141,7 +141,7 @@ namespace Core.Forms.Main
             if (firstAfterBind && needSelectID != null) // Выделение нужной строки при первом открытии
             {
                 var findedRow = WaitDialog.Run("Подождите...",
-                    () => Rows.Cast<DataGridViewRow>().FirstOrDefault(row => needSelectID.Equals(row.Cells[FieldID.Name].Value)));
+                    (s) => Rows.Cast<DataGridViewRow>().FirstOrDefault(row => needSelectID.Equals(row.Cells[FieldID.Name].Value)));
 
                 if (CurrentRow != findedRow)
                 {
