@@ -226,7 +226,7 @@ namespace Core.Forms.Main
 
         protected override bool ProcessDialogKey(Keys keyData)
         {
-            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            if (ModifierKeys == Keys.None && keyData == Keys.Tab)
             {
                 DialogResult = DialogResult.Ignore;
                 return true;
