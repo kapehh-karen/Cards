@@ -50,12 +50,12 @@
             this.cmbLinkedTables.FormattingEnabled = true;
             this.cmbLinkedTables.Location = new System.Drawing.Point(20, 30);
             this.cmbLinkedTables.Name = "cmbLinkedTables";
-            this.cmbLinkedTables.Size = new System.Drawing.Size(252, 21);
+            this.cmbLinkedTables.Size = new System.Drawing.Size(383, 21);
             this.cmbLinkedTables.TabIndex = 1;
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(197, 75);
+            this.btnOK.Location = new System.Drawing.Point(328, 75);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 2;
@@ -65,7 +65,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(116, 75);
+            this.btnCancel.Location = new System.Drawing.Point(247, 75);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;
@@ -85,9 +85,10 @@
             // 
             // FormEditLinkedTable
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 107);
+            this.ClientSize = new System.Drawing.Size(415, 107);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);

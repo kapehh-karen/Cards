@@ -39,21 +39,22 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(17, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.Size = new System.Drawing.Size(181, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Текст";
+            this.label1.Text = "Текст (Ctrl+Enter - перенос строки)";
             // 
             // txtText
             // 
             this.txtText.Location = new System.Drawing.Point(20, 30);
+            this.txtText.Multiline = true;
             this.txtText.Name = "txtText";
-            this.txtText.Size = new System.Drawing.Size(288, 20);
+            this.txtText.Size = new System.Drawing.Size(288, 90);
             this.txtText.TabIndex = 1;
             this.txtText.TextChanged += new System.EventHandler(this.txtText_TextChanged);
             // 
             // btnChange
             // 
-            this.btnChange.Location = new System.Drawing.Point(233, 56);
+            this.btnChange.Location = new System.Drawing.Point(233, 126);
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(75, 23);
             this.btnChange.TabIndex = 2;
@@ -63,7 +64,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(152, 56);
+            this.btnCancel.Location = new System.Drawing.Point(152, 126);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;
@@ -73,9 +74,10 @@
             // 
             // FormEditText
             // 
+            this.AcceptButton = this.btnChange;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 90);
+            this.ClientSize = new System.Drawing.Size(334, 161);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnChange);
             this.Controls.Add(this.txtText);

@@ -50,13 +50,13 @@
             this.cmbFields.FormattingEnabled = true;
             this.cmbFields.Location = new System.Drawing.Point(20, 30);
             this.cmbFields.Name = "cmbFields";
-            this.cmbFields.Size = new System.Drawing.Size(251, 21);
+            this.cmbFields.Size = new System.Drawing.Size(386, 21);
             this.cmbFields.TabIndex = 1;
             // 
             // btnOK
             // 
             this.btnOK.AccessibleDescription = "";
-            this.btnOK.Location = new System.Drawing.Point(196, 69);
+            this.btnOK.Location = new System.Drawing.Point(331, 69);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 2;
@@ -66,7 +66,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(115, 69);
+            this.btnCancel.Location = new System.Drawing.Point(250, 69);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 3;
@@ -86,9 +86,10 @@
             // 
             // FormEditFieldProperty
             // 
+            this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(297, 102);
+            this.ClientSize = new System.Drawing.Size(418, 102);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);

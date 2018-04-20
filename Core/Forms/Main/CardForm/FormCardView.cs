@@ -157,17 +157,6 @@ namespace Core.Forms.Main.CardForm
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (Model.State == ModelValueState.CHANGED)
-            {
-                if (MessageBox.Show("Вы уверены? Все несохраненные изменения будут утеряны.",
-                    Consts.ProgramTitle,
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Exclamation) == DialogResult.No)
-                {
-                    return;
-                }
-            }
-
             DialogResult = DialogResult.Cancel;
         }
 
@@ -198,6 +187,27 @@ namespace Core.Forms.Main.CardForm
                 return true;
             }
             return base.ProcessDialogKey(keyData);
+        }
+
+        private bool CheckIgnoreChanges()
+        {
+            if (Model.State == ModelValueState.CHANGED)
+            {
+                if (MessageBox.Show("Вы уверены? Все несохраненные изменения будут утеряны.",
+                    Consts.ProgramTitle,
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation) == DialogResult.No)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void FormCardView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing || e.CloseReason == CloseReason.None)
+                e.Cancel = !CheckIgnoreChanges();
         }
     }
 }

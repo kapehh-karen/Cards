@@ -92,6 +92,7 @@
             this.Name = "FormCardView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Новая запись";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormCardView_FormClosing);
             this.ResumeLayout(false);
 
         }
