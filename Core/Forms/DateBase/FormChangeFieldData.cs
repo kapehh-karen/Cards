@@ -90,7 +90,7 @@ namespace Core.Forms.DateBase
 
         private void frmChangeFieldData_Load(object sender, EventArgs e)
         {
-            Text = $"Поле - {Field.Name}";
+            Text = $"Поле - {Field.Name} ({Field.Size})";
             chkVisible.Checked = Field.Visible;
             chkRequire.Checked = Field.Required;
             txtDisplayName.Text = Field.DisplayName;

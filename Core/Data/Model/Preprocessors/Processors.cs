@@ -43,8 +43,8 @@ namespace Core.Data.Model.Preprocessors
                     return null;
             }
 
-            proc.Control = control;
             proc.Field = field;
+            proc.Control = control;
             return proc;
         }
 

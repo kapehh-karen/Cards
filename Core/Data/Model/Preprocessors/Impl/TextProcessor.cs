@@ -15,16 +15,24 @@ namespace Core.Data.Model.Preprocessors.Impl
 
         public override void Attach()
         {
-            base.Attach();
-
             if (control != null)
+            {
                 control.TextChanged += Control_TextChanged;
+                control.LostFocus += Control_LostFocus;
+
+                // Максимальная длина
+                if (control is TextControl textControl)
+                    textControl.MaxLength = Field.Size;
+            }
         }
 
         public override void Detach()
         {
             if (control != null)
+            {
                 control.TextChanged -= Control_TextChanged;
+                control.LostFocus -= Control_LostFocus;
+            }
         }
 
         public override IDesignControl Control
@@ -47,6 +55,18 @@ namespace Core.Data.Model.Preprocessors.Impl
         private void Control_TextChanged(object sender, EventArgs e)
         {
             this.Save();
+        }
+
+        private void Control_LostFocus(object sender, EventArgs e)
+        {
+            if (control.Text.Length > Field.Size)
+            {
+                if (MessageBox.Show($"Количество символов в значении поля \"{Field.DisplayName}\" больше допустимого размера равного {Field.Size}.", Consts.ProgramTitle,
+                    MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)
+                    control.Focus();
+                else
+                    control.Text = control.Text.Substring(0, Field.Size);
+            }
         }
     }
 }

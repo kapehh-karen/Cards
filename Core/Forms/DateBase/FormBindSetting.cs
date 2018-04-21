@@ -64,7 +64,11 @@ namespace Core.Forms.DateBase
                 var lvi = new ListViewItem();
                 lvi.Text = fieldData.IsIdentifier ? "*" : "";
                 lvi.SubItems.Add(fieldData.Name);
-                lvi.SubItems.Add(fieldData.Type != FieldType.BIND ? fieldData.Type.ToString() : fieldData.BindData?.ToString());
+                lvi.SubItems.Add(fieldData.Type != FieldType.BIND
+                    ? (fieldData.Type != FieldType.TEXT
+                        ? fieldData.Type.ToString()
+                        : $"{fieldData.Type.ToString()} ({fieldData.Size})")
+                    : fieldData.BindData?.ToString());
                 lvi.SubItems.Add(fieldData.Visible ? "Да" : "-");
                 lvi.SubItems.Add(fieldData.Required ? "Да" : "-");
                 lvi.SubItems.Add(fieldData.DisplayName);

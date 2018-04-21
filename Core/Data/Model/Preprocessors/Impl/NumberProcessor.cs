@@ -14,8 +14,6 @@ namespace Core.Data.Model.Preprocessors.Impl
 
         public override void Attach()
         {
-            base.Attach();
-
             if (control != null)
                 control.TextChanged += Control_TextChanged;
         }

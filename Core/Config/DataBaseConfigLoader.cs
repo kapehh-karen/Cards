@@ -94,9 +94,11 @@ namespace Core.Config
                         // Each row in the table schema describes a column
                         foreach (DataRow rowColumn in tableSchema.Rows)
                         {
-                            var fieldName = rowColumn["ColumnName"].ToString();
+                            var fieldName = Convert.ToString(rowColumn["ColumnName"]);
+                            var fieldSize = Convert.ToInt32(rowColumn["ColumnSize"]);
                             var fieldInTable = tableData.Fields.FirstOrDefault(fd => fd.Name == fieldName);
                             var fieldData = fieldInTable ?? new FieldData() { Name = fieldName };
+                            fieldData.Size = fieldSize;
                             fieldNames.Add(fieldName);
 
                             // if field NOT exists in table
