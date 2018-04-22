@@ -49,7 +49,7 @@ namespace Core.Filter.Controls.Conditions.Operator
 
         private Dictionary<FieldType, OperatorType[]> _operators = new Dictionary<FieldType, OperatorType[]>
         {
-            { FieldType.UNKNOWN, new OperatorType[0] },
+            { FieldType.UNKNOWN, new OperatorType[] { OperatorType.EQUAL } },
             { FieldType.TEXT, new OperatorType[] { OperatorType.EQUAL, OperatorType.NOT_EQUAL, OperatorType.IS_NULL, OperatorType.IS_NOT_NULL, OperatorType.LIKE, OperatorType.NOT_LIKE } },
             { FieldType.NUMBER, new OperatorType[] { OperatorType.EQUAL, OperatorType.NOT_EQUAL, OperatorType.IS_NULL, OperatorType.IS_NOT_NULL, OperatorType.GREATER, OperatorType.GREATER_EQUAL, OperatorType.LESS, OperatorType.LESS_EQUAL } },
             { FieldType.DATE, new OperatorType[] { OperatorType.EQUAL, OperatorType.NOT_EQUAL, OperatorType.IS_NULL, OperatorType.IS_NOT_NULL, OperatorType.GREATER, OperatorType.GREATER_EQUAL, OperatorType.LESS, OperatorType.LESS_EQUAL } },
@@ -68,14 +68,16 @@ namespace Core.Filter.Controls.Conditions.Operator
             get => dependentType;
             set
             {
-                if (dependentType != value)
+                if (Items.Count == 0 || dependentType != value)
                 {
+                    var oldType = Type;
                     dependentType = value;
 
                     Items.Clear();
                     Items.AddRange(_operators[value]
                         .Select(t => new OperatorItem() { OperatorType = t })
                         .ToArray());
+                    Type = oldType;
                 }
             }
         }

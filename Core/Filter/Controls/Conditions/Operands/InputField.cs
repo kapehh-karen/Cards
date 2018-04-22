@@ -134,8 +134,8 @@ namespace Core.Filter.Controls.Conditions.Operands
             }
             btnSelectField.Text = itemTag.FieldData.DisplayName;
             SelectedItem = itemTag;
-            Type = itemTag.FieldData.Type;
             Field = itemTag.FieldData;
+            Type = itemTag.FieldData.Type;
         }
     }
 }

@@ -99,7 +99,7 @@ namespace Core.Filter.Controls.Conditions.Operands
                 case FieldType.DATE:
                     InputControl = new MaskedTextControl();
                     Processor = new DateProcessor();
-                    
+
                     var cd = InputControl as MaskedTextControl;
                     cd.AutoSize = false;
                     cd.TextAlign = HorizontalAlignment.Center;
@@ -123,17 +123,22 @@ namespace Core.Filter.Controls.Conditions.Operands
                 default:
                     return;
             }
-            
+
             InputControl.Dock = DockStyle.Fill;
             Controls.Add(InputControl);
-            Processor.Control = InputControl as IDesignControl;
             Processor.ModelField = new ModelFieldValue() { Field = Field };
+            Processor.Field = Field;
+            Processor.Control = InputControl as IDesignControl;
         }
 
         public object Value
         {
             get => Processor?.Value;
-            set => Processor.Value = value;
+            set
+            {
+                if (Processor != null)
+                    Processor.Value = value;
+            }
         }
 
         public string VarName { get; set; }

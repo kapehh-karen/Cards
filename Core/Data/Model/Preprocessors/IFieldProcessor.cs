@@ -61,7 +61,7 @@ namespace Core.Data.Model.Preprocessors
         /// </summary>
         public virtual void Detach() { }
 
-        public FieldData Field { get; set; }
+        public virtual FieldData Field { get; set; }
         
         public ModelFieldValue ModelField { get; set; }
 

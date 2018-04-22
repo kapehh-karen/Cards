@@ -19,10 +19,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             {
                 control.TextChanged += Control_TextChanged;
                 control.LostFocus += Control_LostFocus;
-
-                // Максимальная длина
-                if (control is TextControl textControl)
-                    textControl.MaxLength = Field.Size;
+                UpdateMaxLength();
             }
         }
 
@@ -32,6 +29,26 @@ namespace Core.Data.Model.Preprocessors.Impl
             {
                 control.TextChanged -= Control_TextChanged;
                 control.LostFocus -= Control_LostFocus;
+            }
+        }
+
+        public override FieldData Field
+        {
+            get => base.Field;
+            set
+            {
+                base.Field = value;
+                UpdateMaxLength();
+            }
+        }
+
+        private void UpdateMaxLength()
+        {
+            if (control != null && Field != null)
+            {
+                // Максимальная длина
+                if (control is TextControl textControl)
+                    textControl.MaxLength = Field.Size;
             }
         }
 
@@ -59,7 +76,7 @@ namespace Core.Data.Model.Preprocessors.Impl
 
         private void Control_LostFocus(object sender, EventArgs e)
         {
-            if (control.Text.Length > Field.Size)
+            if (Field != null && control.Text.Length > Field.Size)
             {
                 if (MessageBox.Show($"Количество символов в значении поля \"{Field.DisplayName}\" больше допустимого размера равного {Field.Size}.", Consts.ProgramTitle,
                     MessageBoxButtons.RetryCancel, MessageBoxIcon.Error) == DialogResult.Retry)

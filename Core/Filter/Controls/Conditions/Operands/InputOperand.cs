@@ -164,22 +164,22 @@ namespace Core.Filter.Controls.Conditions.Operands
         private void constToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InputControl = new InputValue() { FilterData = FilterData };
-            Type = DependentType;
             Field = DependentField;
+            Type = DependentType;
         }
 
         private void fieldToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InputControl = new InputField() { FilterData = FilterData };
-            Type = DependentType;
             Field = DependentField;
+            Type = DependentType;
         }
 
         private void subqueryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             InputControl = new InputSubquery() { FilterData = FilterData };
-            Type = DependentType;
             Field = DependentField;
+            Type = DependentType;
         }
         
         public IFilterOperand Operand

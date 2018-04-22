@@ -10,6 +10,8 @@ using Core.Filter.Data;
 using Core.Filter.Controls.Conditions;
 using Core.Filter.Data.Condition;
 using Core.Filter.Data.Condition.Impl;
+using Core.Filter.Data.Operator.Impl;
+using Core.Filter.Data.Operand.Impl;
 
 namespace Core.Filter.Controls
 {
@@ -96,7 +98,14 @@ namespace Core.Filter.Controls
 
         private void btnAddCondition_Click(object sender, EventArgs e)
         {
-            flowLayoutPanel.Controls.Add(CreateConditionControl(ConditionType.ITEM) as Control);
+            var itemCond = CreateConditionControl(ConditionType.ITEM);
+            // По-умолчанию для добавляемых условий делаю оператор равенства и правый операнд значения
+            itemCond.LoadCondition(new ItemCondition()
+            {
+                Operator = new EqualOperator(),
+                RightOperand = new ValueOperand()
+            });
+            flowLayoutPanel.Controls.Add(itemCond as Control);
         }
 
         private void btnAddContainer_Click(object sender, EventArgs e)
