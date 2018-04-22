@@ -6,6 +6,7 @@ using Core.Data.Model;
 using Core.Data.Model.Preprocessors;
 using Core.Data.Table;
 using Core.Forms.Design;
+using Core.Helper;
 using Core.Notification;
 using System;
 using System.Collections.Generic;
@@ -134,6 +135,7 @@ namespace Core.Forms.Main.CardForm
         {
             var type = Type.GetType(control.FullClassName);
             var element = Activator.CreateInstance(type) as IDesignControl;
+            var elementAsControl = element as Control;
 
             element.ParentControl = parent as IDesignControl;
             element.Properties.ForEach(property =>
@@ -143,8 +145,8 @@ namespace Core.Forms.Main.CardForm
                 if (p != null)
                     property.Value = p.Value;
             });
-            element.DesignControls = control.Chields.Select(cdata => CreateDesignControl(cdata, element as Control)).ToList();
-            
+            element.DesignControls = control.Chields.Select(cdata => CreateDesignControl(cdata, elementAsControl)).ToList();
+
             switch (element.ControlType)
             {
                 case DesignControlType.FIELD:
@@ -154,9 +156,39 @@ namespace Core.Forms.Main.CardForm
                     linkedTableControls.Add(element);
                     break;
             }
-            
-            parent.Controls.Add(element as Control);
+
+            parent.Controls.Add(elementAsControl);
+            elementAsControl.HelpRequested += Element_HelpRequested;
             return element;
+        }
+
+        private void Element_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            var element = sender as Control;
+            var proc = element.Tag;
+
+            if (proc == null)
+                return;
+
+            if ((proc is IFieldProcessor fieldProc) && fieldProc.Field != null)
+            {
+                var field = fieldProc.Field;
+                MessageBox.Show($"Название поля: {field.DisplayName}\n" +
+                        $"Имя поля: {field.Name}\n" +
+                        $"Тип поля: {field.Type.GetTextFieldType()}\n" +
+                        (field.Type == FieldType.TEXT ? $"Длина текстового поля: {field.Size}" : string.Empty),
+                    Consts.ProgramTitle,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            else if ((proc is ILinkedTableProcessor linkedProc) && linkedProc.LinkedTable != null)
+            {
+                var linkedTable = linkedProc.LinkedTable;
+                MessageBox.Show(linkedTable.ToString(),
+                    Consts.ProgramTitle,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
         }
 
         #region API

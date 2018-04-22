@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Core.Data.Model.Preprocessors
 {
@@ -45,6 +46,7 @@ namespace Core.Data.Model.Preprocessors
 
             proc.Field = field;
             proc.Control = control;
+            (control as Control).Tag = proc;
             return proc;
         }
 
@@ -52,11 +54,18 @@ namespace Core.Data.Model.Preprocessors
         {
             var property = (LinkedTableProperty)control.GetProperty<LinkedTableProperty>();
             var linkedTable = property?.Value as LinkedTable;
+            ILinkedTableProcessor proc;
 
             if (linkedTable is null)
                 return null;
 
-            return new LinkedTableProcessor() { LinkedTable = linkedTable, Control = control };
+            proc = new LinkedTableProcessor()
+            {
+                LinkedTable = linkedTable,
+                Control = control
+            };
+            (control as Control).Tag = proc;
+            return proc;
         }
     }
 }
