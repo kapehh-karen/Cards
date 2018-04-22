@@ -133,6 +133,7 @@
     <Compile Include="Data\Design\Properties\ControlProperties\FontProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\LinkedTableProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\MaskProperty.cs" />
+    <Compile Include="Data\Design\Properties\ControlProperties\MultiLineProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\NameProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\PositionProperty.cs" />
     <Compile Include="Data\Design\Properties\ControlProperties\ReadOnlyProperty.cs" />
