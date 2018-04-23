@@ -16,8 +16,18 @@ namespace Core.Data.Design.Properties.ControlProperties
 
         public override object Value
         {
-            get => (Control as TextBox).Multiline;
-            set => (Control as TextBox).Multiline = Convert.ToBoolean(value);
+            get
+            {
+                var ctrl = Control as TextBox;
+                ctrl.ScrollBars = ScrollBars.Vertical;
+                return ctrl.Multiline;
+            }
+            set
+            {
+                var ctrl = Control as TextBox;
+                ctrl.ScrollBars = ScrollBars.None;
+                ctrl.Multiline = Convert.ToBoolean(value);
+            }
         }
 
         public override object DefaultValue => false;
