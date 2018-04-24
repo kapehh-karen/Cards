@@ -151,6 +151,10 @@ namespace Core.Common.DataGrid
 
         private void BindingColumns()
         {
+            // Если нету информации о таблице
+            if (TableStorageInformation == null)
+                return;
+
             var fields = TableStorageInformation.Columns.Select(item => item.Field);
 
             // Renaming columns header
@@ -218,6 +222,10 @@ namespace Core.Common.DataGrid
         /// </summary>
         private void TableStorageInformationSave(bool saveToFile = true)
         {
+            // Если нету информации о таблице
+            if (TableStorageInformation == null)
+                return;
+
             TableStorageInformation.SortData.Reset();
 
             TableStorageInformation.Columns.ForEach(col =>
@@ -253,6 +261,10 @@ namespace Core.Common.DataGrid
         /// </summary>
         private void TableStorageInformationApply()
         {
+            // Если нету информации о таблице
+            if (TableStorageInformation == null)
+                return;
+
             // Сначала применяем визуальные параметры (сортируем по ордеру и применяем последовательно)
             TableStorageInformation.Columns.OrderBy(col => col.Order).ForEach(col =>
             {
