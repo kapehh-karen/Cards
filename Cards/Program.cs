@@ -29,16 +29,16 @@ namespace Cards
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (args.Length > 0)
+            if (ArgumentsUtil.GetCardsFileName(args, out var fileName))
             {
-                CardsFile.Initialize(args[0]);
-                if (WaitDialog.Run($"Идет загрузка конфигурационного файла \"{CardsFile.Current.ShortFileName}\"",
-                                   () => !CardsFile.Current.Load()))
+                CardsFile.Initialize(fileName);
+                if (WaitDialog.Run(
+                        $"Идет загрузка конфигурационного файла \"{CardsFile.Current.ShortFileName}\"",
+                        () => !CardsFile.Current.Load()))
                     return;
             }
             else
             {
-                NotificationMessage.SystemError("Имя файла должно быть передано через командную строку");
                 return;
             }
 

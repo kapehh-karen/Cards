@@ -2,6 +2,7 @@
 using Core.Data.Base;
 using Core.Forms.DateBase;
 using Core.Helper;
+using Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,16 +21,12 @@ namespace Settings
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            if (args.Length > 0)
+            if (ArgumentsUtil.GetCardsFileName(args, out var fileName))
             {
-                CardsFile.Initialize(args[0]);
+                CardsFile.Initialize(fileName);
                 WaitDialog.Run($"Идет загрузка конфигурационного файла \"{CardsFile.Current.ShortFileName}\"",
                                () => CardsFile.Current.Load(false));
                 Application.Run(new FormBindSetting() { CardsLoader = CardsFile.Current });
-            }
-            else
-            {
-                MessageBox.Show("Имя файла должно быть передано через командную строку", "Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

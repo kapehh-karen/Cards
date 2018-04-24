@@ -14,6 +14,7 @@ namespace Core
         public static readonly string FileAssociationExtension = ".cards";
         public static readonly string FileAssociationDescription = "Файл настроек CARDS";
         public static readonly string FileAssociationRegKey = "CARDSfile";
+        public static readonly string FileAssociationFilter = $"{FileAssociationDescription}|*{FileAssociationExtension}";
 
         // Table Storage
         public static readonly string TableStorageFolder = Path.Combine(UserSettingsFolder, "Tables");

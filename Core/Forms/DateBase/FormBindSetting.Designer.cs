@@ -39,6 +39,7 @@
             this.lvDataList = new System.Windows.Forms.ListView();
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lvFields = new System.Windows.Forms.ListView();
@@ -56,7 +57,6 @@
             this.btnSaveApply = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             this.SuspendLayout();
@@ -103,11 +103,11 @@
             // btnFormRemove
             // 
             this.btnFormRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnFormRemove.Image = global::Core.Properties.Resources.delete_s;
             this.btnFormRemove.Location = new System.Drawing.Point(441, 19);
             this.btnFormRemove.Name = "btnFormRemove";
             this.btnFormRemove.Size = new System.Drawing.Size(25, 23);
             this.btnFormRemove.TabIndex = 12;
-            this.btnFormRemove.Text = "X";
             this.btnFormRemove.UseVisualStyleBackColor = true;
             this.btnFormRemove.Click += new System.EventHandler(this.btnFormRemove_Click);
             // 
@@ -185,6 +185,11 @@
             // 
             this.columnHeader7.Text = "Внешнее поле (Foreign Key)";
             this.columnHeader7.Width = 153;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Обязательное";
+            this.columnHeader9.Width = 115;
             // 
             // label5
             // 
@@ -283,7 +288,7 @@
             // btnForm
             // 
             this.btnForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnForm.Location = new System.Drawing.Point(337, 19);
+            this.btnForm.Location = new System.Drawing.Point(343, 19);
             this.btnForm.Name = "btnForm";
             this.btnForm.Size = new System.Drawing.Size(98, 23);
             this.btnForm.TabIndex = 0;
@@ -343,11 +348,6 @@
             this.btnEditDB.Text = "Изменить настройки соединения";
             this.btnEditDB.UseVisualStyleBackColor = true;
             this.btnEditDB.Click += new System.EventHandler(this.btnEditDB_Click);
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Обязательное";
-            this.columnHeader9.Width = 115;
             // 
             // FormBindSetting
             // 
