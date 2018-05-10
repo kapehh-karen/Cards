@@ -85,7 +85,7 @@
             this.cmbField.Location = new System.Drawing.Point(13, 83);
             this.cmbField.Name = "cmbField";
             this.cmbField.Size = new System.Drawing.Size(203, 21);
-            this.cmbField.TabIndex = 5;
+            this.cmbField.TabIndex = 3;
             // 
             // label3
             // 
@@ -103,7 +103,7 @@
             this.cmbTable.Location = new System.Drawing.Point(13, 40);
             this.cmbTable.Name = "cmbTable";
             this.cmbTable.Size = new System.Drawing.Size(203, 21);
-            this.cmbTable.TabIndex = 4;
+            this.cmbTable.TabIndex = 2;
             this.cmbTable.SelectedValueChanged += new System.EventHandler(this.cmbTable_SelectedValueChanged);
             // 
             // label2
@@ -122,7 +122,7 @@
             this.chkVisible.Location = new System.Drawing.Point(311, 179);
             this.chkVisible.Name = "chkVisible";
             this.chkVisible.Size = new System.Drawing.Size(98, 17);
-            this.chkVisible.TabIndex = 2;
+            this.chkVisible.TabIndex = 5;
             this.chkVisible.Text = "Видимое поле";
             this.chkVisible.UseVisualStyleBackColor = true;
             // 
@@ -133,7 +133,7 @@
             this.chkRequire.Location = new System.Drawing.Point(283, 202);
             this.chkRequire.Name = "chkRequire";
             this.chkRequire.Size = new System.Drawing.Size(126, 17);
-            this.chkRequire.TabIndex = 3;
+            this.chkRequire.TabIndex = 6;
             this.chkRequire.Text = "Обязательное поле";
             this.chkRequire.UseVisualStyleBackColor = true;
             // 
@@ -142,17 +142,18 @@
             this.btnOk.Location = new System.Drawing.Point(321, 9);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(88, 23);
-            this.btnOk.TabIndex = 6;
+            this.btnOk.TabIndex = 7;
             this.btnOk.Text = "Применить";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(321, 38);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 23);
-            this.btnCancel.TabIndex = 7;
+            this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -171,13 +172,14 @@
             this.txtDisplayName.Location = new System.Drawing.Point(15, 198);
             this.txtDisplayName.Name = "txtDisplayName";
             this.txtDisplayName.Size = new System.Drawing.Size(227, 20);
-            this.txtDisplayName.TabIndex = 9;
+            this.txtDisplayName.TabIndex = 4;
             // 
             // FormChangeFieldData
             // 
             this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(421, 231);
             this.Controls.Add(this.txtDisplayName);
             this.Controls.Add(this.label4);

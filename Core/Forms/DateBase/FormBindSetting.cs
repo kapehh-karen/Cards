@@ -190,14 +190,12 @@ namespace Core.Forms.DateBase
 
             _tableData.IsClassifier = checkClassif.Checked;
         }
-
-        private void lvFields_KeyUp(object sender, KeyEventArgs e)
+        
+        private void lvFields_ItemActivate(object sender, EventArgs e)
         {
-            var listView = sender as ListView;
-
-            if (e.KeyCode == Keys.Enter && listView.SelectedItems.Count == 1)
+            if (lvFields.SelectedItems.Count > 0)
             {
-                var lvi = listView.SelectedItems[0];
+                var lvi = lvFields.SelectedItems[0];
                 var field = lvi.Tag as FieldData;
                 var frmDialog = new FormChangeFieldData() { Field = field, Base = _dataBase };
 

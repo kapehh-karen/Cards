@@ -49,7 +49,8 @@ namespace Core.Forms.Main
 
         private void listViewTables_ItemActivate(object sender, EventArgs e)
         {
-            if (listViewTables.SelectedItems[0].Tag is TableData table)
+            if (listViewTables.SelectedItems.Count > 0 &&
+                listViewTables.SelectedItems[0].Tag is TableData table)
             {
                 SelectedTableData = table;
                 DialogResult = DialogResult.OK;

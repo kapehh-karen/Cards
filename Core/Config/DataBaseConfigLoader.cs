@@ -98,6 +98,44 @@ namespace Core.Config
                             var fieldSize = Convert.ToInt32(rowColumn["ColumnSize"]);
                             var fieldInTable = tableData.Fields.FirstOrDefault(fd => fd.Name == fieldName);
                             var fieldData = fieldInTable ?? new FieldData() { Name = fieldName };
+                            
+                            if (fieldData.Type != FieldType.BIND)
+                            {
+                                switch (rowColumn["DataTypeName"])
+                                {
+                                    case "bit":
+                                        fieldData.Type = FieldType.BOOLEAN;
+                                        break;
+
+                                    case "int":
+                                    case "smallint":
+                                    case "tinyint":
+                                    case "bigint":
+                                        fieldData.Type = FieldType.NUMBER;
+                                        break;
+
+                                    case "date":
+                                    case "smalldatetime":
+                                    case "datetime":
+                                    case "datetime2":
+                                        fieldData.Type = FieldType.DATE;
+                                        break;
+
+                                    case "text":
+                                    case "char":
+                                    case "varchar":
+                                    case "ntext":
+                                    case "nchar":
+                                    case "nvarchar":
+                                        fieldData.Type = FieldType.TEXT;
+                                        break;
+
+                                    default:
+                                        fieldData.Type = FieldType.TEXT;
+                                        break;
+                                }
+                            }
+
                             fieldData.Size = fieldSize;
                             fieldNames.Add(fieldName);
 

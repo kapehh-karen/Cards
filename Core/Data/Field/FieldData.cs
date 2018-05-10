@@ -41,7 +41,7 @@ namespace Core.Data.Field
         /// Тип поля
         /// </summary>
         [DataMember]
-        public FieldType Type { get; set; } = FieldType.TEXT;
+        public FieldType Type { get; set; } = FieldType.UNKNOWN;
 
         /// <summary>
         /// Длина текста. Используется только для текстового типа.

@@ -63,7 +63,7 @@
             this.cmbTables.Location = new System.Drawing.Point(20, 30);
             this.cmbTables.Name = "cmbTables";
             this.cmbTables.Size = new System.Drawing.Size(181, 21);
-            this.cmbTables.TabIndex = 2;
+            this.cmbTables.TabIndex = 1;
             this.cmbTables.SelectedValueChanged += new System.EventHandler(this.cmbTables_SelectedValueChanged);
             // 
             // cmbFields
@@ -73,14 +73,15 @@
             this.cmbFields.Location = new System.Drawing.Point(20, 83);
             this.cmbFields.Name = "cmbFields";
             this.cmbFields.Size = new System.Drawing.Size(181, 21);
-            this.cmbFields.TabIndex = 3;
+            this.cmbFields.TabIndex = 2;
             // 
             // btnCancel
             // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(276, 120);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 23);
-            this.btnCancel.TabIndex = 4;
+            this.btnCancel.TabIndex = 5;
             this.btnCancel.Text = "Отмена";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -90,7 +91,7 @@
             this.btnOK.Location = new System.Drawing.Point(276, 91);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(88, 23);
-            this.btnOK.TabIndex = 5;
+            this.btnOK.TabIndex = 4;
             this.btnOK.Text = "Применить";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
@@ -102,7 +103,7 @@
             this.chkRequire.Location = new System.Drawing.Point(28, 124);
             this.chkRequire.Name = "chkRequire";
             this.chkRequire.Size = new System.Drawing.Size(173, 17);
-            this.chkRequire.TabIndex = 6;
+            this.chkRequire.TabIndex = 3;
             this.chkRequire.Text = "Обязательное к заполнению";
             this.chkRequire.UseVisualStyleBackColor = true;
             // 
@@ -111,6 +112,7 @@
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(376, 153);
             this.Controls.Add(this.chkRequire);
             this.Controls.Add(this.btnOK);

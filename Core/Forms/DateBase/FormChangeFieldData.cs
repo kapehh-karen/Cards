@@ -110,6 +110,9 @@ namespace Core.Forms.DateBase
                 cmbTable.SelectedItem = Field.BindData.Table;
                 cmbField.SelectedItem = Field.BindData.Field;
             }
+
+            this.ActiveControl = txtDisplayName;
+            txtDisplayName.SelectAll();
         }
 
         private void cmbTable_SelectedValueChanged(object sender, EventArgs e)

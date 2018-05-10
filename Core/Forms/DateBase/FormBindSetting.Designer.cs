@@ -72,7 +72,7 @@
             this.gbDateBase.Enabled = false;
             this.gbDateBase.Location = new System.Drawing.Point(12, 12);
             this.gbDateBase.Name = "gbDateBase";
-            this.gbDateBase.Size = new System.Drawing.Size(511, 530);
+            this.gbDateBase.Size = new System.Drawing.Size(778, 530);
             this.gbDateBase.TabIndex = 2;
             this.gbDateBase.TabStop = false;
             // 
@@ -96,7 +96,7 @@
             this.gbDateTable.Enabled = false;
             this.gbDateTable.Location = new System.Drawing.Point(15, 59);
             this.gbDateTable.Name = "gbDateTable";
-            this.gbDateTable.Size = new System.Drawing.Size(481, 455);
+            this.gbDateTable.Size = new System.Drawing.Size(748, 455);
             this.gbDateTable.TabIndex = 2;
             this.gbDateTable.TabStop = false;
             // 
@@ -104,7 +104,7 @@
             // 
             this.btnFormRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFormRemove.Image = global::Core.Properties.Resources.delete_s;
-            this.btnFormRemove.Location = new System.Drawing.Point(441, 19);
+            this.btnFormRemove.Location = new System.Drawing.Point(708, 19);
             this.btnFormRemove.Name = "btnFormRemove";
             this.btnFormRemove.Size = new System.Drawing.Size(25, 23);
             this.btnFormRemove.TabIndex = 12;
@@ -116,7 +116,7 @@
             this.checkVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkVisible.AutoSize = true;
             this.checkVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkVisible.Location = new System.Drawing.Point(384, 420);
+            this.checkVisible.Location = new System.Drawing.Point(651, 420);
             this.checkVisible.Name = "checkVisible";
             this.checkVisible.Size = new System.Drawing.Size(82, 17);
             this.checkVisible.TabIndex = 11;
@@ -130,7 +130,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTableDisplayName.Location = new System.Drawing.Point(196, 371);
             this.txtTableDisplayName.Name = "txtTableDisplayName";
-            this.txtTableDisplayName.Size = new System.Drawing.Size(270, 20);
+            this.txtTableDisplayName.Size = new System.Drawing.Size(537, 20);
             this.txtTableDisplayName.TabIndex = 10;
             this.txtTableDisplayName.TextChanged += new System.EventHandler(this.txtTableDisplayName_TextChanged);
             // 
@@ -149,7 +149,7 @@
             this.checkClassif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkClassif.AutoSize = true;
             this.checkClassif.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkClassif.Location = new System.Drawing.Point(315, 397);
+            this.checkClassif.Location = new System.Drawing.Point(582, 397);
             this.checkClassif.Name = "checkClassif";
             this.checkClassif.Size = new System.Drawing.Size(151, 17);
             this.checkClassif.TabIndex = 8;
@@ -170,7 +170,7 @@
             this.lvDataList.Location = new System.Drawing.Point(12, 247);
             this.lvDataList.MultiSelect = false;
             this.lvDataList.Name = "lvDataList";
-            this.lvDataList.Size = new System.Drawing.Size(454, 109);
+            this.lvDataList.Size = new System.Drawing.Size(721, 109);
             this.lvDataList.TabIndex = 6;
             this.lvDataList.UseCompatibleStateImageBehavior = false;
             this.lvDataList.View = System.Windows.Forms.View.Details;
@@ -229,11 +229,11 @@
             this.lvFields.Location = new System.Drawing.Point(12, 84);
             this.lvFields.MultiSelect = false;
             this.lvFields.Name = "lvFields";
-            this.lvFields.Size = new System.Drawing.Size(454, 132);
+            this.lvFields.Size = new System.Drawing.Size(721, 132);
             this.lvFields.TabIndex = 3;
             this.lvFields.UseCompatibleStateImageBehavior = false;
             this.lvFields.View = System.Windows.Forms.View.Details;
-            this.lvFields.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lvFields_KeyUp);
+            this.lvFields.ItemActivate += new System.EventHandler(this.lvFields_ItemActivate);
             // 
             // columnHeader1
             // 
@@ -248,7 +248,7 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Тип поля";
-            this.columnHeader3.Width = 115;
+            this.columnHeader3.Width = 190;
             // 
             // columnHeader4
             // 
@@ -288,7 +288,7 @@
             // btnForm
             // 
             this.btnForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnForm.Location = new System.Drawing.Point(343, 19);
+            this.btnForm.Location = new System.Drawing.Point(610, 19);
             this.btnForm.Name = "btnForm";
             this.btnForm.Size = new System.Drawing.Size(98, 23);
             this.btnForm.TabIndex = 0;
@@ -319,7 +319,7 @@
             // btnSaveApply
             // 
             this.btnSaveApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveApply.Location = new System.Drawing.Point(360, 548);
+            this.btnSaveApply.Location = new System.Drawing.Point(627, 548);
             this.btnSaveApply.Name = "btnSaveApply";
             this.btnSaveApply.Size = new System.Drawing.Size(163, 23);
             this.btnSaveApply.TabIndex = 3;
@@ -330,7 +330,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(279, 548);
+            this.btnCancel.Location = new System.Drawing.Point(546, 548);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -353,7 +353,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 578);
+            this.ClientSize = new System.Drawing.Size(801, 578);
             this.Controls.Add(this.btnEditDB);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveApply);
