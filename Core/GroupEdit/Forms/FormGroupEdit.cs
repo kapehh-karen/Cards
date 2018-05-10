@@ -55,7 +55,7 @@ namespace Core.GroupEdit.Forms
             }
         }
 
-        public HashSet<object> SelectedIDs { get; set; }
+        public ICollection<object> SelectedIDs { get; set; }
         
         private void btnAdd_Click(object sender, EventArgs e)
         {

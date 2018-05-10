@@ -51,6 +51,8 @@ namespace Core.Forms.Main
             set => needSelectID = value;
         }
 
+        public IEnumerable<object> AllIDs => Rows.Cast<DataGridViewRow>().Select(row => row.Cells[FieldID.Name].Value);
+
         /// <summary>
         /// Используется когда требуется поддержка кеша, и наоборот
         /// </summary>
@@ -236,7 +238,7 @@ namespace Core.Forms.Main
 
         public int CountSelectedItems => selectedItems.Count;
 
-        public HashSet<object> SelectedItems => selectedItems;
+        public ICollection<object> SelectedIDs => selectedItems;
         
         private object IdByRowIndex(int index) => Rows[index].Cells[FieldID.Name].Value;
 

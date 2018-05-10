@@ -142,20 +142,23 @@ namespace Core.Data.Model
         
         public static bool operator ==(CardModel a, CardModel b)
         {
-            // If both are null, or both are same instance, return true.
+            // Если ссылки одинаковые (в том числе и null-евые ссылки)
             if (ReferenceEquals(a, b))
-            {
                 return true;
-            }
 
-            // If one is null, but not both, return false.
+            // Если один из них null то они не равны
             if (((object)a == null) || ((object)b == null))
-            {
                 return false;
-            }
+            
+            var idA = a.ID?.Value;
+            var idB = b.ID?.Value;
 
-            // Return true if the fields match:
-            return a.ID?.Value == b.ID?.Value;
+            // Если хотя-бы у одного айдишник пустой, то такое сравнение неправильное
+            if (idA == null || idB == null)
+                return false;
+
+            // Если у обоих есть ID то ориентируемся по ним
+            return idA == idB;
         }
 
         public static bool operator !=(CardModel a, CardModel b)

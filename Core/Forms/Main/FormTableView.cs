@@ -202,7 +202,7 @@ namespace Core.Forms.Main
                 using (var dialog = new FormGroupEdit()
                 {
                     Table = this.Table,
-                    SelectedIDs = tableDataGridView1.SelectedItems
+                    SelectedIDs = tableDataGridView1.SelectedIDs
                 })
                 {
                     if (dialog.ShowDialog() == DialogResult.OK)
@@ -255,10 +255,22 @@ namespace Core.Forms.Main
         public int CountSelectedItems() => tableDataGridView1.CountSelectedItems;
 
         /// <summary>
+        /// Возвращает общее количество записей в таблице
+        /// </summary>
+        /// <returns></returns>
+        public int CountAllItems() => tableDataGridView1.CurrentDataView.Count;
+
+        /// <summary>
+        /// Возвращает ID всех записей
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<object> GetAllIDs() => tableDataGridView1.AllIDs;
+
+        /// <summary>
         /// Возвращает ID выделенных записей
         /// </summary>
         /// <returns></returns>
-        public HashSet<object> GetSelectedItems() => tableDataGridView1.SelectedItems;
+        public ICollection<object> GetSelectedIDs() => tableDataGridView1.SelectedIDs;
 
         #endregion
     }
