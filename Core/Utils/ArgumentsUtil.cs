@@ -19,7 +19,8 @@ namespace Core.Utils
             using (OpenFileDialog dialog = new OpenFileDialog()
             {
                 Title = "Выберите файл конфигурации",
-                Filter = Consts.FileAssociationFilter
+                Filter = Consts.FileAssociationFilter,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
             })
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
