@@ -44,6 +44,7 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnSave = new System.Windows.Forms.Button();
+            this.txtSearchField = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnUpColumn
@@ -115,7 +116,7 @@
             this.lvSelectedColumns.FullRowSelect = true;
             this.lvSelectedColumns.Location = new System.Drawing.Point(357, 30);
             this.lvSelectedColumns.Name = "lvSelectedColumns";
-            this.lvSelectedColumns.Size = new System.Drawing.Size(281, 342);
+            this.lvSelectedColumns.Size = new System.Drawing.Size(281, 370);
             this.lvSelectedColumns.TabIndex = 10;
             this.lvSelectedColumns.UseCompatibleStateImageBehavior = false;
             this.lvSelectedColumns.View = System.Windows.Forms.View.Details;
@@ -128,7 +129,7 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Столбец";
-            this.columnHeader1.Width = 178;
+            this.columnHeader1.Width = 179;
             // 
             // columnHeader2
             // 
@@ -143,7 +144,7 @@
             this.lvColumns.FullRowSelect = true;
             this.lvColumns.Location = new System.Drawing.Point(15, 30);
             this.lvColumns.Name = "lvColumns";
-            this.lvColumns.Size = new System.Drawing.Size(281, 342);
+            this.lvColumns.Size = new System.Drawing.Size(281, 344);
             this.lvColumns.TabIndex = 11;
             this.lvColumns.UseCompatibleStateImageBehavior = false;
             this.lvColumns.View = System.Windows.Forms.View.Details;
@@ -156,7 +157,7 @@
             // columnHeader5
             // 
             this.columnHeader5.Text = "Столбец";
-            this.columnHeader5.Width = 178;
+            this.columnHeader5.Width = 182;
             // 
             // columnHeader6
             // 
@@ -166,7 +167,7 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSave.Image = global::Core.Properties.Resources.checkmark;
-            this.btnSave.Location = new System.Drawing.Point(644, 332);
+            this.btnSave.Location = new System.Drawing.Point(644, 360);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 40);
             this.btnSave.TabIndex = 9;
@@ -175,11 +176,20 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // txtSearchField
+            // 
+            this.txtSearchField.Location = new System.Drawing.Point(15, 380);
+            this.txtSearchField.Name = "txtSearchField";
+            this.txtSearchField.Size = new System.Drawing.Size(281, 20);
+            this.txtSearchField.TabIndex = 12;
+            this.txtSearchField.TextChanged += new System.EventHandler(this.txtSearchField_TextChanged);
+            // 
             // TableColumnSettingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 386);
+            this.ClientSize = new System.Drawing.Size(728, 412);
+            this.Controls.Add(this.txtSearchField);
             this.Controls.Add(this.lvColumns);
             this.Controls.Add(this.lvSelectedColumns);
             this.Controls.Add(this.btnSave);
@@ -219,5 +229,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.TextBox txtSearchField;
     }
 }

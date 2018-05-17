@@ -52,6 +52,8 @@ namespace Core.Forms.Main.TableSetting
             
         }
 
+        private List<ListViewColumnFieldItem> NotSelectedItems { get; set; }
+
         public TableStorageType TableStorageType { get; set; }
 
         private TableStorageInformation TableStorageInformation { get; set; }
@@ -72,13 +74,13 @@ namespace Core.Forms.Main.TableSetting
                     var fieldsSelected = TableStorageInformation.Columns.Select(col => col.Field);
 
                     // Сортируем по отображаемому имени столбцы которые ещё не выбраны
-                    lvColumns.Items.AddRange(tableData.Fields
-                        .Where(f => !fieldsSelected.Contains(f))
-                        .Select(f => new ListViewColumnFieldItem(new TableStorageColumnData() { Field = f }))
-                        .ToArray());
-
                     lvColumns.ListViewItemSorter = new ListViewItemComparer(1);
                     lvColumns.Sorting = SortOrder.Ascending;
+                    NotSelectedItems = tableData.Fields
+                        .Where(f => !fieldsSelected.Contains(f))
+                        .Select(f => new ListViewColumnFieldItem(new TableStorageColumnData() { Field = f }))
+                        .ToList();
+                    NotSelectedItems.ForEach(it => lvColumns.Items.Add(it));
 
                     // Сортируем по Order-у
                     lvSelectedColumns.Items.AddRange(TableStorageInformation.Columns
@@ -125,11 +127,16 @@ namespace Core.Forms.Main.TableSetting
         {
             if (lvColumns.SelectedItems.Count > 0)
             {
-                var selectedItems = lvColumns.SelectedItems.Cast<ListViewColumnFieldItem>().ToArray();
-
-                selectedItems.ForEach(lvColumns.Items.Remove);
-
-                lvSelectedColumns.Items.AddRange(selectedItems);
+                lvColumns.SelectedItems
+                    .Cast<ListViewColumnFieldItem>()
+                    .ToArray()
+                    .ForEach(it =>
+                    {
+                        it.Selected = false;
+                        lvColumns.Items.Remove(it);
+                        NotSelectedItems.Remove(it);
+                        lvSelectedColumns.Items.Add(it);
+                    });
             }
         }
 
@@ -146,8 +153,13 @@ namespace Core.Forms.Main.TableSetting
                     return;
                 }
                 
-                selectedItems.ForEach(lvSelectedColumns.Items.Remove);
-                lvColumns.Items.AddRange(selectedItems);
+                selectedItems.ForEach(it =>
+                {
+                    it.Selected = false;
+                    lvSelectedColumns.Items.Remove(it);
+                    lvColumns.Items.Add(it);
+                    NotSelectedItems.Add(it);
+                });
             }
         }
 
@@ -176,6 +188,20 @@ namespace Core.Forms.Main.TableSetting
                 return true;
             }
             return base.ProcessDialogKey(keyData);
+        }
+
+        private void txtSearchField_TextChanged(object sender, EventArgs e)
+        {
+            lvColumns.BeginUpdate();
+            lvColumns.Items.Clear();
+            NotSelectedItems
+                .Where(it => it.ColumnField.Field.DisplayName.IndexOf(txtSearchField.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                .ForEach(it =>
+                {
+                    it.Selected = false;
+                    lvColumns.Items.Add(it);
+                });
+            lvColumns.EndUpdate();
         }
     }
 }
