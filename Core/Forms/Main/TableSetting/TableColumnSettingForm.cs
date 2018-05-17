@@ -180,16 +180,6 @@ namespace Core.Forms.Main.TableSetting
             DialogResult = DialogResult.OK;
         }
 
-        protected override bool ProcessDialogKey(Keys keyData)
-        {
-            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
-            {
-                DialogResult = DialogResult.Cancel;
-                return true;
-            }
-            return base.ProcessDialogKey(keyData);
-        }
-
         private void txtSearchField_TextChanged(object sender, EventArgs e)
         {
             lvColumns.BeginUpdate();
@@ -202,6 +192,16 @@ namespace Core.Forms.Main.TableSetting
                     lvColumns.Items.Add(it);
                 });
             lvColumns.EndUpdate();
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }

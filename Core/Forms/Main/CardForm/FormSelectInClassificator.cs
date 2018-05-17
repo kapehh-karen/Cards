@@ -127,12 +127,8 @@ namespace Core.Forms.Main.CardForm
 
         private void tableDataGridView1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Если символы не управляющие, то передаем их, а то иначе закроется FormCardView
-            if (!char.IsControl(e.KeyChar))
-            {
-                textBox1.Focus();
-                SendKeys.Send(e.KeyChar.ToString());
-            }
+            textBox1.Focus();
+            SendKeys.Send(e.KeyChar.ToString());
         }
         
         private void textBox1_KeyUp(object sender, KeyEventArgs e)

@@ -12,6 +12,8 @@ using Core.Notification;
 using Core.Filter.Data.Operand;
 using Core.Filter.Data.Operand.Impl;
 using Core.Helper;
+using Core.Common.Fields;
+using Core.Data.Table;
 
 namespace Core.Filter.Controls.Conditions.Operands
 {
@@ -22,6 +24,8 @@ namespace Core.Filter.Controls.Conditions.Operands
             public FilterTable FilterTable { get; set; }
 
             public FieldData FieldData { get; set; }
+
+            public TableData Table { get; set; }
         }
         
         public event EventHandler OperandTypeChanged = (s, e) => { };
@@ -92,25 +96,30 @@ namespace Core.Filter.Controls.Conditions.Operands
             }
 
             var contextMenu = new ContextMenuStrip();
-
-            var menuItem = new ToolStripMenuItem("Текущая таблица") { ForeColor = Color.Green };
-            FilterData.FilterTable.Table.Fields.OrderBy(field => field.DisplayName).ForEach(field =>
+            
+            contextMenu.Items.Add(new ToolStripMenuItem("Текущая таблица", null, menuSelectField_Click)
             {
-                var item = menuItem.DropDownItems.Add(field.DisplayName, null, fieldMenu_Click);
-                item.Tag = new MenuItemTag() { FilterTable = FilterData.FilterTable, FieldData = field };
+                ForeColor = Color.Green,
+                Tag = new MenuItemTag()
+                {
+                    FilterTable = FilterData.FilterTable,
+                    Table = FilterData.FilterTable.Table,
+                    FieldData = null
+                }
             });
-            contextMenu.Items.Add(menuItem);
 
-            FilterData cursor = FilterData;
+            var cursor = FilterData;
             while ((cursor = cursor.Parent) != null)
             {
-                menuItem = new ToolStripMenuItem(cursor.FilterTable.ToString());
-                cursor.FilterTable.Table.Fields.OrderBy(field => field.DisplayName).ForEach(field =>
+                contextMenu.Items.Add(new ToolStripMenuItem(cursor.FilterTable.ToString(), null, menuSelectField_Click)
                 {
-                    var item = menuItem.DropDownItems.Add(field.DisplayName, null, fieldMenu_Click);
-                    item.Tag = new MenuItemTag() { FilterTable = cursor.FilterTable, FieldData = field };
+                    Tag = new MenuItemTag()
+                    {
+                        FilterTable = cursor.FilterTable,
+                        Table = cursor.FilterTable.Table,
+                        FieldData = null
+                    }
                 });
-                contextMenu.Items.Add(menuItem);
             }
 
             contextMenu.Show(btnSelectField, 0, btnSelectField.Height);
@@ -118,10 +127,26 @@ namespace Core.Filter.Controls.Conditions.Operands
 
         private bool removedStylesButton = false;
 
-        private void fieldMenu_Click(object sender, EventArgs e)
+        private void menuSelectField_Click(object sender, EventArgs e)
         {
             var tag = (sender as ToolStripMenuItem).Tag as MenuItemTag;
+            var dialog = new FormPopupSearchField() { Table = tag.Table };
+            var scrP = this.PointToScreen(this.Location);
+            var p = new Point(scrP.X, scrP.Y + this.Height);
+            dialog.StartPosition = FormStartPosition.Manual;
+            dialog.Location = p;
+            dialog.Tag = tag;
+            dialog.FieldSelected += Dialog_FieldSelected;
+            dialog.Show();
+        }
+
+        private void Dialog_FieldSelected(object sender, EventArgs e)
+        {
+            var dialog = sender as FormPopupSearchField;
+            var tag = dialog.Tag as MenuItemTag;
+            tag.FieldData = dialog.SelectedField;
             SetField(tag);
+            dialog.Dispose();
         }
 
         private void SetField(MenuItemTag itemTag)

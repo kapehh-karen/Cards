@@ -75,6 +75,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Common\DataGrid\DataGridType.cs" />
+    <Compile Include="Common\Fields\FormPopupSearchField.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\Fields\FormPopupSearchField.Designer.cs">
+      <DependentUpon>FormPopupSearchField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\ListViewItemComparer.cs" />
     <Compile Include="Config\CardsFile.cs" />
     <Compile Include="Config\Configuration.cs" />
@@ -437,6 +443,9 @@
     <Compile Include="Utils\WinAPI.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Common\Fields\FormPopupSearchField.resx">
+      <DependentUpon>FormPopupSearchField.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Connection\Forms\FormSQLException.resx">
       <DependentUpon>FormSQLException.cs</DependentUpon>
     </EmbeddedResource>
