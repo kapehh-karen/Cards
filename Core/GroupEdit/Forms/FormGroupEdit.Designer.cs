@@ -34,6 +34,7 @@
             this.panelContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRun = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstFields
@@ -74,9 +75,9 @@
             this.btnRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRun.Image = global::Core.Properties.Resources.checkmark;
             this.btnRun.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnRun.Location = new System.Drawing.Point(646, 358);
+            this.btnRun.Location = new System.Drawing.Point(646, 362);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(133, 40);
+            this.btnRun.Size = new System.Drawing.Size(133, 36);
             this.btnRun.TabIndex = 3;
             this.btnRun.Text = "Выполнить";
             this.btnRun.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -93,11 +94,28 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Поля для корректировки";
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Image = global::Core.Properties.Resources.back;
+            this.btnCancel.Location = new System.Drawing.Point(535, 362);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(105, 36);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "ОТМЕНА";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
             // FormGroupEdit
             // 
+            this.AcceptButton = this.btnRun;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(791, 407);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panelContainer);
             this.Controls.Add(this.btnRun);
@@ -120,5 +138,6 @@
         private System.Windows.Forms.Button btnRun;
         private System.Windows.Forms.FlowLayoutPanel panelContainer;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnCancel;
     }
 }
