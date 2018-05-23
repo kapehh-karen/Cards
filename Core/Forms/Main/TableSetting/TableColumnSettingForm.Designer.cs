@@ -45,6 +45,7 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnSave = new System.Windows.Forms.Button();
             this.txtSearchField = new System.Windows.Forms.TextBox();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnUpColumn
@@ -116,7 +117,7 @@
             this.lvSelectedColumns.FullRowSelect = true;
             this.lvSelectedColumns.Location = new System.Drawing.Point(357, 30);
             this.lvSelectedColumns.Name = "lvSelectedColumns";
-            this.lvSelectedColumns.Size = new System.Drawing.Size(281, 370);
+            this.lvSelectedColumns.Size = new System.Drawing.Size(281, 322);
             this.lvSelectedColumns.TabIndex = 10;
             this.lvSelectedColumns.UseCompatibleStateImageBehavior = false;
             this.lvSelectedColumns.View = System.Windows.Forms.View.Details;
@@ -167,11 +168,12 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSave.Image = global::Core.Properties.Resources.checkmark;
-            this.btnSave.Location = new System.Drawing.Point(644, 360);
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.Location = new System.Drawing.Point(597, 364);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 40);
+            this.btnSave.Size = new System.Drawing.Size(119, 36);
             this.btnSave.TabIndex = 9;
-            this.btnSave.Text = "ОК";
+            this.btnSave.Text = "Применить";
             this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -184,11 +186,27 @@
             this.txtSearchField.TabIndex = 12;
             this.txtSearchField.TextChanged += new System.EventHandler(this.txtSearchField_TextChanged);
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Image = global::Core.Properties.Resources.back;
+            this.btnCancel.Location = new System.Drawing.Point(486, 364);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(105, 36);
+            this.btnCancel.TabIndex = 13;
+            this.btnCancel.Text = "ОТМЕНА";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
             // TableColumnSettingForm
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(728, 412);
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(728, 409);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.txtSearchField);
             this.Controls.Add(this.lvColumns);
             this.Controls.Add(this.lvSelectedColumns);
@@ -230,5 +248,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.TextBox txtSearchField;
+        private System.Windows.Forms.Button btnCancel;
     }
 }

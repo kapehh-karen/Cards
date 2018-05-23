@@ -193,15 +193,5 @@ namespace Core.Forms.Main.TableSetting
                 });
             lvColumns.EndUpdate();
         }
-
-        protected override bool ProcessDialogKey(Keys keyData)
-        {
-            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
-            {
-                DialogResult = DialogResult.Cancel;
-                return true;
-            }
-            return base.ProcessDialogKey(keyData);
-        }
     }
 }

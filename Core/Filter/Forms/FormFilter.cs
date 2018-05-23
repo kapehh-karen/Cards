@@ -19,16 +19,6 @@ namespace Core.Filter.Forms
         {
             InitializeComponent();
         }
-
-        protected override bool ProcessDialogKey(Keys keyData)
-        {
-            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
-            {
-                DialogResult = DialogResult.Cancel;
-                return true;
-            }
-            return base.ProcessDialogKey(keyData);
-        }
         
         public TableData CurrentTable { get; set; }
 
@@ -154,11 +144,6 @@ namespace Core.Filter.Forms
             SaveCurrentChanges();
 
             DialogResult = DialogResult.OK;
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
         }
 
         private void btnViewSQL_Click(object sender, EventArgs e)

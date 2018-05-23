@@ -29,16 +29,6 @@ namespace Core.GroupEdit.Forms
             InitializeComponent();
         }
 
-        protected override bool ProcessDialogKey(Keys keyData)
-        {
-            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
-            {
-                DialogResult = DialogResult.Cancel;
-                return true;
-            }
-            return base.ProcessDialogKey(keyData);
-        }
-
         private TableData table = null;
         public TableData Table
         {
