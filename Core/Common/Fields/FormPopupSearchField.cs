@@ -77,7 +77,7 @@ namespace Core.Common.Fields
 
         private void FormPopupSearchField_Deactivate(object sender, EventArgs e)
         {
-            this.Close();
+            this.Dispose();
         }
 
         private void DoSelect()
@@ -122,7 +122,7 @@ namespace Core.Common.Fields
         {
             if (ModifierKeys == Keys.None && keyData == Keys.Escape)
             {
-                this.Close();
+                this.Dispose();
                 return true;
             }
             if (ModifierKeys == Keys.None && keyData == Keys.Enter)

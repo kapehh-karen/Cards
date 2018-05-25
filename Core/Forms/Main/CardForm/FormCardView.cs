@@ -191,9 +191,6 @@ namespace Core.Forms.Main.CardForm
 
         private bool CheckIgnoreChanges()
         {
-            if (IsLinkedModel)
-                return true;
-
             if (Model.State == ModelValueState.CHANGED)
             {
                 if (MessageBox.Show("Вы уверены? Все несохраненные изменения будут утеряны.",

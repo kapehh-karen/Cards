@@ -58,6 +58,11 @@ namespace Core.Config
         /// Указывает, загружена база или нет
         /// </summary>
         public bool Loaded { get; private set; }
+        
+        /// <summary>
+        /// Ресурсы из архива
+        /// </summary>
+        public Dictionary<string, byte[]> Resource { get; private set; }
 
         /// <summary>
         /// Помещает в свойство Base объект конфига
@@ -96,20 +101,32 @@ namespace Core.Config
             // База по-умолчанию
             SQLServerConnection.DefaultDataBase = Base;
 
-            // Если требуется загрузить плагины
-            if (allowLoadPlugins)
+            Resource = new Dictionary<string, byte[]>();
+            foreach (var entry in zip.Entries)
             {
-                // Загружаем библиотеки для плагинов
-                foreach (var entry in zip.Entries
-                    .Where(item => item.FileName.StartsWith("lib/") && item.FileName.EndsWith(".dll")))
+                // Сами папки нас не интересуют
+                if (entry.IsDirectory)
+                    continue;
+
+                if (entry.FileName.StartsWith("res/"))
                 {
-                    AssemblyManager.Instance.LoadFromStream(entry.OpenReader());
+                    var keyName = entry.FileName.Substring(4);
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        entry.OpenReader().CopyTo(ms);
+                        Resource[keyName] = ms.ToArray();
+                    }
+                    continue;
                 }
 
-                foreach (var entry in zip.Entries
-                    .Where(item => item.FileName.StartsWith("plugins/") && item.FileName.EndsWith(".dll")))
+                // Если требуется загрузить плагины
+                if (allowLoadPlugins)
                 {
-                    PluginManager.Instance.LoadPlugin(AssemblyManager.Instance.LoadFromStream(entry.OpenReader()));
+                    // Загружаем библиотеки для плагинов
+                    if (entry.FileName.StartsWith("lib/") && entry.FileName.EndsWith(".dll"))
+                        AssemblyManager.Instance.LoadFromStream(entry.OpenReader());
+                    else if (entry.FileName.StartsWith("plugins/") && entry.FileName.EndsWith(".dll"))
+                        PluginManager.Instance.LoadPlugin(AssemblyManager.Instance.LoadFromStream(entry.OpenReader()));
                 }
             }
 
@@ -136,35 +153,6 @@ namespace Core.Config
 
                 zip.Save(FileName);
             }
-        }
-
-        /// <summary>
-        /// Считывает файл из архива
-        /// </summary>
-        /// <param name="internalFileName">Имя файла относительно пути в архиве</param>
-        /// <returns></returns>
-        public Dictionary<string, byte[]> ReadInternalFiles(params string[] internalFileNames)
-        {
-            if (!Loaded)
-                throw new InvalidOperationException("CardsFile не был загружен. Чтение невозможно.");
-
-            var dict = new Dictionary<string, byte[]>();
-            using (var zip = new ZipFile(FileName))
-            {
-                foreach (var name in internalFileNames)
-                {
-                    var entry = zip[name];
-                    if (entry == null)
-                        continue; // Ничего не добавляем в словарь
-
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        entry.OpenReader().CopyTo(ms);
-                        dict.Add(name, ms.ToArray());
-                    }
-                }
-            }
-            return dict;
         }
     }
 }
