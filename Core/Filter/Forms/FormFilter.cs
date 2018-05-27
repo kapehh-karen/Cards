@@ -175,7 +175,7 @@ namespace Core.Filter.Forms
 
             if (CurrentTable != null && loadedFilterData.FilterTable.Table != CurrentTable)
             {
-                NotificationMessage.Error($"Выбранный фильтр создан для таблицы \"{loadedFilterData.FilterTable.Table.DisplayName}\". Его нельзя применить к таблице \"{CurrentTable.DisplayName}\"");
+                NotificationMessage.Error($"Выбранный фильтр создан для другой таблицы. Его нельзя применить к таблице \"{CurrentTable.DisplayName}\"");
                 return;
             }
 

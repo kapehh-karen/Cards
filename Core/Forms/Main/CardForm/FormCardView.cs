@@ -191,7 +191,11 @@ namespace Core.Forms.Main.CardForm
 
         private bool CheckIgnoreChanges()
         {
-            if (Model.State == ModelValueState.CHANGED)
+            if (IsLinkedModel)
+                return true;
+
+            // Только если мы нажимаем "Отмена"
+            if (DialogResult == DialogResult.Cancel && Model.State == ModelValueState.CHANGED)
             {
                 if (MessageBox.Show("Вы уверены? Все несохраненные изменения будут утеряны.",
                     Consts.ProgramTitle,
