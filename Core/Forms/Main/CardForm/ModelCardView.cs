@@ -173,10 +173,13 @@ namespace Core.Forms.Main.CardForm
             if ((proc is IFieldProcessor fieldProc) && fieldProc.Field != null)
             {
                 var field = fieldProc.Field;
-                MessageBox.Show($"Название поля: {field.DisplayName}\n" +
-                        $"Имя поля: {field.Name}\n" +
-                        $"Тип поля: {field.Type.GetTextFieldType()}\n" +
-                        (field.Type == FieldType.TEXT ? $"Длина текстового поля: {field.Size}" : string.Empty),
+                MessageBox.Show(string.Join("\n", new[] {
+                        $"Название поля: {field.DisplayName}",
+                        $"Имя поля: {field.Name}",
+                        $"Тип поля: {field.Type.GetTextFieldType()}",
+                        (field.Type == FieldType.TEXT ? $"Длина текстового поля: {field.Size}" : string.Empty) +
+                        (field.Type == FieldType.BIND ? $"Связанное поле: {field.BindData}" : string.Empty)
+                    }),
                     Consts.ProgramTitle,
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);

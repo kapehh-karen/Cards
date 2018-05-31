@@ -51,10 +51,9 @@
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentsExploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -278,7 +277,6 @@
             // 
             this.programToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.documentsExploreToolStripMenuItem,
-            this.toolStripMenuItem1,
             this.saveToExcelToolStripMenuItem,
             this.toolStripMenuItem2,
             this.exitProgramToolStripMenuItem});
@@ -294,18 +292,6 @@
             this.documentsExploreToolStripMenuItem.Text = "Открыть папку с документами";
             this.documentsExploreToolStripMenuItem.Click += new System.EventHandler(this.documentsExploreToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(239, 6);
-            // 
-            // exitProgramToolStripMenuItem
-            // 
-            this.exitProgramToolStripMenuItem.Name = "exitProgramToolStripMenuItem";
-            this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
-            this.exitProgramToolStripMenuItem.Text = "Открыть другую таблицу";
-            this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
-            // 
             // saveToExcelToolStripMenuItem
             // 
             this.saveToExcelToolStripMenuItem.Name = "saveToExcelToolStripMenuItem";
@@ -317,6 +303,13 @@
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(239, 6);
+            // 
+            // exitProgramToolStripMenuItem
+            // 
+            this.exitProgramToolStripMenuItem.Name = "exitProgramToolStripMenuItem";
+            this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.exitProgramToolStripMenuItem.Text = "Открыть другую таблицу";
+            this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
             // 
             // FormTableView
             // 
@@ -364,7 +357,6 @@
         private System.Windows.Forms.ToolStripMenuItem programToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitProgramToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem documentsExploreToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSelectedAmount;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton toolStripButtonGroupEdit;
