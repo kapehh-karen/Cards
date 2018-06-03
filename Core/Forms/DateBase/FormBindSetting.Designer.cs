@@ -43,7 +43,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lvFields = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -57,6 +56,8 @@
             this.btnSaveApply = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbFastJumpField = new System.Windows.Forms.ComboBox();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +73,7 @@
             this.gbDateBase.Enabled = false;
             this.gbDateBase.Location = new System.Drawing.Point(12, 12);
             this.gbDateBase.Name = "gbDateBase";
-            this.gbDateBase.Size = new System.Drawing.Size(778, 530);
+            this.gbDateBase.Size = new System.Drawing.Size(758, 560);
             this.gbDateBase.TabIndex = 2;
             this.gbDateBase.TabStop = false;
             // 
@@ -81,6 +82,8 @@
             this.gbDateTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbDateTable.Controls.Add(this.cmbFastJumpField);
+            this.gbDateTable.Controls.Add(this.label1);
             this.gbDateTable.Controls.Add(this.btnFormRemove);
             this.gbDateTable.Controls.Add(this.checkVisible);
             this.gbDateTable.Controls.Add(this.txtTableDisplayName);
@@ -96,7 +99,7 @@
             this.gbDateTable.Enabled = false;
             this.gbDateTable.Location = new System.Drawing.Point(15, 59);
             this.gbDateTable.Name = "gbDateTable";
-            this.gbDateTable.Size = new System.Drawing.Size(748, 455);
+            this.gbDateTable.Size = new System.Drawing.Size(728, 485);
             this.gbDateTable.TabIndex = 2;
             this.gbDateTable.TabStop = false;
             // 
@@ -104,7 +107,7 @@
             // 
             this.btnFormRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFormRemove.Image = global::Core.Properties.Resources.delete_s;
-            this.btnFormRemove.Location = new System.Drawing.Point(708, 19);
+            this.btnFormRemove.Location = new System.Drawing.Point(688, 19);
             this.btnFormRemove.Name = "btnFormRemove";
             this.btnFormRemove.Size = new System.Drawing.Size(25, 23);
             this.btnFormRemove.TabIndex = 12;
@@ -116,7 +119,7 @@
             this.checkVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkVisible.AutoSize = true;
             this.checkVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkVisible.Location = new System.Drawing.Point(651, 420);
+            this.checkVisible.Location = new System.Drawing.Point(631, 450);
             this.checkVisible.Name = "checkVisible";
             this.checkVisible.Size = new System.Drawing.Size(82, 17);
             this.checkVisible.TabIndex = 11;
@@ -128,9 +131,9 @@
             // 
             this.txtTableDisplayName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTableDisplayName.Location = new System.Drawing.Point(196, 371);
+            this.txtTableDisplayName.Location = new System.Drawing.Point(196, 401);
             this.txtTableDisplayName.Name = "txtTableDisplayName";
-            this.txtTableDisplayName.Size = new System.Drawing.Size(537, 20);
+            this.txtTableDisplayName.Size = new System.Drawing.Size(517, 20);
             this.txtTableDisplayName.TabIndex = 10;
             this.txtTableDisplayName.TextChanged += new System.EventHandler(this.txtTableDisplayName_TextChanged);
             // 
@@ -138,7 +141,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 374);
+            this.label6.Location = new System.Drawing.Point(9, 404);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(184, 13);
             this.label6.TabIndex = 9;
@@ -149,7 +152,7 @@
             this.checkClassif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkClassif.AutoSize = true;
             this.checkClassif.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkClassif.Location = new System.Drawing.Point(582, 397);
+            this.checkClassif.Location = new System.Drawing.Point(562, 427);
             this.checkClassif.Name = "checkClassif";
             this.checkClassif.Size = new System.Drawing.Size(151, 17);
             this.checkClassif.TabIndex = 8;
@@ -167,10 +170,10 @@
             this.columnHeader9});
             this.lvDataList.FullRowSelect = true;
             this.lvDataList.GridLines = true;
-            this.lvDataList.Location = new System.Drawing.Point(12, 247);
+            this.lvDataList.Location = new System.Drawing.Point(12, 277);
             this.lvDataList.MultiSelect = false;
             this.lvDataList.Name = "lvDataList";
-            this.lvDataList.Size = new System.Drawing.Size(721, 109);
+            this.lvDataList.Size = new System.Drawing.Size(701, 109);
             this.lvDataList.TabIndex = 6;
             this.lvDataList.UseCompatibleStateImageBehavior = false;
             this.lvDataList.View = System.Windows.Forms.View.Details;
@@ -196,7 +199,7 @@
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(9, 231);
+            this.label5.Location = new System.Drawing.Point(9, 261);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(353, 13);
             this.label5.TabIndex = 5;
@@ -218,7 +221,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvFields.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4,
@@ -229,16 +231,11 @@
             this.lvFields.Location = new System.Drawing.Point(12, 84);
             this.lvFields.MultiSelect = false;
             this.lvFields.Name = "lvFields";
-            this.lvFields.Size = new System.Drawing.Size(721, 132);
+            this.lvFields.Size = new System.Drawing.Size(701, 162);
             this.lvFields.TabIndex = 3;
             this.lvFields.UseCompatibleStateImageBehavior = false;
             this.lvFields.View = System.Windows.Forms.View.Details;
             this.lvFields.ItemActivate += new System.EventHandler(this.lvFields_ItemActivate);
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "PK";
-            this.columnHeader1.Width = 30;
             // 
             // columnHeader2
             // 
@@ -253,12 +250,12 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Видимость";
-            this.columnHeader4.Width = 51;
+            this.columnHeader4.Width = 63;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "Обязательное";
-            this.columnHeader5.Width = 47;
+            this.columnHeader5.Width = 91;
             // 
             // columnHeader8
             // 
@@ -281,14 +278,14 @@
             this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label3.Location = new System.Drawing.Point(9, 19);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(120, 26);
+            this.label3.Size = new System.Drawing.Size(123, 26);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Поле идентификатора\r\n(Primary Key)";
+            this.label3.Text = "Поле идентификатора:\r\n(Primary Key)";
             // 
             // btnForm
             // 
             this.btnForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnForm.Location = new System.Drawing.Point(610, 19);
+            this.btnForm.Location = new System.Drawing.Point(590, 19);
             this.btnForm.Name = "btnForm";
             this.btnForm.Size = new System.Drawing.Size(98, 23);
             this.btnForm.TabIndex = 0;
@@ -319,7 +316,7 @@
             // btnSaveApply
             // 
             this.btnSaveApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveApply.Location = new System.Drawing.Point(627, 548);
+            this.btnSaveApply.Location = new System.Drawing.Point(607, 578);
             this.btnSaveApply.Name = "btnSaveApply";
             this.btnSaveApply.Size = new System.Drawing.Size(163, 23);
             this.btnSaveApply.TabIndex = 3;
@@ -330,7 +327,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(546, 548);
+            this.btnCancel.Location = new System.Drawing.Point(526, 578);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -341,7 +338,7 @@
             // btnEditDB
             // 
             this.btnEditDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEditDB.Location = new System.Drawing.Point(12, 550);
+            this.btnEditDB.Location = new System.Drawing.Point(12, 580);
             this.btnEditDB.Name = "btnEditDB";
             this.btnEditDB.Size = new System.Drawing.Size(189, 21);
             this.btnEditDB.TabIndex = 5;
@@ -349,17 +346,36 @@
             this.btnEditDB.UseVisualStyleBackColor = true;
             this.btnEditDB.Click += new System.EventHandler(this.btnEditDB_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(280, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(137, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Поле быстрого перехода:";
+            // 
+            // cmbFastJumpField
+            // 
+            this.cmbFastJumpField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFastJumpField.FormattingEnabled = true;
+            this.cmbFastJumpField.Location = new System.Drawing.Point(423, 21);
+            this.cmbFastJumpField.Name = "cmbFastJumpField";
+            this.cmbFastJumpField.Size = new System.Drawing.Size(121, 21);
+            this.cmbFastJumpField.TabIndex = 14;
+            this.cmbFastJumpField.SelectedValueChanged += new System.EventHandler(this.cmbFastJumpField_SelectedValueChanged);
+            // 
             // FormBindSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(801, 578);
+            this.ClientSize = new System.Drawing.Size(781, 608);
             this.Controls.Add(this.btnEditDB);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveApply);
             this.Controls.Add(this.gbDateBase);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(550, 617);
+            this.MinimumSize = new System.Drawing.Size(797, 617);
             this.Name = "FormBindSetting";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Настройки БД";
@@ -382,7 +398,6 @@
         private System.Windows.Forms.ComboBox cmbIDField;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListView lvFields;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
@@ -402,5 +417,7 @@
         private System.Windows.Forms.CheckBox checkVisible;
         private System.Windows.Forms.Button btnFormRemove;
         private System.Windows.Forms.ColumnHeader columnHeader9;
+        private System.Windows.Forms.ComboBox cmbFastJumpField;
+        private System.Windows.Forms.Label label1;
     }
 }

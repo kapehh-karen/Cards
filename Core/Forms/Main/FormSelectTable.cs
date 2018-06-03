@@ -17,6 +17,8 @@ namespace Core.Forms.Main
 {
     public partial class FormSelectTable : Form
     {
+        private List<TableData> listOfTables = new List<TableData>();
+
         public FormSelectTable()
         {
             InitializeComponent();
@@ -28,23 +30,33 @@ namespace Core.Forms.Main
 
         public TableData SelectedTableData { get; set; }
 
+        private void FillListView(IEnumerable<TableData> tables)
+        {
+            listViewTables.BeginUpdate();
+            listViewTables.Items.Clear();
+            tables.ForEach(t =>
+            {
+                var item = new ListViewItem(t.DisplayName);
+                item.SubItems.Add(t.IsClassifier ? "Классификатор" : "Таблица");
+                item.SubItems.Add(t.Name);
+                item.ImageIndex = t.IsClassifier ? 1 : 0;
+                item.Tag = t;
+                listViewTables.Items.Add(item);
+            });
+            listViewTables.EndUpdate();
+        }
+
         private void FormSelectTable_Load(object sender, EventArgs e)
         {
             this.Text = $".:: CARDS ::. - {FileName}";
 
-            Base?.Tables
+            listOfTables = Base?.Tables
                 .Where(t => t.Visible)
                 .OrderBy(t => t.IsClassifier)
-                .ThenBy(t => t.DisplayName)
-                .ForEach(t =>
-                {
-                    var item = new ListViewItem(t.DisplayName);
-                    item.SubItems.Add(t.IsClassifier ? "Классификатор" : "Таблица");
-                    item.SubItems.Add(t.Name);
-                    item.ImageIndex = t.IsClassifier ? 1 : 0;
-                    item.Tag = t;
-                    listViewTables.Items.Add(item);
-                });
+                .ThenBy(t => t.DisplayName).ToList();
+            FillListView(listOfTables);
+
+            lblDBName.Text = Base.BaseName;
         }
 
         private void listViewTables_ItemActivate(object sender, EventArgs e)
@@ -55,6 +67,11 @@ namespace Core.Forms.Main
                 SelectedTableData = table;
                 DialogResult = DialogResult.OK;
             }
+        }
+
+        private void txtSearchTable_TextChanged(object sender, EventArgs e)
+        {
+            FillListView(listOfTables.Where(t => t.DisplayName.IndexOf(txtSearchTable.Text, StringComparison.OrdinalIgnoreCase) >= 0));
         }
 
         protected override bool ProcessDialogKey(Keys keyData)

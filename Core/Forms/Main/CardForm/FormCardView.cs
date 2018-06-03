@@ -69,6 +69,20 @@ namespace Core.Forms.Main.CardForm
 
                     modelCardView1.Size = clientSize;
                     modelCardView1.Form = table.Form;
+
+                    // После обновления UI делаем выделение активных контролов
+                    highlight.Install();
+
+                    FieldForFastJump = Table.FastJumpField;
+                    if (FieldForFastJump == null)
+                    {
+                        lblCodeFieldName.Visible = false;
+                        txtInputCode.Visible = false;
+                    }
+                    else
+                    {
+                        lblCodeFieldName.Text = FieldForFastJump.DisplayName;
+                    }
                 }
                 else
                 {
@@ -90,24 +104,26 @@ namespace Core.Forms.Main.CardForm
         public bool IsLinkedModel { get; set; }
 
         public CardModel Model => modelCardView1.Model;
+
+        private FieldData FieldForFastJump { get; set; }
         
-        public void InitializeModel(object id = null)
+        public void InitializeModel(object id = null, FieldData fieldForSearch = null)
         {
             if (id == null)
             {
                 var model = CardModel.CreateFromTable(Table);
                 model.IsEmpty = false; // Для новой записи будем считать что она "Полная" а не "Пустая"
                 modelCardView1.Model = model;
+                UpdateUiText(Model.ID.Value);
             }
             else
             {
-                if (ModelHelper.Get(Base, Table, id, out var model))
+                if (ModelHelper.Get(Base, Table, id, out var model, fieldForSearch))
                 {
                     modelCardView1.Model = model;
+                    UpdateUiText(Model.ID.Value);
                 }
             }
-
-            UpdateUiText(Model.ID.Value);
         }
 
         public void InitializeModel(CardModel model)
@@ -164,8 +180,8 @@ namespace Core.Forms.Main.CardForm
         {
             this.Text = Model.IsNew ? "Новая запись" : $"Изменение записи #{id}";
 
-            // После обновления UI делаем выделение активных контролов
-            highlight.Install();
+            if (FieldForFastJump != null)
+                txtInputCode.Text = Convert.ToString(Model[FieldForFastJump]);
 
             // После загрузки модели вызываем событие
             PluginListener.Instance.EventModelLoad(Table, Model, modelCardView1, this);
@@ -177,16 +193,6 @@ namespace Core.Forms.Main.CardForm
                 return DialogResult.Abort;
 
             return base.ShowDialog();
-        }
-
-        protected override bool ProcessDialogKey(Keys keyData)
-        {
-            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
-            {
-                DialogResult = DialogResult.Cancel;
-                return true;
-            }
-            return base.ProcessDialogKey(keyData);
         }
 
         private bool CheckIgnoreChanges()
@@ -212,6 +218,23 @@ namespace Core.Forms.Main.CardForm
         {
             if (e.CloseReason == CloseReason.UserClosing || e.CloseReason == CloseReason.None)
                 e.Cancel = !CheckIgnoreChanges();
+        }
+
+        private void txtInputCode_KeyUp(object sender, KeyEventArgs e)
+        {
+            var newId = txtInputCode.Text;
+            if (e.KeyCode == Keys.Enter)
+                InitializeModel(newId, FieldForFastJump);
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (ModifierKeys == Keys.None && keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }

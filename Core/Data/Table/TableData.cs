@@ -37,6 +37,11 @@ namespace Core.Data.Table
         public FieldData IdentifierField => Fields.FirstOrDefault(fd => fd.IsIdentifier);
 
         /// <summary>
+        /// Поле быстрого перехода
+        /// </summary>
+        public FieldData FastJumpField => Fields.FirstOrDefault(fd => fd.FastJump);
+
+        /// <summary>
         /// Поля таблицы (включая поле идентификатора)
         /// </summary>
         [DataMember]

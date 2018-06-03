@@ -62,6 +62,12 @@ namespace Core.Data.Field
         public bool Required { get; set; } = false;
 
         /// <summary>
+        /// Поле для быстрого перехода
+        /// </summary>
+        [DataMember]
+        public bool FastJump { get; set; } = false;
+
+        /// <summary>
         /// Информация о связанной таблице
         /// </summary>
         [DataMember]

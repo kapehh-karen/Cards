@@ -32,6 +32,8 @@
             this.modelCardView1 = new Core.Forms.Main.CardForm.ModelCardView();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.txtInputCode = new System.Windows.Forms.TextBox();
+            this.lblCodeFieldName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // modelCardView1
@@ -45,7 +47,7 @@
             this.modelCardView1.Model = null;
             this.modelCardView1.Name = "modelCardView1";
             this.modelCardView1.SelectedIndex = 0;
-            this.modelCardView1.Size = new System.Drawing.Size(324, 170);
+            this.modelCardView1.Size = new System.Drawing.Size(391, 236);
             this.modelCardView1.TabIndex = 0;
             this.modelCardView1.Table = null;
             // 
@@ -53,7 +55,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnClose.Image = global::Core.Properties.Resources.back;
-            this.btnClose.Location = new System.Drawing.Point(139, 206);
+            this.btnClose.Location = new System.Drawing.Point(139, 272);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(121, 33);
             this.btnClose.TabIndex = 0;
@@ -67,7 +69,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSave.Image = global::Core.Properties.Resources.checkmark;
-            this.btnSave.Location = new System.Drawing.Point(12, 206);
+            this.btnSave.Location = new System.Drawing.Point(12, 272);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(121, 33);
             this.btnSave.TabIndex = 0;
@@ -77,23 +79,46 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // txtInputCode
+            // 
+            this.txtInputCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtInputCode.Location = new System.Drawing.Point(348, 279);
+            this.txtInputCode.Name = "txtInputCode";
+            this.txtInputCode.Size = new System.Drawing.Size(91, 20);
+            this.txtInputCode.TabIndex = 1;
+            this.txtInputCode.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtInputCode_KeyUp);
+            // 
+            // lblCodeFieldName
+            // 
+            this.lblCodeFieldName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblCodeFieldName.Location = new System.Drawing.Point(266, 279);
+            this.lblCodeFieldName.Name = "lblCodeFieldName";
+            this.lblCodeFieldName.Size = new System.Drawing.Size(76, 20);
+            this.lblCodeFieldName.TabIndex = 2;
+            this.lblCodeFieldName.Text = "Код";
+            this.lblCodeFieldName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // FormCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 243);
+            this.ClientSize = new System.Drawing.Size(451, 309);
+            this.Controls.Add(this.lblCodeFieldName);
+            this.Controls.Add(this.txtInputCode);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.modelCardView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(400, 80);
+            this.MinimumSize = new System.Drawing.Size(467, 348);
             this.Name = "FormCardView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Новая запись";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormCardView_FormClosing);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -102,5 +127,7 @@
         private ModelCardView modelCardView1;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TextBox txtInputCode;
+        private System.Windows.Forms.Label lblCodeFieldName;
     }
 }

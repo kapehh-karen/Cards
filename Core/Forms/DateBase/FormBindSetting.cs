@@ -62,8 +62,7 @@ namespace Core.Forms.DateBase
             foreach (var fieldData in tableData.Fields.OrderBy(field => field.Name))
             {
                 var lvi = new ListViewItem();
-                lvi.Text = fieldData.IsIdentifier ? "*" : "";
-                lvi.SubItems.Add(fieldData.Name);
+                lvi.Text = fieldData.Name;
                 lvi.SubItems.Add(fieldData.Type != FieldType.BIND
                     ? (fieldData.Type != FieldType.TEXT
                         ? fieldData.Type.ToString()
@@ -112,9 +111,14 @@ namespace Core.Forms.DateBase
             gbDateTable.Text = $"Таблица - {tableData.Name}";
 
             var idField = tableData.IdentifierField;
+            var jumpField = tableData.Fields.FirstOrDefault(fd => fd.FastJump);
 
             cmbIDField.Items.Clear();
-            tableData.Fields.OrderBy(field => field.Name).ForEach(fd => cmbIDField.Items.Add(fd));
+            cmbFastJumpField.Items.Clear();
+            cmbFastJumpField.Items.Add("--- Не выбрано ---");
+            tableData.Fields
+                .OrderBy(field => field.Name)
+                .ForEach(fd => { cmbIDField.Items.Add(fd); cmbFastJumpField.Items.Add(fd); });
 
             // if ID field not exists, try find it
             if (idField == null)
@@ -131,7 +135,13 @@ namespace Core.Forms.DateBase
             {
                 cmbIDField.SelectedItem = idField;
             }
-            
+
+            // if Jump field not selected, by default select NONE item
+            if (jumpField == null)
+                cmbFastJumpField.SelectedIndex = 0;
+            else
+                cmbFastJumpField.SelectedItem = jumpField;
+
             RedrawFields(tableData, false);
             RedrawLinkedData(tableData, false);
             
@@ -167,20 +177,6 @@ namespace Core.Forms.DateBase
         private void btnSaveApply_Click(object sender, EventArgs e)
         {
             DoSave();
-        }
-
-        private void cmbIDField_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (initializeChanges)
-                return;
-
-            if (cmbIDField.SelectedItem == null)
-                return;
-
-            var fieldData = cmbIDField.SelectedItem as FieldData;
-            _tableData.Fields.ForEach(fd => fd.IsIdentifier = fd == fieldData);
-
-            RedrawFields(_tableData);
         }
 
         private void checkClassif_CheckedChanged(object sender, EventArgs e)
@@ -401,6 +397,30 @@ namespace Core.Forms.DateBase
             {
                 _tableData.Form = null;
             }
+        }
+
+        private void cmbIDField_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (initializeChanges)
+                return;
+
+            if (cmbIDField.SelectedItem == null)
+                return;
+
+            var fieldData = cmbIDField.SelectedItem as FieldData;
+            _tableData.Fields.ForEach(fd => fd.IsIdentifier = fd == fieldData);
+        }
+
+        private void cmbFastJumpField_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (initializeChanges)
+                return;
+
+            if (cmbFastJumpField.SelectedItem == null)
+                return;
+
+            var fieldData = cmbFastJumpField.SelectedItem as FieldData;
+            _tableData.Fields.ForEach(fd => fd.FastJump = fd == fieldData);
         }
     }
 }

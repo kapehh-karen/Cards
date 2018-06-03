@@ -1,5 +1,6 @@
 ﻿using Core.Connection;
 using Core.Data.Base;
+using Core.Data.Field;
 using Core.Data.Model;
 using Core.Data.Table;
 using Core.Notification;
@@ -13,10 +14,10 @@ namespace Core.Helper
 {
     public static class ModelHelper
     {
-        public static bool Get(TableData table, object id, out CardModel outModel)
-            => Get(SQLServerConnection.DefaultDataBase, table, id, out outModel);
+        public static bool Get(TableData table, object id, out CardModel outModel, FieldData customFieldId = null)
+            => Get(SQLServerConnection.DefaultDataBase, table, id, out outModel, customFieldId);
 
-        public static bool Get(DataBase dataBase, TableData table, object id, out CardModel outModel)
+        public static bool Get(DataBase dataBase, TableData table, object id, out CardModel outModel, FieldData customFieldId = null)
         {
             bool ret = false;
 
@@ -28,7 +29,7 @@ namespace Core.Helper
 
             using (var dbc = new SQLServerConnection(dataBase))
             {
-                var model = SqlModelHelper.GetById(dbc.Connection, table, id);
+                var model = SqlModelHelper.GetById(dbc.Connection, table, id, customFieldId: customFieldId);
 
                 if (model != null)
                 {

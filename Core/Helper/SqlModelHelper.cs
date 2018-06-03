@@ -176,18 +176,19 @@ namespace Core.Helper
             });
         }
 
-        public static CardModel GetById(SqlConnection connection, TableData tableModel, object id, int depthBindData = 1, int depthLinkedData = 1)
+        public static CardModel GetById(SqlConnection connection, TableData tableModel, object id, int depthBindData = 1, int depthLinkedData = 1, FieldData customFieldId = null)
         {
             if (id == null)
                 return null;
 
             var model = CardModel.CreateFromTable(tableModel);
             var fieldId = tableModel.IdentifierField;
-            var query = $"SELECT * FROM [{tableModel.Name}] WHERE [{fieldId.Name}] = @{fieldId.Name}";
+            var searchField = customFieldId ?? fieldId;
+            var query = $"SELECT * FROM [{tableModel.Name}] WHERE [{searchField.Name}] = @{searchField.Name}";
 
             using (var command = new SqlCommand(query, connection))
             {
-                command.Parameters.Add(new SqlParameter(fieldId.Name, id));
+                command.Parameters.Add(new SqlParameter(searchField.Name, id));
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
@@ -196,7 +197,7 @@ namespace Core.Helper
                     }
                     else
                     {
-                        NotificationMessage.SystemError($"Запись с идентификатором \"{id}\" в таблице \"{tableModel.Name}\" ({tableModel.DisplayName}) не найдена", "Ошибка результата");
+                        NotificationMessage.SystemError($"Ошибка результата!\r\n\r\nЗапись по значению \"{id}\" из поля \"{searchField.Name}\" ({searchField.DisplayName}) в таблице \"{tableModel.Name}\" ({tableModel.DisplayName}) не найдена");
                         return null;
                     }
                 }
@@ -211,13 +212,18 @@ namespace Core.Helper
             // Получаем внешние данные
             if (depthLinkedData > 0)
             {
+                // Если поле по которому мы ищем это сам идентификатор
+                // То выбираем значение id, оно нам подходит
+                // В ином случае, у нас в id может быть значение для другого поля, а нам нужно значение идентификатора!
+                var idForeignKey = fieldId == searchField ? id : model[fieldId];
+
                 tableModel.LinkedTables.ForEach(lt =>
                 {
                     var linkedItem = model.LinkedValues.Find(lv => lv.LinkedTable.Equals(lt));
                     var queryLinkedItem = $"SELECT * FROM [{lt.Table.Name}] WHERE [{lt.Field.Name}] = @{lt.Field.Name}";
                     using (var command = new SqlCommand(queryLinkedItem, connection))
                     {
-                        command.Parameters.Add(new SqlParameter(lt.Field.Name, id));
+                        command.Parameters.Add(new SqlParameter(lt.Field.Name, idForeignKey));
                         using (var reader = command.ExecuteReader())
                         {
                             while (reader.Read())
@@ -231,6 +237,7 @@ namespace Core.Helper
                     linkedItem.Items.ForEach(innerModel =>
                         ModelBindDataFill(connection, innerModel, lt.Table, depthBindData, depthLinkedData));
                 });
+
                 // Так как получены внешние данные, то эта запись не заглушка
                 model.IsEmpty = false;
             }
