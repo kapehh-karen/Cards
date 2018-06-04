@@ -10,7 +10,7 @@ namespace Core.Data.Model
 {
     public class ModelFieldValue : ICloneable
     {
-        private bool EqualsObjectValues(object a, object b) =>
+        public static bool EqualsObjectValues(object a, object b) =>
             a?.Equals(b) ?? b?.Equals(a) ?? (a == null && b == null);
 
         public ModelValueState State => EqualsObjectValues(OldValue, Value) ? ModelValueState.UNCHANGED : ModelValueState.CHANGED;

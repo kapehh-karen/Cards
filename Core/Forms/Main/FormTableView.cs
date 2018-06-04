@@ -1,6 +1,7 @@
 ﻿using Core.API;
 using Core.Connection;
 using Core.Data.Base;
+using Core.Data.Model;
 using Core.Data.Table;
 using Core.Filter.Data;
 using Core.Filter.Forms;
@@ -121,6 +122,9 @@ namespace Core.Forms.Main
 
                 if (res != DialogResult.Abort)
                 {
+                    var nowSelectedID = dialog.Model.ID.Value;
+                    if (!ModelFieldValue.EqualsObjectValues(nowSelectedID, selectedID))
+                        tableDataGridView1.SelectedID = nowSelectedID;
                     FillTable();
                 }
             }
