@@ -47,7 +47,7 @@
             this.modelCardView1.Model = null;
             this.modelCardView1.Name = "modelCardView1";
             this.modelCardView1.SelectedIndex = 0;
-            this.modelCardView1.Size = new System.Drawing.Size(391, 236);
+            this.modelCardView1.Size = new System.Drawing.Size(391, 60);
             this.modelCardView1.TabIndex = 0;
             this.modelCardView1.Table = null;
             // 
@@ -55,7 +55,7 @@
             // 
             this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnClose.Image = global::Core.Properties.Resources.back;
-            this.btnClose.Location = new System.Drawing.Point(139, 272);
+            this.btnClose.Location = new System.Drawing.Point(139, 96);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(121, 33);
             this.btnClose.TabIndex = 0;
@@ -69,7 +69,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSave.Image = global::Core.Properties.Resources.checkmark;
-            this.btnSave.Location = new System.Drawing.Point(12, 272);
+            this.btnSave.Location = new System.Drawing.Point(12, 96);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(121, 33);
             this.btnSave.TabIndex = 0;
@@ -82,17 +82,17 @@
             // txtInputCode
             // 
             this.txtInputCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInputCode.Location = new System.Drawing.Point(348, 279);
+            this.txtInputCode.Location = new System.Drawing.Point(348, 103);
             this.txtInputCode.Name = "txtInputCode";
             this.txtInputCode.Size = new System.Drawing.Size(91, 20);
             this.txtInputCode.TabIndex = 1;
-            this.txtInputCode.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtInputCode_KeyUp);
+            this.txtInputCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInputCode_KeyDown);
             // 
             // lblCodeFieldName
             // 
             this.lblCodeFieldName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCodeFieldName.Location = new System.Drawing.Point(266, 279);
+            this.lblCodeFieldName.Location = new System.Drawing.Point(266, 103);
             this.lblCodeFieldName.Name = "lblCodeFieldName";
             this.lblCodeFieldName.Size = new System.Drawing.Size(76, 20);
             this.lblCodeFieldName.TabIndex = 2;
@@ -103,7 +103,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 309);
+            this.ClientSize = new System.Drawing.Size(451, 133);
             this.Controls.Add(this.lblCodeFieldName);
             this.Controls.Add(this.txtInputCode);
             this.Controls.Add(this.btnSave);
@@ -112,7 +112,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(467, 348);
+            this.MinimumSize = new System.Drawing.Size(467, 80);
             this.Name = "FormCardView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Новая запись";

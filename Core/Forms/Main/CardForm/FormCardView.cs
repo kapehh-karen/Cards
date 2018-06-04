@@ -100,8 +100,23 @@ namespace Core.Forms.Main.CardForm
                 modelCardView1.Base = mainBase;
             }
         }
-        
-        public bool IsLinkedModel { get; set; }
+
+        private bool isLinkedModel;
+        public bool IsLinkedModel
+        {
+            get => isLinkedModel;
+            set
+            {
+                isLinkedModel = value;
+
+                // Во время редактирования внешних данных, такие финты нам не нужны
+                if (isLinkedModel)
+                {
+                    lblCodeFieldName.Visible = false;
+                    txtInputCode.Visible = false;
+                }
+            }
+        }
 
         public CardModel Model => modelCardView1.Model;
 
@@ -180,6 +195,8 @@ namespace Core.Forms.Main.CardForm
         {
             this.Text = Model.IsNew ? "Новая запись" : $"Изменение записи #{id}";
 
+            // Если есть поле для быстрого перехода, значит есть текстбокс для значения
+            // А если есть текстбокс, значит туда надо вписать текущее значение этого поля
             if (FieldForFastJump != null)
                 txtInputCode.Text = Convert.ToString(Model[FieldForFastJump]);
 
@@ -220,13 +237,13 @@ namespace Core.Forms.Main.CardForm
                 e.Cancel = !CheckIgnoreChanges();
         }
 
-        private void txtInputCode_KeyUp(object sender, KeyEventArgs e)
+        private void txtInputCode_KeyDown(object sender, KeyEventArgs e)
         {
             var newId = txtInputCode.Text;
             if (e.KeyCode == Keys.Enter)
                 InitializeModel(newId, FieldForFastJump);
         }
-
+        
         protected override bool ProcessDialogKey(Keys keyData)
         {
             if (ModifierKeys == Keys.None && keyData == Keys.Escape)

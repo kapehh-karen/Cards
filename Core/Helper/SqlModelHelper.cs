@@ -197,7 +197,7 @@ namespace Core.Helper
                     }
                     else
                     {
-                        NotificationMessage.SystemError($"Ошибка результата!\r\n\r\nЗапись по значению \"{id}\" из поля \"{searchField.Name}\" ({searchField.DisplayName}) в таблице \"{tableModel.Name}\" ({tableModel.DisplayName}) не найдена");
+                        NotificationMessage.SystemError($"Ошибка результата!\r\n\r\nЗапись по значению \"{id}\" из поля \"{searchField.DisplayName}\" ({searchField.Name}) в таблице \"{tableModel.DisplayName}\" ({tableModel.Name}) не найдена");
                         return null;
                     }
                 }
@@ -215,7 +215,7 @@ namespace Core.Helper
                 // Если поле по которому мы ищем это сам идентификатор
                 // То выбираем значение id, оно нам подходит
                 // В ином случае, у нас в id может быть значение для другого поля, а нам нужно значение идентификатора!
-                var idForeignKey = fieldId == searchField ? id : model[fieldId];
+                var idForeignKey = fieldId == searchField ? id : model.ID.Value;
 
                 tableModel.LinkedTables.ForEach(lt =>
                 {
