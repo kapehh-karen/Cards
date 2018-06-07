@@ -97,18 +97,16 @@ namespace Core.Data.Model.Preprocessors.Impl
                 switch (e.KeyCode)
                 {
                     case Keys.Enter:
-                        using (var dialog = new FormCardView() { Table = ModelLinkedTable.LinkedTable.Table, Base = Base, IsLinkedModel = true })
+                        var dialog = ModelLinkedTable.LinkedTable.Table.GetDialog;
+                        dialog.IsLinkedModel = true;
+                        dialog.InitializeModel(model);
+                        if (dialog.ShowDialog() == DialogResult.OK)
                         {
-                            dialog.InitializeModel(model);
-
-                            if (dialog.ShowDialog() == DialogResult.OK)
-                            {
-                                var newModel = dialog.Model;
-                                var index = ModelLinkedTable.Items.IndexOf(model);
-                                ModelLinkedTable.Items[index] = newModel;
-                                Load();
-                                OnValueChanged(this);
-                            }
+                            var newModel = dialog.Model;
+                            var index = ModelLinkedTable.Items.IndexOf(model);
+                            ModelLinkedTable.Items[index] = newModel;
+                            Load();
+                            OnValueChanged(this);
                         }
                         break;
 
@@ -125,18 +123,16 @@ namespace Core.Data.Model.Preprocessors.Impl
             }
             else if (e.KeyCode == Keys.Insert)
             {
-                using (var dialog = new FormCardView() { Table = ModelLinkedTable.LinkedTable.Table, Base = Base, IsLinkedModel = true })
+                var dialog = ModelLinkedTable.LinkedTable.Table.GetDialog;
+                dialog.IsLinkedModel = true;
+                dialog.InitializeModel();
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    dialog.InitializeModel();
-
-                    if (dialog.ShowDialog() == DialogResult.OK)
-                    {
-                        var newModel = dialog.Model;
-                        ModelLinkedTable.Items.Add(newModel);
-                        newModel.LinkedState = ModelLinkedItemState.ADDED;
-                        Load();
-                        OnValueChanged(this);
-                    }
+                    var newModel = dialog.Model;
+                    ModelLinkedTable.Items.Add(newModel);
+                    newModel.LinkedState = ModelLinkedItemState.ADDED;
+                    Load();
+                    OnValueChanged(this);
                 }
             }
         }

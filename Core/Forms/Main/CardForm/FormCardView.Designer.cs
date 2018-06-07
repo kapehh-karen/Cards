@@ -41,7 +41,6 @@
             this.modelCardView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.modelCardView1.Base = null;
             this.modelCardView1.Form = null;
             this.modelCardView1.Location = new System.Drawing.Point(0, 0);
             this.modelCardView1.Model = null;

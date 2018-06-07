@@ -57,7 +57,7 @@ namespace Core.Forms.Main
         }
 
         public FilterData LastUsedFilterData { get; set; }
-
+        
         public void FillTable()
         {
             tableDataGridView1.FillTable();
@@ -96,16 +96,13 @@ namespace Core.Forms.Main
 
         private void PerformNew()
         {
-            using (var dialog = new FormCardView() { Table = this.Table, Base = this.Base })
+            var dialog = Table.GetDialog;
+            dialog.IsLinkedModel = false;
+            dialog.InitializeModel();
+            if (dialog.ShowDialog() != DialogResult.Abort)
             {
-                dialog.InitializeModel();
-                var res = dialog.ShowDialog();
-
-                if (res != DialogResult.Abort)
-                {
-                    tableDataGridView1.SelectedID = dialog.Model.ID.Value;
-                    FillTable();
-                }
+                tableDataGridView1.SelectedID = dialog.Model.ID.Value;
+                FillTable();
             }
         }
 
@@ -114,19 +111,16 @@ namespace Core.Forms.Main
             var selectedID = tableDataGridView1.SelectedID;
             if (selectedID == null)
                 return;
-
-            using (var dialog = new FormCardView() { Table = this.Table, Base = this.Base })
+            
+            var dialog = Table.GetDialog;
+            dialog.IsLinkedModel = false;
+            dialog.InitializeModel(selectedID);
+            if (dialog.ShowDialog() != DialogResult.Abort)
             {
-                dialog.InitializeModel(selectedID);
-                var res = dialog.ShowDialog();
-
-                if (res != DialogResult.Abort)
-                {
-                    var nowSelectedID = dialog.Model.ID.Value;
-                    if (!ModelFieldValue.EqualsObjectValues(nowSelectedID, selectedID))
-                        tableDataGridView1.SelectedID = nowSelectedID;
-                    FillTable();
-                }
+                var nowSelectedID = dialog.Model.ID.Value;
+                if (!ModelFieldValue.EqualsObjectValues(nowSelectedID, selectedID))
+                    tableDataGridView1.SelectedID = nowSelectedID;
+                FillTable();
             }
         }
 

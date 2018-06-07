@@ -28,8 +28,6 @@ namespace Core.Forms.Main.CardForm
 
         public TableData Table { get; set; }
 
-        public DataBase Base { get; set; }
-
         public FormData Form
         {
             get => form;
@@ -84,7 +82,6 @@ namespace Core.Forms.Main.CardForm
                 var proc = Processors.GetLinkedTableProcessor(element);
                 if (proc != null)
                 {
-                    proc.Base = Base;
                     proc.ModelLinkedTable = Model.LinkedValues.FirstOrDefault(lv => lv.LinkedTable == proc.LinkedTable);
                     proc.ParentModel = model;
                     proc.Attach();

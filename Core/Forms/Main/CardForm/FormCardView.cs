@@ -22,7 +22,6 @@ namespace Core.Forms.Main.CardForm
 {
     public partial class FormCardView : Form
     {
-        private DataBase mainBase;
         private HighlightFocusedControl highlight;
 
         public FormCardView()
@@ -91,16 +90,6 @@ namespace Core.Forms.Main.CardForm
             }
         }
 
-        public DataBase Base
-        {
-            get => mainBase;
-            set
-            {
-                mainBase = value;
-                modelCardView1.Base = mainBase;
-            }
-        }
-
         private bool isLinkedModel;
         public bool IsLinkedModel
         {
@@ -133,7 +122,7 @@ namespace Core.Forms.Main.CardForm
             }
             else
             {
-                if (ModelHelper.Get(Base, Table, id, out var model, fieldForSearch))
+                if (ModelHelper.Get(Table, id, out var model, fieldForSearch))
                 {
                     modelCardView1.Model = model;
                     UpdateUiText(Model.ID.Value);
@@ -179,7 +168,7 @@ namespace Core.Forms.Main.CardForm
                 return;
             }
 
-            if (ModelHelper.Save(Base, Table, Model))
+            if (ModelHelper.Save(Table, Model))
             {
                 UpdateUiText(Model.ID.Value);
                 PluginListener.Instance.EventModelAfterSave(Table, Model, modelCardView1, this);

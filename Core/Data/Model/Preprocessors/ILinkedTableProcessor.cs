@@ -17,9 +17,7 @@ namespace Core.Data.Model.Preprocessors
             // Вызываем событие что значение изменилось
             ValueChanged(processor);
         }
-
-        public DataBase Base { get; set; }
-
+        
         public LinkedTable LinkedTable { get; set; }
 
         public CardModel ParentModel { get; set; }
