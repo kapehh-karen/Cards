@@ -55,8 +55,6 @@ namespace Core.Forms.Main
                 .OrderBy(t => t.IsClassifier)
                 .ThenBy(t => t.DisplayName).ToList();
             FillListView(listOfTables);
-
-            lblDBName.Text = Base.BaseName;
         }
 
         private void listViewTables_ItemActivate(object sender, EventArgs e)
