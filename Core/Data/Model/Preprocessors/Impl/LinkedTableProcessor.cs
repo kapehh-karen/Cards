@@ -97,7 +97,7 @@ namespace Core.Data.Model.Preprocessors.Impl
                 switch (e.KeyCode)
                 {
                     case Keys.Enter:
-                        var dialog = ModelLinkedTable.LinkedTable.Table.GetDialog;
+                        var dialog = ModelLinkedTable.LinkedTable.Table.CardView;
                         dialog.IsLinkedModel = true;
                         dialog.InitializeModel(model);
                         if (dialog.ShowDialog() == DialogResult.OK)
@@ -123,7 +123,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             }
             else if (e.KeyCode == Keys.Insert)
             {
-                var dialog = ModelLinkedTable.LinkedTable.Table.GetDialog;
+                var dialog = ModelLinkedTable.LinkedTable.Table.CardView;
                 dialog.IsLinkedModel = true;
                 dialog.InitializeModel();
                 if (dialog.ShowDialog() == DialogResult.OK)

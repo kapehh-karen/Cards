@@ -27,11 +27,16 @@ namespace Core.Forms.Main
     public partial class FormTableView : Form
     {
         private TableData table;
-        private DataBase mainBase;
 
         public FormTableView()
         {
             InitializeComponent();
+        }
+
+        public void SendEventFormCreated()
+        {
+            // Вызываем единожды, при создании формы
+            PluginListener.Instance.EventFormTableCreated(this);
         }
 
         public TableData Table
@@ -45,17 +50,7 @@ namespace Core.Forms.Main
                 LastUsedFilterData = tableDataGridView1.Filter;
             }
         }
-
-        public DataBase Base
-        {
-            get => mainBase;
-            set
-            {
-                mainBase = value;
-                tableDataGridView1.Base = Base;
-            }
-        }
-
+        
         public FilterData LastUsedFilterData { get; set; }
         
         public void FillTable()
@@ -69,11 +64,6 @@ namespace Core.Forms.Main
             var amount = tableDataGridView1.CountSelectedItems;
             toolStripStatusLabelSelectedAmount.Text = $"Выбрано записей: {amount}";
             toolStripStatusLabelSelectedAmount.ForeColor = amount > 0 ? Color.Red : Color.Black;
-        }
-
-        private void FormTableView_Load(object sender, EventArgs e)
-        {
-            PluginListener.Instance.EventFormTableCreated(this);
         }
 
         private void tableDataGridView1_PressedKey(object sender, KeyEventArgs e)
@@ -96,7 +86,7 @@ namespace Core.Forms.Main
 
         private void PerformNew()
         {
-            var dialog = Table.GetDialog;
+            var dialog = Table.CardView;
             dialog.IsLinkedModel = false;
             dialog.InitializeModel();
             if (dialog.ShowDialog() != DialogResult.Abort)
@@ -112,7 +102,7 @@ namespace Core.Forms.Main
             if (selectedID == null)
                 return;
             
-            var dialog = Table.GetDialog;
+            var dialog = Table.CardView;
             dialog.IsLinkedModel = false;
             dialog.InitializeModel(selectedID);
             if (dialog.ShowDialog() != DialogResult.Abort)
@@ -134,7 +124,7 @@ namespace Core.Forms.Main
                 MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
                 return;
 
-            if (ModelHelper.Delete(Base, Table, selectedID))
+            if (ModelHelper.Delete(Table, selectedID))
             {
                 FillTable();
             }

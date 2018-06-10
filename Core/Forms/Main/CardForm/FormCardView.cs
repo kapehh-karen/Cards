@@ -30,6 +30,12 @@ namespace Core.Forms.Main.CardForm
             highlight = new HighlightFocusedControl(this);
         }
 
+        public void SendEventFormCreated()
+        {
+            // В момент создания формы, вызываем событие
+            PluginListener.Instance.EventFormModelCreated(this, Table, modelCardView1);
+        }
+
         private TableData table;
         public TableData Table
         {
@@ -111,6 +117,15 @@ namespace Core.Forms.Main.CardForm
 
         private FieldData FieldForFastJump { get; set; }
         
+        private void ModelLoaded()
+        {
+            // Обновляем UI
+            UpdateUiText(Model.ID.Value);
+
+            // После загрузки модели вызываем событие
+            PluginListener.Instance.EventModelLoad(Table, Model, modelCardView1, this);
+        }
+
         public void InitializeModel(object id = null, FieldData fieldForSearch = null)
         {
             if (id == null)
@@ -118,14 +133,14 @@ namespace Core.Forms.Main.CardForm
                 var model = CardModel.CreateFromTable(Table);
                 model.IsEmpty = false; // Для новой записи будем считать что она "Полная" а не "Пустая"
                 modelCardView1.Model = model;
-                UpdateUiText(Model.ID.Value);
+                ModelLoaded();
             }
             else
             {
                 if (ModelHelper.Get(Table, id, out var model, fieldForSearch))
                 {
                     modelCardView1.Model = model;
-                    UpdateUiText(Model.ID.Value);
+                    ModelLoaded();
                 }
             }
         }
@@ -142,7 +157,7 @@ namespace Core.Forms.Main.CardForm
                 // В ином случае, мы имеем уже загруженную CardModel с которой можно сразу работать
                 // Создаем копию, т.к. изменения в CardModel не всегда нужно применять (если пользователь нажмет "Отмена")
                 modelCardView1.Model = model.Clone() as CardModel;
-                UpdateUiText(model.ID.Value);
+                ModelLoaded();
             }
         }
         
@@ -188,9 +203,6 @@ namespace Core.Forms.Main.CardForm
             // А если есть текстбокс, значит туда надо вписать текущее значение этого поля
             if (FieldForFastJump != null)
                 txtInputCode.Text = Convert.ToString(Model[FieldForFastJump]);
-
-            // После загрузки модели вызываем событие
-            PluginListener.Instance.EventModelLoad(Table, Model, modelCardView1, this);
         }
 
         public new DialogResult ShowDialog()

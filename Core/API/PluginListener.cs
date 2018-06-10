@@ -37,6 +37,11 @@ namespace Core.API
             Listeners.ForEach(listener => listener.OnFormTableCreated(form, form.Table));
         }
 
+        internal void EventFormModelCreated(FormCardView formView, TableData table, ModelCardView modelView)
+        {
+            Listeners.ForEach(listener => listener.OnFormModelCreated(formView, table, modelView));
+        }
+
         internal void EventCardsFileLoaded(CardsFile cardsFile)
         {
             Listeners.ForEach(listener => listener.OnCardsFileLoaded(cardsFile));

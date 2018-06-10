@@ -29,9 +29,16 @@ namespace Core.API.Interfaces
         }
 
         /// <summary>
+        /// Выполняется при создании диалогового окна для TableData
+        /// </summary>
+        public virtual void OnFormModelCreated(FormCardView formView, TableData table, ModelCardView modelView)
+        {
+            // Not Implemented
+        }
+
+        /// <summary>
         /// Вызывается до сохранения. Возвращает true если можно сохранять и false если запретить сохранение.
         /// </summary>
-        /// <returns></returns>
         public virtual bool OnModelBeforeSave(TableData table, CardModel model, ModelCardView modelView, FormCardView formView)
         {
             // Not Implemented

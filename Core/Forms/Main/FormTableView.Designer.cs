@@ -73,7 +73,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableDataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.tableDataGridView1.Base = null;
             this.tableDataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableDataGridView1.CurrentDataTable = null;
@@ -326,7 +325,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Таблица";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.FormTableView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

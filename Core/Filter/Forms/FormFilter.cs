@@ -34,7 +34,7 @@ namespace Core.Filter.Forms
                 if (value == null)
                     return;
 
-                filterData = value.Clone() as FilterData;
+                filterData = value;
                 treeSubFilter.Nodes.Clear();
                 treeSubFilter.SelectedNode = AddNode(filterData, treeSubFilter.Nodes);
                 treeSubFilter.ExpandAll();
@@ -47,11 +47,6 @@ namespace Core.Filter.Forms
             nodes.Add(node);
             fdata.Chields.ForEach(fd => AddNode(fd, node.Nodes));
             return node;
-        }
-
-        public void InitializeNewFilter(TableData table)
-        {
-            FilterData = FilterData.CreateRoot(table);
         }
         
         private void treeSubFilter_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)

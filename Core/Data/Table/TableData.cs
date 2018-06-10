@@ -8,6 +8,8 @@ using System.Runtime.Serialization;
 using Core.Data.Design.InternalData;
 using Core.Data.Base;
 using Core.Forms.Main.CardForm;
+using Core.API;
+using Core.Forms.Main;
 
 namespace Core.Data.Table
 {
@@ -16,6 +18,7 @@ namespace Core.Data.Table
     {
         private string displayName;
         private FormCardView dialog;
+        private FormTableView formView;
 
         /// <summary>
         /// Имя таблицы
@@ -83,15 +86,31 @@ namespace Core.Data.Table
 
         public string FullDisplayName => $"{(IsClassifier ? "Классификатор" : "Таблица")} - {DisplayName}";
         
-        public FormCardView GetDialog
+        public FormCardView CardView
         {
             get
             {
                 if (dialog == null)
                 {
                     dialog = new FormCardView() { Table = this };
+                    dialog.SendEventFormCreated();
                 }
                 return dialog;
+            }
+        }
+
+        public FormTableView TableView
+        {
+            get
+            {
+                if (formView == null)
+                {
+                    formView = new FormTableView() { Table = this };
+                    formView.FillTable();
+                    formView.SendEventFormCreated();
+                }
+
+                return formView;
             }
         }
 

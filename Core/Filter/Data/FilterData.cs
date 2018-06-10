@@ -31,7 +31,7 @@ namespace Core.Filter.Data
     [KnownType(typeof(NotLikeOperator))]
     [KnownType(typeof(NotNullOperator))]
     [KnownType(typeof(NullOperator))]
-    public class FilterData : ICloneable
+    public class FilterData
     {
         /// <summary>
         /// Создаем FilterData для основной таблицы
@@ -129,24 +129,6 @@ namespace Core.Filter.Data
         public override string ToString()
         {
             return FilterTable.ToString();
-        }
-
-        public object Clone()
-        {
-            var data = new FilterData()
-            {
-                FilterTable = FilterTable,
-                Where = Where, // В FormFilter это свойство просто перезаписывается, так-что и так сойдет
-                Parent = Parent,
-                Chields = new List<FilterData>(Chields), // Создаем новый список
-                SQLBuilder = SQLBuilder,
-                StaticData = StaticData.Clone() as FilterStaticData // На всякий случай тоже копию делаю
-            };
-
-            if (data.SQLBuilder != null)
-                data.SQLBuilder.Filter = data;
-
-            return data;
         }
     }
 }

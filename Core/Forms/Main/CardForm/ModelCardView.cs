@@ -52,44 +52,23 @@ namespace Core.Forms.Main.CardForm
             }
         }
 
-        public void UpdateElements()
-        {
-            fieldProcessors.ForEach(p => p.Load());
-            linkedTableProcessors.ForEach(p => p.Load());
-        }
-
         private void AttachModel()
         {
-            fieldProcessors.ForEach(p => p.Detach());
-            fieldProcessors.Clear();
-
-            linkedTableProcessors.ForEach(p => p.Detach());
-            linkedTableProcessors.Clear();
-
-            fieldControls.ForEach(element =>
+            foreach (var proc in fieldProcessors)
             {
-                var proc = Processors.GetFieldProcessor(element);
-                if (proc != null)
-                {
-                    proc.ModelField = Model.GetModelField(proc.Field);
-                    proc.ParentModel = model;
-                    fieldProcessors.Add(proc);
-                }
-            });
+                proc.ModelField = Model.GetModelField(proc.Field);
+                proc.ParentModel = model;
+            }
 
-            linkedTableControls.ForEach(element =>
+            foreach (var proc in linkedTableProcessors)
             {
-                var proc = Processors.GetLinkedTableProcessor(element);
-                if (proc != null)
-                {
-                    proc.ModelLinkedTable = Model.LinkedValues.FirstOrDefault(lv => lv.LinkedTable == proc.LinkedTable);
-                    proc.ParentModel = model;
-                    proc.Attach();
-                    linkedTableProcessors.Add(proc);
-                }
-            });
+                proc.ModelLinkedTable = Model.LinkedValues.FirstOrDefault(lv => lv.LinkedTable == proc.LinkedTable);
+                proc.ParentModel = model;
+            }
 
-            UpdateElements();
+            // Загружаем новые данные в контролы
+            fieldProcessors.ForEach(p => p.Load());
+            linkedTableProcessors.ForEach(p => p.Load());
         }
 
         public bool CheckRequired()
@@ -126,6 +105,31 @@ namespace Core.Forms.Main.CardForm
             }).ToArray();
 
             this.TabPages.AddRange(pages);
+
+            // Создаем обработчики для полей
+            fieldControls.ForEach(element =>
+            {
+                var proc = Processors.GetFieldProcessor(element);
+                if (proc != null)
+                {
+                    //proc.ModelField = Model.GetModelField(proc.Field);
+                    //proc.ParentModel = model;
+                    fieldProcessors.Add(proc);
+                }
+            });
+
+            // Создаем обработчики для внешних данных
+            linkedTableControls.ForEach(element =>
+            {
+                var proc = Processors.GetLinkedTableProcessor(element);
+                if (proc != null)
+                {
+                    //proc.ModelLinkedTable = Model.LinkedValues.FirstOrDefault(lv => lv.LinkedTable == proc.LinkedTable);
+                    //proc.ParentModel = model;
+                    proc.Attach();
+                    linkedTableProcessors.Add(proc);
+                }
+            });
         }
 
         private IDesignControl CreateDesignControl(ControlData control, Control parent)
@@ -194,16 +198,16 @@ namespace Core.Forms.Main.CardForm
         #region API
 
         public IFieldProcessor GetFieldProcessor(string fieldName) =>
-            GetFieldProcessor(Model.GetModelField(fieldName));
+            fieldProcessors.SingleOrDefault(it => it.Field?.Name.Equals(fieldName) ?? false);
         public IFieldProcessor GetFieldProcessor(FieldData field) =>
-            GetFieldProcessor(Model.GetModelField(field));
+            fieldProcessors.SingleOrDefault(it => it.Field?.Equals(field) ?? false);
         public IFieldProcessor GetFieldProcessor(ModelFieldValue mfv) =>
             fieldProcessors.SingleOrDefault(it => it.ModelField?.Equals(mfv) ?? false);
 
         public ILinkedTableProcessor GetLinkedTableProcessor(string outerTableName) =>
-            GetLinkedTableProcessor(Model.GetModelLinked(outerTableName));
+            linkedTableProcessors.SingleOrDefault(it => it.LinkedTable?.Table?.Name.Equals(outerTableName) ?? false);
         public ILinkedTableProcessor GetLinkedTableProcessor(TableData outerTable) =>
-            GetLinkedTableProcessor(Model.GetModelLinked(outerTable));
+            linkedTableProcessors.SingleOrDefault(it => it.LinkedTable?.Table?.Equals(outerTable) ?? false);
         public ILinkedTableProcessor GetLinkedTableProcessor(ModelLinkedValue mlv) =>
             linkedTableProcessors.SingleOrDefault(it => it.ModelLinkedTable?.Equals(mlv) ?? false);
 

@@ -45,7 +45,6 @@ namespace Cards
             bool needSelectTable;
             do
             {
-                TableData selectedTable = null;
                 needSelectTable = false;
 
                 using (var dialogSelectTable = new FormSelectTable()
@@ -55,19 +54,10 @@ namespace Cards
                 })
                 {
                     if (dialogSelectTable.ShowDialog() == DialogResult.OK)
-                        selectedTable = dialogSelectTable.SelectedTableData;
-                }
-
-                if (selectedTable != null)
-                {
-                    using (var dialog = new FormTableView()
                     {
-                        Base = SQLServerConnection.DefaultDataBase,
-                        Table = selectedTable
-                    })
-                    {
-                        dialog.FillTable();
-                        needSelectTable = dialog.ShowDialog() == DialogResult.Ignore;
+                        var selectedTable = dialogSelectTable.SelectedTableData;
+                        var formView = selectedTable.TableView;
+                        needSelectTable = formView.ShowDialog() == DialogResult.Ignore;
                     }
                 }
             } while (needSelectTable);

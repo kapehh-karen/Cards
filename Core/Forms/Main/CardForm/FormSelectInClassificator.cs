@@ -17,7 +17,6 @@ namespace Core.Forms.Main.CardForm
     public partial class FormSelectInClassificator : Form
     {
         private TableData table;
-        private DataBase mainBase;
         private FieldData parentField;
         private FieldData selectedField;
 
@@ -44,16 +43,6 @@ namespace Core.Forms.Main.CardForm
                 table = value;
                 tableDataGridView1.Table = table;
                 Text = table?.FullDisplayName;
-            }
-        }
-
-        public DataBase Base
-        {
-            get => mainBase;
-            set
-            {
-                mainBase = value;
-                tableDataGridView1.Base = Base;
             }
         }
 

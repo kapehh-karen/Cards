@@ -38,9 +38,7 @@ namespace Core.Forms.Main
         /// Используется в режиме классификатора. Содержит ссылку на поле для которого используется классификатор.
         /// </summary>
         public FieldData ParentField { get; set; } = null;
-
-        public DataBase Base { get; set; }
-
+        
         public DataTable CurrentDataTable { get; set; }
 
         public DataView CurrentDataView { get; set; } = new DataView();
