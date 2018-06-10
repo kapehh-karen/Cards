@@ -102,30 +102,38 @@ namespace Core.Config
             SQLServerConnection.DefaultDataBase = Base;
 
             Resource = new Dictionary<string, byte[]>();
-            foreach (var entry in zip.Entries)
+            // Если требуется загрузить плагины
+            if (allowLoadPlugins)
             {
-                // Сами папки нас не интересуют
-                if (entry.IsDirectory)
-                    continue;
-
-                if (entry.FileName.StartsWith("res/"))
+                // Сначала грузим все что нужно для плагинов
+                foreach (var entry in zip.Entries)
                 {
-                    var keyName = entry.FileName.Substring(4);
-                    using (MemoryStream ms = new MemoryStream())
+                    if (entry.IsDirectory)
+                        continue;
+
+                    if (entry.FileName.StartsWith("res/"))
                     {
-                        entry.OpenReader().CopyTo(ms);
-                        Resource[keyName] = ms.ToArray();
+                        var keyName = entry.FileName.Substring(4);
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            entry.OpenReader().CopyTo(ms);
+                            Resource[keyName] = ms.ToArray();
+                        }
+                        continue;
                     }
-                    continue;
-                }
 
-                // Если требуется загрузить плагины
-                if (allowLoadPlugins)
-                {
                     // Загружаем библиотеки для плагинов
                     if (entry.FileName.StartsWith("lib/") && entry.FileName.EndsWith(".dll"))
                         AssemblyManager.Instance.LoadFromStream(entry.OpenReader());
-                    else if (entry.FileName.StartsWith("plugins/") && entry.FileName.EndsWith(".dll"))
+                }
+
+                // А теперь и сами плагины
+                foreach (var entry in zip.Entries)
+                {
+                    if (entry.IsDirectory)
+                        continue;
+
+                    if (entry.FileName.StartsWith("plugins/") && entry.FileName.EndsWith(".dll"))
                         PluginManager.Instance.LoadPlugin(AssemblyManager.Instance.LoadFromStream(entry.OpenReader()));
                 }
             }
