@@ -1,5 +1,6 @@
 ﻿using Core.Data.Base;
 using Core.Data.Design.Controls;
+using Core.Data.Design.Controls.LinkedTableControl;
 using Core.Data.Design.InternalData;
 using Core.Data.Field;
 using Core.Data.Model;
@@ -193,6 +194,16 @@ namespace Core.Forms.Main.CardForm
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
+        }
+
+        /// <summary>
+        /// Сохраняем все настройки внешних таблиц (поля, размеры, сортировку)
+        /// </summary>
+        public void TableSettingsSave()
+        {
+            linkedTableControls.Where(it => it is LinkedTableControl)
+                .Cast<LinkedTableControl>()
+                .ForEach(element => element.TableStorageInformationSave());
         }
 
         #region API

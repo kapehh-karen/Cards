@@ -212,6 +212,12 @@ namespace Core.Forms.Main
             DocStorage.Instance.OpenDocumentFile(fileName);
         }
 
+        private void FormTableView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Сохраняем настройки таблицы
+            tableDataGridView1.TableStorageInformationSave();
+        }
+
         protected override bool ProcessDialogKey(Keys keyData)
         {
             if (ModifierKeys == Keys.None && keyData == Keys.Tab)

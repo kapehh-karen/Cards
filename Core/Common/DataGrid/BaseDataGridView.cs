@@ -220,7 +220,7 @@ namespace Core.Common.DataGrid
         /// <summary>
         /// Сохраняем инфу всех колонок
         /// </summary>
-        private void TableStorageInformationSave(bool saveToFile = true)
+        public void TableStorageInformationSave(bool saveToFile = true)
         {
             // Если нету информации о таблице
             if (TableStorageInformation == null)
@@ -259,7 +259,7 @@ namespace Core.Common.DataGrid
         /// <summary>
         /// Восстанавливаем инфу всех колонок
         /// </summary>
-        private void TableStorageInformationApply()
+        public void TableStorageInformationApply()
         {
             // Если нету информации о таблице
             if (TableStorageInformation == null)

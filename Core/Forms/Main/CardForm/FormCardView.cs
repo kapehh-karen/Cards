@@ -236,6 +236,10 @@ namespace Core.Forms.Main.CardForm
         {
             if (e.CloseReason == CloseReason.UserClosing || e.CloseReason == CloseReason.None)
                 e.Cancel = !CheckIgnoreChanges();
+
+            // Если событие не отменено сохраняем настройки внешних таблиц
+            if (!e.Cancel)
+                modelCardView1.TableSettingsSave();
         }
 
         private void txtInputCode_KeyDown(object sender, KeyEventArgs e)
