@@ -22,20 +22,18 @@ namespace Core.Helper
             using (var p = new ExcelPackage())
             {
                 var ws = p.Workbook.Worksheets.Add("Лист с данными");
-                
+
+                var excelRow = ws.Row(1);
+                excelRow.Height = 30;
+                excelRow.Style.Font.Bold = true;
+                excelRow.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                excelRow.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                excelRow.Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
+
                 for (var i = 1; i <= colCount; i++)
                 {
                     var column = visibleColumns[i - 1];
-                    var cellCol = ws.Cells[1, i];
-
-                    cellCol.Value = column.HeaderText;
-                    cellCol.Style.Font.Bold = true;
-                    cellCol.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    cellCol.Style.Fill.BackgroundColor.SetColor(Color.DarkBlue);
-                    cellCol.Style.Font.Color.SetColor(Color.White);
-                    cellCol.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    cellCol.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-
+                    ws.Cells[1, i].Value = column.HeaderText;
                     if (column.ValueType == typeof(DateTime))
                         ws.Column(i).Style.Numberformat.Format = "dd.MM.yyyy";
                 }
@@ -57,10 +55,10 @@ namespace Core.Helper
                             cellValue.Value = row.Cells[column.Index].Value;
                     }
                 }
-
-                ws.Row(1).Height = 30;
+                
                 ws.Cells.AutoFitColumns(10, 50);
                 ws.Cells.Style.WrapText = true;
+                ws.View.FreezePanes(2, colCount + 1);
 
                 p.SaveAs(new FileInfo(fileName));
             }
