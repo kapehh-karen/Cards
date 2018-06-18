@@ -1,4 +1,5 @@
-﻿using Core.Data.Field;
+﻿using Core.Connection;
+using Core.Data.Field;
 using Core.Data.Model;
 using Core.Data.Table;
 using Core.Notification;
@@ -24,6 +25,9 @@ namespace Core.Helper
         }
 
         // DELETE
+
+        public static void Delete(SqlConnection connection, SqlTransaction transaction, string tableName, object id)
+            => Delete(connection, transaction, SQLServerConnection.DefaultDataBase.Tables.First(it => it.Name.Equals(tableName)), id);
 
         public static void Delete(SqlConnection connection, SqlTransaction transaction, TableData table, object id)
         {
@@ -60,6 +64,9 @@ namespace Core.Helper
         }
 
         // SAVE
+
+        public static object Save(SqlConnection connection, SqlTransaction transaction, string tableName, CardModel model)
+            => Save(connection, transaction, SQLServerConnection.DefaultDataBase.Tables.First(it => it.Name.Equals(tableName)), model);
 
         public static object Save(SqlConnection connection, SqlTransaction transaction, TableData table, CardModel model)
         {
@@ -143,38 +150,9 @@ namespace Core.Helper
         }
 
         // GET
-
-        private static void ModelFieldsFill(CardModel model, TableData tableModel, SqlDataReader reader)
-        {
-            tableModel.Fields.ForEach(f =>
-            {
-                if (HasColumn(reader, f.Name))
-                {
-                    model[f.Name] = FieldHelper.CastValueForField(f, reader[f.Name]);
-                }
-                else
-                {
-                    NotificationMessage.SystemError($"В таблице \"{tableModel.DisplayName}\" ({tableModel.Name}) отсутствует поле \"{f.DisplayName}\" ({f.Name}), возможно оно удалено, необходимо проверить поля таблицы.");
-                }
-            });
-        }
-
-        private static void ModelBindDataFill(SqlConnection connection, CardModel model, TableData tableModel, int depthBindData = 1, int depthLinkedData = 1)
-        {
-            tableModel.Fields.Where(f => f.Type == FieldType.BIND).ForEach(f =>
-            {
-                var modelFieldValue = model.GetModelField(f);
-
-                if (modelFieldValue.Value != null)
-                {
-                    modelFieldValue.BindData = GetById(connection,
-                        modelFieldValue.Field.BindData.Table,
-                        modelFieldValue.Value,
-                        depthBindData - 1,
-                        depthLinkedData - 1);
-                }
-            });
-        }
+        
+        public static CardModel GetById(SqlConnection connection, string tableName, object id, int depthBindData = 1, int depthLinkedData = 1, FieldData customFieldId = null)
+            => GetById(connection, SQLServerConnection.DefaultDataBase.Tables.First(it => it.Name.Equals(tableName)), id, depthBindData, depthLinkedData, customFieldId);
 
         public static CardModel GetById(SqlConnection connection, TableData tableModel, object id, int depthBindData = 1, int depthLinkedData = 1, FieldData customFieldId = null)
         {
@@ -244,6 +222,38 @@ namespace Core.Helper
 
             model.ResetStates();
             return model;
+        }
+
+        private static void ModelFieldsFill(CardModel model, TableData tableModel, SqlDataReader reader)
+        {
+            tableModel.Fields.ForEach(f =>
+            {
+                if (HasColumn(reader, f.Name))
+                {
+                    model[f.Name] = FieldHelper.CastValueForField(f, reader[f.Name]);
+                }
+                else
+                {
+                    NotificationMessage.SystemError($"В таблице \"{tableModel.DisplayName}\" ({tableModel.Name}) отсутствует поле \"{f.DisplayName}\" ({f.Name}), возможно оно удалено, необходимо проверить поля таблицы.");
+                }
+            });
+        }
+
+        private static void ModelBindDataFill(SqlConnection connection, CardModel model, TableData tableModel, int depthBindData = 1, int depthLinkedData = 1)
+        {
+            tableModel.Fields.Where(f => f.Type == FieldType.BIND).ForEach(f =>
+            {
+                var modelFieldValue = model.GetModelField(f);
+
+                if (modelFieldValue.Value != null)
+                {
+                    modelFieldValue.BindData = GetById(connection,
+                        modelFieldValue.Field.BindData.Table,
+                        modelFieldValue.Value,
+                        depthBindData - 1,
+                        depthLinkedData - 1);
+                }
+            });
         }
     }
 }

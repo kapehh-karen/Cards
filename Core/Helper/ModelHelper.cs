@@ -14,10 +14,12 @@ namespace Core.Helper
 {
     public static class ModelHelper
     {
-        public static bool Get(TableData table, object id, out CardModel outModel, FieldData customFieldId = null)
-            => Get(SQLServerConnection.DefaultDataBase, table, id, out outModel, customFieldId);
+        // GET
 
-        public static bool Get(DataBase dataBase, TableData table, object id, out CardModel outModel, FieldData customFieldId = null)
+        public static bool Get(string tableName, object id, out CardModel outModel, FieldData customFieldId = null)
+            => Get(SQLServerConnection.DefaultDataBase.Tables.First(it => it.Name.Equals(tableName)), id, out outModel, customFieldId);
+
+        public static bool Get(TableData table, object id, out CardModel outModel, FieldData customFieldId = null)
         {
             bool ret = false;
 
@@ -27,7 +29,7 @@ namespace Core.Helper
                 return false;
             }
 
-            using (var dbc = new SQLServerConnection(dataBase))
+            using (var dbc = new SQLServerConnection())
             {
                 var model = SqlModelHelper.GetById(dbc.Connection, table, id, customFieldId: customFieldId);
 
@@ -45,15 +47,17 @@ namespace Core.Helper
             return ret;
         }
 
-        public static bool Save(TableData table, CardModel model)
-            => Save(SQLServerConnection.DefaultDataBase, table, model);
+        // SAVE
 
-        public static bool Save(DataBase dataBase, TableData table, CardModel model)
+        public static bool Save(string tableName, CardModel model)
+            => Save(SQLServerConnection.DefaultDataBase.Tables.First(it => it.Name.Equals(tableName)), model);
+
+        public static bool Save(TableData table, CardModel model)
         {
             bool ret = false;
 
             // Make SQL request
-            using (var dbc = new SQLServerConnection(dataBase))
+            using (var dbc = new SQLServerConnection())
             {
                 var connection = dbc.Connection;
                 var transaction = connection.BeginTransaction();
@@ -81,10 +85,12 @@ namespace Core.Helper
             return ret;
         }
 
-        public static bool Delete(TableData table, object id)
-            => Delete(SQLServerConnection.DefaultDataBase, table, id);
+        // DELETE
 
-        public static bool Delete(DataBase dataBase, TableData table, object id)
+        public static bool Delete(string tableName, object id)
+            => Delete(SQLServerConnection.DefaultDataBase.Tables.First(it => it.Name.Equals(tableName)), id);
+
+        public static bool Delete(TableData table, object id)
         {
             bool ret = false;
 
@@ -92,7 +98,7 @@ namespace Core.Helper
                 return false;
 
             // Make SQL request
-            using (var dbc = new SQLServerConnection(dataBase))
+            using (var dbc = new SQLServerConnection())
             {
                 var connection = dbc.Connection;
                 var transaction = connection.BeginTransaction();
