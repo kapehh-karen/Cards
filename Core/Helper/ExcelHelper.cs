@@ -58,7 +58,6 @@ namespace Core.Helper
                 
                 ws.Cells.AutoFitColumns(10, 50);
                 ws.Cells.Style.WrapText = true;
-                ws.View.FreezePanes(2, colCount + 1);
 
                 p.SaveAs(new FileInfo(fileName));
             }
