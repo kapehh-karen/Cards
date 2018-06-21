@@ -11,9 +11,12 @@ namespace Core.Forms
 {
     public partial class FormWaitDialog : Form
     {
+        private Graphics grphics;
+
         public FormWaitDialog()
         {
             InitializeComponent();
+            grphics = this.CreateGraphics();
         }
 
         public string Message {
@@ -23,8 +26,7 @@ namespace Core.Forms
                 lblMessage.Text = value;
 
                 // Изменяем размер формы под ширину текста. Чем больше текста тем шире форма
-                var g = this.CreateGraphics();
-                var rect = g.MeasureString(value, this.Font);
+                var rect = grphics.MeasureString(value, lblMessage.Font);
                 this.Width = (int)rect.Width + 50;
 
                 // По центру

@@ -13,7 +13,7 @@ namespace Core.Helper
 {
     public static class ExcelHelper
     {
-        public static void SaveDataGridViewToExcel(WaitDialog waitDialog, string fileName, DataGridView dataGridView)
+        public static void SaveDataGridViewToExcel(WaitDialog dialog, string fileName, DataGridView dataGridView)
         {
             var visibleColumns = dataGridView.Columns.Cast<DataGridViewColumn>().Where(col => col.Visible).ToList();
             var colCount = visibleColumns.Count;
@@ -42,7 +42,7 @@ namespace Core.Helper
                 {
                     var row = dataGridView.Rows[i - 1];
 
-                    waitDialog.Message = $"Обрабатывается {i} запись из {rowCount}...";
+                    dialog.Message = $"Обрабатывается {i} запись из {rowCount}...";
 
                     for (var k = 1; k <= colCount; k++)
                     {
@@ -50,7 +50,10 @@ namespace Core.Helper
                         var cellValue = ws.Cells[1 + i, k];
 
                         if (column.ValueType == typeof(bool))
-                            cellValue.Value = Convert.ToBoolean(row.Cells[column.Index].Value) ? "Да" : "Нет";
+                        {
+                            var boolVal = row.Cells[column.Index].Value;
+                            cellValue.Value = boolVal != DBNull.Value && Convert.ToBoolean(boolVal) ? "Да" : "Нет";
+                        }
                         else
                             cellValue.Value = row.Cells[column.Index].Value;
                     }

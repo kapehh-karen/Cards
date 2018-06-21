@@ -208,7 +208,7 @@ namespace Core.Forms.Main
         private void saveToExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var fileName = DocStorage.Instance.GenerateFileName("Экспорт данных", "xlsx");
-            WaitDialog.Run("Экспортируются данные...", (s) => ExcelHelper.SaveDataGridViewToExcel(s, fileName, tableDataGridView1));
+            WaitDialog.Run("Экспортируются данные...", dialog => ExcelHelper.SaveDataGridViewToExcel(dialog, fileName, tableDataGridView1));
             DocStorage.Instance.OpenDocumentFile(fileName);
         }
 
