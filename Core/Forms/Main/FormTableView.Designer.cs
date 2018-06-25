@@ -37,7 +37,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelAmount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelSelectedAmount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripHeader = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonCreate = new System.Windows.Forms.ToolStripButton();
@@ -56,7 +56,7 @@
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
+            this.toolStripHeader.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -134,10 +134,10 @@
             this.toolStripStatusLabelSelectedAmount.Text = "Выбрано записей: 0";
             this.toolStripStatusLabelSelectedAmount.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // toolStrip1
+            // toolStripHeader
             // 
-            this.toolStrip1.AutoSize = false;
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripHeader.AutoSize = false;
+            this.toolStripHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonRefresh,
             this.toolStripSeparator1,
             this.toolStripButtonCreate,
@@ -148,12 +148,12 @@
             this.toolStripButtonFilterReset,
             this.toolStripSeparator3,
             this.toolStripButtonGroupEdit});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(814, 79);
-            this.toolStrip1.TabIndex = 6;
-            this.toolStrip1.Text = "toolStrip1";
+            this.toolStripHeader.Location = new System.Drawing.Point(0, 24);
+            this.toolStripHeader.Name = "toolStripHeader";
+            this.toolStripHeader.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.toolStripHeader.Size = new System.Drawing.Size(814, 79);
+            this.toolStripHeader.TabIndex = 6;
+            this.toolStripHeader.Text = "toolStrip1";
             // 
             // toolStripButtonRefresh
             // 
@@ -315,7 +315,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(814, 533);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.toolStripHeader);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.mainMenuStrip);
             this.Controls.Add(this.tableDataGridView1);
@@ -329,8 +329,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
+            this.toolStripHeader.ResumeLayout(false);
+            this.toolStripHeader.PerformLayout();
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -343,7 +343,7 @@
         private TableDataGridView tableDataGridView1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelAmount;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStrip toolStripHeader;
         private System.Windows.Forms.ToolStripButton toolStripButtonRefresh;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolStripButtonCreate;

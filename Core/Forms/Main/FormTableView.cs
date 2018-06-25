@@ -237,6 +237,12 @@ namespace Core.Forms.Main
         public void AddMenuItem(ToolStripMenuItem menuItem) => mainMenuStrip.Items.Add(menuItem);
 
         /// <summary>
+        /// Добавляет новую кнопку
+        /// </summary>
+        /// <param name="button"></param>
+        public void AddButton(ToolStripButton button) => toolStripHeader.Items.Add(button);
+
+        /// <summary>
         /// Возвращает ID выбранной записи
         /// </summary>
         /// <returns></returns>
