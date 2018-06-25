@@ -240,7 +240,7 @@ namespace Core.Forms.Main
         /// Добавляет новую кнопку
         /// </summary>
         /// <param name="button"></param>
-        public void AddButton(ToolStripButton button) => toolStripHeader.Items.Add(button);
+        public void AddButton(ToolStripItem button) => toolStripHeader.Items.Add(button);
 
         /// <summary>
         /// Возвращает ID выбранной записи
