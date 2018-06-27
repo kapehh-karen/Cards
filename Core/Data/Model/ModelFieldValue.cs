@@ -76,17 +76,7 @@ namespace Core.Data.Model
 
         public override string ToString()
         {
-            switch (Field?.Type)
-            {
-                case FieldType.BIND:
-                    return BindData?[Field.BindData?.Field]?.ToString();
-                case FieldType.BOOLEAN:
-                case FieldType.DATE:
-                case FieldType.NUMBER:
-                case FieldType.TEXT:
-                default:
-                    return Value?.ToString();
-            }
+            return Convert.ToString(DisplayValue);
         }
     }
 }

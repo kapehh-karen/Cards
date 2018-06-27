@@ -5,12 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Core.Data.Model.Preprocessors.Impl
 {
     public class BindProcessor : IFieldProcessor
     {
         private BindControl control;
+        private ToolTip toolTip = new ToolTip();
 
         public override void Attach()
         {
@@ -33,6 +35,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             {
                 Detach();
                 control = value as BindControl;
+                toolTip.RemoveAll();
                 Attach();
             }
         }
@@ -45,7 +48,11 @@ namespace Core.Data.Model.Preprocessors.Impl
                 ModelField.Value = value;
                 ModelField.UpdateBindData(); // Обновляем, поменяли ведь Value все-таки
                 if (control != null)
-                    control.Text = ModelField.ToString();
+                {
+                    var text = ModelField.ToString();
+                    control.Text = text;
+                    toolTip.SetToolTip(control, text);
+                }
             }
         }
 
