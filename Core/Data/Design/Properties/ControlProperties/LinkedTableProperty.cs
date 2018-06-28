@@ -22,13 +22,17 @@ namespace Core.Data.Design.Properties.ControlProperties
         {
             if (sender is TableData tableData)
             {
-                using (var dialog = new FormEditLinkedTable() { TableData = tableData, SelectedLinkedTable = Value as LinkedTable })
+                using (var dialog = new FormEditLinkedTable()
+                {
+                    TableData = tableData,
+                    SelectedLinkedTable = tableData.GetLinkedTableByName(Value as string)
+                })
                 {
                     var res = dialog.ShowDialog();
 
                     if (res == DialogResult.OK)
                     {
-                        Value = dialog.SelectedLinkedTable;
+                        Value = dialog.SelectedLinkedTable?.Name;
                         return true;
                     }
                     else if (res == DialogResult.Ignore)

@@ -14,14 +14,17 @@ namespace Core.Data.Model.Preprocessors
 {
     public static class Processors
     {
-        public static IFieldProcessor GetFieldProcessor(IDesignControl control)
+        public static IFieldProcessor GetFieldProcessor(TableData table, IDesignControl control)
         {
             var property = (FieldProperty)control.GetProperty<FieldProperty>();
-            var field = property?.Value as FieldData;
-            IFieldProcessor proc;
-
-            if (field is null)
+            if (property?.Value == null)
                 return null;
+
+            var field = table.GetFieldByName(property.Value as string);
+            if (field == null)
+                return null;
+
+            IFieldProcessor proc;
 
             switch (field.Type)
             {
@@ -50,16 +53,17 @@ namespace Core.Data.Model.Preprocessors
             return proc;
         }
 
-        public static ILinkedTableProcessor GetLinkedTableProcessor(IDesignControl control)
+        public static ILinkedTableProcessor GetLinkedTableProcessor(TableData table, IDesignControl control)
         {
             var property = (LinkedTableProperty)control.GetProperty<LinkedTableProperty>();
-            var linkedTable = property?.Value as LinkedTable;
-            ILinkedTableProcessor proc;
-
-            if (linkedTable is null)
+            if (property?.Value == null)
                 return null;
 
-            proc = new LinkedTableProcessor()
+            var linkedTable = table.GetLinkedTableByName(property.Value as string);
+            if (linkedTable == null)
+                return null;
+
+            ILinkedTableProcessor proc = new LinkedTableProcessor()
             {
                 LinkedTable = linkedTable,
                 Control = control

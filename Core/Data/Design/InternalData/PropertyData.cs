@@ -12,18 +12,25 @@ namespace Core.Data.Design.InternalData
     [DataContract]
     [KnownType(typeof(Size))]
     [KnownType(typeof(Point))]
-    [KnownType(typeof(FieldData))]
-    [KnownType(typeof(LinkedTable))]
     [KnownType(typeof(FontStyle))]
     [KnownType(typeof(Font))]
     [KnownType(typeof(Color))]
     [KnownType(typeof(GraphicsUnit))]
-    public class PropertyData
+    public class PropertyData : ICloneable
     {
         [DataMember]
         public string Name { get; set; }
 
         [DataMember]
         public object Value { get; set; }
+
+        public object Clone()
+        {
+            return new PropertyData()
+            {
+                Name = this.Name,
+                Value = this.Value
+            };
+        }
     }
 }

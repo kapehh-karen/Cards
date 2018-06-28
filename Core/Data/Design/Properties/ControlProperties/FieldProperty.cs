@@ -28,14 +28,14 @@ namespace Core.Data.Design.Properties.ControlProperties
                 using (var dialog = new FormEditFieldProperty(AccessTypes)
                 {
                     TableData = tableData,
-                    SelectedField = Value as FieldData
+                    SelectedField = tableData.GetFieldByName(Value as string)
                 })
                 {
                     var res = dialog.ShowDialog();
 
                     if (res == DialogResult.OK)
                     {
-                        Value = dialog.SelectedField;
+                        Value = dialog.SelectedField?.Name;
                         return true;
                     }
                     else if (res == DialogResult.Ignore)

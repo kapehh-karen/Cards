@@ -110,11 +110,9 @@ namespace Core.Forms.Main.CardForm
             // Создаем обработчики для полей
             fieldControls.ForEach(element =>
             {
-                var proc = Processors.GetFieldProcessor(element);
+                var proc = Processors.GetFieldProcessor(Table, element);
                 if (proc != null)
                 {
-                    //proc.ModelField = Model.GetModelField(proc.Field);
-                    //proc.ParentModel = model;
                     fieldProcessors.Add(proc);
                 }
             });
@@ -122,11 +120,9 @@ namespace Core.Forms.Main.CardForm
             // Создаем обработчики для внешних данных
             linkedTableControls.ForEach(element =>
             {
-                var proc = Processors.GetLinkedTableProcessor(element);
+                var proc = Processors.GetLinkedTableProcessor(Table, element);
                 if (proc != null)
                 {
-                    //proc.ModelLinkedTable = Model.LinkedValues.FirstOrDefault(lv => lv.LinkedTable == proc.LinkedTable);
-                    //proc.ParentModel = model;
                     proc.Attach();
                     linkedTableProcessors.Add(proc);
                 }

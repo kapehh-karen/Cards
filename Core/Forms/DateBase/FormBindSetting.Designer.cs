@@ -1,4 +1,6 @@
-﻿namespace Core.Forms.DateBase
+﻿using Core.Common;
+
+namespace Core.Forms.DateBase
 {
     partial class FormBindSetting
     {
@@ -28,9 +30,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBindSetting));
             this.gbDateBase = new System.Windows.Forms.GroupBox();
             this.gbDateTable = new System.Windows.Forms.GroupBox();
+            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.lvFields = new System.Windows.Forms.ListView();
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lvDataList = new System.Windows.Forms.ListView();
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmbFastJumpField = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnFormRemove = new System.Windows.Forms.Button();
@@ -38,33 +54,25 @@
             this.txtTableDisplayName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.checkClassif = new System.Windows.Forms.CheckBox();
-            this.lvDataList = new System.Windows.Forms.ListView();
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lvFields = new System.Windows.Forms.ListView();
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmbIDField = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btnForm = new System.Windows.Forms.Button();
+            this.btnForm = new Core.Common.MenuButton();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editCurrentFormToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyFormFromTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmbTables = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnSaveApply = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
-            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.btnCopyFromTable = new System.Windows.Forms.Button();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbDateBase
@@ -104,6 +112,135 @@
             this.gbDateTable.Size = new System.Drawing.Size(728, 455);
             this.gbDateTable.TabIndex = 2;
             this.gbDateTable.TabStop = false;
+            // 
+            // splitContainerMain
+            // 
+            this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainerMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainerMain.Location = new System.Drawing.Point(12, 58);
+            this.splitContainerMain.Name = "splitContainerMain";
+            this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerMain.Panel1
+            // 
+            this.splitContainerMain.Panel1.Controls.Add(this.btnCopyFromTable);
+            this.splitContainerMain.Panel1.Controls.Add(this.lvFields);
+            this.splitContainerMain.Panel1.Controls.Add(this.label4);
+            // 
+            // splitContainerMain.Panel2
+            // 
+            this.splitContainerMain.Panel2.Controls.Add(this.label5);
+            this.splitContainerMain.Panel2.Controls.Add(this.lvDataList);
+            this.splitContainerMain.Size = new System.Drawing.Size(701, 307);
+            this.splitContainerMain.SplitterDistance = 175;
+            this.splitContainerMain.SplitterWidth = 7;
+            this.splitContainerMain.TabIndex = 15;
+            // 
+            // lvFields
+            // 
+            this.lvFields.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvFields.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader8});
+            this.lvFields.FullRowSelect = true;
+            this.lvFields.GridLines = true;
+            this.lvFields.Location = new System.Drawing.Point(3, 27);
+            this.lvFields.MultiSelect = false;
+            this.lvFields.Name = "lvFields";
+            this.lvFields.Size = new System.Drawing.Size(691, 141);
+            this.lvFields.TabIndex = 3;
+            this.lvFields.UseCompatibleStateImageBehavior = false;
+            this.lvFields.View = System.Windows.Forms.View.Details;
+            this.lvFields.ItemActivate += new System.EventHandler(this.lvFields_ItemActivate);
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Имя поля";
+            this.columnHeader2.Width = 194;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Тип поля";
+            this.columnHeader3.Width = 190;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Видимость";
+            this.columnHeader4.Width = 63;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Обязательное";
+            this.columnHeader5.Width = 91;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Отображаемое имя поля";
+            this.columnHeader8.Width = 204;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(3, 4);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(137, 13);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Поля [ENTER - изменить]";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.Color.Red;
+            this.label5.Location = new System.Drawing.Point(3, 4);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(353, 13);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Внешние данные [INS - добавить, DEL - удалить, ENTER - изменить]";
+            // 
+            // lvDataList
+            // 
+            this.lvDataList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lvDataList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader6,
+            this.columnHeader7,
+            this.columnHeader9});
+            this.lvDataList.FullRowSelect = true;
+            this.lvDataList.GridLines = true;
+            this.lvDataList.Location = new System.Drawing.Point(6, 20);
+            this.lvDataList.MultiSelect = false;
+            this.lvDataList.Name = "lvDataList";
+            this.lvDataList.Size = new System.Drawing.Size(688, 98);
+            this.lvDataList.TabIndex = 6;
+            this.lvDataList.UseCompatibleStateImageBehavior = false;
+            this.lvDataList.View = System.Windows.Forms.View.Details;
+            this.lvDataList.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lvDataList_KeyUp);
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Имя таблицы";
+            this.columnHeader6.Width = 161;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Внешнее поле (Foreign Key)";
+            this.columnHeader7.Width = 153;
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Обязательное";
+            this.columnHeader9.Width = 115;
             // 
             // cmbFastJumpField
             // 
@@ -181,110 +318,6 @@
             this.checkClassif.UseVisualStyleBackColor = true;
             this.checkClassif.CheckedChanged += new System.EventHandler(this.checkClassif_CheckedChanged);
             // 
-            // lvDataList
-            // 
-            this.lvDataList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvDataList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader9});
-            this.lvDataList.FullRowSelect = true;
-            this.lvDataList.GridLines = true;
-            this.lvDataList.Location = new System.Drawing.Point(6, 16);
-            this.lvDataList.MultiSelect = false;
-            this.lvDataList.Name = "lvDataList";
-            this.lvDataList.Size = new System.Drawing.Size(688, 102);
-            this.lvDataList.TabIndex = 6;
-            this.lvDataList.UseCompatibleStateImageBehavior = false;
-            this.lvDataList.View = System.Windows.Forms.View.Details;
-            this.lvDataList.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lvDataList_KeyUp);
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Имя таблицы";
-            this.columnHeader6.Width = 161;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Внешнее поле (Foreign Key)";
-            this.columnHeader7.Width = 153;
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Обязательное";
-            this.columnHeader9.Width = 115;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.Color.Red;
-            this.label5.Location = new System.Drawing.Point(3, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(353, 13);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Внешние данные [INS - добавить, DEL - удалить, ENTER - изменить]";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.ForeColor = System.Drawing.Color.Red;
-            this.label4.Location = new System.Drawing.Point(0, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(137, 13);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Поля [ENTER - изменить]";
-            // 
-            // lvFields
-            // 
-            this.lvFields.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvFields.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader5,
-            this.columnHeader8});
-            this.lvFields.FullRowSelect = true;
-            this.lvFields.GridLines = true;
-            this.lvFields.Location = new System.Drawing.Point(3, 16);
-            this.lvFields.MultiSelect = false;
-            this.lvFields.Name = "lvFields";
-            this.lvFields.Size = new System.Drawing.Size(691, 152);
-            this.lvFields.TabIndex = 3;
-            this.lvFields.UseCompatibleStateImageBehavior = false;
-            this.lvFields.View = System.Windows.Forms.View.Details;
-            this.lvFields.ItemActivate += new System.EventHandler(this.lvFields_ItemActivate);
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Имя поля";
-            this.columnHeader2.Width = 194;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Тип поля";
-            this.columnHeader3.Width = 190;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Видимость";
-            this.columnHeader4.Width = 63;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Обязательное";
-            this.columnHeader5.Width = 91;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Отображаемое имя поля";
-            this.columnHeader8.Width = 204;
-            // 
             // cmbIDField
             // 
             this.cmbIDField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -309,12 +342,34 @@
             // 
             this.btnForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnForm.Location = new System.Drawing.Point(590, 19);
+            this.btnForm.Menu = this.contextMenuStrip1;
             this.btnForm.Name = "btnForm";
             this.btnForm.Size = new System.Drawing.Size(98, 23);
             this.btnForm.TabIndex = 0;
             this.btnForm.Text = "Форма";
             this.btnForm.UseVisualStyleBackColor = true;
-            this.btnForm.Click += new System.EventHandler(this.btnForm_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editCurrentFormToolStripMenuItem,
+            this.copyFormFromTableToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(295, 48);
+            // 
+            // editCurrentFormToolStripMenuItem
+            // 
+            this.editCurrentFormToolStripMenuItem.Name = "editCurrentFormToolStripMenuItem";
+            this.editCurrentFormToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.editCurrentFormToolStripMenuItem.Text = "Редактировать текущую форму";
+            this.editCurrentFormToolStripMenuItem.Click += new System.EventHandler(this.editCurrentFormToolStripMenuItem_Click);
+            // 
+            // copyFormFromTableToolStripMenuItem
+            // 
+            this.copyFormFromTableToolStripMenuItem.Name = "copyFormFromTableToolStripMenuItem";
+            this.copyFormFromTableToolStripMenuItem.Size = new System.Drawing.Size(294, 22);
+            this.copyFormFromTableToolStripMenuItem.Text = "Скопировать форму из другой таблицы";
+            this.copyFormFromTableToolStripMenuItem.Click += new System.EventHandler(this.copyFormFromTableToolStripMenuItem_Click);
             // 
             // cmbTables
             // 
@@ -369,29 +424,16 @@
             this.btnEditDB.UseVisualStyleBackColor = true;
             this.btnEditDB.Click += new System.EventHandler(this.btnEditDB_Click);
             // 
-            // splitContainerMain
+            // btnCopyFromTable
             // 
-            this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainerMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.splitContainerMain.Location = new System.Drawing.Point(12, 58);
-            this.splitContainerMain.Name = "splitContainerMain";
-            this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainerMain.Panel1
-            // 
-            this.splitContainerMain.Panel1.Controls.Add(this.lvFields);
-            this.splitContainerMain.Panel1.Controls.Add(this.label4);
-            // 
-            // splitContainerMain.Panel2
-            // 
-            this.splitContainerMain.Panel2.Controls.Add(this.label5);
-            this.splitContainerMain.Panel2.Controls.Add(this.lvDataList);
-            this.splitContainerMain.Size = new System.Drawing.Size(701, 307);
-            this.splitContainerMain.SplitterDistance = 175;
-            this.splitContainerMain.SplitterWidth = 7;
-            this.splitContainerMain.TabIndex = 15;
+            this.btnCopyFromTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCopyFromTable.Location = new System.Drawing.Point(485, 1);
+            this.btnCopyFromTable.Name = "btnCopyFromTable";
+            this.btnCopyFromTable.Size = new System.Drawing.Size(210, 23);
+            this.btnCopyFromTable.TabIndex = 5;
+            this.btnCopyFromTable.Text = "Автозаполнение из таблицы";
+            this.btnCopyFromTable.UseVisualStyleBackColor = true;
+            this.btnCopyFromTable.Click += new System.EventHandler(this.btnCopyFromTable_Click);
             // 
             // FormBindSetting
             // 
@@ -419,6 +461,7 @@
             this.splitContainerMain.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -428,7 +471,7 @@
         private System.Windows.Forms.ComboBox cmbTables;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox gbDateTable;
-        private System.Windows.Forms.Button btnForm;
+        private MenuButton btnForm;
         private System.Windows.Forms.ComboBox cmbIDField;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ListView lvFields;
@@ -454,5 +497,9 @@
         private System.Windows.Forms.ComboBox cmbFastJumpField;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SplitContainer splitContainerMain;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem editCurrentFormToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyFormFromTableToolStripMenuItem;
+        private System.Windows.Forms.Button btnCopyFromTable;
     }
 }

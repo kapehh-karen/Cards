@@ -157,7 +157,7 @@ namespace Core.Config
 
             // Close connection
             dbc.Dispose();
-
+            
             BaseCleanupProperties(dataBase);
             return dataBase;
         }
@@ -192,31 +192,6 @@ namespace Core.Config
                         lt.Field = null;
                     }
                 }
-
-                td.Form?.Pages.ForEach(page => CleanupProperties(td, page.Controls));
-            });
-        }
-
-        private void CleanupProperties(TableData tableData, List<ControlData> Controls)
-        {
-            Controls.ForEach(ctl =>
-            {
-                // Properties cleanup
-                ctl.Properties.ForEach(p =>
-                {
-                    // TODO: Изменить метод обнуления значения не по типу значения, а по типу проперти
-                    if (p.Value is FieldData field && !tableData.Fields.Contains(field))
-                    {
-                        p.Value = null;
-                    }
-                    else if (p.Value is LinkedTable table && !tableData.LinkedTables.Contains(table))
-                    {
-                        p.Value = null;
-                    }
-                });
-
-                // In Deepth
-                CleanupProperties(tableData, ctl.Chields);
             });
         }
     }

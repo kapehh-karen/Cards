@@ -13,6 +13,7 @@ using Core.Config;
 using Core.Data.Field;
 using Core.Forms.Design;
 using Core.Helper;
+using Core.Data.Design.InternalData;
 
 namespace Core.Forms.DateBase
 {
@@ -331,17 +332,6 @@ namespace Core.Forms.DateBase
                 RedrawLinkedData(_tableData);
         }
 
-        private void btnForm_Click(object sender, EventArgs e)
-        {
-            using (var formDesign = new FormDesigner() { FormData = _tableData.Form, TableData = _tableData })
-            {
-                if (formDesign.ShowDialog() == DialogResult.OK)
-                {
-                    _tableData.Form = formDesign.FormData;
-                }
-            }
-        }
-
         private void btnAddDB_Click(object sender, EventArgs e)
         {
 
@@ -421,6 +411,63 @@ namespace Core.Forms.DateBase
 
             var fieldData = cmbFastJumpField.SelectedItem as FieldData;
             _tableData.Fields.ForEach(fd => fd.FastJump = fd == fieldData);
+        }
+
+        private void editCurrentFormToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var formDesign = new FormDesigner() { FormData = _tableData.Form, TableData = _tableData })
+            {
+                if (formDesign.ShowDialog() == DialogResult.OK)
+                {
+                    _tableData.Form = formDesign.FormData;
+                }
+            }
+        }
+
+        private void copyFormFromTableToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var formSelectTable = new FormSelectTable() { Base = _dataBase })
+            {
+                if (formSelectTable.ShowDialog() == DialogResult.OK)
+                {
+                    var selectedTable = formSelectTable.SelectedTable;
+                    if (selectedTable != null)
+                    {
+                        _tableData.Form = selectedTable.Form.Clone() as FormData;
+                    }
+                }
+            }
+        }
+
+        private void btnCopyFromTable_Click(object sender, EventArgs e)
+        {
+            using (var formSelectTable = new FormSelectTable() { Base = _dataBase })
+            {
+                if (formSelectTable.ShowDialog() == DialogResult.OK)
+                {
+                    var selectedTable = formSelectTable.SelectedTable;
+
+                    if (selectedTable != null)
+                    {
+                        _tableData.Fields.ForEach(field =>
+                        {
+                            var fieldOther = selectedTable.GetFieldByName(field.Name);
+
+                            if (fieldOther != null)
+                            {
+                                field.DisplayName = fieldOther.DisplayName;
+                                field.Type = fieldOther.Type;
+                                if (fieldOther.BindData != null)
+                                {
+                                    field.BindData = fieldOther.BindData.Clone() as BindField;
+                                }
+                            }
+                        });
+
+                        RedrawFields(_tableData);
+                    }
+                }
+            }
         }
     }
 }

@@ -84,7 +84,13 @@ namespace Core.Data.Table
         public DataBase ParentBase { get; set; } = null;
 
         public string FullDisplayName => $"{(IsClassifier ? "Классификатор" : "Таблица")} - {DisplayName}";
-        
+
+        public FieldData GetFieldByName(string fieldName)
+            => Fields.FirstOrDefault(it => it.Name.Equals(fieldName));
+
+        public LinkedTable GetLinkedTableByName(string linkedName)
+            => LinkedTables.FirstOrDefault(it => it.Name.Equals(linkedName));
+
         public FormCardView CardView
         {
             get

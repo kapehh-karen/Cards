@@ -8,7 +8,7 @@ using System.Text;
 namespace Core.Data.Field
 {
     [DataContract(IsReference = true)]
-    public class BindField
+    public class BindField : ICloneable
     {
         /// <summary>
         /// Какая таблица используется (значение для записи берется из поля идентификатора этой же таблицы)
@@ -23,6 +23,15 @@ namespace Core.Data.Field
         public FieldData Field { get; set; }
 
         public string Name => $"BindField__{Table?.Name}_{Field?.Name}";
+
+        public object Clone()
+        {
+            return new BindField()
+            {
+                Table = this.Table,
+                Field = this.Field
+            };
+        }
 
         public override string ToString()
         {
