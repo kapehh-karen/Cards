@@ -76,7 +76,6 @@ namespace Core.Data.Field
         /// <summary>
         /// Таблица в которой находится текущее поле
         /// </summary>
-        [DataMember]
         public TableData ParentTable { get; set; } = null;
 
         public override string ToString()

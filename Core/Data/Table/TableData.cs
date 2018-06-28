@@ -81,7 +81,6 @@ namespace Core.Data.Table
         /// <summary>
         /// База в которой находится текущая таблица
         /// </summary>
-        [DataMember]
         public DataBase ParentBase { get; set; } = null;
 
         public string FullDisplayName => $"{(IsClassifier ? "Классификатор" : "Таблица")} - {DisplayName}";

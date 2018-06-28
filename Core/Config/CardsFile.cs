@@ -97,6 +97,16 @@ namespace Core.Config
                 // База не загружена
                 return false;
             }
+            else
+            {
+                // В загруженной базе, восстанавливаем ссылки на родителей
+                Base.Tables.ForEach(t =>
+                {
+                    t.ParentBase = Base;
+                    t.Fields.ForEach(f => f.ParentTable = t);
+                    t.LinkedTables.ForEach(lt => lt.ParentTable = t);
+                });
+            }
 
             // База по-умолчанию
             SQLServerConnection.DefaultDataBase = Base;
