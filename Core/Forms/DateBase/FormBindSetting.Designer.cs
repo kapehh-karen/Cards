@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormBindSetting));
             this.gbDateBase = new System.Windows.Forms.GroupBox();
             this.gbDateTable = new System.Windows.Forms.GroupBox();
+            this.cmbFastJumpField = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnFormRemove = new System.Windows.Forms.Button();
             this.checkVisible = new System.Windows.Forms.CheckBox();
             this.txtTableDisplayName = new System.Windows.Forms.TextBox();
@@ -56,10 +58,13 @@
             this.btnSaveApply = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cmbFastJumpField = new System.Windows.Forms.ComboBox();
+            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
+            this.splitContainerMain.Panel1.SuspendLayout();
+            this.splitContainerMain.Panel2.SuspendLayout();
+            this.splitContainerMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbDateBase
@@ -73,7 +78,7 @@
             this.gbDateBase.Enabled = false;
             this.gbDateBase.Location = new System.Drawing.Point(12, 12);
             this.gbDateBase.Name = "gbDateBase";
-            this.gbDateBase.Size = new System.Drawing.Size(758, 560);
+            this.gbDateBase.Size = new System.Drawing.Size(758, 530);
             this.gbDateBase.TabIndex = 2;
             this.gbDateBase.TabStop = false;
             // 
@@ -82,6 +87,7 @@
             this.gbDateTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbDateTable.Controls.Add(this.splitContainerMain);
             this.gbDateTable.Controls.Add(this.cmbFastJumpField);
             this.gbDateTable.Controls.Add(this.label1);
             this.gbDateTable.Controls.Add(this.btnFormRemove);
@@ -89,19 +95,34 @@
             this.gbDateTable.Controls.Add(this.txtTableDisplayName);
             this.gbDateTable.Controls.Add(this.label6);
             this.gbDateTable.Controls.Add(this.checkClassif);
-            this.gbDateTable.Controls.Add(this.lvDataList);
-            this.gbDateTable.Controls.Add(this.label5);
-            this.gbDateTable.Controls.Add(this.label4);
-            this.gbDateTable.Controls.Add(this.lvFields);
             this.gbDateTable.Controls.Add(this.cmbIDField);
             this.gbDateTable.Controls.Add(this.label3);
             this.gbDateTable.Controls.Add(this.btnForm);
             this.gbDateTable.Enabled = false;
             this.gbDateTable.Location = new System.Drawing.Point(15, 59);
             this.gbDateTable.Name = "gbDateTable";
-            this.gbDateTable.Size = new System.Drawing.Size(728, 485);
+            this.gbDateTable.Size = new System.Drawing.Size(728, 455);
             this.gbDateTable.TabIndex = 2;
             this.gbDateTable.TabStop = false;
+            // 
+            // cmbFastJumpField
+            // 
+            this.cmbFastJumpField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFastJumpField.FormattingEnabled = true;
+            this.cmbFastJumpField.Location = new System.Drawing.Point(423, 21);
+            this.cmbFastJumpField.Name = "cmbFastJumpField";
+            this.cmbFastJumpField.Size = new System.Drawing.Size(121, 21);
+            this.cmbFastJumpField.TabIndex = 14;
+            this.cmbFastJumpField.SelectedValueChanged += new System.EventHandler(this.cmbFastJumpField_SelectedValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(280, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(137, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Поле быстрого перехода:";
             // 
             // btnFormRemove
             // 
@@ -119,7 +140,7 @@
             this.checkVisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkVisible.AutoSize = true;
             this.checkVisible.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkVisible.Location = new System.Drawing.Point(631, 450);
+            this.checkVisible.Location = new System.Drawing.Point(631, 420);
             this.checkVisible.Name = "checkVisible";
             this.checkVisible.Size = new System.Drawing.Size(82, 17);
             this.checkVisible.TabIndex = 11;
@@ -131,7 +152,7 @@
             // 
             this.txtTableDisplayName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtTableDisplayName.Location = new System.Drawing.Point(196, 401);
+            this.txtTableDisplayName.Location = new System.Drawing.Point(196, 371);
             this.txtTableDisplayName.Name = "txtTableDisplayName";
             this.txtTableDisplayName.Size = new System.Drawing.Size(517, 20);
             this.txtTableDisplayName.TabIndex = 10;
@@ -141,7 +162,7 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 404);
+            this.label6.Location = new System.Drawing.Point(9, 374);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(184, 13);
             this.label6.TabIndex = 9;
@@ -152,7 +173,7 @@
             this.checkClassif.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.checkClassif.AutoSize = true;
             this.checkClassif.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkClassif.Location = new System.Drawing.Point(562, 427);
+            this.checkClassif.Location = new System.Drawing.Point(562, 397);
             this.checkClassif.Name = "checkClassif";
             this.checkClassif.Size = new System.Drawing.Size(151, 17);
             this.checkClassif.TabIndex = 8;
@@ -162,7 +183,8 @@
             // 
             // lvDataList
             // 
-            this.lvDataList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.lvDataList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvDataList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader6,
@@ -170,10 +192,10 @@
             this.columnHeader9});
             this.lvDataList.FullRowSelect = true;
             this.lvDataList.GridLines = true;
-            this.lvDataList.Location = new System.Drawing.Point(12, 277);
+            this.lvDataList.Location = new System.Drawing.Point(6, 16);
             this.lvDataList.MultiSelect = false;
             this.lvDataList.Name = "lvDataList";
-            this.lvDataList.Size = new System.Drawing.Size(701, 109);
+            this.lvDataList.Size = new System.Drawing.Size(688, 102);
             this.lvDataList.TabIndex = 6;
             this.lvDataList.UseCompatibleStateImageBehavior = false;
             this.lvDataList.View = System.Windows.Forms.View.Details;
@@ -196,10 +218,10 @@
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(9, 261);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label5.ForeColor = System.Drawing.Color.Red;
+            this.label5.Location = new System.Drawing.Point(3, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(353, 13);
             this.label5.TabIndex = 5;
@@ -208,8 +230,9 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label4.Location = new System.Drawing.Point(9, 68);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(0, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(137, 13);
             this.label4.TabIndex = 4;
@@ -228,10 +251,10 @@
             this.columnHeader8});
             this.lvFields.FullRowSelect = true;
             this.lvFields.GridLines = true;
-            this.lvFields.Location = new System.Drawing.Point(12, 84);
+            this.lvFields.Location = new System.Drawing.Point(3, 16);
             this.lvFields.MultiSelect = false;
             this.lvFields.Name = "lvFields";
-            this.lvFields.Size = new System.Drawing.Size(701, 162);
+            this.lvFields.Size = new System.Drawing.Size(691, 152);
             this.lvFields.TabIndex = 3;
             this.lvFields.UseCompatibleStateImageBehavior = false;
             this.lvFields.View = System.Windows.Forms.View.Details;
@@ -316,7 +339,7 @@
             // btnSaveApply
             // 
             this.btnSaveApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveApply.Location = new System.Drawing.Point(607, 578);
+            this.btnSaveApply.Location = new System.Drawing.Point(607, 548);
             this.btnSaveApply.Name = "btnSaveApply";
             this.btnSaveApply.Size = new System.Drawing.Size(163, 23);
             this.btnSaveApply.TabIndex = 3;
@@ -327,7 +350,7 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancel.Location = new System.Drawing.Point(526, 578);
+            this.btnCancel.Location = new System.Drawing.Point(526, 548);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 4;
@@ -338,7 +361,7 @@
             // btnEditDB
             // 
             this.btnEditDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEditDB.Location = new System.Drawing.Point(12, 580);
+            this.btnEditDB.Location = new System.Drawing.Point(12, 550);
             this.btnEditDB.Name = "btnEditDB";
             this.btnEditDB.Size = new System.Drawing.Size(189, 21);
             this.btnEditDB.TabIndex = 5;
@@ -346,30 +369,35 @@
             this.btnEditDB.UseVisualStyleBackColor = true;
             this.btnEditDB.Click += new System.EventHandler(this.btnEditDB_Click);
             // 
-            // label1
+            // splitContainerMain
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(280, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Поле быстрого перехода:";
+            this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainerMain.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.splitContainerMain.Location = new System.Drawing.Point(12, 58);
+            this.splitContainerMain.Name = "splitContainerMain";
+            this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // cmbFastJumpField
+            // splitContainerMain.Panel1
             // 
-            this.cmbFastJumpField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFastJumpField.FormattingEnabled = true;
-            this.cmbFastJumpField.Location = new System.Drawing.Point(423, 21);
-            this.cmbFastJumpField.Name = "cmbFastJumpField";
-            this.cmbFastJumpField.Size = new System.Drawing.Size(121, 21);
-            this.cmbFastJumpField.TabIndex = 14;
-            this.cmbFastJumpField.SelectedValueChanged += new System.EventHandler(this.cmbFastJumpField_SelectedValueChanged);
+            this.splitContainerMain.Panel1.Controls.Add(this.lvFields);
+            this.splitContainerMain.Panel1.Controls.Add(this.label4);
+            // 
+            // splitContainerMain.Panel2
+            // 
+            this.splitContainerMain.Panel2.Controls.Add(this.label5);
+            this.splitContainerMain.Panel2.Controls.Add(this.lvDataList);
+            this.splitContainerMain.Size = new System.Drawing.Size(701, 307);
+            this.splitContainerMain.SplitterDistance = 175;
+            this.splitContainerMain.SplitterWidth = 7;
+            this.splitContainerMain.TabIndex = 15;
             // 
             // FormBindSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(781, 608);
+            this.ClientSize = new System.Drawing.Size(781, 578);
             this.Controls.Add(this.btnEditDB);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSaveApply);
@@ -385,6 +413,12 @@
             this.gbDateBase.PerformLayout();
             this.gbDateTable.ResumeLayout(false);
             this.gbDateTable.PerformLayout();
+            this.splitContainerMain.Panel1.ResumeLayout(false);
+            this.splitContainerMain.Panel1.PerformLayout();
+            this.splitContainerMain.Panel2.ResumeLayout(false);
+            this.splitContainerMain.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
+            this.splitContainerMain.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -419,5 +453,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ComboBox cmbFastJumpField;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.SplitContainer splitContainerMain;
     }
 }
