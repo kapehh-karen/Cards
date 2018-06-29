@@ -122,7 +122,6 @@ namespace Core.Data.Table
                 if (formView == null)
                 {
                     formView = new FormTableView() { Table = this };
-                    formView.FillTable();
                     formView.SendEventFormCreated();
                 }
 

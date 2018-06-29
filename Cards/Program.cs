@@ -57,6 +57,7 @@ namespace Cards
                     {
                         var selectedTable = dialogSelectTable.SelectedTableData;
                         var formView = selectedTable.TableView;
+                        formView.FillTable();
                         needSelectTable = formView.ShowDialog() == DialogResult.Ignore;
                     }
                 }

@@ -36,7 +36,9 @@ namespace Core.Utils
         
         private Pen pen = new Pen(Color.DeepSkyBlue, 3);
 
-        private bool IsControlContainer(Control nestedControl) => nestedControl.HasChildren || nestedControl is TabPage || nestedControl is GroupBox;
+        // Удалил nestedControl.HasChildren
+        private bool IsControlContainer(Control nestedControl)
+            => nestedControl is TabControl || nestedControl is TabPage || nestedControl is GroupBox;
 
         /// <summary>
         /// Recursive method to install the paint event handler for all container controls on a form, 

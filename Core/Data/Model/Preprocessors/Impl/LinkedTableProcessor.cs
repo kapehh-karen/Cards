@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Core.Forms.Main.CardForm;
 using Core.Data.Field;
 using Core.Forms.Main;
+using System.Drawing;
 
 namespace Core.Data.Model.Preprocessors.Impl
 {
@@ -21,7 +22,11 @@ namespace Core.Data.Model.Preprocessors.Impl
         private List<CardModel> displayedItems;
         private LinkedTableControl control;
 
-        public override IDesignControl Control { get => control; set => control = value as LinkedTableControl; }
+        public override IDesignControl Control
+        {
+            get => control;
+            set => control = value as LinkedTableControl;
+        }
 
         public override void Attach()
         {
@@ -49,7 +54,7 @@ namespace Core.Data.Model.Preprocessors.Impl
         {
             if (ModelLinkedTable == null)
                 return;
-            
+
             // Для сохраненных настроек столбцов
             control.Table = ModelLinkedTable.LinkedTable.Table;
 
@@ -136,7 +141,7 @@ namespace Core.Data.Model.Preprocessors.Impl
                 }
             }
         }
-        
+
         private void Control_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             control.ClearSelection();

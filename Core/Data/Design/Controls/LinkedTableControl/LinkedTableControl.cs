@@ -14,7 +14,6 @@ using Core.Forms.Main;
 
 namespace Core.Data.Design.Controls.LinkedTableControl
 {
-    // TODO: Добавление, изменение и удаление записей можно сделать на клавиши и на контекстное меню
     public class LinkedTableControl : BaseDataGridView
     {
         public event EventHandler TableStorageInformationUpdated = (s, e) => { };
@@ -32,7 +31,7 @@ namespace Core.Data.Design.Controls.LinkedTableControl
             BorderStyle = BorderStyle.FixedSingle;
             MultiSelect = false;
         }
-        
+
         #region IDesignControl Impl
 
         public override DesignControlType ControlType => DesignControlType.LINKED_TABLE;
