@@ -48,8 +48,13 @@ namespace Core.Forms.DateBase
             gbDateTable.Enabled = false;
             gbDateTable.Text = string.Empty;
             checkClassif.Checked = false;
+            checkVisible.Checked = false;
+            chkAllowNew.Checked = false;
+            chkAllowEdit.Checked = false;
+            chkAllowDelete.Checked = false;
             txtTableDisplayName.Text = string.Empty;
             cmbIDField.Items.Clear();
+            cmbFastJumpField.Items.Clear();
             lvFields.Items.Clear();
             lvDataList.Items.Clear();
         }
@@ -145,10 +150,13 @@ namespace Core.Forms.DateBase
 
             RedrawFields(tableData, false);
             RedrawLinkedData(tableData, false);
-            
-            checkClassif.Checked = tableData.IsClassifier;
+
             txtTableDisplayName.Text = tableData.DisplayName;
+            checkClassif.Checked = tableData.IsClassifier;
             checkVisible.Checked = tableData.Visible;
+            chkAllowNew.Checked = tableData.AllowNew;
+            chkAllowEdit.Checked = tableData.AllowEdit;
+            chkAllowDelete.Checked = tableData.AllowDelete;
 
             initializeChanges = false;
         }
@@ -468,6 +476,30 @@ namespace Core.Forms.DateBase
                     }
                 }
             }
+        }
+
+        private void chkAllowNew_CheckedChanged(object sender, EventArgs e)
+        {
+            if (initializeChanges)
+                return;
+
+            _tableData.AllowNew = chkAllowNew.Checked;
+        }
+
+        private void chkAllowEdit_CheckedChanged(object sender, EventArgs e)
+        {
+            if (initializeChanges)
+                return;
+
+            _tableData.AllowEdit = chkAllowEdit.Checked;
+        }
+
+        private void chkAllowDelete_CheckedChanged(object sender, EventArgs e)
+        {
+            if (initializeChanges)
+                return;
+
+            _tableData.AllowDelete = chkAllowDelete.Checked;
         }
     }
 }

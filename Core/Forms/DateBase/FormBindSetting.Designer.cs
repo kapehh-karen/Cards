@@ -35,6 +35,7 @@ namespace Core.Forms.DateBase
             this.gbDateBase = new System.Windows.Forms.GroupBox();
             this.gbDateTable = new System.Windows.Forms.GroupBox();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.btnCopyFromTable = new System.Windows.Forms.Button();
             this.lvFields = new System.Windows.Forms.ListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -65,7 +66,10 @@ namespace Core.Forms.DateBase
             this.btnSaveApply = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnEditDB = new System.Windows.Forms.Button();
-            this.btnCopyFromTable = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.chkAllowNew = new System.Windows.Forms.CheckBox();
+            this.chkAllowEdit = new System.Windows.Forms.CheckBox();
+            this.chkAllowDelete = new System.Windows.Forms.CheckBox();
             this.gbDateBase.SuspendLayout();
             this.gbDateTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
@@ -73,6 +77,7 @@ namespace Core.Forms.DateBase
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbDateBase
@@ -95,6 +100,7 @@ namespace Core.Forms.DateBase
             this.gbDateTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbDateTable.Controls.Add(this.groupBox1);
             this.gbDateTable.Controls.Add(this.splitContainerMain);
             this.gbDateTable.Controls.Add(this.cmbFastJumpField);
             this.gbDateTable.Controls.Add(this.label1);
@@ -137,6 +143,17 @@ namespace Core.Forms.DateBase
             this.splitContainerMain.SplitterDistance = 175;
             this.splitContainerMain.SplitterWidth = 7;
             this.splitContainerMain.TabIndex = 15;
+            // 
+            // btnCopyFromTable
+            // 
+            this.btnCopyFromTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCopyFromTable.Location = new System.Drawing.Point(485, 1);
+            this.btnCopyFromTable.Name = "btnCopyFromTable";
+            this.btnCopyFromTable.Size = new System.Drawing.Size(210, 23);
+            this.btnCopyFromTable.TabIndex = 5;
+            this.btnCopyFromTable.Text = "Автозаполнение из таблицы";
+            this.btnCopyFromTable.UseVisualStyleBackColor = true;
+            this.btnCopyFromTable.Click += new System.EventHandler(this.btnCopyFromTable_Click);
             // 
             // lvFields
             // 
@@ -221,7 +238,7 @@ namespace Core.Forms.DateBase
             this.lvDataList.Location = new System.Drawing.Point(6, 20);
             this.lvDataList.MultiSelect = false;
             this.lvDataList.Name = "lvDataList";
-            this.lvDataList.Size = new System.Drawing.Size(688, 98);
+            this.lvDataList.Size = new System.Drawing.Size(688, 95);
             this.lvDataList.TabIndex = 6;
             this.lvDataList.UseCompatibleStateImageBehavior = false;
             this.lvDataList.View = System.Windows.Forms.View.Details;
@@ -287,8 +304,7 @@ namespace Core.Forms.DateBase
             // 
             // txtTableDisplayName
             // 
-            this.txtTableDisplayName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTableDisplayName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTableDisplayName.Location = new System.Drawing.Point(196, 371);
             this.txtTableDisplayName.Name = "txtTableDisplayName";
             this.txtTableDisplayName.Size = new System.Drawing.Size(517, 20);
@@ -297,7 +313,7 @@ namespace Core.Forms.DateBase
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(9, 374);
             this.label6.Name = "label6";
@@ -424,16 +440,51 @@ namespace Core.Forms.DateBase
             this.btnEditDB.UseVisualStyleBackColor = true;
             this.btnEditDB.Click += new System.EventHandler(this.btnEditDB_Click);
             // 
-            // btnCopyFromTable
+            // groupBox1
             // 
-            this.btnCopyFromTable.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCopyFromTable.Location = new System.Drawing.Point(485, 1);
-            this.btnCopyFromTable.Name = "btnCopyFromTable";
-            this.btnCopyFromTable.Size = new System.Drawing.Size(210, 23);
-            this.btnCopyFromTable.TabIndex = 5;
-            this.btnCopyFromTable.Text = "Автозаполнение из таблицы";
-            this.btnCopyFromTable.UseVisualStyleBackColor = true;
-            this.btnCopyFromTable.Click += new System.EventHandler(this.btnCopyFromTable_Click);
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.chkAllowDelete);
+            this.groupBox1.Controls.Add(this.chkAllowEdit);
+            this.groupBox1.Controls.Add(this.chkAllowNew);
+            this.groupBox1.Location = new System.Drawing.Point(196, 397);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(262, 45);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Разрешения";
+            // 
+            // chkAllowNew
+            // 
+            this.chkAllowNew.AutoSize = true;
+            this.chkAllowNew.Location = new System.Drawing.Point(8, 19);
+            this.chkAllowNew.Name = "chkAllowNew";
+            this.chkAllowNew.Size = new System.Drawing.Size(75, 17);
+            this.chkAllowNew.TabIndex = 0;
+            this.chkAllowNew.Text = "Создание";
+            this.chkAllowNew.UseVisualStyleBackColor = true;
+            this.chkAllowNew.CheckedChanged += new System.EventHandler(this.chkAllowNew_CheckedChanged);
+            // 
+            // chkAllowEdit
+            // 
+            this.chkAllowEdit.AutoSize = true;
+            this.chkAllowEdit.Location = new System.Drawing.Point(89, 19);
+            this.chkAllowEdit.Name = "chkAllowEdit";
+            this.chkAllowEdit.Size = new System.Drawing.Size(84, 17);
+            this.chkAllowEdit.TabIndex = 1;
+            this.chkAllowEdit.Text = "Изменение";
+            this.chkAllowEdit.UseVisualStyleBackColor = true;
+            this.chkAllowEdit.CheckedChanged += new System.EventHandler(this.chkAllowEdit_CheckedChanged);
+            // 
+            // chkAllowDelete
+            // 
+            this.chkAllowDelete.AutoSize = true;
+            this.chkAllowDelete.Location = new System.Drawing.Point(179, 19);
+            this.chkAllowDelete.Name = "chkAllowDelete";
+            this.chkAllowDelete.Size = new System.Drawing.Size(76, 17);
+            this.chkAllowDelete.TabIndex = 1;
+            this.chkAllowDelete.Text = "Удаление";
+            this.chkAllowDelete.UseVisualStyleBackColor = true;
+            this.chkAllowDelete.CheckedChanged += new System.EventHandler(this.chkAllowDelete_CheckedChanged);
             // 
             // FormBindSetting
             // 
@@ -462,6 +513,8 @@ namespace Core.Forms.DateBase
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -501,5 +554,9 @@ namespace Core.Forms.DateBase
         private System.Windows.Forms.ToolStripMenuItem editCurrentFormToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyFormFromTableToolStripMenuItem;
         private System.Windows.Forms.Button btnCopyFromTable;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox chkAllowDelete;
+        private System.Windows.Forms.CheckBox chkAllowEdit;
+        private System.Windows.Forms.CheckBox chkAllowNew;
     }
 }

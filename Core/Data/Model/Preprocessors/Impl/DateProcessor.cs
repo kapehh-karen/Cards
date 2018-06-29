@@ -45,7 +45,13 @@ namespace Core.Data.Model.Preprocessors.Impl
         public override object Value
         {
             get => control.MaskCompleted ? DateTime.TryParse(control.Text, out var date) ? (object)date : null : null;
-            set => control.Text = (value != null && value is DateTime) ? ((DateTime)value).ToString(@"dd/MM/yyyy") : string.Empty;
+            set
+            {
+                if (value != null && value is DateTime dtVal)
+                    control.Text = dtVal.ToString(@"dd/MM/yyyy");
+                else
+                    control.Clear();
+            }
         }
 
         private void Control_TextChanged(object sender, EventArgs e)

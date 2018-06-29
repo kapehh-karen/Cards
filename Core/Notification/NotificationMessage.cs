@@ -15,7 +15,7 @@ namespace Core.Notification
             Message(message, Consts.ProgramTitle, param, NotificationLevel.INFO);
         }
 
-        public static void Info(string message, string title = Consts.ProgramTitle, params object[] param)
+        public static void InfoEx(string message, string title = Consts.ProgramTitle, params object[] param)
         {
             Message(message, title, param, NotificationLevel.INFO);
         }
@@ -25,7 +25,7 @@ namespace Core.Notification
             Message(message, Consts.ProgramTitle, param, NotificationLevel.WARNING);
         }
 
-        public static void Warning(string message, string title = Consts.ProgramTitle, params object[] param)
+        public static void WarningEx(string message, string title = Consts.ProgramTitle, params object[] param)
         {
             Message(message, title, param, NotificationLevel.WARNING);
         }
@@ -35,12 +35,12 @@ namespace Core.Notification
             Message(message, Consts.ProgramTitle, param, NotificationLevel.ERROR);
         }
 
-        public static void Error(string message, string title = Consts.ProgramTitle, params object[] param)
+        public static void ErrorEx(string message, string title = Consts.ProgramTitle, params object[] param)
         {
             Message(message, title, param, NotificationLevel.ERROR);
         }
 
-        public static void SystemInfo(string message, string title = Consts.ProgramTitle, params object[] param)
+        public static void SystemInfoEx(string message, string title = Consts.ProgramTitle, params object[] param)
         {
             Message(message, title, param, NotificationLevel.SYSTEM_INFO);
         }
@@ -55,12 +55,12 @@ namespace Core.Notification
             Message(message, Consts.ProgramTitle, param, NotificationLevel.SYSTEM_WARNING);
         }
 
-        public static void SystemWarning(string message, string title = Consts.ProgramTitle, params object[] param)
+        public static void SystemWarningEx(string message, string title = Consts.ProgramTitle, params object[] param)
         {
             Message(message, title, param, NotificationLevel.SYSTEM_WARNING);
         }
 
-        public static void SystemError(string message, string title = Consts.ProgramTitle, params object[] param)
+        public static void SystemErrorEx(string message, string title = Consts.ProgramTitle, params object[] param)
         {
             Message(message, title, param, NotificationLevel.SYSTEM_ERROR);
         }

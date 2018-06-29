@@ -70,8 +70,19 @@ namespace Core.Data.Table
         [DataMember]
         public bool IsClassifier { get; set; } = false;
 
+        /// <summary>
+        /// Видимость таблицы
+        /// </summary>
         [DataMember]
         public bool Visible { get; set; } = true;
+
+        // Разрешения на редактирование таблицы
+        [DataMember]
+        public bool AllowNew { get; set; } = true;
+        [DataMember]
+        public bool AllowEdit { get; set; } = true;
+        [DataMember]
+        public bool AllowDelete { get; set; } = true;
 
         /// <summary>
         /// Последнее изменение таблицы (для классификаторов)

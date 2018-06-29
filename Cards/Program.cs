@@ -88,7 +88,7 @@ namespace Cards
                     break;
             }
 
-            MessageBox.Show(message, Consts.ProgramTitle, MessageBoxButtons.OK, msgBoxIcon);
+            MessageBox.Show(param.Length == 0 ? message : string.Format(message, param), title, MessageBoxButtons.OK, msgBoxIcon);
         }
     }
 }

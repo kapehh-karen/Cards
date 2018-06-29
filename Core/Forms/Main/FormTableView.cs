@@ -86,6 +86,12 @@ namespace Core.Forms.Main
 
         private void PerformNew()
         {
+            if (!Table.AllowNew)
+            {
+                NotificationMessage.Error("В таблице \"{0}\" запрещено создавать новые записи.", Table.DisplayName);
+                return;
+            }
+
             var dialog = Table.CardView;
             dialog.IsLinkedModel = false;
             dialog.InitializeModel();
@@ -98,6 +104,12 @@ namespace Core.Forms.Main
 
         private void PerformChange()
         {
+            if (!Table.AllowEdit)
+            {
+                NotificationMessage.Error("В таблице \"{0}\" запрещено изменять записи.", Table.DisplayName);
+                return;
+            }
+
             var selectedID = tableDataGridView1.SelectedID;
             if (selectedID == null)
                 return;
@@ -116,6 +128,12 @@ namespace Core.Forms.Main
 
         private void PerformDelete()
         {
+            if (!Table.AllowDelete)
+            {
+                NotificationMessage.Error("В таблице \"{0}\" запрещено удалять записи.", Table.DisplayName);
+                return;
+            }
+
             var selectedID = tableDataGridView1.SelectedID;
             if (selectedID == null)
                 return;
