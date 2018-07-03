@@ -30,6 +30,9 @@ namespace Core.Data.Design.Controls.LinkedTableControl
 
             BorderStyle = BorderStyle.FixedSingle;
             MultiSelect = false;
+            DefaultCellStyle.SelectionBackColor = Color.White;
+            DefaultCellStyle.SelectionForeColor = Color.Black;
+            AlternatingRowsDefaultCellStyle.BackColor = RowsDefaultCellStyle.BackColor;
         }
 
         #region IDesignControl Impl

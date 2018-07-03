@@ -72,6 +72,15 @@ namespace Core.Forms.Main.CardForm
             linkedTableProcessors.ForEach(p => p.Load());
         }
 
+        /// <summary>
+        /// Обновляет визуальные эффекты компонентов (например, выделение измененных элементов)
+        /// </summary>
+        public void UpdateState()
+        {
+            fieldProcessors.ForEach(p => p.UpdateState());
+            linkedTableProcessors.ForEach(p => p.UpdateState());
+        }
+
         public bool CheckRequired()
         {
             foreach (var proc in fieldProcessors)

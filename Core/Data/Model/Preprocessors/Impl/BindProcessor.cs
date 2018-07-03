@@ -12,18 +12,20 @@ namespace Core.Data.Model.Preprocessors.Impl
     public class BindProcessor : IFieldProcessor
     {
         private BindControl control;
-        private ToolTip toolTip = new ToolTip();
+        //private ToolTip toolTip = new ToolTip();
 
         public override void Attach()
         {
             base.Attach();
-            
+
             if (control != null)
                 control.Click += Control_Click;
         }
 
         public override void Detach()
         {
+            base.Detach();
+
             if (control != null)
                 control.Click -= Control_Click;
         }
@@ -35,7 +37,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             {
                 Detach();
                 control = value as BindControl;
-                toolTip.RemoveAll();
+                //toolTip.RemoveAll();
                 Attach();
             }
         }
@@ -51,7 +53,7 @@ namespace Core.Data.Model.Preprocessors.Impl
                 {
                     var text = ModelField.ToString();
                     control.Text = text;
-                    toolTip.SetToolTip(control, text);
+                    //toolTip.SetToolTip(control, text);
                 }
             }
         }

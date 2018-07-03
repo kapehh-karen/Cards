@@ -19,6 +19,8 @@ namespace Core.Data.Model
 
         public CardModel BindData { get; set; } = null;
 
+        public CardModel OldBindData { get; set; } = null;
+
         public object Value { get; set; } = null;
 
         public object OldValue { get; set; } = null;
@@ -51,6 +53,7 @@ namespace Core.Data.Model
             {
                 Field = Field,
                 BindData = BindData,
+                OldBindData = OldBindData,
                 Value = Value,
                 OldValue = OldValue
             };
@@ -70,6 +73,24 @@ namespace Core.Data.Model
                     case FieldType.TEXT:
                     default:
                         return Value;
+                }
+            }
+        }
+
+        public object DisplayOldValue
+        {
+            get
+            {
+                switch (Field?.Type)
+                {
+                    case FieldType.BIND:
+                        return OldBindData?[Field.BindData?.Field];
+                    case FieldType.BOOLEAN:
+                    case FieldType.DATE:
+                    case FieldType.NUMBER:
+                    case FieldType.TEXT:
+                    default:
+                        return OldValue;
                 }
             }
         }

@@ -36,6 +36,7 @@ namespace Core.Data.Model.Preprocessors.Impl
                 control.PressedClick += Control_KeyDown;
                 control.DataBindingComplete += Control_DataBindingComplete;
                 control.TableStorageInformationUpdated += Control_TableStorageInformationUpdated;
+                control.RowPrePaint += Control_RowPrePaint;
             }
         }
 
@@ -47,11 +48,39 @@ namespace Core.Data.Model.Preprocessors.Impl
                 control.PressedClick -= Control_KeyDown;
                 control.DataBindingComplete -= Control_DataBindingComplete;
                 control.TableStorageInformationUpdated -= Control_TableStorageInformationUpdated;
+                control.RowPrePaint -= Control_RowPrePaint;
+            }
+        }
+
+        private void Control_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            var rowRealIndex = (int)control.Rows[e.RowIndex].Cells[internalIndexField].Value;
+            var model = displayedItems[rowRealIndex];
+
+            if (model?.State == ModelValueState.CHANGED)
+            {
+                e.PaintParts &= ~DataGridViewPaintParts.Background;
+
+                // Paint the custom selection background.
+                e.Graphics.FillRectangle(Brushes.LightGreen,
+                    control.RowHeadersWidth,
+                    e.RowBounds.Top,
+                    control.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) - control.HorizontalScrollingOffset + 1,
+                    e.RowBounds.Height);
+
+                // Paint the custom selection background.
+                e.Graphics.FillRectangle(Brushes.Green,
+                    0,
+                    e.RowBounds.Top,
+                    control.RowHeadersWidth,
+                    e.RowBounds.Height);
             }
         }
 
         public override void Load()
         {
+            base.Load();
+
             if (ModelLinkedTable == null)
                 return;
 

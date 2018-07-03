@@ -91,6 +91,7 @@ namespace Core.Data.Model
         {
             FieldValues.ForEach(fieldValue => {
                 fieldValue.OldValue = fieldValue.Value;
+                fieldValue.OldBindData = fieldValue.BindData;
 
                 // Если не существует связанного значения, то нету и идентификатора
                 if ((fieldValue.Field.Type == FieldType.BIND) && (fieldValue.BindData == null))

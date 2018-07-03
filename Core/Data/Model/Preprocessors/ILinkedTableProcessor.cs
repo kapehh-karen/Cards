@@ -1,10 +1,13 @@
 ﻿using Core.Data.Base;
 using Core.Data.Design.Controls;
+using Core.Data.Design.Controls.LinkedTableControl;
 using Core.Data.Table;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Core.Data.Model.Preprocessors
 {
@@ -17,7 +20,12 @@ namespace Core.Data.Model.Preprocessors
             // Вызываем событие что значение изменилось
             ValueChanged(processor);
         }
-        
+
+        public void UpdateState()
+        {
+            (Control as Control)?.Invalidate();
+        }
+
         public LinkedTable LinkedTable { get; set; }
 
         public CardModel ParentModel { get; set; }

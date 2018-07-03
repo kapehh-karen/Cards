@@ -13,12 +13,16 @@ namespace Core.Data.Model.Preprocessors.Impl
 
         public override void Attach()
         {
+            base.Attach();
+
             if (control != null)
                 control.CheckedChanged += Control_CheckedChanged;
         }
 
         public override void Detach()
         {
+            base.Detach();
+
             if (control != null)
                 control.CheckedChanged -= Control_CheckedChanged;
         }

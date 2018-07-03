@@ -4,14 +4,17 @@ using Core.Data.Field;
 using Core.Data.Table;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Core.Data.Model.Preprocessors
 {
     public abstract class IFieldProcessor
     {
         public event Action<object, IFieldProcessor> ValueChanged = (v, p) => { };
+        private ToolTip toolTip = new ToolTip();
 
         public virtual void Save()
         {
@@ -25,6 +28,8 @@ namespace Core.Data.Model.Preprocessors
 
         protected void OnValueChanged(object value, IFieldProcessor processor)
         {
+            UpdateState();
+
             // Вызываем событие что значение изменилось
             ValueChanged(value, processor);
         }
@@ -40,9 +45,51 @@ namespace Core.Data.Model.Preprocessors
         public virtual void Load()
         {
             Detach();
+
             if (ModelField != null)
                 Value = ModelField.Value;
+
+            UpdateState();
+
             Attach();
+        }
+
+        public void UpdateState()
+        {
+            // Обновляем фоновый цвет
+            UpdateColorState();
+
+            // Обновить тултип элементу
+            UpdateToolTipText();
+        }
+
+        public void UpdateColorState()
+        {
+            // При изменении значения, если оно поменялось, подсвечиваем элемент
+            if (Control is Control ctrl && ctrl != null)
+            {
+                switch (ModelField?.State)
+                {
+                    case ModelValueState.CHANGED:
+                        ctrl.BackColor = Color.LightGreen;
+                        break;
+                    case ModelValueState.UNCHANGED:
+                        ctrl.BackColor = (Color)DefaultBackColor;
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Обновляет подсказку у элемента
+        /// </summary>
+        public void UpdateToolTipText()
+        {
+            if (Control is Control ctrl && ctrl != null)
+            {
+                toolTip.SetToolTip(ctrl,
+                    $"Текущее значение: {ModelField?.DisplayValue ?? "Пусто"}\nПредыдущее значение: {ModelField?.DisplayOldValue ?? "Пусто"}");
+            }
         }
         
         public bool CheckRequired()
@@ -54,12 +101,22 @@ namespace Core.Data.Model.Preprocessors
         /// <summary>
         /// Attach events
         /// </summary>
-        public virtual void Attach() { }
+        public virtual void Attach()
+        {
+            if (!DefaultBackColor.HasValue)
+                DefaultBackColor = (Control as Control).BackColor;
+        }
 
         /// <summary>
         /// Detach events
         /// </summary>
-        public virtual void Detach() { }
+        public virtual void Detach()
+        {
+            if (DefaultBackColor.HasValue)
+                (Control as Control).BackColor = DefaultBackColor.Value;
+        }
+
+        private Color? DefaultBackColor { get; set; }
 
         public virtual FieldData Field { get; set; }
         

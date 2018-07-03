@@ -186,6 +186,7 @@ namespace Core.Forms.Main.CardForm
             if (ModelHelper.Save(Table, Model))
             {
                 UpdateUiText(Model.ID.Value);
+                modelCardView1.UpdateState();
                 PluginListener.Instance.EventModelAfterSave(Table, Model, modelCardView1, this);
             }
         }
