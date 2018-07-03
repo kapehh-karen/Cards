@@ -54,6 +54,8 @@
             this.saveToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStripHeader.SuspendLayout();
@@ -278,7 +280,9 @@
             this.documentsExploreToolStripMenuItem,
             this.saveToExcelToolStripMenuItem,
             this.toolStripMenuItem2,
-            this.exitProgramToolStripMenuItem});
+            this.exitProgramToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.aboutToolStripMenuItem});
             this.programToolStripMenuItem.Image = global::Core.Properties.Resources.terminal;
             this.programToolStripMenuItem.Name = "programToolStripMenuItem";
             this.programToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
@@ -312,6 +316,19 @@
             this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
             this.exitProgramToolStripMenuItem.Text = "Открыть другую таблицу";
             this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(239, 6);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Image = global::Core.Properties.Resources.info;
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.aboutToolStripMenuItem.Text = "О программе...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // FormTableView
             // 
@@ -364,5 +381,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonGroupEdit;
         private System.Windows.Forms.ToolStripMenuItem saveToExcelToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }

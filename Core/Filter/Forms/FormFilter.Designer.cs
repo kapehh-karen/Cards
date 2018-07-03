@@ -42,6 +42,7 @@
             this.btnViewSQL = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.contextMenuTreeView.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,7 +52,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeSubFilter.Location = new System.Drawing.Point(12, 34);
             this.treeSubFilter.Name = "treeSubFilter";
-            this.treeSubFilter.Size = new System.Drawing.Size(235, 396);
+            this.treeSubFilter.Size = new System.Drawing.Size(235, 403);
             this.treeSubFilter.TabIndex = 0;
             this.treeSubFilter.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeSubFilter_AfterSelect);
             this.treeSubFilter.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeSubFilter_NodeMouseClick);
@@ -89,7 +90,7 @@
             this.containerConditionControl1.IsRoot = true;
             this.containerConditionControl1.Location = new System.Drawing.Point(253, 34);
             this.containerConditionControl1.Name = "containerConditionControl1";
-            this.containerConditionControl1.Size = new System.Drawing.Size(603, 396);
+            this.containerConditionControl1.Size = new System.Drawing.Size(634, 403);
             this.containerConditionControl1.TabIndex = 2;
             // 
             // label1
@@ -115,8 +116,9 @@
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::Core.Properties.Resources.back;
-            this.btnCancel.Location = new System.Drawing.Point(600, 436);
+            this.btnCancel.Location = new System.Drawing.Point(631, 443);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(105, 36);
             this.btnCancel.TabIndex = 3;
@@ -130,7 +132,7 @@
             this.btnAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAccept.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnAccept.Image = global::Core.Properties.Resources.checkmark;
-            this.btnAccept.Location = new System.Drawing.Point(711, 436);
+            this.btnAccept.Location = new System.Drawing.Point(742, 443);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(145, 36);
             this.btnAccept.TabIndex = 3;
@@ -144,7 +146,7 @@
             // 
             this.btnViewSQL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnViewSQL.Image = global::Core.Properties.Resources.sql_open_file_format;
-            this.btnViewSQL.Location = new System.Drawing.Point(12, 436);
+            this.btnViewSQL.Location = new System.Drawing.Point(12, 443);
             this.btnViewSQL.Name = "btnViewSQL";
             this.btnViewSQL.Size = new System.Drawing.Size(139, 36);
             this.btnViewSQL.TabIndex = 3;
@@ -159,7 +161,7 @@
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSave.Image = global::Core.Properties.Resources.save;
             this.btnSave.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.Location = new System.Drawing.Point(253, 436);
+            this.btnSave.Location = new System.Drawing.Point(157, 443);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(122, 36);
             this.btnSave.TabIndex = 5;
@@ -173,7 +175,7 @@
             this.btnLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnLoad.Image = global::Core.Properties.Resources.folder;
             this.btnLoad.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnLoad.Location = new System.Drawing.Point(381, 436);
+            this.btnLoad.Location = new System.Drawing.Point(285, 443);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(122, 36);
             this.btnLoad.TabIndex = 6;
@@ -182,13 +184,28 @@
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClear.Image = global::Core.Properties.Resources.eraser;
+            this.btnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClear.Location = new System.Drawing.Point(413, 443);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(122, 36);
+            this.btnClear.TabIndex = 7;
+            this.btnClear.Text = "Очистить";
+            this.btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // FormFilter
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(868, 479);
+            this.ClientSize = new System.Drawing.Size(899, 486);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblCondition);
@@ -225,5 +242,6 @@
         private System.Windows.Forms.Button btnViewSQL;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnLoad;
+        private System.Windows.Forms.Button btnClear;
     }
 }

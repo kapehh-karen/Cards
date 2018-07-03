@@ -153,6 +153,16 @@ namespace Core.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap eraser {
+            get {
+                object obj = ResourceManager.GetObject("eraser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap excel {
             get {
                 object obj = ResourceManager.GetObject("excel", resourceCulture);
@@ -206,6 +216,16 @@ namespace Core.Properties {
         internal static System.Drawing.Bitmap funnel_on {
             get {
                 object obj = ResourceManager.GetObject("funnel_on", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap info {
+            get {
+                object obj = ResourceManager.GetObject("info", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

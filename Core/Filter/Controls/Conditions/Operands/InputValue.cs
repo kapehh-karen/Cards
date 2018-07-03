@@ -126,6 +126,7 @@ namespace Core.Filter.Controls.Conditions.Operands
 
             InputControl.Dock = DockStyle.Fill;
             Controls.Add(InputControl);
+            Processor.AllowVisualStates = false;
             Processor.ModelField = new ModelFieldValue() { Field = Field };
             Processor.Field = Field;
             Processor.Control = InputControl as IDesignControl;

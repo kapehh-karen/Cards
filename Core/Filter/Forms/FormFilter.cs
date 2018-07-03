@@ -23,7 +23,7 @@ namespace Core.Filter.Forms
         public TableData CurrentTable { get; set; }
 
         private FilterData filterData;
-        public FilterData FilterData
+        public FilterData Filter
         {
             get
             {
@@ -133,6 +133,12 @@ namespace Core.Filter.Forms
             AcceptFilterData(nextFilterData);
         }
 
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            Filter = FilterData.CreateRoot(CurrentTable);
+            AcceptFilterData(Filter);
+        }
+
         private void btnAccept_Click(object sender, EventArgs e)
         {
             // Сохраняем текущие изменения перед применением фильтра
@@ -148,7 +154,7 @@ namespace Core.Filter.Forms
 
             using (var dialog = new FormSQLView())
             {
-                dialog.SQL = FilterData.SQLExpression;
+                dialog.SQL = Filter.SQLExpression;
                 dialog.ShowDialog();
             }
         }
@@ -158,7 +164,7 @@ namespace Core.Filter.Forms
             // Сохраняем текущие изменения перед сохранением в файл
             SaveCurrentChanges();
 
-            FilterStorage.Instance.Save(FilterData);
+            FilterStorage.Instance.Save(Filter);
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
@@ -174,7 +180,7 @@ namespace Core.Filter.Forms
                 return;
             }
 
-            FilterData = loadedFilterData;
+            Filter = loadedFilterData;
         }
 
         #region Перемещение вложенности выборок

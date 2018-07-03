@@ -173,17 +173,17 @@ namespace Core.Forms.Main
             using (var dialog = new FormFilter())
             {
                 dialog.CurrentTable = Table;
-                dialog.FilterData = LastUsedFilterData;
+                dialog.Filter = LastUsedFilterData;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    tableDataGridView1.Filter = LastUsedFilterData = dialog.FilterData;
+                    tableDataGridView1.Filter = LastUsedFilterData = dialog.Filter;
                     FillTable();
                     toolStripButtonFilter.Image = Properties.Resources.funnel_on;
                 }
             }
         }
-
+        
         private void toolStripButtonFilterReset_Click(object sender, EventArgs e)
         {
             tableDataGridView1.ResetFilter();
@@ -234,6 +234,12 @@ namespace Core.Forms.Main
         {
             // Сохраняем настройки таблицы
             tableDataGridView1.TableStorageInformationSave();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new FormAbout())
+                dialog.ShowDialog();
         }
 
         protected override bool ProcessDialogKey(Keys keyData)

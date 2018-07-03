@@ -56,6 +56,9 @@ namespace Core.Data.Model.Preprocessors
 
         public void UpdateState()
         {
+            if (!AllowVisualStates)
+                return;
+
             // Обновляем фоновый цвет
             UpdateColorState();
 
@@ -115,6 +118,11 @@ namespace Core.Data.Model.Preprocessors
             if (DefaultBackColor.HasValue)
                 (Control as Control).BackColor = DefaultBackColor.Value;
         }
+
+        /// <summary>
+        /// Включает или отключает подсвечивание и тултип подсказкии для элемента
+        /// </summary>
+        public bool AllowVisualStates { get; set; } = true;
 
         private Color? DefaultBackColor { get; set; }
 
