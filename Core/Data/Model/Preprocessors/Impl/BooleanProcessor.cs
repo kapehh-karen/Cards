@@ -38,7 +38,7 @@ namespace Core.Data.Model.Preprocessors.Impl
             }
         }
 
-        public override object Value { get => control.Checked; set => control.Checked = (bool)(value ?? false); }
+        public override object Value { get => control.Checked; set => control.Checked = (bool?)value; }
 
         private void Control_CheckedChanged(object sender, EventArgs e)
         {

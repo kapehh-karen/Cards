@@ -87,7 +87,6 @@ namespace Core.GroupEdit.Controls
                     var cb = InputControl as BooleanControl;
                     cb.AutoSize = false;
                     cb.Text = string.Empty;
-                    cb.CheckAlign = ContentAlignment.MiddleCenter;
                     break;
 
                 case FieldType.BIND:

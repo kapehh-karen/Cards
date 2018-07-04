@@ -85,6 +85,9 @@
     <Compile Include="Common\MenuButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Common\NotSelectableLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Config\CardsFile.cs" />
     <Compile Include="Config\Configuration.cs" />
     <Compile Include="Config\DataBaseConfigLoader.cs" />
@@ -104,6 +107,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data\Design\Controls\FieldControl\BooleanControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Data\Design\Controls\FieldControl\BooleanControl.Designer.cs">
+      <DependentUpon>BooleanControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Design\Controls\FieldControl\BooleanControlOld.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data\Design\Controls\FieldControl\MaskedTextControl.cs">
@@ -463,6 +472,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Connection\Forms\FormSQLException.resx">
       <DependentUpon>FormSQLException.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Design\Controls\FieldControl\BooleanControl.resx">
+      <DependentUpon>BooleanControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Filter\Controls\Conditions\ContainerConditionControl.resx">
       <DependentUpon>ContainerConditionControl.cs</DependentUpon>

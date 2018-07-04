@@ -88,9 +88,16 @@ namespace Core.Data.Model.Preprocessors
         /// </summary>
         public void UpdateToolTipText()
         {
+            void UpdateToolTipTextOnControl(Control control, string text)
+            {
+                toolTip.SetToolTip(control, text);
+                foreach (Control item in control.Controls)
+                    UpdateToolTipTextOnControl(item, text);
+            }
+
             if (Control is Control ctrl && ctrl != null)
             {
-                toolTip.SetToolTip(ctrl,
+                UpdateToolTipTextOnControl(ctrl,
                     $"Текущее значение: {ModelField?.DisplayValue ?? "Пусто"}\nПредыдущее значение: {ModelField?.DisplayOldValue ?? "Пусто"}");
             }
         }
