@@ -122,7 +122,7 @@ namespace Core.Data.Model.Preprocessors
         /// <summary>
         /// Включает или отключает подсвечивание и тултип подсказкии для элемента
         /// </summary>
-        public bool AllowVisualStates { get; set; } = true;
+        public bool AllowVisualStates { get; set; }
 
         private Color? DefaultBackColor { get; set; }
 

@@ -47,6 +47,7 @@ namespace Core.Data.Model.Preprocessors
                     return null;
             }
 
+            proc.AllowVisualStates = true;
             proc.Field = field;
             proc.Control = control;
             (control as Control).Tag = proc;
