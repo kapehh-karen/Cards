@@ -112,9 +112,6 @@
     <Compile Include="Data\Design\Controls\FieldControl\BooleanControl.Designer.cs">
       <DependentUpon>BooleanControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Data\Design\Controls\FieldControl\BooleanControlOld.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Data\Design\Controls\FieldControl\MaskedTextControl.cs">
       <SubType>Component</SubType>
     </Compile>

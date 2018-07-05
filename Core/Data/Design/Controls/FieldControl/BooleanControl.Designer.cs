@@ -31,7 +31,7 @@ namespace Core.Data.Design.Controls.FieldControl
         private void InitializeComponent()
         {
             this.cmbFlag = new System.Windows.Forms.ComboBox();
-            this.lblText = new NotSelectableLabel();
+            this.lblText = new Core.Common.NotSelectableLabel();
             this.SuspendLayout();
             // 
             // cmbFlag
@@ -44,7 +44,7 @@ namespace Core.Data.Design.Controls.FieldControl
             "Да"});
             this.cmbFlag.Location = new System.Drawing.Point(12, 3);
             this.cmbFlag.Name = "cmbFlag";
-            this.cmbFlag.Size = new System.Drawing.Size(87, 21);
+            this.cmbFlag.Size = new System.Drawing.Size(44, 21);
             this.cmbFlag.TabIndex = 0;
             this.cmbFlag.SelectedIndexChanged += new System.EventHandler(this.cmbFlag_SelectedIndexChanged);
             // 
@@ -62,9 +62,9 @@ namespace Core.Data.Design.Controls.FieldControl
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblText);
             this.Controls.Add(this.cmbFlag);
-            this.MinimumSize = new System.Drawing.Size(103, 27);
+            this.MinimumSize = new System.Drawing.Size(27, 27);
             this.Name = "BooleanControl";
-            this.Size = new System.Drawing.Size(103, 27);
+            this.Size = new System.Drawing.Size(60, 27);
             this.Resize += new System.EventHandler(this.BooleanControl_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();
