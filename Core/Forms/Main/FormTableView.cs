@@ -3,6 +3,7 @@ using Core.Connection;
 using Core.Data.Base;
 using Core.Data.Model;
 using Core.Data.Table;
+using Core.ExportData.Forms;
 using Core.Filter.Data;
 using Core.Filter.Forms;
 using Core.Forms.Main.CardForm;
@@ -239,6 +240,12 @@ namespace Core.Forms.Main
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new FormAbout())
+                dialog.ShowDialog();
+        }
+
+        private void extendedExportToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new FormSelectTableFields() { Table = Table })
                 dialog.ShowDialog();
         }
 

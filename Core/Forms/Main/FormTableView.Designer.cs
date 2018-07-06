@@ -38,17 +38,17 @@
             this.toolStripStatusLabelAmount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelSelectedAmount = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripHeader = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonCreate = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonChange = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonFilter = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonFilterReset = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonGroupEdit = new System.Windows.Forms.ToolStripButton();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentsExploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +56,8 @@
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.extendedExportToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStripHeader.SuspendLayout();
@@ -157,31 +159,6 @@
             this.toolStripHeader.TabIndex = 6;
             this.toolStripHeader.Text = "toolStrip1";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 79);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 79);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 79);
-            // 
-            // mainMenuStrip
-            // 
-            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.programToolStripMenuItem});
-            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
-            this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(814, 24);
-            this.mainMenuStrip.TabIndex = 7;
-            this.mainMenuStrip.Text = "menuStrip1";
-            // 
             // toolStripButtonRefresh
             // 
             this.toolStripButtonRefresh.AutoSize = false;
@@ -194,6 +171,11 @@
             this.toolStripButtonRefresh.Text = "Обновить";
             this.toolStripButtonRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonRefresh.Click += new System.EventHandler(this.toolStripButtonRefresh_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 79);
             // 
             // toolStripButtonCreate
             // 
@@ -234,6 +216,11 @@
             this.toolStripButtonDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonDelete.Click += new System.EventHandler(this.toolStripButtonDelete_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 79);
+            // 
             // toolStripButtonFilter
             // 
             this.toolStripButtonFilter.AutoSize = false;
@@ -260,6 +247,11 @@
             this.toolStripButtonFilterReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripButtonFilterReset.Click += new System.EventHandler(this.toolStripButtonFilterReset_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 79);
+            // 
             // toolStripButtonGroupEdit
             // 
             this.toolStripButtonGroupEdit.AutoSize = false;
@@ -274,11 +266,23 @@
             this.toolStripButtonGroupEdit.ToolTipText = "Групповая корректировка";
             this.toolStripButtonGroupEdit.Click += new System.EventHandler(this.toolStripButtonGroupEdit_Click);
             // 
+            // mainMenuStrip
+            // 
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.programToolStripMenuItem});
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Size = new System.Drawing.Size(814, 24);
+            this.mainMenuStrip.TabIndex = 7;
+            this.mainMenuStrip.Text = "menuStrip1";
+            // 
             // programToolStripMenuItem
             // 
             this.programToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.documentsExploreToolStripMenuItem,
+            this.toolStripMenuItem3,
             this.saveToExcelToolStripMenuItem,
+            this.extendedExportToExcelToolStripMenuItem,
             this.toolStripMenuItem2,
             this.exitProgramToolStripMenuItem,
             this.toolStripMenuItem1,
@@ -292,7 +296,7 @@
             // 
             this.documentsExploreToolStripMenuItem.Image = global::Core.Properties.Resources.folder1;
             this.documentsExploreToolStripMenuItem.Name = "documentsExploreToolStripMenuItem";
-            this.documentsExploreToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.documentsExploreToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.documentsExploreToolStripMenuItem.Text = "Открыть папку с документами";
             this.documentsExploreToolStripMenuItem.Click += new System.EventHandler(this.documentsExploreToolStripMenuItem_Click);
             // 
@@ -300,35 +304,48 @@
             // 
             this.saveToExcelToolStripMenuItem.Image = global::Core.Properties.Resources.excel;
             this.saveToExcelToolStripMenuItem.Name = "saveToExcelToolStripMenuItem";
-            this.saveToExcelToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.saveToExcelToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.saveToExcelToolStripMenuItem.Text = "Сохранить данные в Excel";
             this.saveToExcelToolStripMenuItem.Click += new System.EventHandler(this.saveToExcelToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(239, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(279, 6);
             // 
             // exitProgramToolStripMenuItem
             // 
             this.exitProgramToolStripMenuItem.Image = global::Core.Properties.Resources.back;
             this.exitProgramToolStripMenuItem.Name = "exitProgramToolStripMenuItem";
-            this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.exitProgramToolStripMenuItem.Text = "Открыть другую таблицу";
             this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(239, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(279, 6);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Image = global::Core.Properties.Resources.info;
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(242, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.aboutToolStripMenuItem.Text = "О программе...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(279, 6);
+            // 
+            // extendedExportToExcelToolStripMenuItem
+            // 
+            this.extendedExportToExcelToolStripMenuItem.Image = global::Core.Properties.Resources.excel;
+            this.extendedExportToExcelToolStripMenuItem.Name = "extendedExportToExcelToolStripMenuItem";
+            this.extendedExportToExcelToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.extendedExportToExcelToolStripMenuItem.Text = "Расширенный экспорт данных в Excel";
+            this.extendedExportToExcelToolStripMenuItem.Click += new System.EventHandler(this.extendedExportToExcelToolStripMenuItem_Click);
             // 
             // FormTableView
             // 
@@ -383,5 +400,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem extendedExportToExcelToolStripMenuItem;
     }
 }
