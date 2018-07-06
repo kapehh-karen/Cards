@@ -1,8 +1,11 @@
-﻿using Core.Storage.Documents;
+﻿using Core.Connection;
+using Core.ExportData.Data.Token;
+using Core.Storage.Documents;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -25,10 +28,12 @@ namespace Core.Helper
 
                 var excelRow = ws.Row(1);
                 excelRow.Height = 30;
-                excelRow.Style.Font.Bold = true;
-                excelRow.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                excelRow.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                excelRow.Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
+
+                var excelHeaderCellsStyle = ws.Cells[1, 1, 1, colCount].Style;
+                excelHeaderCellsStyle.Font.Bold = true;
+                excelHeaderCellsStyle.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                excelHeaderCellsStyle.VerticalAlignment = ExcelVerticalAlignment.Center;
+                excelHeaderCellsStyle.Border.Bottom.Style = ExcelBorderStyle.Medium;
 
                 for (var i = 1; i <= colCount; i++)
                 {
@@ -48,6 +53,9 @@ namespace Core.Helper
                     {
                         var column = visibleColumns[k - 1];
                         var cellValue = ws.Cells[1 + i, k];
+                        cellValue.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        cellValue.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        cellValue.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
 
                         if (column.ValueType == typeof(bool))
                         {
@@ -64,6 +72,26 @@ namespace Core.Helper
 
                 p.SaveAs(new FileInfo(fileName));
             }
+        }
+
+        public static void SaveExtendedTableToExcel(WaitDialog dialog, TableToken rootTableToken)
+        {
+            var recordTable = rootTableToken.CreateRecordTable();
+
+            using (var dbc = new SQLServerConnection())
+                using (var command = new SqlCommand(rootTableToken.BuildSqlExpression(), dbc.Connection))
+                    using (var reader = command.ExecuteReader())
+                    {
+                        var count = 0;
+
+                        while (reader.Read())
+                        {
+                            dialog.Message = $"Обрабатывается {++count} запись...";
+                            recordTable.Process(reader);
+                        }
+                    }
+
+            // TODO: Save to Excel
         }
     }
 }

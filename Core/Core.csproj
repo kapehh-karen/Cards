@@ -182,6 +182,10 @@
     <Compile Include="Config\Surrogate\Data\FieldDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\InternalDataSurrogate.cs" />
     <Compile Include="Config\Surrogate\Data\TableDataSurrogate.cs" />
+    <Compile Include="ExportData\Data\Record\IRecordReader.cs" />
+    <Compile Include="ExportData\Data\Record\RecordField.cs" />
+    <Compile Include="ExportData\Data\Record\RecordItem.cs" />
+    <Compile Include="ExportData\Data\Record\RecordTable.cs" />
     <Compile Include="ExportData\Data\Token\FieldToken.cs" />
     <Compile Include="ExportData\Data\Token\TableToken.cs" />
     <Compile Include="ExportData\Forms\FormSelectTableFields.cs">
@@ -673,8 +677,6 @@
   <ItemGroup>
     <None Include="Resources\info.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ExportData\Data\Record\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

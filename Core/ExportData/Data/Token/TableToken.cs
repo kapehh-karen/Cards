@@ -1,5 +1,6 @@
 ﻿using Core.Data.Field;
 using Core.Data.Table;
+using Core.ExportData.Data.Record;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,19 @@ namespace Core.ExportData.Data.Token
 
         public List<FieldToken> Fields { get; } = new List<FieldToken>();
 
+        public RecordTable CreateRecordTable()
+        {
+            return new RecordTable() { Token = this };
+        }
+
+        public RecordItem CreateRecordItem()
+        {
+            var item = new RecordItem() { IsEmpty = true };
+            item.Fields.AddRange(Fields.Select(it => new RecordField() { Token = it }));
+            item.Tables.AddRange(Tables.Select(it => new RecordTable() { Token = it }));
+            return item;
+        }
+
         public IEnumerable<string> JoinEnumerable()
         {
             foreach (var table in Tables)
@@ -52,6 +66,10 @@ namespace Core.ExportData.Data.Token
 
         public IEnumerable<string> FieldEnumerable()
         {
+            // Если идентификатора нету в выбранных столбцах, то добавляем, он нам нужен
+            if (!Fields.Contains(FieldIdToken))
+                yield return $"{InternalName}.{FieldIdToken.Field.Name} AS {FieldIdToken.InternalName}";
+
             foreach (var field in Fields)
                 yield return $"{InternalName}.{field.Field.Name} AS {field.InternalName}";
 

@@ -1,12 +1,15 @@
 ﻿using Core.Common.TreeViewEx;
+using Core.Connection;
 using Core.Data.Field;
 using Core.Data.Table;
 using Core.ExportData.Data.Token;
 using Core.Helper;
+using Core.Storage.Documents;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -42,29 +45,32 @@ namespace Core.ExportData.Forms
         private TreeNode AddTableToTree(TableData table, string customTitle = null)
         {
             var fieldId = table.IdentifierField;
-            var node = new HiddenCheckBoxTreeNode(customTitle ?? table.DisplayName);
-            node.Tag = new TableToken(table)
-            {
-                Table = table,
-                FieldIdToken = new FieldToken(fieldId)
-            };
+            var node = new HiddenCheckBoxTreeNode(customTitle ?? $"Таблица: {table.DisplayName}");
+            var tableToken = new TableToken(table) { Table = table };
+            FieldToken fieldIdToken = null;
+
+            node.Tag = tableToken;
+
             table.Fields.OrderBy(it => it.DisplayName).Where(it => it.Visible).ForEach(it =>
             {
                 if (it.Type != FieldType.BIND)
                 {
-                    var newItem = new TreeNode(it.DisplayName);
-                    newItem.Tag = new FieldToken(it);
-                    node.Nodes.Add(newItem);
+                    var fieldToken = new FieldToken(it);
+                    // Если у нас ID в видимом списке, то мы не будем отдельно создавать для него FieldToken, заюзаем тот же
+                    if (fieldId == it)
+                        fieldIdToken = fieldToken;
+                    node.Nodes.Add(new TreeNode($"Поле: {it.DisplayName}") { Tag = fieldToken });
                 }
                 else
                 {
-                    var newNode = AddTableToTree(it.BindData.Table, it.DisplayName);
+                    var newNode = AddTableToTree(it.BindData.Table, $"Классификатор: {it.DisplayName}");
                     var newTableToken = newNode.Tag as TableToken;
                     newTableToken.JoinFieldParent = it;
                     newTableToken.JoinFieldCurrent = it.BindData.Table.IdentifierField;
                     node.Nodes.Add(newNode);
                 }
             });
+
             table.LinkedTables.OrderBy(it => it.Table.DisplayName).ForEach(it =>
             {
                 var newNode = AddTableToTree(it.Table);
@@ -73,6 +79,8 @@ namespace Core.ExportData.Forms
                 newTableToken.JoinFieldCurrent = it.Field;
                 node.Nodes.Add(newNode);
             });
+
+            tableToken.FieldIdToken = fieldIdToken ?? new FieldToken(fieldId);
             return node;
         }
 
@@ -114,7 +122,13 @@ namespace Core.ExportData.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             treeViewFields.Nodes.Cast<TreeNode>().ForEach(it => FillNodeTokens(it));
-            textBox1.Text = RootTableToken.BuildSqlExpression();
+
+            var sql = RootTableToken.BuildSqlExpression();
+            textBox1.Text = sql;
+
+            var fileName = DocStorage.Instance.GenerateFileName("Экспорт данных", "xlsx");
+            WaitDialog.Run("Экспортируются данные...", dialog => ExcelHelper.SaveExtendedTableToExcel(dialog, RootTableToken));
+            DocStorage.Instance.OpenDocumentFile(fileName);
         }
 
         private void FormSelectTableFields_Load(object sender, EventArgs e)
