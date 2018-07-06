@@ -71,7 +71,7 @@
             this.controlFieldValue.Location = new System.Drawing.Point(138, 29);
             this.controlFieldValue.Name = "controlFieldValue";
             this.controlFieldValue.Processor = null;
-            this.controlFieldValue.Size = new System.Drawing.Size(247, 27);
+            this.controlFieldValue.Size = new System.Drawing.Size(247, 25);
             this.controlFieldValue.TabIndex = 3;
             // 
             // btnDelete
