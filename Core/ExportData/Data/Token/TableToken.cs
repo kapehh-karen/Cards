@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.Drawing;
 
 namespace Core.ExportData.Data.Token
 {
@@ -43,6 +45,11 @@ namespace Core.ExportData.Data.Token
         public List<TableToken> Tables { get; } = new List<TableToken>();
 
         public List<FieldToken> Fields { get; } = new List<FieldToken>();
+
+        public int GetWidth()
+        {
+            return Fields.Count + Tables.Sum(it => it.GetWidth());
+        }
 
         public RecordTable CreateRecordTable()
         {
@@ -94,12 +101,27 @@ namespace Core.ExportData.Data.Token
             worksheet.Cells[row, col].Value = IsClassificator ? JoinFieldParent.DisplayName : Table.DisplayName;
 
             Fields.ForEach(it => it.PrintHeaderToExcel(worksheet, row + 1, nextCol, out nextRow, out nextCol));
+
             Tables.ForEach(it =>
             {
                 it.PrintHeaderToExcel(worksheet, row + 1, nextCol, out nextRow, out nextCol);
                 if (maxRow < nextRow)
                     maxRow = nextRow;
             });
+
+            worksheet.Cells[row, col, row, nextCol - 1].Merge = true;
+            if (IsRootable)
+            {
+                var border = worksheet.Cells[row, col, maxRow - 1, nextCol - 1].Style.Border;
+                border.Top.Style = ExcelBorderStyle.Medium;
+                border.Left.Style = ExcelBorderStyle.Medium;
+                border.Right.Style = ExcelBorderStyle.Medium;
+                border.Bottom.Style = ExcelBorderStyle.Medium;
+                border.Top.Color.SetColor(Color.DarkRed);
+                border.Left.Color.SetColor(Color.DarkRed);
+                border.Right.Color.SetColor(Color.DarkRed);
+                border.Bottom.Color.SetColor(Color.DarkRed);
+            }
 
             offsetRow = maxRow;
             offsetCol = nextCol;

@@ -20,7 +20,7 @@ namespace Core.ExportData.Data.Record
         public void Process(SqlDataReader reader)
         {
             var id = reader[Token.FieldIdToken.InternalName];
-            if (id == null)
+            if (id == null || id == DBNull.Value)
                 return;
 
             if (Items.ContainsKey(id))
@@ -40,7 +40,12 @@ namespace Core.ExportData.Data.Record
         public void PrintToExcel(ExcelWorksheet worksheet, int row, int col, out int offsetRow, out int offsetCol)
         {
             int nextRow = row, nextCol = col;
-            Items.Values.ForEach(it => it.PrintToExcel(worksheet, nextRow, col, out nextRow, out nextCol));
+
+            if (Items.Count > 0)
+                Items.Values.ForEach(it => it.PrintToExcel(worksheet, nextRow, col, out nextRow, out nextCol));
+            else
+                nextCol += Token.GetWidth();
+
             offsetRow = nextRow;
             offsetCol = nextCol;
         }
