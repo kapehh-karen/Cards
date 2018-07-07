@@ -4,12 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
+using OfficeOpenXml;
+using Core.Helper;
 
 namespace Core.ExportData.Data.Record
 {
     public class RecordTable : IRecordReader
     {
         public TableToken Token { get; set; }
+
+        public bool IsRootTable { get; set; }
 
         public Dictionary<object, RecordItem> Items { get; } = new Dictionary<object, RecordItem>();
 
@@ -27,9 +31,18 @@ namespace Core.ExportData.Data.Record
             else
             {
                 var newRecordItem = Token.CreateRecordItem();
+                newRecordItem.IsRootItem = IsRootTable;
                 Items.Add(id, newRecordItem);
                 newRecordItem.Process(reader);
             }
+        }
+
+        public void PrintToExcel(ExcelWorksheet worksheet, int row, int col, out int offsetRow, out int offsetCol)
+        {
+            int nextRow = row, nextCol = col;
+            Items.Values.ForEach(it => it.PrintToExcel(worksheet, nextRow, col, out nextRow, out nextCol));
+            offsetRow = nextRow;
+            offsetCol = nextCol;
         }
     }
 }

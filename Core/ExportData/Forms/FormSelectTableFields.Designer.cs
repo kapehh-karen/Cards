@@ -35,9 +35,9 @@ namespace Core.ExportData.Forms
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButtonSelected = new System.Windows.Forms.RadioButton();
-            this.radioButtonInTable = new System.Windows.Forms.RadioButton();
             this.radioButtonForAllTable = new System.Windows.Forms.RadioButton();
+            this.radioButtonInTable = new System.Windows.Forms.RadioButton();
+            this.radioButtonSelected = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,26 +87,6 @@ namespace Core.ExportData.Forms
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Для каких записей";
             // 
-            // radioButtonSelected
-            // 
-            this.radioButtonSelected.AutoSize = true;
-            this.radioButtonSelected.Location = new System.Drawing.Point(17, 24);
-            this.radioButtonSelected.Name = "radioButtonSelected";
-            this.radioButtonSelected.Size = new System.Drawing.Size(106, 17);
-            this.radioButtonSelected.TabIndex = 0;
-            this.radioButtonSelected.Text = "Для выбранных";
-            this.radioButtonSelected.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonInTable
-            // 
-            this.radioButtonInTable.AutoSize = true;
-            this.radioButtonInTable.Location = new System.Drawing.Point(17, 47);
-            this.radioButtonInTable.Name = "radioButtonInTable";
-            this.radioButtonInTable.Size = new System.Drawing.Size(189, 17);
-            this.radioButtonInTable.TabIndex = 0;
-            this.radioButtonInTable.Text = "Для текущих записей в таблице";
-            this.radioButtonInTable.UseVisualStyleBackColor = true;
-            // 
             // radioButtonForAllTable
             // 
             this.radioButtonForAllTable.AutoSize = true;
@@ -119,6 +99,26 @@ namespace Core.ExportData.Forms
             this.radioButtonForAllTable.Text = "Для всех записей из таблицы";
             this.radioButtonForAllTable.UseVisualStyleBackColor = true;
             // 
+            // radioButtonInTable
+            // 
+            this.radioButtonInTable.AutoSize = true;
+            this.radioButtonInTable.Location = new System.Drawing.Point(17, 47);
+            this.radioButtonInTable.Name = "radioButtonInTable";
+            this.radioButtonInTable.Size = new System.Drawing.Size(189, 17);
+            this.radioButtonInTable.TabIndex = 0;
+            this.radioButtonInTable.Text = "Для текущих записей в таблице";
+            this.radioButtonInTable.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonSelected
+            // 
+            this.radioButtonSelected.AutoSize = true;
+            this.radioButtonSelected.Location = new System.Drawing.Point(17, 24);
+            this.radioButtonSelected.Name = "radioButtonSelected";
+            this.radioButtonSelected.Size = new System.Drawing.Size(106, 17);
+            this.radioButtonSelected.TabIndex = 0;
+            this.radioButtonSelected.Text = "Для выбранных";
+            this.radioButtonSelected.UseVisualStyleBackColor = true;
+            // 
             // FormSelectTableFields
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -129,9 +129,9 @@ namespace Core.ExportData.Forms
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.treeViewFields);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormSelectTableFields";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Выбор полей для экспорта";
             this.Load += new System.EventHandler(this.FormSelectTableFields_Load);
             this.groupBox1.ResumeLayout(false);

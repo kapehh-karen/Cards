@@ -45,7 +45,7 @@ namespace Core.ExportData.Forms
         private TreeNode AddTableToTree(TableData table, string customTitle = null)
         {
             var fieldId = table.IdentifierField;
-            var node = new HiddenCheckBoxTreeNode(customTitle ?? $"Таблица: {table.DisplayName}");
+            var node = new HiddenCheckBoxTreeNode(customTitle ?? $"ТАБЛИЦА: {table.DisplayName}");
             var tableToken = new TableToken(table) { Table = table };
             FieldToken fieldIdToken = null;
 
@@ -59,11 +59,11 @@ namespace Core.ExportData.Forms
                     // Если у нас ID в видимом списке, то мы не будем отдельно создавать для него FieldToken, заюзаем тот же
                     if (fieldId == it)
                         fieldIdToken = fieldToken;
-                    node.Nodes.Add(new TreeNode($"Поле: {it.DisplayName}") { Tag = fieldToken });
+                    node.Nodes.Add(new TreeNode(it.DisplayName) { Tag = fieldToken });
                 }
                 else
                 {
-                    var newNode = AddTableToTree(it.BindData.Table, $"Классификатор: {it.DisplayName}");
+                    var newNode = AddTableToTree(it.BindData.Table, it.DisplayName);
                     var newTableToken = newNode.Tag as TableToken;
                     newTableToken.JoinFieldParent = it;
                     newTableToken.JoinFieldCurrent = it.BindData.Table.IdentifierField;
@@ -127,7 +127,7 @@ namespace Core.ExportData.Forms
             textBox1.Text = sql;
 
             var fileName = DocStorage.Instance.GenerateFileName("Экспорт данных", "xlsx");
-            WaitDialog.Run("Экспортируются данные...", dialog => ExcelHelper.SaveExtendedTableToExcel(dialog, RootTableToken));
+            WaitDialog.Run("Экспортируются данные...", dialog => ExcelHelper.SaveExtendedTableToExcel(dialog, fileName, RootTableToken));
             DocStorage.Instance.OpenDocumentFile(fileName);
         }
 

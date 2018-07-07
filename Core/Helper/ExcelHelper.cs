@@ -60,13 +60,13 @@ namespace Core.Helper
                         if (column.ValueType == typeof(bool))
                         {
                             var boolVal = row.Cells[column.Index].Value;
-                            cellValue.Value = boolVal != DBNull.Value && Convert.ToBoolean(boolVal) ? "Да" : "Нет";
+                            cellValue.Value = boolVal == DBNull.Value ? "Пусто" : Convert.ToBoolean(boolVal) ? "Да" : "Нет";
                         }
                         else
                             cellValue.Value = row.Cells[column.Index].Value;
                     }
                 }
-                
+
                 ws.Cells.AutoFitColumns(10, 50);
                 ws.Cells.Style.WrapText = true;
 
@@ -74,24 +74,29 @@ namespace Core.Helper
             }
         }
 
-        public static void SaveExtendedTableToExcel(WaitDialog dialog, TableToken rootTableToken)
+        public static void SaveExtendedTableToExcel(WaitDialog dialog, string fileName, TableToken rootTableToken)
         {
             var recordTable = rootTableToken.CreateRecordTable();
+            recordTable.IsRootTable = true;
 
+            dialog.Message = "Получение информации от сервера...";
             using (var dbc = new SQLServerConnection())
-                using (var command = new SqlCommand(rootTableToken.BuildSqlExpression(), dbc.Connection))
-                    using (var reader = command.ExecuteReader())
-                    {
-                        var count = 0;
+            using (var command = new SqlCommand(rootTableToken.BuildSqlExpression(), dbc.Connection))
+            using (var reader = command.ExecuteReader())
+                while (reader.Read())
+                {
+                    recordTable.Process(reader);
+                }
 
-                        while (reader.Read())
-                        {
-                            dialog.Message = $"Обрабатывается {++count} запись...";
-                            recordTable.Process(reader);
-                        }
-                    }
-
-            // TODO: Save to Excel
+            dialog.Message = "Запись данных в Excel файл...";
+            using (var p = new ExcelPackage())
+            {
+                var ws = p.Workbook.Worksheets.Add("Лист с данными");
+                recordTable.PrintToExcel(ws, 1, 1, out int row, out int col);
+                ws.Cells.AutoFitColumns(10, 50);
+                ws.Cells.Style.WrapText = true;
+                p.SaveAs(new FileInfo(fileName));
+            }
         }
     }
 }
