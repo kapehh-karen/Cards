@@ -29,7 +29,7 @@ namespace Core.ExportData.Data.Record
                 cell.Style.Numberformat.Format = "dd.MM.yyyy";
 
             if (Token.Field.Type == FieldType.BOOLEAN)
-                cell.Value = Value == null ? "Пусто" : Convert.ToBoolean(Value) ? "Да" : "Нет";
+                cell.Value = Value == null ? null : Convert.ToBoolean(Value) ? "Да" : "Нет";
             else
                 cell.Value = Value;
 

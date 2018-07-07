@@ -3,6 +3,7 @@ using Core.Connection;
 using Core.Data.Field;
 using Core.Data.Table;
 using Core.ExportData.Data.Token;
+using Core.Forms.Main;
 using Core.Helper;
 using Core.Storage.Documents;
 using System;
@@ -23,6 +24,8 @@ namespace Core.ExportData.Forms
         {
             InitializeComponent();
         }
+
+        public FormTableView FormTable { get; set; }
 
         private TableData _table;
         public TableData Table
@@ -129,7 +132,7 @@ namespace Core.ExportData.Forms
             textBox1.Text = sql;
 
             var fileName = DocStorage.Instance.GenerateFileName("Экспорт данных", "xlsx");
-            WaitDialog.Run("Экспортируются данные...", dialog => ExcelHelper.SaveExtendedTableToExcel(dialog, fileName, RootTableToken));
+            WaitDialog.Run("Экспортируются данные...", dialog => ExcelHelper.SaveExtendedTableToExcel(dialog, fileName, RootTableToken, FormTable.GetSelectedIDs()));
             DocStorage.Instance.OpenDocumentFile(fileName);
         }
 

@@ -60,7 +60,7 @@ namespace Core.Helper
                         if (column.ValueType == typeof(bool))
                         {
                             var boolVal = row.Cells[column.Index].Value;
-                            cellValue.Value = boolVal == DBNull.Value ? "Пусто" : Convert.ToBoolean(boolVal) ? "Да" : "Нет";
+                            cellValue.Value = boolVal == DBNull.Value ? null : Convert.ToBoolean(boolVal) ? "Да" : "Нет";
                         }
                         else
                             cellValue.Value = row.Cells[column.Index].Value;
@@ -74,26 +74,52 @@ namespace Core.Helper
             }
         }
 
-        public static void SaveExtendedTableToExcel(WaitDialog dialog, string fileName, TableToken rootTableToken)
+        public static void SaveExtendedTableToExcel(WaitDialog dialog, string fileName, TableToken rootTableToken, IEnumerable<object> ids = null)
         {
             var recordTable = rootTableToken.CreateRecordTable();
             recordTable.IsRootTable = true;
 
+            var withId = ids != null;
+
             dialog.Message = "Получение информации от сервера...";
             using (var dbc = new SQLServerConnection())
-            using (var command = new SqlCommand(rootTableToken.BuildSqlExpression(), dbc.Connection))
-            using (var reader = command.ExecuteReader())
-                while (reader.Read())
+            using (var command = new SqlCommand(rootTableToken.BuildSqlExpression(withId), dbc.Connection))
+            {
+                if (withId)
                 {
-                    recordTable.Process(reader);
+                    var param = new SqlParameter();
+                    param.ParameterName = "@id";
+                    command.Parameters.Add(param);
+                    ids.ForEach(it =>
+                    {
+                        param.Value = it;
+                        using (var reader = command.ExecuteReader())
+                            while (reader.Read())
+                                recordTable.Process(reader);
+                    });
                 }
+                else
+                {
+                    using (var reader = command.ExecuteReader())
+                        while (reader.Read())
+                            recordTable.Process(reader);
+                }
+            }
 
             dialog.Message = "Запись данных в Excel файл...";
             using (var p = new ExcelPackage())
             {
                 var ws = p.Workbook.Worksheets.Add("Лист с данными");
+
                 rootTableToken.PrintHeaderToExcel(ws, 1, 1, out int offsetHeaderRow, out int offsetHeaderCol);
-                recordTable.PrintToExcel(ws, offsetHeaderRow, 1, out int offsetRow, out int offsetCol);
+
+                var rowSpliter = ws.Row(offsetHeaderRow);
+                rowSpliter.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                rowSpliter.Style.Fill.BackgroundColor.SetColor(Color.Black);
+                rowSpliter.Height = 5;
+
+                recordTable.PrintToExcel(ws, offsetHeaderRow + 1, 1, out int offsetRow, out int offsetCol);
+
                 ws.Cells.AutoFitColumns(10, 50);
                 ws.Cells.Style.WrapText = true;
                 p.SaveAs(new FileInfo(fileName));

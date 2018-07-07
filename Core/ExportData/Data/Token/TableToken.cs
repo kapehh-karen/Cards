@@ -90,9 +90,12 @@ namespace Core.ExportData.Data.Token
                     yield return strField;
         }
 
-        public string BuildSqlExpression()
+        public string BuildSqlExpression(bool withIid = false)
         {
-            return $"SELECT {string.Join(", ", FieldEnumerable())}\r\nFROM {Table.Name} AS {InternalName}\r\n{string.Join("\r\n", JoinEnumerable())}";
+            if (!withIid)
+                return $"SELECT {string.Join(", ", FieldEnumerable())}\r\nFROM {Table.Name} AS {InternalName}\r\n{string.Join("\r\n", JoinEnumerable())}";
+            else
+                return $"SELECT {string.Join(", ", FieldEnumerable())}\r\nFROM {Table.Name} AS {InternalName}\r\n{string.Join("\r\n", JoinEnumerable())}\r\nWHERE {InternalName}.{FieldIdToken.Field.Name} = @id";
         }
 
         public void PrintHeaderToExcel(ExcelWorksheet worksheet, int row, int col, out int offsetRow, out int offsetCol)
@@ -117,10 +120,10 @@ namespace Core.ExportData.Data.Token
                 border.Left.Style = ExcelBorderStyle.Medium;
                 border.Right.Style = ExcelBorderStyle.Medium;
                 border.Bottom.Style = ExcelBorderStyle.Medium;
-                border.Top.Color.SetColor(Color.DarkRed);
-                border.Left.Color.SetColor(Color.DarkRed);
-                border.Right.Color.SetColor(Color.DarkRed);
-                border.Bottom.Color.SetColor(Color.DarkRed);
+                //border.Top.Color.SetColor(Color.DarkRed);
+                //border.Left.Color.SetColor(Color.DarkRed);
+                //border.Right.Color.SetColor(Color.DarkRed);
+                //border.Bottom.Color.SetColor(Color.DarkRed);
             }
 
             offsetRow = maxRow;

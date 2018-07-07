@@ -245,7 +245,7 @@ namespace Core.Forms.Main
 
         private void extendedExportToExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var dialog = new FormSelectTableFields() { Table = Table })
+            using (var dialog = new FormSelectTableFields() { Table = Table, FormTable = this })
                 dialog.ShowDialog();
         }
 
