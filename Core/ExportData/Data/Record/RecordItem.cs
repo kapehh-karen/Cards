@@ -31,18 +31,22 @@ namespace Core.ExportData.Data.Record
         public void PrintToExcel(ExcelWorksheet worksheet, int row, int col, out int offsetRow, out int offsetCol)
         {
             int nextRow = row, nextCol = col, maxRow;
+
             Fields.ForEach(it => it.PrintToExcel(worksheet, row, nextCol, out nextRow, out nextCol));
             maxRow = nextRow;
+
             Tables.ForEach(it =>
             {
                 it.PrintToExcel(worksheet, row, nextCol, out nextRow, out nextCol);
                 if (maxRow < nextRow)
                     maxRow = nextRow;
             });
+
             if (Fields.Count > 0 || Tables.Count > 0)
                 worksheet.Cells[maxRow - 1, col, maxRow - 1, nextCol - 1]
                     .Style.Border.Bottom
                     .Style = IsRootItem ? ExcelBorderStyle.Medium : ExcelBorderStyle.Thin;
+
             offsetRow = maxRow;
             offsetCol = nextCol;
         }

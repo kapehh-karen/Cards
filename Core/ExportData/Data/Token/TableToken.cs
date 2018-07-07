@@ -5,10 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OfficeOpenXml;
 
 namespace Core.ExportData.Data.Token
 {
-    public class TableToken
+    public class TableToken : IToken
     {
         private static int Index = 1;
 
@@ -25,6 +26,10 @@ namespace Core.ExportData.Data.Token
             Table = table;
         }
 
+        public bool IsClassificator { get; set; }
+
+        public bool IsRootable { get; set; }
+
         public TableData Table { get; set; }
 
         public string InternalName { get; private set; }
@@ -32,7 +37,7 @@ namespace Core.ExportData.Data.Token
         public FieldData JoinFieldParent { get; set; }
 
         public FieldData JoinFieldCurrent { get; set; }
-
+        
         public FieldToken FieldIdToken { get; set; }
 
         public List<TableToken> Tables { get; } = new List<TableToken>();
@@ -81,6 +86,23 @@ namespace Core.ExportData.Data.Token
         public string BuildSqlExpression()
         {
             return $"SELECT {string.Join(", ", FieldEnumerable())}\r\nFROM {Table.Name} AS {InternalName}\r\n{string.Join("\r\n", JoinEnumerable())}";
+        }
+
+        public void PrintHeaderToExcel(ExcelWorksheet worksheet, int row, int col, out int offsetRow, out int offsetCol)
+        {
+            int nextRow = row, nextCol = col, maxRow = row + 2;
+            worksheet.Cells[row, col].Value = IsClassificator ? JoinFieldParent.DisplayName : Table.DisplayName;
+
+            Fields.ForEach(it => it.PrintHeaderToExcel(worksheet, row + 1, nextCol, out nextRow, out nextCol));
+            Tables.ForEach(it =>
+            {
+                it.PrintHeaderToExcel(worksheet, row + 1, nextCol, out nextRow, out nextCol);
+                if (maxRow < nextRow)
+                    maxRow = nextRow;
+            });
+
+            offsetRow = maxRow;
+            offsetCol = nextCol;
         }
     }
 }

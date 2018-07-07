@@ -36,6 +36,7 @@ namespace Core.ExportData.Forms
                     var rootNode = AddTableToTree(_table);
                     treeViewFields.Nodes.Add(rootNode);
                     RootTableToken = rootNode.Tag as TableToken;
+                    RootTableToken.IsRootable = true;
                 }
             }
         }
@@ -65,6 +66,7 @@ namespace Core.ExportData.Forms
                 {
                     var newNode = AddTableToTree(it.BindData.Table, it.DisplayName);
                     var newTableToken = newNode.Tag as TableToken;
+                    newTableToken.IsClassificator = true;
                     newTableToken.JoinFieldParent = it;
                     newTableToken.JoinFieldCurrent = it.BindData.Table.IdentifierField;
                     node.Nodes.Add(newNode);

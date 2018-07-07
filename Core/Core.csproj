@@ -187,6 +187,7 @@
     <Compile Include="ExportData\Data\Record\RecordItem.cs" />
     <Compile Include="ExportData\Data\Record\RecordTable.cs" />
     <Compile Include="ExportData\Data\Token\FieldToken.cs" />
+    <Compile Include="ExportData\Data\Token\IToken.cs" />
     <Compile Include="ExportData\Data\Token\TableToken.cs" />
     <Compile Include="ExportData\Forms\FormSelectTableFields.cs">
       <SubType>Form</SubType>

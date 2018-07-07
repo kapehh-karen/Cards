@@ -92,7 +92,8 @@ namespace Core.Helper
             using (var p = new ExcelPackage())
             {
                 var ws = p.Workbook.Worksheets.Add("Лист с данными");
-                recordTable.PrintToExcel(ws, 1, 1, out int row, out int col);
+                rootTableToken.PrintHeaderToExcel(ws, 1, 1, out int offsetHeaderRow, out int offsetHeaderCol);
+                recordTable.PrintToExcel(ws, offsetHeaderRow, 1, out int offsetRow, out int offsetCol);
                 ws.Cells.AutoFitColumns(10, 50);
                 ws.Cells.Style.WrapText = true;
                 p.SaveAs(new FileInfo(fileName));
