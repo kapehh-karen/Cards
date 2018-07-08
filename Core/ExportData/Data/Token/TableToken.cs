@@ -46,6 +46,8 @@ namespace Core.ExportData.Data.Token
 
         public List<FieldToken> Fields { get; } = new List<FieldToken>();
 
+        public bool IsEmpty => Fields.Count == 0 && Tables.Count == 0;
+
         public int GetWidth()
         {
             return Fields.Count + Tables.Sum(it => it.GetWidth());
@@ -101,7 +103,9 @@ namespace Core.ExportData.Data.Token
         public void PrintHeaderToExcel(ExcelWorksheet worksheet, int row, int col, out int offsetRow, out int offsetCol)
         {
             int nextRow = row, nextCol = col, maxRow = row + 2;
-            worksheet.Cells[row, col].Value = IsClassificator ? JoinFieldParent.DisplayName : Table.DisplayName;
+            var cellHeader = worksheet.Cells[row, col];
+            cellHeader.Value = IsClassificator ? JoinFieldParent.DisplayName : Table.DisplayName;
+            cellHeader.Style.Font.Bold = true;
 
             Fields.ForEach(it => it.PrintHeaderToExcel(worksheet, row + 1, nextCol, out nextRow, out nextCol));
 
@@ -112,18 +116,16 @@ namespace Core.ExportData.Data.Token
                     maxRow = nextRow;
             });
 
-            worksheet.Cells[row, col, row, nextCol - 1].Merge = true;
-            if (IsRootable)
+            var mergedCellHeader = worksheet.Cells[row, col, row, nextCol - 1];
+            mergedCellHeader.Merge = true;
+            if (!IsRootable)
             {
-                var border = worksheet.Cells[row, col, maxRow - 1, nextCol - 1].Style.Border;
-                border.Top.Style = ExcelBorderStyle.Medium;
-                border.Left.Style = ExcelBorderStyle.Medium;
-                border.Right.Style = ExcelBorderStyle.Medium;
-                border.Bottom.Style = ExcelBorderStyle.Medium;
-                //border.Top.Color.SetColor(Color.DarkRed);
-                //border.Left.Color.SetColor(Color.DarkRed);
-                //border.Right.Color.SetColor(Color.DarkRed);
-                //border.Bottom.Color.SetColor(Color.DarkRed);
+                mergedCellHeader.Style.Border.Left.Style = ExcelBorderStyle.Double;
+                mergedCellHeader.Style.Border.Left.Color.SetColor(Color.White);
+                mergedCellHeader.Style.Border.Top.Style = ExcelBorderStyle.Double;
+                mergedCellHeader.Style.Border.Top.Color.SetColor(Color.White);
+                mergedCellHeader.Style.Border.Right.Style = ExcelBorderStyle.Double;
+                mergedCellHeader.Style.Border.Right.Color.SetColor(Color.White);
             }
 
             offsetRow = maxRow;

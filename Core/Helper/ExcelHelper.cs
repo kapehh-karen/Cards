@@ -87,8 +87,7 @@ namespace Core.Helper
             {
                 if (withId)
                 {
-                    var param = new SqlParameter();
-                    param.ParameterName = "@id";
+                    var param = new SqlParameter() { ParameterName = "@id" };
                     command.Parameters.Add(param);
                     ids.ForEach(it =>
                     {
@@ -113,10 +112,11 @@ namespace Core.Helper
 
                 rootTableToken.PrintHeaderToExcel(ws, 1, 1, out int offsetHeaderRow, out int offsetHeaderCol);
 
-                var rowSpliter = ws.Row(offsetHeaderRow);
-                rowSpliter.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                rowSpliter.Style.Fill.BackgroundColor.SetColor(Color.Black);
-                rowSpliter.Height = 5;
+                ws.Row(offsetHeaderRow).Height = 5;
+                var rowsHeader = ws.Cells[1, 1, offsetHeaderRow, offsetHeaderCol - 1];
+                rowsHeader.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                rowsHeader.Style.Fill.BackgroundColor.SetColor(Color.DarkRed);
+                rowsHeader.Style.Font.Color.SetColor(Color.White);
 
                 recordTable.PrintToExcel(ws, offsetHeaderRow + 1, 1, out int offsetRow, out int offsetCol);
 

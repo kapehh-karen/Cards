@@ -5,6 +5,7 @@ using Core.Data.Table;
 using Core.ExportData.Data.Token;
 using Core.Forms.Main;
 using Core.Helper;
+using Core.Notification;
 using Core.Storage.Documents;
 using System;
 using System.Collections.Generic;
@@ -124,15 +125,24 @@ namespace Core.ExportData.Forms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnPrint_Click(object sender, EventArgs e)
         {
             treeViewFields.Nodes.Cast<TreeNode>().ForEach(it => FillNodeTokens(it));
 
-            var sql = RootTableToken.BuildSqlExpression();
-            textBox1.Text = sql;
+            if (RootTableToken.IsEmpty)
+            {
+                NotificationMessage.Error("Необходимо выбрать хотя бы одно поле для экспорта.");
+                return;
+            }
 
-            var fileName = DocStorage.Instance.GenerateFileName("Экспорт данных", "xlsx");
-            WaitDialog.Run("Экспортируются данные...", dialog => ExcelHelper.SaveExtendedTableToExcel(dialog, fileName, RootTableToken, FormTable.GetSelectedIDs()));
+            IEnumerable<object> ids = null;
+            if (radioButtonSelected.Checked)
+                ids = FormTable.GetSelectedIDs();
+            else if (radioButtonInTable.Checked)
+                ids = FormTable.GetAllIDs();
+
+            var fileName = DocStorage.Instance.GenerateFileName("Расширенный экспорт данных", "xlsx");
+            WaitDialog.Run("Экспортируются данные...", dialog => ExcelHelper.SaveExtendedTableToExcel(dialog, fileName, RootTableToken, ids));
             DocStorage.Instance.OpenDocumentFile(fileName);
         }
 
@@ -140,6 +150,14 @@ namespace Core.ExportData.Forms
         {
             TableToken.ResetIndex();
             FieldToken.ResetIndex();
+
+            var countSelected = FormTable.CountSelectedItems();
+            radioButtonSelected.Text += $" ({countSelected})";
+            radioButtonSelected.Enabled = countSelected > 0;
+
+            var countAll = FormTable.CountAllItems();
+            radioButtonInTable.Text += $" ({countAll})";
+            radioButtonInTable.Enabled = countAll > 0;
         }
     }
 }
