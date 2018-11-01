@@ -16,20 +16,22 @@ namespace Core.Config
 {
     public class CardsFile
     {
-        private static CardsFile cardsInstance = null;
+        private static CardsFile _cardsInstance;
+
         public static CardsFile Current
         {
             get
             {
-                if (cardsInstance == null)
-                    throw new InvalidOperationException("CardsFile не инициализирован! Сначала инициализируйте CardsFile.Initialize");
-                return cardsInstance;
+                if (_cardsInstance == null)
+                    throw new InvalidOperationException(
+                        "CardsFile не инициализирован! Сначала инициализируйте CardsFile.Initialize");
+                return _cardsInstance;
             }
         }
 
         public static void Initialize(string fileName)
         {
-            cardsInstance = new CardsFile(fileName);
+            _cardsInstance = new CardsFile(fileName);
         }
 
         // ************************************************************************
@@ -51,14 +53,14 @@ namespace Core.Config
         /// Имя файла без пути
         /// </summary>
         public string ShortFileName { get; private set; }
-        
+
         public DataBase Base { get; set; }
 
         /// <summary>
         /// Указывает, загружена база или нет
         /// </summary>
         public bool Loaded { get; private set; }
-        
+
         /// <summary>
         /// Ресурсы из архива
         /// </summary>
@@ -72,22 +74,29 @@ namespace Core.Config
         {
             Loaded = false;
             Base = new DataBase();
-            
-            ZipFile zip = null;
+
+            ZipFile zip;
             try
             {
+                if (!File.Exists(FileName))
+                {
+                    NotificationMessage.SystemError("Файл '{0}' не найден!", FileName);
+                    return false;
+                }
+
                 zip = new ZipFile(FileName);
             }
             catch (ZipException)
             {
-                NotificationMessage.SystemError("Файл поврежден или имеет неверный формат!");
+                NotificationMessage.SystemError("Файл '{0}' поврежден или имеет неверный формат!", FileName);
                 return false;
             }
 
             var configFile = zip[InternalConfigName];
             if (configFile == null)
             {
-                NotificationMessage.SystemError("Не найден файл конфигурации!");
+                NotificationMessage.SystemError("Не найден файл конфигурации {0} внутри файла '{1}'!",
+                    InternalConfigName, FileName);
                 return false;
             }
 
@@ -97,16 +106,14 @@ namespace Core.Config
                 // База не загружена
                 return false;
             }
-            else
+            
+            // В загруженной базе, восстанавливаем ссылки на родителей
+            Base.Tables.ForEach(t =>
             {
-                // В загруженной базе, восстанавливаем ссылки на родителей
-                Base.Tables.ForEach(t =>
-                {
-                    t.ParentBase = Base;
-                    t.Fields.ForEach(f => f.ParentTable = t);
-                    t.LinkedTables.ForEach(lt => lt.ParentTable = t);
-                });
-            }
+                t.ParentBase = Base;
+                t.Fields.ForEach(f => f.ParentTable = t);
+                t.LinkedTables.ForEach(lt => lt.ParentTable = t);
+            });
 
             // База по-умолчанию
             SQLServerConnection.DefaultDataBase = Base;
@@ -129,6 +136,7 @@ namespace Core.Config
                             entry.OpenReader().CopyTo(ms);
                             Resource[keyName] = ms.ToArray();
                         }
+
                         continue;
                     }
 
