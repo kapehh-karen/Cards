@@ -81,8 +81,7 @@ namespace Core.Forms.Main.CardForm
                     FieldForFastJump = Table.FastJumpField;
                     if (FieldForFastJump == null)
                     {
-                        lblCodeFieldName.Visible = false;
-                        txtInputCode.Visible = false;
+                        HideFastJump();
                     }
                     else
                     {
@@ -107,13 +106,14 @@ namespace Core.Forms.Main.CardForm
                 // Во время редактирования внешних данных, такие финты нам не нужны
                 if (isLinkedModel)
                 {
-                    lblCodeFieldName.Visible = false;
-                    txtInputCode.Visible = false;
+                    HideFastJump();
                 }
             }
         }
 
         public CardModel Model => modelCardView1.Model;
+
+        private TableRowIndex TableIndex { get; set; }
 
         private FieldData FieldForFastJump { get; set; }
         
@@ -126,8 +126,10 @@ namespace Core.Forms.Main.CardForm
             PluginListener.Instance.EventModelLoad(Table, Model, modelCardView1, this);
         }
 
-        public void InitializeModel(object id = null, FieldData fieldForSearch = null)
+        public void InitializeModel(object id = null, FieldData fieldForSearch = null, TableRowIndex tableIndex = null)
         {
+            UpdateSkipButtons(tableIndex);
+
             if (id == null)
             {
                 var model = CardModel.CreateFromTable(Table);
@@ -160,7 +162,38 @@ namespace Core.Forms.Main.CardForm
                 ModelLoaded();
             }
         }
-        
+
+        private void UpdateSkipButtons(TableRowIndex tableIndex)
+        {
+            this.TableIndex = tableIndex;
+            if (tableIndex == null)
+            {
+                btnNext.Enabled = false;
+                btnPrev.Enabled = false;
+            }
+            else
+            {
+                btnNext.Enabled = tableIndex.NextIndex.HasValue;
+                btnPrev.Enabled = tableIndex.BackIndex.HasValue;
+            }
+        }
+
+        private void UpdateUiText(object id)
+        {
+            this.Text = Model.IsNew ? "Новая запись" : $"Изменение записи #{id}";
+
+            // Если есть поле для быстрого перехода, значит есть текстбокс для значения
+            // А если есть текстбокс, значит туда надо вписать текущее значение этого поля
+            if (FieldForFastJump != null)
+                txtInputCode.Text = Convert.ToString(Model[FieldForFastJump]);
+        }
+
+        private void HideFastJump()
+        {
+            lblCodeFieldName.Visible = false;
+            txtInputCode.Visible = false;
+        }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             // Если один из плагинов не дает разрешение на сохранение, то не сохраняем изменения
@@ -194,16 +227,6 @@ namespace Core.Forms.Main.CardForm
         private void btnClose_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
-        }
-
-        private void UpdateUiText(object id)
-        {
-            this.Text = Model.IsNew ? "Новая запись" : $"Изменение записи #{id}";
-
-            // Если есть поле для быстрого перехода, значит есть текстбокс для значения
-            // А если есть текстбокс, значит туда надо вписать текущее значение этого поля
-            if (FieldForFastJump != null)
-                txtInputCode.Text = Convert.ToString(Model[FieldForFastJump]);
         }
 
         public new DialogResult ShowDialog()
@@ -247,9 +270,25 @@ namespace Core.Forms.Main.CardForm
         {
             var newId = txtInputCode.Text;
             if (e.KeyCode == Keys.Enter)
-                InitializeModel(newId, FieldForFastJump);
+                InitializeModel(newId, fieldForSearch: FieldForFastJump);
         }
         
+        private void btnPrev_Click(object sender, EventArgs e)
+        {
+            if (TableIndex.GoBack())
+            {
+                InitializeModel(TableIndex.CurrentID, tableIndex: TableIndex);
+            }
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+            if (TableIndex.GoNext())
+            {
+                InitializeModel(TableIndex.CurrentID, tableIndex: TableIndex);
+            }
+        }
+
         protected override bool ProcessDialogKey(Keys keyData)
         {
             if (ModifierKeys == Keys.None && keyData == Keys.Escape)

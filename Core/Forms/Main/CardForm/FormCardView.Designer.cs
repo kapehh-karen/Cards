@@ -29,26 +29,14 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCardView));
-            this.modelCardView1 = new Core.Forms.Main.CardForm.ModelCardView();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.txtInputCode = new System.Windows.Forms.TextBox();
             this.lblCodeFieldName = new System.Windows.Forms.Label();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.modelCardView1 = new Core.Forms.Main.CardForm.ModelCardView();
             this.SuspendLayout();
-            // 
-            // modelCardView1
-            // 
-            this.modelCardView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.modelCardView1.Form = null;
-            this.modelCardView1.Location = new System.Drawing.Point(0, 0);
-            this.modelCardView1.Model = null;
-            this.modelCardView1.Name = "modelCardView1";
-            this.modelCardView1.SelectedIndex = 0;
-            this.modelCardView1.Size = new System.Drawing.Size(391, 60);
-            this.modelCardView1.TabIndex = 0;
-            this.modelCardView1.Table = null;
             // 
             // btnClose
             // 
@@ -81,7 +69,7 @@
             // txtInputCode
             // 
             this.txtInputCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInputCode.Location = new System.Drawing.Point(348, 103);
+            this.txtInputCode.Location = new System.Drawing.Point(400, 103);
             this.txtInputCode.Name = "txtInputCode";
             this.txtInputCode.Size = new System.Drawing.Size(91, 20);
             this.txtInputCode.TabIndex = 1;
@@ -93,16 +81,54 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCodeFieldName.Location = new System.Drawing.Point(266, 103);
             this.lblCodeFieldName.Name = "lblCodeFieldName";
-            this.lblCodeFieldName.Size = new System.Drawing.Size(76, 20);
+            this.lblCodeFieldName.Size = new System.Drawing.Size(101, 20);
             this.lblCodeFieldName.TabIndex = 2;
             this.lblCodeFieldName.Text = "Код";
             this.lblCodeFieldName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrev.Location = new System.Drawing.Point(373, 103);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(26, 20);
+            this.btnPrev.TabIndex = 3;
+            this.btnPrev.Text = "⮜";
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNext.Location = new System.Drawing.Point(492, 103);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(26, 20);
+            this.btnNext.TabIndex = 3;
+            this.btnNext.Text = "⮞";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // modelCardView1
+            // 
+            this.modelCardView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.modelCardView1.Form = null;
+            this.modelCardView1.Location = new System.Drawing.Point(0, 0);
+            this.modelCardView1.Model = null;
+            this.modelCardView1.Name = "modelCardView1";
+            this.modelCardView1.SelectedIndex = 0;
+            this.modelCardView1.Size = new System.Drawing.Size(468, 60);
+            this.modelCardView1.TabIndex = 0;
+            this.modelCardView1.Table = null;
             // 
             // FormCardView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 133);
+            this.ClientSize = new System.Drawing.Size(528, 133);
+            this.Controls.Add(this.btnNext);
+            this.Controls.Add(this.btnPrev);
             this.Controls.Add(this.lblCodeFieldName);
             this.Controls.Add(this.txtInputCode);
             this.Controls.Add(this.btnSave);
@@ -128,5 +154,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtInputCode;
         private System.Windows.Forms.Label lblCodeFieldName;
+        private System.Windows.Forms.Button btnPrev;
+        private System.Windows.Forms.Button btnNext;
     }
 }

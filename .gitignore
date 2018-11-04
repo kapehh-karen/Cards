@@ -63,3 +63,5 @@ Registration/obj
 Registration/bin
 packages/
 .idea/
+Cards/*.user
+.vs

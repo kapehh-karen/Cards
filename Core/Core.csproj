@@ -420,6 +420,7 @@
     <Compile Include="Forms\Main\TableDataGridView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Forms\Main\TableRowIndex.cs" />
     <Compile Include="Forms\Main\TableRowTag.cs" />
     <Compile Include="Forms\Main\TableSetting\TableColumnSettingForm.cs">
       <SubType>Form</SubType>

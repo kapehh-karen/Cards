@@ -114,10 +114,12 @@ namespace Core.Forms.Main
             var selectedID = tableDataGridView1.SelectedID;
             if (selectedID == null)
                 return;
-            
+
+            var tableRowIndex = TableRowIndex.Create(tableDataGridView1);
+
             var dialog = Table.CardView;
             dialog.IsLinkedModel = false;
-            dialog.InitializeModel(selectedID);
+            dialog.InitializeModel(selectedID, tableIndex: tableRowIndex);
             if (dialog.ShowDialog() != DialogResult.Abort)
             {
                 var nowSelectedID = dialog.Model.ID.Value;
