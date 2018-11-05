@@ -29,49 +29,21 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCardView));
-            this.btnClose = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
             this.txtInputCode = new System.Windows.Forms.TextBox();
             this.lblCodeFieldName = new System.Windows.Forms.Label();
-            this.btnPrev = new System.Windows.Forms.Button();
             this.btnNext = new System.Windows.Forms.Button();
             this.modelCardView1 = new Core.Forms.Main.CardForm.ModelCardView();
+            this.btnPrev = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnClose = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnClose.Image = global::Core.Properties.Resources.back;
-            this.btnClose.Location = new System.Drawing.Point(139, 96);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(121, 33);
-            this.btnClose.TabIndex = 0;
-            this.btnClose.Text = "Закрыть";
-            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSave.Image = global::Core.Properties.Resources.checkmark;
-            this.btnSave.Location = new System.Drawing.Point(12, 96);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(121, 33);
-            this.btnSave.TabIndex = 0;
-            this.btnSave.Text = "Сохранить";
-            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // txtInputCode
             // 
             this.txtInputCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtInputCode.Location = new System.Drawing.Point(400, 103);
+            this.txtInputCode.Location = new System.Drawing.Point(414, 103);
             this.txtInputCode.Name = "txtInputCode";
-            this.txtInputCode.Size = new System.Drawing.Size(91, 20);
+            this.txtInputCode.Size = new System.Drawing.Size(76, 20);
             this.txtInputCode.TabIndex = 1;
             this.txtInputCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtInputCode_KeyDown);
             // 
@@ -81,30 +53,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCodeFieldName.Location = new System.Drawing.Point(266, 103);
             this.lblCodeFieldName.Name = "lblCodeFieldName";
-            this.lblCodeFieldName.Size = new System.Drawing.Size(101, 20);
+            this.lblCodeFieldName.Size = new System.Drawing.Size(110, 20);
             this.lblCodeFieldName.TabIndex = 2;
             this.lblCodeFieldName.Text = "Код";
             this.lblCodeFieldName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // btnPrev
-            // 
-            this.btnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPrev.Location = new System.Drawing.Point(373, 103);
-            this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(26, 20);
-            this.btnPrev.TabIndex = 3;
-            this.btnPrev.Text = "⮜";
-            this.btnPrev.UseVisualStyleBackColor = true;
-            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
-            // 
             // btnNext
             // 
             this.btnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNext.Location = new System.Drawing.Point(492, 103);
+            this.btnNext.Image = global::Core.Properties.Resources.skip;
+            this.btnNext.Location = new System.Drawing.Point(496, 99);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(26, 20);
+            this.btnNext.Size = new System.Drawing.Size(26, 27);
             this.btnNext.TabIndex = 3;
-            this.btnNext.Text = "⮞";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
@@ -121,6 +82,45 @@
             this.modelCardView1.Size = new System.Drawing.Size(468, 60);
             this.modelCardView1.TabIndex = 0;
             this.modelCardView1.Table = null;
+            // 
+            // btnPrev
+            // 
+            this.btnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPrev.Image = global::Core.Properties.Resources.previous;
+            this.btnPrev.Location = new System.Drawing.Point(382, 99);
+            this.btnPrev.Name = "btnPrev";
+            this.btnPrev.Size = new System.Drawing.Size(26, 27);
+            this.btnPrev.TabIndex = 3;
+            this.btnPrev.UseVisualStyleBackColor = true;
+            this.btnPrev.Click += new System.EventHandler(this.btnPrev_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnSave.Image = global::Core.Properties.Resources.checkmark;
+            this.btnSave.Location = new System.Drawing.Point(12, 96);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(121, 33);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "Сохранить";
+            this.btnSave.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnSave.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnClose.Image = global::Core.Properties.Resources.back;
+            this.btnClose.Location = new System.Drawing.Point(139, 96);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(121, 33);
+            this.btnClose.TabIndex = 0;
+            this.btnClose.Text = "Закрыть";
+            this.btnClose.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClose.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // FormCardView
             // 

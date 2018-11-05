@@ -192,6 +192,8 @@ namespace Core.Forms.Main.CardForm
         {
             lblCodeFieldName.Visible = false;
             txtInputCode.Visible = false;
+            btnNext.Visible = false;
+            btnPrev.Visible = false;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
