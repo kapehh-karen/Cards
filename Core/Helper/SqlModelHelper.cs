@@ -220,7 +220,7 @@ namespace Core.Helper
                 model.IsEmpty = false;
             }
 
-            model.ResetStates();
+            model.ResetStates(false);
             return model;
         }
 

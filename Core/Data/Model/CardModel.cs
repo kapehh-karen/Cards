@@ -87,17 +87,21 @@ namespace Core.Data.Model
         /// Сбрасывает состояние полей в UNCHANGED и устанавливает OldValue в текущее значение
         /// Нужно для того, чтобы иметь возможность не закрывая окна переключаться между записями
         /// </summary>
-        public void ResetStates()
+        public void ResetStates(bool safeBind = true)
         {
             FieldValues.ForEach(fieldValue => {
                 fieldValue.OldValue = fieldValue.Value;
                 fieldValue.OldBindData = fieldValue.BindData;
 
-                // Если не существует связанного значения, то нету и идентификатора
-                if ((fieldValue.Field.Type == FieldType.BIND) && (fieldValue.BindData == null))
+                // Если требуется произвести безопасный сброс BIND полей
+                if (safeBind)
                 {
-                    // Текущее значение - NULL, а OldValue предыдущее значение Value
-                    fieldValue.Value = null;
+                    // Если не существует связанного значения, то нету и идентификатора
+                    if ((fieldValue.Field.Type == FieldType.BIND) && (fieldValue.BindData == null))
+                    {
+                        // Текущее значение - NULL, а OldValue предыдущее значение Value
+                        fieldValue.Value = null;
+                    }
                 }
             });
 
