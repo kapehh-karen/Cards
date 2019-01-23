@@ -178,14 +178,18 @@ namespace Core.Forms.Main.CardForm
             }
         }
 
-        private void UpdateUiText(object id)
+        private void UpdateIdText()
         {
-            this.Text = Model.IsNew ? "Новая запись" : $"Изменение записи #{id}";
-
             // Если есть поле для быстрого перехода, значит есть текстбокс для значения
             // А если есть текстбокс, значит туда надо вписать текущее значение этого поля
             if (FieldForFastJump != null)
                 txtInputCode.Text = Convert.ToString(Model[FieldForFastJump]);
+        }
+
+        private void UpdateUiText(object id)
+        {
+            this.Text = Model.IsNew ? "Новая запись" : $"Изменение записи #{id}";
+            UpdateIdText();
         }
 
         private void HideFastJump()
@@ -245,7 +249,7 @@ namespace Core.Forms.Main.CardForm
                 return true;
 
             // Только если мы нажимаем "Отмена"
-            if (DialogResult == DialogResult.Cancel && Model.State == ModelValueState.CHANGED)
+            if (Model.State == ModelValueState.CHANGED)
             {
                 if (MessageBox.Show("Вы уверены? Все несохраненные изменения будут утеряны.",
                     Consts.ProgramTitle,
@@ -260,7 +264,7 @@ namespace Core.Forms.Main.CardForm
 
         private void FormCardView_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing || e.CloseReason == CloseReason.None)
+            if (DialogResult == DialogResult.Cancel && (e.CloseReason == CloseReason.UserClosing || e.CloseReason == CloseReason.None))
                 e.Cancel = !CheckIgnoreChanges();
 
             // Если событие не отменено сохраняем настройки внешних таблиц
@@ -272,12 +276,17 @@ namespace Core.Forms.Main.CardForm
         {
             var newId = txtInputCode.Text;
             if (e.KeyCode == Keys.Enter)
-                InitializeModel(newId, fieldForSearch: FieldForFastJump);
+            {
+                if (CheckIgnoreChanges())
+                    InitializeModel(newId, fieldForSearch: FieldForFastJump);
+                else
+                    UpdateIdText();
+            }
         }
         
         private void btnPrev_Click(object sender, EventArgs e)
         {
-            if (TableIndex.GoBack())
+            if (CheckIgnoreChanges() && TableIndex.GoBack())
             {
                 InitializeModel(TableIndex.CurrentID, tableIndex: TableIndex);
             }
@@ -285,7 +294,7 @@ namespace Core.Forms.Main.CardForm
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (TableIndex.GoNext())
+            if (CheckIgnoreChanges() && TableIndex.GoNext())
             {
                 InitializeModel(TableIndex.CurrentID, tableIndex: TableIndex);
             }
