@@ -51,13 +51,14 @@
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.programToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.documentsExploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.saveToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extendedExportToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.extendedExportToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSimpleFilter = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStripHeader.SuspendLayout();
@@ -148,6 +149,7 @@
             this.toolStripButtonChange,
             this.toolStripButtonDelete,
             this.toolStripSeparator2,
+            this.toolStripSimpleFilter,
             this.toolStripButtonFilter,
             this.toolStripButtonFilterReset,
             this.toolStripSeparator3,
@@ -300,6 +302,11 @@
             this.documentsExploreToolStripMenuItem.Text = "Открыть папку с документами";
             this.documentsExploreToolStripMenuItem.Click += new System.EventHandler(this.documentsExploreToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(279, 6);
+            // 
             // saveToExcelToolStripMenuItem
             // 
             this.saveToExcelToolStripMenuItem.Image = global::Core.Properties.Resources.excel;
@@ -307,6 +314,14 @@
             this.saveToExcelToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.saveToExcelToolStripMenuItem.Text = "Сохранить данные в Excel";
             this.saveToExcelToolStripMenuItem.Click += new System.EventHandler(this.saveToExcelToolStripMenuItem_Click);
+            // 
+            // extendedExportToExcelToolStripMenuItem
+            // 
+            this.extendedExportToExcelToolStripMenuItem.Image = global::Core.Properties.Resources.excel;
+            this.extendedExportToExcelToolStripMenuItem.Name = "extendedExportToExcelToolStripMenuItem";
+            this.extendedExportToExcelToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.extendedExportToExcelToolStripMenuItem.Text = "Расширенный экспорт данных в Excel";
+            this.extendedExportToExcelToolStripMenuItem.Click += new System.EventHandler(this.extendedExportToExcelToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -334,18 +349,15 @@
             this.aboutToolStripMenuItem.Text = "О программе...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem3
+            // toolStripSimpleFilter
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(279, 6);
-            // 
-            // extendedExportToExcelToolStripMenuItem
-            // 
-            this.extendedExportToExcelToolStripMenuItem.Image = global::Core.Properties.Resources.excel;
-            this.extendedExportToExcelToolStripMenuItem.Name = "extendedExportToExcelToolStripMenuItem";
-            this.extendedExportToExcelToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
-            this.extendedExportToExcelToolStripMenuItem.Text = "Расширенный экспорт данных в Excel";
-            this.extendedExportToExcelToolStripMenuItem.Click += new System.EventHandler(this.extendedExportToExcelToolStripMenuItem_Click);
+            this.toolStripSimpleFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripSimpleFilter.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSimpleFilter.Image")));
+            this.toolStripSimpleFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSimpleFilter.Name = "toolStripSimpleFilter";
+            this.toolStripSimpleFilter.Size = new System.Drawing.Size(23, 76);
+            this.toolStripSimpleFilter.Text = "toolStripButton1";
+            this.toolStripSimpleFilter.Click += new System.EventHandler(this.toolStripSimpleFilter_Click);
             // 
             // FormTableView
             // 
@@ -402,5 +414,6 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem extendedExportToExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripSimpleFilter;
     }
 }

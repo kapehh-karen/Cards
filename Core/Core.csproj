@@ -468,6 +468,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="SimpleFilter\Controls\FieldFilterItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SimpleFilter\Controls\FieldFilterItem.Designer.cs">
+      <DependentUpon>FieldFilterItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleFilter\Forms\SimpleFilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SimpleFilter\Forms\SimpleFilterForm.Designer.cs">
+      <DependentUpon>SimpleFilterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Storage\Documents\DocStorage.cs" />
     <Compile Include="Storage\Filter\FilterStorage.cs" />
     <Compile Include="Storage\Tables\TableStorage.cs" />
@@ -597,6 +609,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="SimpleFilter\Controls\FieldFilterItem.resx">
+      <DependentUpon>FieldFilterItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SimpleFilter\Forms\SimpleFilterForm.resx">
+      <DependentUpon>SimpleFilterForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\edit.png" />
@@ -688,5 +706,6 @@
   <ItemGroup>
     <None Include="Resources\skip.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

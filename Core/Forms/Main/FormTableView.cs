@@ -10,6 +10,7 @@ using Core.Forms.Main.CardForm;
 using Core.GroupEdit.Forms;
 using Core.Helper;
 using Core.Notification;
+using Core.SimpleFilter.Forms;
 using Core.Storage.Documents;
 using System;
 using System.Collections;
@@ -208,7 +209,7 @@ namespace Core.Forms.Main
         {
             if (tableDataGridView1.CountSelectedItems > 0)
             {
-                using (var dialog = new FormGroupEdit()
+                using (var dialog = new FormGroupEdit
                 {
                     Table = this.Table,
                     SelectedIDs = tableDataGridView1.SelectedIDs
@@ -242,13 +243,30 @@ namespace Core.Forms.Main
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new FormAbout())
+            {
                 dialog.ShowDialog();
+            }
         }
 
         private void extendedExportToExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var dialog = new FormSelectTableFields() { Table = Table, FormTable = this })
+            using (var dialog = new FormSelectTableFields { Table = Table, FormTable = this })
+            {
                 dialog.ShowDialog();
+            }
+        }
+
+        private void toolStripSimpleFilter_Click(object sender, EventArgs e)
+        {
+            var columns = tableDataGridView1.TableStorageInformation.Columns;
+            
+            using (var dialog = new SimpleFilterForm())
+            {
+                dialog.InitializeWithFields(columns.Select(x => x.Field)
+                    .Where(x => x.Visible)
+                    .ToArray());
+                dialog.ShowDialog();
+            }
         }
 
         protected override bool ProcessDialogKey(Keys keyData)
