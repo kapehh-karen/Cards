@@ -39,8 +39,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.layoutContainer.AutoScroll = true;
-            this.layoutContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.layoutContainer.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.layoutContainer.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.layoutContainer.Location = new System.Drawing.Point(12, 12);
             this.layoutContainer.Name = "layoutContainer";
@@ -72,6 +70,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimizeBox = false;
             this.Name = "SimpleFilterForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Поиск";
             this.ResumeLayout(false);
 

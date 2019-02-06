@@ -34,24 +34,23 @@
             // 
             // lblFieldName
             // 
-            this.lblFieldName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblFieldName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblFieldName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.lblFieldName.Location = new System.Drawing.Point(5, 5);
             this.lblFieldName.Name = "lblFieldName";
-            this.lblFieldName.Size = new System.Drawing.Size(196, 31);
+            this.lblFieldName.Size = new System.Drawing.Size(204, 18);
             this.lblFieldName.TabIndex = 0;
             this.lblFieldName.Text = "Наименование поля";
             // 
             // txtValue
             // 
-            this.txtValue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtValue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtValue.Location = new System.Drawing.Point(207, 5);
-            this.txtValue.Multiline = true;
+            this.txtValue.Location = new System.Drawing.Point(215, 5);
             this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(287, 31);
+            this.txtValue.Size = new System.Drawing.Size(287, 20);
             this.txtValue.TabIndex = 1;
             // 
             // FieldFilterItem
@@ -61,7 +60,7 @@
             this.Controls.Add(this.txtValue);
             this.Controls.Add(this.lblFieldName);
             this.Name = "FieldFilterItem";
-            this.Size = new System.Drawing.Size(497, 42);
+            this.Size = new System.Drawing.Size(505, 29);
             this.ResumeLayout(false);
             this.PerformLayout();
 

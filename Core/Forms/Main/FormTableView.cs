@@ -57,10 +57,15 @@ namespace Core.Forms.Main
         
         public FilterData LastUsedFilterData { get; set; }
         
+        private void UpdateAmount()
+        {
+            toolStripStatusLabelAmount.Text = $"Всего записей: {tableDataGridView1.CurrentDataView.Count}";
+        }
+
         public void FillTable()
         {
             tableDataGridView1.FillTable();
-            toolStripStatusLabelAmount.Text = $"Всего записей: {tableDataGridView1.CurrentDataView.Count}";
+            UpdateAmount();
         }
 
         private void tableDataGridView1_RedSelectingChanged(object sender, EventArgs e)
@@ -192,6 +197,7 @@ namespace Core.Forms.Main
         
         private void toolStripButtonFilterReset_Click(object sender, EventArgs e)
         {
+            prevSimpleFilterData = null;
             tableDataGridView1.ResetFilter();
             FillTable();
             toolStripButtonFilter.Image = Properties.Resources.funnel;
@@ -273,6 +279,7 @@ namespace Core.Forms.Main
                 {
                     tableDataGridView1.CurrentDataView.RowFilter = dialog.ResultFilter;
                     prevSimpleFilterData = dialog.Data;
+                    UpdateAmount();
                 }
             }
         }

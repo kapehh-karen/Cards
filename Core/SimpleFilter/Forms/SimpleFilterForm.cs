@@ -58,7 +58,7 @@ namespace Core.SimpleFilter.Forms
 
         public string ResultFilter { get; private set; }
 
-        private void btnOk_Click(object sender, EventArgs e)
+        private void DoAccept()
         {
             if (items.Any(x => !string.IsNullOrEmpty(x.Value)))
             {
@@ -71,8 +71,23 @@ namespace Core.SimpleFilter.Forms
             {
                 ResultFilter = string.Empty;
             }
+        }
 
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            DoAccept();
             DialogResult = DialogResult.OK;
+        }
+
+        protected override bool ProcessDialogKey(Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                DoAccept();
+                DialogResult = DialogResult.OK;
+                return true;
+            }
+            return base.ProcessDialogKey(keyData);
         }
     }
 }
