@@ -446,6 +446,7 @@
     <Compile Include="GroupEdit\Forms\FormGroupEdit.Designer.cs">
       <DependentUpon>FormGroupEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helper\DataGridViewHelper.cs" />
     <Compile Include="Helper\DesignControlHelper.cs" />
     <Compile Include="Helper\EnumHelper.cs" />
     <Compile Include="Helper\ExcelHelper.cs" />

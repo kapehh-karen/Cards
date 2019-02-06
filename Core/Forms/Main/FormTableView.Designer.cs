@@ -44,6 +44,7 @@
             this.toolStripButtonChange = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSimpleFilter = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonFilter = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonFilterReset = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -58,7 +59,6 @@
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSimpleFilter = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStripHeader.SuspendLayout();
@@ -223,6 +223,16 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 79);
             // 
+            // toolStripSimpleFilter
+            // 
+            this.toolStripSimpleFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripSimpleFilter.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSimpleFilter.Image")));
+            this.toolStripSimpleFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripSimpleFilter.Name = "toolStripSimpleFilter";
+            this.toolStripSimpleFilter.Size = new System.Drawing.Size(23, 76);
+            this.toolStripSimpleFilter.Text = "toolStripButton1";
+            this.toolStripSimpleFilter.Click += new System.EventHandler(this.toolStripSimpleFilter_Click);
+            // 
             // toolStripButtonFilter
             // 
             this.toolStripButtonFilter.AutoSize = false;
@@ -348,16 +358,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
             this.aboutToolStripMenuItem.Text = "О программе...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // toolStripSimpleFilter
-            // 
-            this.toolStripSimpleFilter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripSimpleFilter.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSimpleFilter.Image")));
-            this.toolStripSimpleFilter.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripSimpleFilter.Name = "toolStripSimpleFilter";
-            this.toolStripSimpleFilter.Size = new System.Drawing.Size(23, 76);
-            this.toolStripSimpleFilter.Text = "toolStripButton1";
-            this.toolStripSimpleFilter.Click += new System.EventHandler(this.toolStripSimpleFilter_Click);
             // 
             // FormTableView
             // 

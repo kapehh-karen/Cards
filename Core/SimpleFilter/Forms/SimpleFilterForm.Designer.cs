@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.layoutContainer = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnOk = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // layoutContainer
@@ -41,15 +42,27 @@
             this.layoutContainer.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.layoutContainer.Location = new System.Drawing.Point(12, 12);
             this.layoutContainer.Name = "layoutContainer";
-            this.layoutContainer.Size = new System.Drawing.Size(625, 335);
+            this.layoutContainer.Size = new System.Drawing.Size(610, 266);
             this.layoutContainer.TabIndex = 0;
             this.layoutContainer.WrapContents = false;
+            // 
+            // btnOk
+            // 
+            this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnOk.Location = new System.Drawing.Point(534, 284);
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Size = new System.Drawing.Size(88, 23);
+            this.btnOk.TabIndex = 1;
+            this.btnOk.Text = "Применить";
+            this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // SimpleFilterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(649, 359);
+            this.ClientSize = new System.Drawing.Size(634, 313);
+            this.Controls.Add(this.btnOk);
             this.Controls.Add(this.layoutContainer);
             this.Name = "SimpleFilterForm";
             this.Text = "SimpleFilterForm";
@@ -60,5 +73,6 @@
         #endregion
 
         private System.Windows.Forms.FlowLayoutPanel layoutContainer;
+        private System.Windows.Forms.Button btnOk;
     }
 }
