@@ -29,6 +29,10 @@ namespace Core.SimpleFilter.Controls
             }
         }
 
-        public string Value => txtValue.Text;
+        public string Value
+        {
+            get => txtValue.Text;
+            set => txtValue.Text = value;
+        }
     }
 }

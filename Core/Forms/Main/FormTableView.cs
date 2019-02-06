@@ -1,6 +1,7 @@
 ﻿using Core.API;
 using Core.Connection;
 using Core.Data.Base;
+using Core.Data.Field;
 using Core.Data.Model;
 using Core.Data.Table;
 using Core.ExportData.Forms;
@@ -29,6 +30,7 @@ namespace Core.Forms.Main
     public partial class FormTableView : Form
     {
         private TableData table;
+        private Dictionary<FieldData, string> prevSimpleFilterData;
 
         public FormTableView()
         {
@@ -265,10 +267,12 @@ namespace Core.Forms.Main
                 dialog.InitializeWithFields(columns.Select(x => x.Field)
                     .Where(x => x.Visible)
                     .ToArray());
+                dialog.Data = prevSimpleFilterData;
 
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
                     tableDataGridView1.CurrentDataView.RowFilter = dialog.ResultFilter;
+                    prevSimpleFilterData = dialog.Data;
                 }
             }
         }

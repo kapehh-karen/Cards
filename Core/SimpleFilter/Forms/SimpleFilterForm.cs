@@ -35,6 +35,27 @@ namespace Core.SimpleFilter.Forms
             }
         }
 
+        public Dictionary<FieldData, string> Data
+        {
+            get => items.Where(x => !string.IsNullOrWhiteSpace(x.Value)).ToDictionary(x => x.Field, x => x.Value);
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                foreach (var pair in value)
+                {
+                    var item = items.FirstOrDefault(x => x.Field == pair.Key);
+                    if (item != null)
+                    {
+                        item.Value = pair.Value;
+                    }
+                }
+            }
+        }
+
         public string ResultFilter { get; private set; }
 
         private void btnOk_Click(object sender, EventArgs e)
