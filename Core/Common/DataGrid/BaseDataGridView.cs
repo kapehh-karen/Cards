@@ -47,7 +47,7 @@ namespace Core.Common.DataGrid
 
         public FilterData Filter { get; set; }
 
-        public void ResetFilter()
+        public virtual void ResetFilter()
         {
             Filter = FilterData.CreateRoot(Table);
         }

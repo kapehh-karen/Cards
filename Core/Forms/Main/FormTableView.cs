@@ -265,7 +265,11 @@ namespace Core.Forms.Main
                 dialog.InitializeWithFields(columns.Select(x => x.Field)
                     .Where(x => x.Visible)
                     .ToArray());
-                dialog.ShowDialog();
+
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    tableDataGridView1.CurrentDataView.RowFilter = dialog.ResultFilter;
+                }
             }
         }
 

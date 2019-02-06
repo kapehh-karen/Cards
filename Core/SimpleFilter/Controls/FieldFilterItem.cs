@@ -25,9 +25,10 @@ namespace Core.SimpleFilter.Controls
             set
             {
                 _field = value ?? throw new ArgumentNullException(nameof(value));
-
-                lblFieldName.Text = $"{_field.DisplayName} ({_field.Name})";
+                lblFieldName.Text = _field.DisplayName;
             }
         }
+
+        public string Value => txtValue.Text;
     }
 }

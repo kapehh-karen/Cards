@@ -42,6 +42,12 @@ namespace Core.Forms.Main
         public DataTable CurrentDataTable { get; set; }
 
         public DataView CurrentDataView { get; set; } = new DataView();
+        
+        public override void ResetFilter()
+        {
+            base.ResetFilter();
+            CurrentDataView.RowFilter = string.Empty;
+        }
 
         public object SelectedID
         {
