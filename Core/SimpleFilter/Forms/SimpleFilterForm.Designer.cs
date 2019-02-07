@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SimpleFilterForm));
             this.layoutContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.btnOk = new System.Windows.Forms.Button();
+            this.btnClear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // layoutContainer
@@ -42,29 +43,44 @@
             this.layoutContainer.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.layoutContainer.Location = new System.Drawing.Point(12, 12);
             this.layoutContainer.Name = "layoutContainer";
-            this.layoutContainer.Size = new System.Drawing.Size(568, 375);
+            this.layoutContainer.Size = new System.Drawing.Size(522, 357);
             this.layoutContainer.TabIndex = 0;
             this.layoutContainer.WrapContents = false;
             // 
             // btnOk
             // 
             this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnOk.Image = global::Core.Properties.Resources.check;
+            this.btnOk.Image = global::Core.Properties.Resources.checkmark;
             this.btnOk.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnOk.Location = new System.Drawing.Point(460, 393);
+            this.btnOk.Location = new System.Drawing.Point(378, 375);
             this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(120, 30);
+            this.btnOk.Size = new System.Drawing.Size(156, 37);
             this.btnOk.TabIndex = 1;
             this.btnOk.Text = "Применить";
             this.btnOk.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClear.Image = global::Core.Properties.Resources.eraser;
+            this.btnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnClear.Location = new System.Drawing.Point(260, 375);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(112, 37);
+            this.btnClear.TabIndex = 2;
+            this.btnClear.Text = "Очистить";
+            this.btnClear.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
             // SimpleFilterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(592, 429);
+            this.ClientSize = new System.Drawing.Size(546, 418);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.layoutContainer);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -80,5 +96,6 @@
 
         private System.Windows.Forms.FlowLayoutPanel layoutContainer;
         private System.Windows.Forms.Button btnOk;
+        private System.Windows.Forms.Button btnClear;
     }
 }

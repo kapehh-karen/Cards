@@ -79,12 +79,25 @@ namespace Core.SimpleFilter.Forms
             DialogResult = DialogResult.OK;
         }
 
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            foreach (var item in items)
+            {
+                item.Value = string.Empty;
+            }
+        }
+
         protected override bool ProcessDialogKey(Keys keyData)
         {
             if (keyData == Keys.Enter)
             {
                 DoAccept();
                 DialogResult = DialogResult.OK;
+                return true;
+            }
+            else if (keyData == Keys.Escape)
+            {
+                DialogResult = DialogResult.Cancel;
                 return true;
             }
             return base.ProcessDialogKey(keyData);

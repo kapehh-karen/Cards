@@ -25,6 +25,8 @@ namespace Core.Forms.Main
 {
     public class TableDataGridView : BaseDataGridView
     {
+        public event EventHandler FillCompleted = (s, e) => { };
+
         public TableDataGridView() : base()
         {
             DoubleBuffered = true;
@@ -62,10 +64,13 @@ namespace Core.Forms.Main
         /// </summary>
         public bool AllowCache { get; set; } = true;
 
-        public void FillTable(bool forceUpdate = false)
+        public void FillTable(bool forceUpdate = false, bool saveRowFilter = true)
         {
             if (Table == null)
                 return;
+
+            // Сохраняем текущиий фильтр, он сбрасывается при обновлении
+            var prevFilter = CurrentDataView.RowFilter;
 
             // Снимаем выделение перед обновлением
             ClearSelectedRows();
@@ -118,6 +123,15 @@ namespace Core.Forms.Main
                 firstAfterBind = true; // Перед биндингом
                 this.DataSource = CurrentDataView;
             }
+
+            if (saveRowFilter)
+            {
+                // Восстанавливаем предыдущий фильтр
+                CurrentDataView.RowFilter = prevFilter;
+            }
+
+            // Вызываем событие, чтобы основная форма обновила количество строк
+            FillCompleted(this, EventArgs.Empty);
         }
 
         #region Post-processing for data bindings
@@ -195,7 +209,7 @@ namespace Core.Forms.Main
         protected override void OnTableStorageInformationUpdated()
         {
             // При обновлении настроек таблицы, обновляем контент
-            FillTable(true);
+            FillTable(true, false);
         }
 
         /// <summary>

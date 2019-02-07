@@ -35,6 +35,7 @@ namespace Core.Forms.Main
         public FormTableView()
         {
             InitializeComponent();
+            tableDataGridView1.FillCompleted += UpdateAmount;
         }
 
         public void SendEventFormCreated()
@@ -57,7 +58,7 @@ namespace Core.Forms.Main
         
         public FilterData LastUsedFilterData { get; set; }
         
-        private void UpdateAmount()
+        private void UpdateAmount(object sender, EventArgs e)
         {
             toolStripStatusLabelAmount.Text = $"Всего записей: {tableDataGridView1.CurrentDataView.Count}";
         }
@@ -65,7 +66,6 @@ namespace Core.Forms.Main
         public void FillTable()
         {
             tableDataGridView1.FillTable();
-            UpdateAmount();
         }
 
         private void tableDataGridView1_RedSelectingChanged(object sender, EventArgs e)
@@ -279,7 +279,7 @@ namespace Core.Forms.Main
                 {
                     tableDataGridView1.CurrentDataView.RowFilter = dialog.ResultFilter;
                     prevSimpleFilterData = dialog.Data;
-                    UpdateAmount();
+                    UpdateAmount(tableDataGridView1, EventArgs.Empty);
                 }
             }
         }
