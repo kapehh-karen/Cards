@@ -124,10 +124,17 @@ namespace Core.Forms.Main
                 this.DataSource = CurrentDataView;
             }
 
-            if (saveRowFilter)
+            if (saveRowFilter && !string.IsNullOrWhiteSpace(prevFilter))
             {
                 // Восстанавливаем предыдущий фильтр
                 CurrentDataView.RowFilter = prevFilter;
+                
+                // Ебанутство! Ебучий датагрид скрывает столбцы просто так
+                foreach (DataGridViewColumn col in Columns)
+                {
+                    var tag = col.Tag as TableColumnTag;
+                    col.Visible = tag.Field.Visible;
+                }
             }
 
             // Вызываем событие, чтобы основная форма обновила количество строк
