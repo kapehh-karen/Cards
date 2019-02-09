@@ -99,12 +99,18 @@ namespace Core.Filter.Controls.Conditions.Operands
         private bool removedStylesButton = false;
         private void SetSubquery(MenuItemTag itemTag)
         {
+            if (itemTag.Current == null)
+            {
+                return;
+            }
+
             if (!removedStylesButton)
             {
                 btnSelectSubquery.ForeColor = Color.Black;
                 btnSelectSubquery.Font = new Font(btnSelectSubquery.Font, FontStyle.Regular);
                 removedStylesButton = true;
             }
+
             btnSelectSubquery.Text = itemTag.Current.FilterTable.Table.DisplayName;
             Type = FieldType.NUMBER; // Бесполезное присвоение, нужно только для вызова события
             SelectedItem = itemTag;

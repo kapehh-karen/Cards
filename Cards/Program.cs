@@ -28,6 +28,7 @@ namespace Cards
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            UnhandledException.Init();
 
             if (ArgumentsUtil.GetCardsFileName(args, out var fileName))
             {

@@ -1,4 +1,5 @@
-﻿using Core.Config;
+﻿using Core;
+using Core.Config;
 using Core.Data.Base;
 using Core.Forms.DateBase;
 using Core.Helper;
@@ -20,7 +21,8 @@ namespace Settings
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+            UnhandledException.Init();
+
             if (ArgumentsUtil.GetCardsFileName(args, out var fileName))
             {
                 CardsFile.Initialize(fileName);
