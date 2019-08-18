@@ -392,11 +392,11 @@
     <Compile Include="Forms\Main\CardForm\FormSelectInClassificator.Designer.cs">
       <DependentUpon>FormSelectInClassificator.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Main\FormAbout.cs">
+    <Compile Include="Forms\Main\FormAskDelete.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Main\FormAbout.Designer.cs">
-      <DependentUpon>FormAbout.cs</DependentUpon>
+    <Compile Include="Forms\Main\FormAskDelete.Designer.cs">
+      <DependentUpon>FormAskDelete.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Main\FormSelectTable.cs">
       <SubType>Form</SubType>
@@ -586,8 +586,8 @@
     <EmbeddedResource Include="Forms\Main\CardForm\FormSelectInClassificator.resx">
       <DependentUpon>FormSelectInClassificator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Main\FormAbout.resx">
-      <DependentUpon>FormAbout.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Main\FormAskDelete.resx">
+      <DependentUpon>FormAskDelete.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Main\FormSelectTable.resx">
       <DependentUpon>FormSelectTable.cs</DependentUpon>

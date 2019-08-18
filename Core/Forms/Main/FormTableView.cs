@@ -149,9 +149,11 @@ namespace Core.Forms.Main
             if (selectedID == null)
                 return;
 
-            if (MessageBox.Show("Удалить запись?", Consts.ProgramTitle,
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == DialogResult.Cancel)
-                return;
+            using (var frmAskDelete = new FormAskDelete())
+            {
+                if (frmAskDelete.ShowDialog() != DialogResult.OK)
+                    return;
+            }
 
             if (ModelHelper.Delete(Table, selectedID))
             {
@@ -246,14 +248,6 @@ namespace Core.Forms.Main
         {
             // Сохраняем настройки таблицы
             tableDataGridView1.TableStorageInformationSave();
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new FormAbout())
-            {
-                dialog.ShowDialog();
-            }
         }
 
         private void extendedExportToExcelToolStripMenuItem_Click(object sender, EventArgs e)
