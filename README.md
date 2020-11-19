@@ -1,7 +1,5 @@
 # Cards
 
-[![Build status](https://ci.appveyor.com/api/projects/status/u3mv7wkaycuor0kp?svg=true)](https://ci.appveyor.com/project/kapehh-karen/cards)
-
 Платформа на WinForms. Позволяет построить визуальное представление программы на основе структуры БД.
 
 Краткий список возможностей программы:
