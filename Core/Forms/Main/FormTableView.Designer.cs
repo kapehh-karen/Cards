@@ -21,7 +21,6 @@
         }
 
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -57,7 +56,8 @@
             this.extendedExportToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).BeginInit();
+            this.toolStripCommandBar = new System.Windows.Forms.ToolStripTextBox();
+            ((System.ComponentModel.ISupportInitialize) (this.tableDataGridView1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.toolStripHeader.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
@@ -70,18 +70,16 @@
             this.tableDataGridView1.AllowUserToAddRows = false;
             this.tableDataGridView1.AllowUserToDeleteRows = false;
             this.tableDataGridView1.AllowUserToOrderColumns = true;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (245)))), ((int) (((byte) (245)))), ((int) (((byte) (245)))));
             this.tableDataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.tableDataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableDataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
             this.tableDataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.tableDataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.tableDataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableDataGridView1.CurrentDataTable = null;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (204)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DarkGray;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
@@ -112,9 +110,7 @@
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabelAmount,
-            this.toolStripStatusLabelSelectedAmount});
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.toolStripStatusLabelAmount, this.toolStripStatusLabelSelectedAmount });
             this.statusStrip1.Location = new System.Drawing.Point(0, 511);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(814, 22);
@@ -140,19 +136,8 @@
             // toolStripHeader
             // 
             this.toolStripHeader.AutoSize = false;
-            this.toolStripHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonRefresh,
-            this.toolStripSeparator1,
-            this.toolStripButtonCreate,
-            this.toolStripButtonChange,
-            this.toolStripSeparator2,
-            this.toolStripSimpleFilter,
-            this.toolStripButtonFilter,
-            this.toolStripButtonFilterReset,
-            this.toolStripSeparator3,
-            this.toolStripButtonGroupEdit,
-            this.toolStripButtonDelete});
-            this.toolStripHeader.Location = new System.Drawing.Point(0, 24);
+            this.toolStripHeader.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.toolStripButtonRefresh, this.toolStripSeparator1, this.toolStripButtonCreate, this.toolStripButtonChange, this.toolStripSeparator2, this.toolStripSimpleFilter, this.toolStripButtonFilter, this.toolStripButtonFilterReset, this.toolStripSeparator3, this.toolStripButtonGroupEdit, this.toolStripButtonDelete });
+            this.toolStripHeader.Location = new System.Drawing.Point(0, 27);
             this.toolStripHeader.Name = "toolStripHeader";
             this.toolStripHeader.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStripHeader.Size = new System.Drawing.Size(814, 79);
@@ -282,46 +267,40 @@
             // 
             // mainMenuStrip
             // 
-            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.programToolStripMenuItem});
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.programToolStripMenuItem, this.toolStripCommandBar });
+            this.mainMenuStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Size = new System.Drawing.Size(814, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(814, 27);
             this.mainMenuStrip.TabIndex = 7;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
             // programToolStripMenuItem
             // 
-            this.programToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.documentsExploreToolStripMenuItem,
-            this.toolStripMenuItem3,
-            this.saveToExcelToolStripMenuItem,
-            this.extendedExportToExcelToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.exitProgramToolStripMenuItem});
+            this.programToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { this.documentsExploreToolStripMenuItem, this.toolStripMenuItem3, this.saveToExcelToolStripMenuItem, this.extendedExportToExcelToolStripMenuItem, this.toolStripMenuItem2, this.exitProgramToolStripMenuItem });
             this.programToolStripMenuItem.Image = global::Core.Properties.Resources.terminal;
             this.programToolStripMenuItem.Name = "programToolStripMenuItem";
-            this.programToolStripMenuItem.Size = new System.Drawing.Size(69, 20);
+            this.programToolStripMenuItem.Size = new System.Drawing.Size(69, 23);
             this.programToolStripMenuItem.Text = "Меню";
             // 
             // documentsExploreToolStripMenuItem
             // 
             this.documentsExploreToolStripMenuItem.Image = global::Core.Properties.Resources.folder1;
             this.documentsExploreToolStripMenuItem.Name = "documentsExploreToolStripMenuItem";
-            this.documentsExploreToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.documentsExploreToolStripMenuItem.Size = new System.Drawing.Size(284, 22);
             this.documentsExploreToolStripMenuItem.Text = "Открыть папку с документами";
             this.documentsExploreToolStripMenuItem.Click += new System.EventHandler(this.documentsExploreToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(279, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(281, 6);
             // 
             // saveToExcelToolStripMenuItem
             // 
             this.saveToExcelToolStripMenuItem.Image = global::Core.Properties.Resources.excel;
             this.saveToExcelToolStripMenuItem.Name = "saveToExcelToolStripMenuItem";
-            this.saveToExcelToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.saveToExcelToolStripMenuItem.Size = new System.Drawing.Size(284, 22);
             this.saveToExcelToolStripMenuItem.Text = "Сохранить данные в Excel";
             this.saveToExcelToolStripMenuItem.Click += new System.EventHandler(this.saveToExcelToolStripMenuItem_Click);
             // 
@@ -329,22 +308,29 @@
             // 
             this.extendedExportToExcelToolStripMenuItem.Image = global::Core.Properties.Resources.excel;
             this.extendedExportToExcelToolStripMenuItem.Name = "extendedExportToExcelToolStripMenuItem";
-            this.extendedExportToExcelToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.extendedExportToExcelToolStripMenuItem.Size = new System.Drawing.Size(284, 22);
             this.extendedExportToExcelToolStripMenuItem.Text = "Расширенный экспорт данных в Excel";
             this.extendedExportToExcelToolStripMenuItem.Click += new System.EventHandler(this.extendedExportToExcelToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(279, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(281, 6);
             // 
             // exitProgramToolStripMenuItem
             // 
             this.exitProgramToolStripMenuItem.Image = global::Core.Properties.Resources.back;
             this.exitProgramToolStripMenuItem.Name = "exitProgramToolStripMenuItem";
-            this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(282, 22);
+            this.exitProgramToolStripMenuItem.Size = new System.Drawing.Size(284, 22);
             this.exitProgramToolStripMenuItem.Text = "Открыть другую таблицу";
             this.exitProgramToolStripMenuItem.Click += new System.EventHandler(this.exitProgramToolStripMenuItem_Click);
+            // 
+            // toolStripCommandBar
+            // 
+            this.toolStripCommandBar.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripCommandBar.Name = "toolStripCommandBar";
+            this.toolStripCommandBar.Size = new System.Drawing.Size(200, 23);
+            this.toolStripCommandBar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolStripCommandBar_KeyDown);
             // 
             // FormTableView
             // 
@@ -355,14 +341,14 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.mainMenuStrip);
             this.Controls.Add(this.tableDataGridView1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "FormTableView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Таблица";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormTableView_FormClosing);
-            ((System.ComponentModel.ISupportInitialize)(this.tableDataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.tableDataGridView1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.toolStripHeader.ResumeLayout(false);
@@ -371,9 +357,9 @@
             this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
+        private System.Windows.Forms.ToolStripTextBox toolStripCommandBar;
         #endregion
 
         private TableDataGridView tableDataGridView1;

@@ -32,6 +32,14 @@ namespace Core.API
 
         #region Only for Core using
 
+        internal bool EventCommandHandle(FormTableView form, string command)
+        {
+            // Если команда пустая, то просто возвращаем true чтобы ошибок небыло
+            // Если команда не пустая, ищем слушателя который сможет обработать её
+            return string.IsNullOrWhiteSpace(command) ||
+                   Listeners.Any(listener => listener.OnCommandHandle(form, form.Table, command));
+        }
+
         internal void EventFormTableCreated(FormTableView form)
         {
             Listeners.ForEach(listener => listener.OnFormTableCreated(form, form.Table));
@@ -49,13 +57,7 @@ namespace Core.API
 
         internal bool EventModelBeforeSave(TableData table, CardModel model, ModelCardView modelView, FormCardView formView)
         {
-            foreach (var listener in Listeners)
-            {
-                // Если возвращается false то дальше не выполняем событие OnModelBeforeSave и возвращаем управление вверх.
-                if (!listener.OnModelBeforeSave(table, model, modelView, formView))
-                    return false;
-            }
-            return true;
+            return Listeners.All(listener => listener.OnModelBeforeSave(table, model, modelView, formView));
         }
 
         internal void EventModelAfterSave(TableData table, CardModel model, ModelCardView modelView, FormCardView formView)

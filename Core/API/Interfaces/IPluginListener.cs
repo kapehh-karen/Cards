@@ -13,6 +13,16 @@ namespace Core.API.Interfaces
     public abstract class IPluginListener
     {
         /// <summary>
+        /// Выполняется для выполнения пользовательской команды
+        /// Возвращать false если команда не обработана, и true если команда обработана
+        /// </summary>
+        public virtual bool OnCommandHandle(FormTableView form, TableData table, string command)
+        {
+            // Not Implemented
+            return false;
+        }
+
+        /// <summary>
         /// Выполняется после удачной загрузки CardsFile
         /// </summary>
         public virtual void OnCardsFileLoaded(CardsFile cardsFile)
@@ -37,7 +47,8 @@ namespace Core.API.Interfaces
         }
 
         /// <summary>
-        /// Вызывается до сохранения. Возвращает true если можно сохранять и false если запретить сохранение.
+        /// Вызывается до сохранения.
+        /// Возвращает true если можно сохранять и false если запретить сохранение.
         /// </summary>
         public virtual bool OnModelBeforeSave(TableData table, CardModel model, ModelCardView modelView, FormCardView formView)
         {

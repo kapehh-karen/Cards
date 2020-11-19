@@ -288,6 +288,23 @@ namespace Core.Forms.Main
             return base.ProcessDialogKey(keyData);
         }
 
+        private void toolStripCommandBar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && sender is ToolStripTextBox textBox)
+            {
+                var command = textBox.Text;
+                textBox.Text = string.Empty;
+                
+                // Выполняем команду, или пытаемся выполнить
+                var handled = PluginListener.Instance.EventCommandHandle(this, command);
+                if (!handled)
+                {
+                    NotificationMessage.Error(
+                        $"Для \"{command}\" ничего не найдено.");
+                }
+            }
+        }
+
         #region API
 
         /// <summary>
@@ -301,6 +318,18 @@ namespace Core.Forms.Main
         /// </summary>
         /// <param name="button"></param>
         public void AddButton(ToolStripItem button) => toolStripHeader.Items.Add(button);
+
+        /// <summary>
+        /// Удаляет пункт в меню формы
+        /// </summary>
+        /// <param name="menuItem"></param>
+        public void RemoveMenuItem(ToolStripMenuItem menuItem) => mainMenuStrip.Items.Remove(menuItem);
+
+        /// <summary>
+        /// Удаляет кнопку
+        /// </summary>
+        /// <param name="button"></param>
+        public void RemoveButton(ToolStripItem button) => toolStripHeader.Items.Remove(button);
 
         /// <summary>
         /// Возвращает ID выбранной записи

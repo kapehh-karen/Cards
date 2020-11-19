@@ -44,11 +44,13 @@ namespace Cards
             }
 
             bool needSelectTable;
+            FormTableView formTableView;
             do
             {
                 needSelectTable = false;
+                formTableView = null;
 
-                using (var dialogSelectTable = new FormSelectTable()
+                using (var dialogSelectTable = new FormSelectTable
                 {
                     Base = SQLServerConnection.DefaultDataBase,
                     FileName = CardsFile.Current.ShortFileName
@@ -56,11 +58,14 @@ namespace Cards
                 {
                     if (dialogSelectTable.ShowDialog() == DialogResult.OK)
                     {
-                        var selectedTable = dialogSelectTable.SelectedTableData;
-                        var formView = selectedTable.TableView;
-                        formView.FillTable();
-                        needSelectTable = formView.ShowDialog() == DialogResult.Ignore;
+                        formTableView = dialogSelectTable.SelectedTableData.TableView;
                     }
+                }
+
+                if (formTableView != null)
+                {
+                    formTableView.FillTable();
+                    needSelectTable = formTableView.ShowDialog() == DialogResult.Ignore;
                 }
             } while (needSelectTable);
 
