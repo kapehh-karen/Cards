@@ -33,6 +33,14 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.2
 
-      # Restore the application to populate the obj folder with RuntimeIdentifiers
-      - name: Restore the application
-        run: msbuild $env:Cards.sln /t:Restore /p:Configuration=Release
+      - name: Build
+        run: msbuild Cards.sln /verbosity:minimal /p:Configuration=Release /p:Platform=x86
+        
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Cards
+          path: |
+            Core\bin\x86\Release\Core.dll
+            Cards\bin\x86\Release\Cards.exe
+            Settings\bin\x86\Release\Settings.exe
+            Registration\bin\x86\Release\Registration.exe
