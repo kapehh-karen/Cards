@@ -64,4 +64,5 @@ Registration/bin
 packages/
 .idea/
 Cards/*.user
+*.user
 .vs
