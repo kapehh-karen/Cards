@@ -10,4 +10,4 @@ services:
             - ./mssql-data:/var/opt/mssql/data
             - ./shared_folder:/mnt/shared_folder
         ports:
-            - "1433:1433"
+            - "13000:1433"
