@@ -13,7 +13,7 @@
 
 1. Скачать папку [SQL Server](SQLServer)
 2. Выполнить в папке команду `docker-compose up -d`
-3. Подключиться к БД используя данные для входа из файла `docker-compose.yml`
+3. Подключиться к БД используя данные для подключения из файла `docker-compose.yml`
 4. Создать **тестовую** схему БД:
 ```SQL
 create database TEST_DB
@@ -62,4 +62,13 @@ go
 
 1. Создайте в любом месте файл `test.cards`
 2. Запустите **Settings.exe** из файлов с программой. Откроется диалоговое окно выбора `*.cards` файла. Выберите ранее созданный файл `test.cards`
-3. Откроется окно: ![Settings 001](Images/Settings_001.png)
+3. Откроется окно:
+<br/> ![Settings 001](Images/Settings_001.png)
+4. Необходимо нажать "Изменить настройки соединения" (1) и ввести данные для соединения с SQL Server (2), затем сохранить (3)
+<br/> ![Settings 002](Images/Settings_002.png)
+5. Загрузится список таблиц и полей из текущей схемы базы
+<br/> ![Settings 003](Images/Settings_003.png)
+6. Изменить параметры таблиц и полей как показано на следующих скриншотах
+<br/> ![Settings 004](Images/Settings_004.png)
+<br/> ![Settings 005](Images/Settings_005.png)
+<br/> ![Settings 006](Images/Settings_006.png)
