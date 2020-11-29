@@ -1,0 +1,11 @@
+    Подключение к БД:
+docker exec -it CARDS_DB /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Passw0rd
+
+    Восстановить БД:
+CREATE DATABASE XXXXXX
+RESTORE DATABASE [XXXXXX] FROM DISK = N'/mnt/shared_folder/XXXXXX.bak' WITH MOVE 'XXXXXX' TO '/var/opt/mssql/data/XXXXXX.mdf', MOVE 'XXXXXX_log' TO '/var/opt/mssql/data/XXXXXX_log.ldf', REPLACE, RECOVERY
+GO
+
+    Сохранить БД:
+BACKUP LOG [XXXXXX] TO DISK = N'/mnt/shared_folder/XXXXXX.bak' WITH NOFORMAT, NOINIT, NAME = N'demodb_LogBackup', NOSKIP, NOREWIND, NOUNLOAD, STATS = 5
+GO
