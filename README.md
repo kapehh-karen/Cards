@@ -16,5 +16,44 @@
 3. Подключиться к БД используя данные для входа из файла `docker-compose.yml`
 4. Создать стартовую схему БД:
 ```SQL
-CREATE DATABASE XXX
+create database TEST_DB
+go
+
+create table Users
+(
+	id int identity
+		constraint User_pk
+			primary key nonclustered,
+	username nvarchar(50),
+	email nvarchar(50),
+	phone nvarchar(50)
+)
+go
+
+create table Work
+(
+	id int identity
+		constraint Work_pk
+			primary key nonclustered,
+	WorkName nvarchar(50)
+)
+go
+
+create table UserWork
+(
+	id int identity
+		constraint Position_pk
+			primary key nonclustered,
+	id_user int
+		constraint Position_User_id_fk
+			references Users,
+	id_work int
+		constraint Position_Work_id_fk
+			references Work,
+	date_from date,
+	date_to date,
+	position_name nvarchar(50)
+)
+go
 ```
+где TEST_DB имя базы, Users таблица с пользователями, Work таблица организаций, UserWork таблица с данными о местах работы пользователей в организациях.
