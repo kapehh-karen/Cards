@@ -3,8 +3,6 @@
     <TargetFramework>net40</TargetFramework>
     <OutputType>Exe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
