@@ -34,15 +34,17 @@ jobs:
         uses: microsoft/setup-msbuild@v1.0.2
 
       - name: Build
-        run: msbuild Cards.sln /verbosity:minimal /p:Configuration=Release /p:Platform=x86
+        run: |
+          msbuild Cards.sln /t:Restore
+          msbuild Cards.sln /verbosity:minimal /p:Configuration=Release /p:Platform=x86
 
       - name: Copy files
         run: |
           MKDIR BIN
-          XCOPY /Y Core\bin\x86\Release\Core.dll BIN
-          XCOPY /Y Cards\bin\x86\Release\Cards.exe BIN
-          XCOPY /Y Registration\bin\x86\Release\Registration.exe BIN
-          XCOPY /Y Settings\bin\x86\Release\Settings.exe BIN
+          XCOPY /Y Core\bin\x86\Release\net40\Core.dll BIN
+          XCOPY /Y Cards\bin\x86\Release\net40\Cards.exe BIN
+          XCOPY /Y Registration\bin\x86\Release\net40\Registration.exe BIN
+          XCOPY /Y Settings\bin\x86\Release\net40\Settings.exe BIN
           XCOPY /Y Lib\Newtonsoft.Json.dll BIN
           XCOPY /Y Lib\EPPlus.dll BIN
           XCOPY /Y Lib\Ionic.BZip2.dll BIN
