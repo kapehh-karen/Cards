@@ -72,3 +72,7 @@ go
 <br/> ![Settings 004](Images/Settings_004.png)
 <br/> ![Settings 005](Images/Settings_005.png)
 <br/> ![Settings 006](Images/Settings_006.png)
+7. Далее для каждой из таблиц нужно создать Форму в "Дизайнере форм". Для этого нужно выбрать таблицу и нажать "Форма" -> "Редактировать текущую форму". На следующих скриншотах показаны настроенные формы для текущих таблиц.
+<br/> ![Designer 001](Images/Designer_001.png)
+<br/> ![Designer 002](Images/Designer_002.png)
+<br/> ![Designer 003](Images/Designer_003.png)
