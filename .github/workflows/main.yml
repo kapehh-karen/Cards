@@ -40,15 +40,12 @@ jobs:
 
       - name: Copy files
         run: |
-          MKDIR BIN
-          XCOPY /Y Core\bin\x86\Release\net40\Core.dll BIN
-          XCOPY /Y Cards\bin\x86\Release\net40\Cards.exe BIN
-          XCOPY /Y Registration\bin\x86\Release\net40\Registration.exe BIN
-          XCOPY /Y Settings\bin\x86\Release\net40\Settings.exe BIN
-          XCOPY /Y Lib\EPPlus.dll BIN
-          XCOPY /Y Lib\Ionic.Zip.dll BIN
+          XCOPY /Y Core\bin\x86\Release\net40\Core.dll Lib
+          XCOPY /Y Cards\bin\x86\Release\net40\Cards.exe Lib
+          XCOPY /Y Registration\bin\x86\Release\net40\Registration.exe Lib
+          XCOPY /Y Settings\bin\x86\Release\net40\Settings.exe Lib
 
       - uses: actions/upload-artifact@v2
         with:
           name: Cards
-          path: BIN
+          path: Lib
