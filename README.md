@@ -7,6 +7,10 @@
   Требуется для запуска .Net Framework 4.0 (Windows XP+)
 </p>
 
+## Сборка
+
+Возможно потребуется подключить зависимость Microsoft.NETFramework.ReferenceAssemblies.net40 если не получится сбилдить свежей версией .net core sdk
+
 # Quick Start Guide
 
 ## Настройка БД
