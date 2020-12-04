@@ -10,6 +10,7 @@
 ## Сборка
 
 Возможно потребуется подключить зависимость Microsoft.NETFramework.ReferenceAssemblies.net40 если не получится сбилдить свежей версией .net core sdk
+В крайнем случае можно в Visual Studio Installer скачать таргеты для .NET Framework 4.0
 
 # Quick Start Guide
 
