@@ -24,6 +24,9 @@
 create database TEST_DB
 go
 
+use TEST_DB
+go
+
 create table Users
 (
 	id int identity
