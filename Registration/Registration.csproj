@@ -3,6 +3,8 @@
     <TargetFramework>net40</TargetFramework>
     <OutputType>Exe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
+    <Configurations>Release</Configurations>
+    <Platforms>x86</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />

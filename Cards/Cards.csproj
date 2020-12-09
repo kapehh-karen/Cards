@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>
     <ApplicationIcon>database.ico</ApplicationIcon>
     <UseWindowsForms>true</UseWindowsForms>
+    <Configurations>Release</Configurations>
+    <Platforms>x86</Platforms>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
